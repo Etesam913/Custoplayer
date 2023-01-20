@@ -4,8 +4,9 @@ import MyButton from './lib/MyButton';
 function App() {
   return (
     <Wrapper>
-      <MyButton>Click me</MyButton> <MyButton>Click me</MyButton> <MyButton>Click me</MyButton>{' '}
       <MyButton>Click me</MyButton>
+      <MyButton>Click me</MyButton>
+      <MyButton>Click me</MyButton> <MyButton>Click me</MyButton>
     </Wrapper>
   );
 }

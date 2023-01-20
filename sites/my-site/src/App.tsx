@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MyButton } from 'my-lib';
+import { MyButton } from 'custoplayer';
 import './App.css';
 
 function App() {
