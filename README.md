@@ -13,7 +13,7 @@ yarn install
 Build the library:
 
 ```bash
-cd packages/my-lib && yarn build
+cd packages/custoplayer && yarn build
 ```
 
 Run the development server of the test project:
