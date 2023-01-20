@@ -1,19 +1,23 @@
 import { useAtom } from 'jotai';
 import styled from 'styled-components';
-import { myScope, srcAtom, videoRefAtom, videoRefWriteAtom } from '@/lib/atoms';
+import { myScope, srcAtom, videoElemWriteAtom } from '@/lib/atoms';
+import { SyntheticEvent } from 'react';
 
 function HTMLVideoPlayer() {
-  const [video, setVideo] = useAtom(videoRefAtom, myScope);
+  const [, setVideoElem] = useAtom(videoElemWriteAtom, myScope);
   const [src, setSrc] = useAtom(srcAtom, myScope);
 
   return (
     <HTMLPlayer
+      onClick={() => console.log('🐭')}
       src={src}
       playsInline
       autoPlay
-      onLoadedData={(e) => setVideo(e.target as HTMLVideoElement)}
-      onLoadStart={(e) => {
-        setVideo(e.target as HTMLVideoElement);
+      onLoadedData={(e: SyntheticEvent<HTMLVideoElement, Event>) =>
+        setVideoElem(e.target as HTMLVideoElement)
+      }
+      onLoadStart={(e: SyntheticEvent<HTMLVideoElement, Event>) => {
+        setVideoElem(e.target as HTMLVideoElement);
         setSrc((e.target as HTMLVideoElement).src);
       }}
       preload='metadata'
@@ -26,6 +30,7 @@ const HTMLPlayer = styled.video`
   width: 100%;
   height: 100%;
   background-color: black;
+  cursor: pointer;
 `;
 
 export default HTMLVideoPlayer;
