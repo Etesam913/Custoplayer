@@ -1,21 +1,15 @@
-import { Provider, atom, useAtom } from 'jotai';
-import CustomButton from '@/lib/CustomButton';
-
-export const countAtom = atom(0);
-/* 
-  Scope is required to prevent two custoplayer's
-  from sharing the same atoms
-*/
-export const myScope = Symbol();
+import { Provider } from 'jotai';
+import VideoPlayerWrapper from '@/lib/components/VideoPlayerWrapper';
+import { myScope, srcAtom } from '@/lib/atoms';
 
 interface CustoplayerProps {
-  values: {};
+  values: { src: string };
 }
 
 function Custoplayer({ values }: CustoplayerProps) {
   return (
-    <Provider scope={myScope}>
-      <CustomButton />
+    <Provider scope={myScope} initialValues={[[srcAtom, values.src]]}>
+      <VideoPlayerWrapper />
     </Provider>
   );
 }

@@ -4,7 +4,11 @@ import Custoplayer from './lib/Custoplayer';
 function App() {
   return (
     <Wrapper>
-      <Custoplayer values={{}}></Custoplayer>
+      <Custoplayer
+        values={{
+          src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm',
+        }}
+      ></Custoplayer>
     </Wrapper>
   );
 }
