@@ -1,6 +1,27 @@
 import styled from 'styled-components';
+import { Provider, atom, useAtom } from 'jotai';
+import { useMemo } from 'react';
 
-const MyButton = styled.button`
+const countAtom = atom(0);
+
+function MyButton() {
+  /* 
+    Scope is required to prevent two custoplayer's
+    from sharing the same atoms
+  */
+  const myScope = useMemo(() => {
+    return Symbol();
+  }, []);
+  const [count, setCount] = useAtom(countAtom, myScope);
+  return (
+    <Provider scope={myScope}>
+      <StyledButton onClick={() => setCount((prev) => prev + 1)}>
+        {count}
+      </StyledButton>
+    </Provider>
+  );
+}
+const StyledButton = styled.button`
   border: none;
   border-radius: 0.5rem;
   background-color: green;
