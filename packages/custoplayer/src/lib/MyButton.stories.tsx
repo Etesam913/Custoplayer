@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import MyButton from './MyButton';
+import MyButton from './Custoplayer';
 
 const meta: ComponentMeta<typeof MyButton> = {
   title: 'Design System/MyButton',
@@ -8,8 +8,5 @@ const meta: ComponentMeta<typeof MyButton> = {
 export default meta;
 
 export const Primary: ComponentStoryObj<typeof MyButton> = {
-  args: {
-    disabled: false,
-    children: 'Hello',
-  },
+  args: {},
 };

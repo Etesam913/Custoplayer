@@ -10,6 +10,12 @@ export default defineConfig({
             insertTypesEntry: true,
         }),
     ],
+
+    resolve: {
+        alias: [{ find: '@', replacement: '/src' }],
+    },
+
+
     build: {
         sourcemap: true,
         lib: {

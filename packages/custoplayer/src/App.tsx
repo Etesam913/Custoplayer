@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import MyButton from './lib/MyButton';
+import Custoplayer from './lib/Custoplayer';
 
 function App() {
   return (
     <Wrapper>
-      <MyButton></MyButton>
+      <Custoplayer values={{}}></Custoplayer>
     </Wrapper>
   );
 }

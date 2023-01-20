@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { MyButton } from 'custoplayer';
+import { Custoplayer } from 'custoplayer';
 import './App.css';
 
 function App() {
   return (
     <div className='App'>
       <p>
-        <MyButton>Click here!</MyButton>
-        <MyButton>Click here!</MyButton>
+        <Custoplayer values={{}}>Click here!</Custoplayer>
+        <Custoplayer values={{}}>Click here!</Custoplayer>
       </p>
     </div>
   );
