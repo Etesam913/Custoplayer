@@ -1,3 +1,4 @@
+import { CustoplayerItem } from "@/types";
 import { atom } from "jotai";
 
 /* 
@@ -5,6 +6,7 @@ import { atom } from "jotai";
   from sharing the same atoms
 */
 export const myScope = Symbol();
+
 export const videoElemAtom = atom<HTMLVideoElement | null>(null)
 export const videoElemReadAtom = atom((get) => get(videoElemAtom))
 export const videoElemWriteAtom = atom(null, (_, set, update: HTMLVideoElement) => {
@@ -21,11 +23,7 @@ export const setControlsBarAtom = atom(null, (_, set, update: boolean) => {
 })
 
 export const videoDimensionsObserverAtom = atom<ResizeObserver | null>(null)
-const videoHeightAtom = atom(0)
-export const videoHeightReadAtom = atom((get) => get(videoHeightAtom))
-export const setVideoHeightAtom = atom(null, (_, set, update: number) => {
-  set(videoHeightAtom, update)
-})
+
 
 export const videoDimensionsAtom = atom<{ height: number, width: number }>({ height: 0, width: 0 })
 export const setVideoDimensionsAtom = atom(null, (_, set, update: { height: number, width: number }) => {
@@ -33,3 +31,5 @@ export const setVideoDimensionsAtom = atom(null, (_, set, update: { height: numb
 })
 export const getVideoDimensionsAtom = atom((get) => get(videoDimensionsAtom))
 
+export const itemsAtom = atom<CustoplayerItem[]>([])
+export const getItemsAtom = atom<CustoplayerItem[]>((get) => get(itemsAtom))

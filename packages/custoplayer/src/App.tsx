@@ -7,6 +7,9 @@ function App() {
       <Custoplayer
         values={{
           src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm',
+          item1: {
+            id: 'playButton1',
+          },
         }}
       ></Custoplayer>
     </Wrapper>

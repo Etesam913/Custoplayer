@@ -23,8 +23,8 @@ export function useDimensions() {
           debounce((entries: ResizeObserverEntry[]) => {
             const video = entries[0];
             setVideoDimensions({
-              height: video.contentRect.height,
-              width: video.contentRect.width,
+              height: parseFloat(video.contentRect.height.toFixed(2)),
+              width: parseFloat(video.contentRect.width.toFixed(2)),
             });
           }),
         ),

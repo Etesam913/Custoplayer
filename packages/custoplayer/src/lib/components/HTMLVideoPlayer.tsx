@@ -1,15 +1,21 @@
 import { useAtom } from 'jotai';
 import styled from 'styled-components';
-import { myScope, srcAtom, videoElemWriteAtom } from '@/lib/atoms';
+import {
+  myScope,
+  srcAtom,
+  videoElemAtom,
+  videoElemWriteAtom,
+} from '@/lib/atoms';
 import { SyntheticEvent } from 'react';
+import { handlePlayState } from '../utils';
 
 function HTMLVideoPlayer() {
-  const [, setVideoElem] = useAtom(videoElemWriteAtom, myScope);
+  const [videoElem, setVideoElem] = useAtom(videoElemAtom, myScope);
   const [src, setSrc] = useAtom(srcAtom, myScope);
 
   return (
     <HTMLPlayer
-      onClick={() => console.log('🐭')}
+      onClick={() => handlePlayState(videoElem)}
       src={src}
       playsInline
       autoPlay
