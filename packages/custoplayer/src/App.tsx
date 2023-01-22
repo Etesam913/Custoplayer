@@ -7,8 +7,11 @@ function App() {
       <Custoplayer
         values={{
           src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm',
+          playIndicator: {
+            id: 1,
+          },
           item1: {
-            id: 'playButton2',
+            id: 'playButton1',
             color: 'rgb(191, 232, 208)',
           },
         }}

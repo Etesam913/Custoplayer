@@ -6,7 +6,7 @@ import {
   videoDimensionsObserverAtom,
   getVideoElemAtom,
 } from './atoms';
-import { debounce } from './utils';
+import { throttle } from './utils';
 
 export function useDimensions() {
   const [videoDimensionsObserver, setVideoDimensionsObserver] = useAtom(
@@ -20,13 +20,13 @@ export function useDimensions() {
     if (videoElem !== null) {
       setVideoDimensionsObserver(
         new ResizeObserver(
-          debounce((entries: ResizeObserverEntry[]) => {
+          throttle((entries: ResizeObserverEntry[]) => {
             const video = entries[0];
             setVideoDimensions({
               height: parseFloat(video.contentRect.height.toFixed(2)),
               width: parseFloat(video.contentRect.width.toFixed(2)),
             });
-          }),
+          }, 10),
         ),
       );
     }

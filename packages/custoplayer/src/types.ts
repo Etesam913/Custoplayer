@@ -4,6 +4,10 @@ export interface CustoplayerProps {
 
 export interface CustoplayerValues {
   src: string;
+  playIndicator?: {
+    id?: number;
+    color?: string;
+  }
   item1?: CustoplayerItem;
   item2?: CustoplayerItem;
   item3?: CustoplayerItem;
