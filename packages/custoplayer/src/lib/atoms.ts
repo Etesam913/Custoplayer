@@ -1,4 +1,4 @@
-import { CustoplayerItem } from "@/types";
+import { CustoplayerItem, CustoplayerValues } from "@/types";
 import { atom } from "jotai";
 
 /* 
@@ -13,23 +13,38 @@ export const videoElemWriteAtom = atom(null, (_, set, update: HTMLVideoElement) 
   set(videoElemAtom, update)
 })
 
-export const srcAtom = atom('')
-export const getSrcAtom = atom((get) => get(srcAtom))
+// Video Play State
+export enum PlayState {
+  paused,
+  playing,
+  ended
+}
+const playStateAtom = atom<PlayState>(0)
+export const getPlayStateAtom = atom((get) => get(playStateAtom))
+export const setPlayStateAtom = atom(null, (_, set, update: number) => {
+  set(playStateAtom, update)
+})
 
+// Controls Bar
 export const showControlsBarAtom = atom(false)
-export const getControlsBarAtom = atom((get) => get(showControlsBarAtom))
-export const setControlsBarAtom = atom(null, (_, set, update: boolean) => {
+export const getShowControlsBarAtom = atom((get) => get(showControlsBarAtom))
+export const setShowControlsBarAtom = atom(null, (_, set, update: boolean) => {
   set(showControlsBarAtom, update)
 })
 
+// Video Dimensions
 export const videoDimensionsObserverAtom = atom<ResizeObserver | null>(null)
-
-
 export const videoDimensionsAtom = atom<{ height: number, width: number }>({ height: 0, width: 0 })
 export const setVideoDimensionsAtom = atom(null, (_, set, update: { height: number, width: number }) => {
   set(videoDimensionsAtom, update)
 })
 export const getVideoDimensionsAtom = atom((get) => get(videoDimensionsAtom))
 
-export const itemsAtom = atom<CustoplayerItem[]>([])
-export const getItemsAtom = atom<CustoplayerItem[]>((get) => get(itemsAtom))
+export const valuesAtom = atom<CustoplayerValues>({ src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" })
+export const getValuesAtom = atom<CustoplayerValues>((get) => get(valuesAtom))
+// Rendering Items
+export const itemsAtom = atom<(CustoplayerItem | undefined)[]>([])
+export const getItemsAtom = atom<(CustoplayerItem | undefined)[]>((get) => get(itemsAtom))
+export const setItemsAtom = atom(null, (_, set, update: (CustoplayerItem | undefined)[]) => {
+  set(itemsAtom, update)
+})

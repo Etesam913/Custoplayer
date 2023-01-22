@@ -18,5 +18,17 @@ export function renderItemFromData(curItem: CustoplayerItem) {
 export function handlePlayState(video: HTMLVideoElement | null) {
   if (video === null) return;
   const isPlaying = !video.paused && !video.ended && video.currentTime > 0;
-  isPlaying ? video.pause() : video.play();
+  if (isPlaying) video.pause();
+  else if (video.paused) video.play();
+  else if (video.ended) video.play();
+}
+
+export function handleKeyPress(
+  e: React.KeyboardEvent<HTMLDivElement>,
+  video: HTMLVideoElement | null,
+) {
+  console.log(e.key);
+  if (e.key === ' ' || e.key === 'k') {
+    if (video !== null) handlePlayState(video);
+  }
 }

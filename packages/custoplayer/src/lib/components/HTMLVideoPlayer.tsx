@@ -2,29 +2,33 @@ import { useAtom } from 'jotai';
 import styled from 'styled-components';
 import {
   myScope,
-  srcAtom,
+  PlayState,
+  setPlayStateAtom,
+  valuesAtom,
   videoElemAtom,
-  videoElemWriteAtom,
 } from '@/lib/atoms';
 import { SyntheticEvent } from 'react';
 import { handlePlayState } from '../utils';
 
 function HTMLVideoPlayer() {
   const [videoElem, setVideoElem] = useAtom(videoElemAtom, myScope);
-  const [src, setSrc] = useAtom(srcAtom, myScope);
+  const [values, setValues] = useAtom(valuesAtom, myScope);
+  const [, setPlayState] = useAtom(setPlayStateAtom, myScope);
 
   return (
     <HTMLPlayer
       onClick={() => handlePlayState(videoElem)}
-      src={src}
+      src={values.src}
       playsInline
-      autoPlay
+      onPause={() => setPlayState(PlayState.paused)}
+      onPlay={() => setPlayState(PlayState.playing)}
+      onEnded={() => setPlayState(PlayState.ended)}
       onLoadedData={(e: SyntheticEvent<HTMLVideoElement, Event>) =>
         setVideoElem(e.target as HTMLVideoElement)
       }
       onLoadStart={(e: SyntheticEvent<HTMLVideoElement, Event>) => {
         setVideoElem(e.target as HTMLVideoElement);
-        setSrc((e.target as HTMLVideoElement).src);
+        setValues({ ...values, src: (e.target as HTMLVideoElement).src });
       }}
       preload='metadata'
       tabIndex={-1}
