@@ -27,8 +27,24 @@ export function handleKeyPress(
   e: React.KeyboardEvent<HTMLDivElement>,
   video: HTMLVideoElement | null,
 ) {
-  console.log(e.key);
   if (e.key === ' ' || e.key === 'k') {
+    e.preventDefault();
     if (video !== null) handlePlayState(video);
   }
+}
+
+export function getSvgPath(path: string, strokeWidth: string = '1.8') {
+  return (
+    <path
+      d={path}
+      stroke='currentColor'
+      strokeWidth={strokeWidth}
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+  );
+}
+
+export function clamp(val: number, min: number, max: number) {
+  return Math.min(Math.max(val, min), max);
 }

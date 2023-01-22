@@ -8,7 +8,7 @@ function App() {
         values={{
           src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm',
           item1: {
-            id: 'playButton1',
+            id: 'playButton2',
             color: 'rgb(191, 232, 208)',
           },
         }}

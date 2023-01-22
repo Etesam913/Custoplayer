@@ -8,8 +8,8 @@ import { atom } from "jotai";
 export const myScope = Symbol();
 
 export const videoElemAtom = atom<HTMLVideoElement | null>(null)
-export const videoElemReadAtom = atom((get) => get(videoElemAtom))
-export const videoElemWriteAtom = atom(null, (_, set, update: HTMLVideoElement) => {
+export const getVideoElemAtom = atom((get) => get(videoElemAtom))
+export const setVideoElemAtom = atom(null, (_, set, update: HTMLVideoElement) => {
   set(videoElemAtom, update)
 })
 

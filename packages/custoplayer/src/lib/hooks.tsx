@@ -4,7 +4,7 @@ import {
   myScope,
   setVideoDimensionsAtom,
   videoDimensionsObserverAtom,
-  videoElemReadAtom,
+  getVideoElemAtom,
 } from './atoms';
 import { debounce } from './utils';
 
@@ -14,7 +14,7 @@ export function useDimensions() {
     myScope,
   );
   const [, setVideoDimensions] = useAtom(setVideoDimensionsAtom, myScope);
-  const [videoElem] = useAtom(videoElemReadAtom, myScope);
+  const [videoElem] = useAtom(getVideoElemAtom, myScope);
 
   useEffect(() => {
     if (videoElem !== null) {

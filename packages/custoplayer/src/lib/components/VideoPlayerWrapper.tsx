@@ -1,19 +1,16 @@
 import styled from 'styled-components';
 import HTMLVideoPlayer from '@/lib/components/HTMLVideoPlayer';
 import { useAtom } from 'jotai';
-import {
-  myScope,
-  setShowControlsBarAtom,
-  videoElemReadAtom,
-} from '@/lib/atoms';
+import { myScope, setShowControlsBarAtom, getVideoElemAtom } from '@/lib/atoms';
 import ControlsBar from '@/lib/components/ControlsBar';
 import { motion } from 'framer-motion';
 import { useDimensions } from '../hooks';
 
 import { handleKeyPress } from '../utils';
+import PlayIndicator from './PlayIndicator';
 
 function VideoPlayerWrapper() {
-  const [videoElem] = useAtom(videoElemReadAtom, myScope);
+  const [videoElem] = useAtom(getVideoElemAtom, myScope);
   const [, setIsControlsBarShowing] = useAtom(setShowControlsBarAtom, myScope);
   useDimensions();
 
@@ -35,6 +32,7 @@ function VideoPlayerWrapper() {
           setIsControlsBarShowing(false);
         }}
       >
+        <PlayIndicator />
         <HTMLVideoPlayer />
         {videoElem && <ControlsBar />}
       </PlayerContainer>

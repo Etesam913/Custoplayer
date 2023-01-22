@@ -3,7 +3,6 @@ import { useAtom } from 'jotai';
 import styled from 'styled-components';
 import { getShowControlsBarAtom, getItemsAtom, myScope } from '../atoms';
 import { renderItemFromData } from '../utils';
-import { useEffect } from 'react';
 
 function ControlsBar() {
   const [isControlsBarShowing] = useAtom(getShowControlsBarAtom, myScope);
