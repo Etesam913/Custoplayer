@@ -26,11 +26,19 @@ function PlayIndicator() {
   const iconWidth =
     videoElem === null
       ? 160
-      : clamp((videoDimensions.width / videoElem.videoWidth) * 160, 110, 160);
+      : clamp(
+          (videoDimensions.width / videoElem.videoWidth) * 160 * 0.8,
+          60,
+          160,
+        );
   const iconHeight =
     videoElem === null
       ? 160
-      : clamp((videoDimensions.height / videoElem.videoHeight) * 160, 110, 160);
+      : clamp(
+          (videoDimensions.height / videoElem.videoHeight) * 160 * 0.8,
+          60,
+          160,
+        );
 
   function getPlayButtonColor(items: (CustoplayerItem | undefined)[]) {
     const item = items.find(
@@ -127,6 +135,7 @@ const PlayIndicatorIcon = styled(motion.svg)<{
   width: string;
 }>`
   position: absolute;
+  z-index: 2;
   height: ${(props) => props.height};
   width: ${(props) => props.width};
   left: ${(props) => props.left};

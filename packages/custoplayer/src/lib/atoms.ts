@@ -42,9 +42,14 @@ export const getVideoDimensionsAtom = atom((get) => get(videoDimensionsAtom))
 
 export const valuesAtom = atom<CustoplayerValues>({ src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" })
 export const getValuesAtom = atom<CustoplayerValues>((get) => get(valuesAtom))
+
 // Rendering Items
 export const itemsAtom = atom<(CustoplayerItem | undefined)[]>([])
 export const getItemsAtom = atom<(CustoplayerItem | undefined)[]>((get) => get(itemsAtom))
 export const setItemsAtom = atom(null, (_, set, update: (CustoplayerItem | undefined)[]) => {
   set(itemsAtom, update)
 })
+
+
+// Timeout
+export const controlsBarTimeoutAtom = atom<null | NodeJS.Timeout>(null)

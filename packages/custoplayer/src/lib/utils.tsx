@@ -45,10 +45,19 @@ export function renderItemFromData(curItem: CustoplayerItem) {
 
 export function handlePlayState(video: HTMLVideoElement | null) {
   if (video === null) return;
+  const mobileDebug = document.getElementById('mobile-debug');
   const isPlaying = !video.paused && !video.ended && video.currentTime > 0;
-  if (isPlaying) video.pause();
-  else if (video.paused) video.play();
-  else if (video.ended) video.play();
+
+  if (isPlaying) {
+    if (mobileDebug) mobileDebug.innerText = 'paused';
+    video.pause();
+  } else if (video.paused) {
+    if (mobileDebug) mobileDebug.innerText = 'playing';
+    video.play();
+  } else if (video.ended) {
+    if (mobileDebug) mobileDebug.innerText = 'playing';
+    video.play();
+  }
 }
 
 export function handleKeyPress(

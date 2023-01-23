@@ -42,6 +42,7 @@ function VideoPlayerWrapper() {
 
 const PlayerWrapper = styled.div`
   position: relative;
+
   background: black;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;

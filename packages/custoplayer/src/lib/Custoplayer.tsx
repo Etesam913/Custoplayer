@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 function Custoplayer({ values }: CustoplayerProps) {
   const [, setValues] = useAtom(valuesAtom);
   const [, setItems] = useAtom(setItemsAtom);
+
   useEffect(() => {
     console.log(values);
     setValues(values);
@@ -40,7 +41,12 @@ function Custoplayer({ values }: CustoplayerProps) {
         ],
       ]}
     >
-      <VideoPlayerWrapper />
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div id='mobile-debug' style={{ marginBottom: '1rem' }}>
+          mobile debug
+        </div>
+        <VideoPlayerWrapper />
+      </div>
     </Provider>
   );
 }

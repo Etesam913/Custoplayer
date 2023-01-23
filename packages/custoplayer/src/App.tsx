@@ -6,7 +6,7 @@ function App() {
     <Wrapper>
       <Custoplayer
         values={{
-          src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm',
+          src: 'https://www.w3schools.com/html/mov_bbb.mp4',
           playIndicator: {
             id: 1,
           },

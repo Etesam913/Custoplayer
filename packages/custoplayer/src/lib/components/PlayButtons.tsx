@@ -8,8 +8,9 @@ import {
   myScope,
   PlayState,
   getVideoElemAtom,
-} from '../atoms';
-import { getSvgPath, handlePlayState } from '../utils';
+  showControlsBarAtom,
+} from '@/lib/atoms';
+import { getSvgPath, handlePlayState } from '@/lib/utils';
 
 interface PlayButtonsProps {
   item: CustoplayerItem;
@@ -18,7 +19,10 @@ interface PlayButtonsProps {
 function PlayButtons({ item }: PlayButtonsProps) {
   const [videoElem] = useAtom(getVideoElemAtom, myScope);
   const [playState] = useAtom(getPlayStateAtom, myScope);
-
+  const [showControlsBar, setShowControlsBar] = useAtom(
+    showControlsBarAtom,
+    myScope,
+  );
   /* 
     Prevent default onKeyUp to prevent space from triggering onClick
     <PlayerWrapper> handles key presses
