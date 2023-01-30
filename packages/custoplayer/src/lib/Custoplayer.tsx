@@ -1,13 +1,19 @@
 import { Provider, useAtom } from 'jotai';
 import VideoPlayerWrapper from '@/lib/components/VideoPlayerWrapper';
-import { itemsAtom, myScope, setItemsAtom, valuesAtom } from '@/lib/atoms';
+import {
+  itemsAtom,
+  myScope,
+  setItemsAtom,
+  valuesAtom,
+  videoContainerAtom,
+} from '@/lib/atoms';
 import { CustoplayerProps } from '@/types';
 import { useEffect } from 'react';
 
 function Custoplayer({ values }: CustoplayerProps) {
-  const [, setValues] = useAtom(valuesAtom);
-  const [, setItems] = useAtom(setItemsAtom);
-
+  const [, setValues] = useAtom(valuesAtom, myScope);
+  const [, setItems] = useAtom(setItemsAtom, myScope);
+  
   useEffect(() => {
     console.log(values);
     setValues(values);

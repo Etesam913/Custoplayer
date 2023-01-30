@@ -1,5 +1,7 @@
 import { CustoplayerItem } from '@/types';
-import { getEventListeners } from 'events';
+
+import { Dispatch, SetStateAction } from 'react';
+import { draggableSymbol, myScope } from './atoms';
 import PlayButtons from './components/PlayButtons';
 import ProgressBars from './components/ProgressBars';
 
@@ -90,28 +92,41 @@ export function clamp(val: number, min: number, max: number) {
   return Math.min(Math.max(val, min), max);
 }
 
-function getMousePos(e: MouseEvent, callback: Function) {
-  const bar = e.target as HTMLElement;
+function getMousePos(
+  xMousePos: number,
+  callback: Function,
+  videoContainer: HTMLDivElement | null,
+) {
   // TODO: Fix bug where drag goes into dev tools
-  const barRect = bar.getBoundingClientRect();
-  const mousePos = e.clientX - barRect.left;
-  callback(mousePos);
+  const videoContainerRect = videoContainer?.getBoundingClientRect();
+  if (videoContainerRect) {
+    const mousePos = xMousePos - videoContainerRect.left;
+    callback(mousePos, videoContainerRect);
+  }
 }
 
 export function barMouseEvent(
   e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   callback: Function,
-  setIsHovered: Dispatch<SetStateAction<boolean>>,
+  setIsActive: Dispatch<SetStateAction<boolean>>,
+  videoContainer: HTMLDivElement | null,
 ) {
+  mouseMove(e);
   e.stopPropagation();
-  setIsHovered(true);
-  function mouseMove(e: MouseEvent) {
-    const throttledGetMousePos = throttle(() => getMousePos(e, callback), 1000);
-    throttledGetMousePos();
+  setIsActive(true);
+  document.body.style.cursor = 'col-resize';
+
+  function mouseMove(
+    e: MouseEvent | React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) {
+    if (e.target) {
+      getMousePos(e.clientX, callback, videoContainer);
+    }
   }
 
   function cleanUpDocumentEvents() {
-    setIsHovered(false);
+    setIsActive(false);
+    document.body.style.cursor = 'auto';
     document.removeEventListener('mousemove', mouseMove);
     document.removeEventListener('mouseup', cleanUpDocumentEvents);
   }

@@ -1,21 +1,34 @@
 import styled from 'styled-components';
 import HTMLVideoPlayer from '@/lib/components/HTMLVideoPlayer';
 import { useAtom } from 'jotai';
-import { myScope, setShowControlsBarAtom, getVideoElemAtom } from '@/lib/atoms';
+import {
+  myScope,
+  setShowControlsBarAtom,
+  getVideoElemAtom,
+  setVideoContainerAtom,
+} from '@/lib/atoms';
 import ControlsBar from '@/lib/components/ControlsBar';
 import { motion } from 'framer-motion';
 import { useDimensions } from '../hooks';
 
 import { handleKeyPress } from '../utils';
 import PlayIndicator from './PlayIndicator';
+import { useEffect, useRef } from 'react';
 
 function VideoPlayerWrapper() {
   const [videoElem] = useAtom(getVideoElemAtom, myScope);
   const [, setIsControlsBarShowing] = useAtom(setShowControlsBarAtom, myScope);
   useDimensions();
-
+  const [, setVideoContainer] = useAtom(setVideoContainerAtom, myScope);
+  const videoContainerRef = useRef(null);
+  useEffect(() => {
+    if (videoContainerRef && videoContainerRef.current) {
+      setVideoContainer(videoContainerRef.current);
+    }
+  }, [videoContainerRef]);
   return (
     <PlayerWrapper
+      ref={videoContainerRef}
       onFocus={() => setIsControlsBarShowing(true)}
       onBlur={() => setIsControlsBarShowing(false)}
       tabIndex={0}

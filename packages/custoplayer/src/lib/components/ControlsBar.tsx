@@ -1,7 +1,12 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAtom } from 'jotai';
 import styled from 'styled-components';
-import { getShowControlsBarAtom, getItemsAtom, myScope } from '../atoms';
+import {
+  getShowControlsBarAtom,
+  getItemsAtom,
+  myScope,
+  draggableSymbol,
+} from '../atoms';
 import { renderItemFromData } from '../utils';
 
 function ControlsBar() {
@@ -11,6 +16,7 @@ function ControlsBar() {
     <AnimatePresence>
       {(true || isControlsBarShowing) && (
         <ControlsContainer
+          className={draggableSymbol.toString()}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -67,7 +73,7 @@ const ItemContainer = styled.div<{ isProgressBar: boolean }>`
   align-items: center;
   justify-content: center;
   margin-right: 0.65rem;
-  
+
   :last-child {
     margin-right: 0;
   }

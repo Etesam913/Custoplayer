@@ -2,9 +2,11 @@ import { useAtom } from 'jotai';
 import styled from 'styled-components';
 import {
   controlsBarTimeoutAtom,
+  draggableSymbol,
   getPlayStateAtom,
   myScope,
   PlayState,
+  progressAtom,
   setPlayStateAtom,
   showControlsBarAtom,
   valuesAtom,
@@ -26,6 +28,7 @@ function HTMLVideoPlayer() {
     showControlsBarAtom,
     myScope,
   );
+  const [progress, setProgress] = useAtom(progressAtom, myScope);
 
   const handlePause = useCallback(() => {
     setPlayState(PlayState.paused);
@@ -61,8 +64,16 @@ function HTMLVideoPlayer() {
     [controlsBarTimeout, playState, setShowControlsBar, setControlsBarTimeout],
   );
 
+  function handleTimeUpdate(e: SyntheticEvent<HTMLVideoElement, Event>) {
+    const video = e.target as HTMLVideoElement;
+    setProgress(
+      parseFloat(((video.currentTime / video.duration) * 100).toFixed(1)),
+    );
+  }
+
   return (
     <HTMLPlayer
+      className={draggableSymbol.toString()}
       onClick={() => handlePlayState(videoElem)}
       src={values.src}
       playsInline
@@ -77,6 +88,7 @@ function HTMLVideoPlayer() {
         setVideoElem(e.target as HTMLVideoElement);
         setValues({ ...values, src: (e.target as HTMLVideoElement).src });
       }}
+      onTimeUpdate={handleTimeUpdate}
       preload='metadata'
       tabIndex={-1}
     />

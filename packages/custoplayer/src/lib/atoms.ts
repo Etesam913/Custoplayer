@@ -6,12 +6,18 @@ import { atom } from "jotai";
   from sharing the same atoms
 */
 export const myScope = Symbol();
-
+export const draggableSymbol = Symbol("draggable");
 export const videoElemAtom = atom<HTMLVideoElement | null>(null)
 export const getVideoElemAtom = atom((get) => get(videoElemAtom))
 export const setVideoElemAtom = atom(null, (_, set, update: HTMLVideoElement) => {
   set(videoElemAtom, update)
 })
+
+export const videoContainerAtom = atom<HTMLDivElement | null>(null)
+export const setVideoContainerAtom = atom(null, (_, set, update: HTMLDivElement) => {
+  set(videoContainerAtom, update)
+})
+export const getVideoContainerAtom = atom((get) => get(videoContainerAtom))
 
 // Video Play State
 export enum PlayState {
@@ -50,6 +56,8 @@ export const setItemsAtom = atom(null, (_, set, update: (CustoplayerItem | undef
   set(itemsAtom, update)
 })
 
+// Progress Bar
+export const progressAtom = atom(0)
 
 // Timeout
 export const controlsBarTimeoutAtom = atom<null | NodeJS.Timeout>(null)

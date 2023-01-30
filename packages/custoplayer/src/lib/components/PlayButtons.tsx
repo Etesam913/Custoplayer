@@ -30,6 +30,7 @@ function PlayButtons({ item }: PlayButtonsProps) {
 
   return (
     <PlayButton
+      onMouseMove={(e) => e.preventDefault}
       onClick={() => handlePlayState(videoElem)}
       onKeyUp={(e) => e.preventDefault()}
       whileHover={{ scale: 1.05 }}
