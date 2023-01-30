@@ -45,7 +45,10 @@ function Custoplayer({ values }: CustoplayerProps) {
         <div id='mobile-debug' style={{ marginBottom: '1rem' }}>
           mobile debug
         </div>
-        <VideoPlayerWrapper />
+        <span style={{ display: 'flex' }}>
+          THis is my test custoplayer
+          <VideoPlayerWrapper />
+        </span>
       </div>
     </Provider>
   );

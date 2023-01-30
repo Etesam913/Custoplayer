@@ -1,5 +1,7 @@
 import { CustoplayerItem } from '@/types';
+import { getEventListeners } from 'events';
 import PlayButtons from './components/PlayButtons';
+import ProgressBars from './components/ProgressBars';
 
 export const debounce = (fn: Function, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
@@ -40,6 +42,8 @@ export const throttle = (fn: Function, ms = 300) => {
 export function renderItemFromData(curItem: CustoplayerItem) {
   if (curItem?.id.startsWith('playButton')) {
     return <PlayButtons item={curItem} />;
+  } else if (curItem?.id.startsWith('progressBar')) {
+    return <ProgressBars item={curItem} />;
   }
 }
 
@@ -84,4 +88,34 @@ export function getSvgPath(path: string, strokeWidth: string = '1.8') {
 
 export function clamp(val: number, min: number, max: number) {
   return Math.min(Math.max(val, min), max);
+}
+
+function getMousePos(e: MouseEvent, callback: Function) {
+  const bar = e.target as HTMLElement;
+  // TODO: Fix bug where drag goes into dev tools
+  const barRect = bar.getBoundingClientRect();
+  const mousePos = e.clientX - barRect.left;
+  callback(mousePos);
+}
+
+export function barMouseEvent(
+  e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  callback: Function,
+  setIsHovered: Dispatch<SetStateAction<boolean>>,
+) {
+  e.stopPropagation();
+  setIsHovered(true);
+  function mouseMove(e: MouseEvent) {
+    const throttledGetMousePos = throttle(() => getMousePos(e, callback), 1000);
+    throttledGetMousePos();
+  }
+
+  function cleanUpDocumentEvents() {
+    setIsHovered(false);
+    document.removeEventListener('mousemove', mouseMove);
+    document.removeEventListener('mouseup', cleanUpDocumentEvents);
+  }
+
+  document.addEventListener('mousemove', mouseMove);
+  document.addEventListener('mouseup', cleanUpDocumentEvents);
 }

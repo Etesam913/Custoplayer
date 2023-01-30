@@ -6,13 +6,16 @@ function App() {
     <Wrapper>
       <Custoplayer
         values={{
-          src: 'https://www.w3schools.com/html/mov_bbb.mp4',
+          src: 'https://etesam.nyc3.cdn.digitaloceanspaces.com/Custoplayer/placeholder-video-720',
           playIndicator: {
             id: 1,
           },
           item1: {
             id: 'playButton1',
             color: 'rgb(191, 232, 208)',
+          },
+          item2: {
+            id: 'progressBar1',
           },
         }}
       ></Custoplayer>

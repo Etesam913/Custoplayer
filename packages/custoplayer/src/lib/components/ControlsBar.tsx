@@ -9,7 +9,7 @@ function ControlsBar() {
   const [items] = useAtom(getItemsAtom, myScope);
   return (
     <AnimatePresence>
-      {isControlsBarShowing && (
+      {(true || isControlsBarShowing) && (
         <ControlsContainer
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -23,7 +23,11 @@ function ControlsBar() {
                   {curItem === undefined ? (
                     <></>
                   ) : (
-                    <ItemContainer key={`item-${idx}`} color={curItem.color}>
+                    <ItemContainer
+                      isProgressBar={curItem?.id.startsWith('progressBar')}
+                      key={`item-${idx}`}
+                      color={curItem.color}
+                    >
                       {renderItemFromData(curItem)}
                     </ItemContainer>
                   )}
@@ -50,14 +54,23 @@ const Controls = styled.div<{ height: string }>`
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 0.3rem 0.5rem;
+  padding: 0.3rem 0.7rem;
   box-sizing: border-box;
 `;
 
-const ItemContainer = styled.div`
+const ItemContainer = styled.div<{ isProgressBar: boolean }>`
   height: 36px;
   width: 36px;
   color: ${(props) => (props.color ? props.color : 'white')};
+  flex: ${(props) => (props.isProgressBar ? '1' : '0')};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.65rem;
+  
+  :last-child {
+    margin-right: 0;
+  }
 `;
 
 export default ControlsBar;
