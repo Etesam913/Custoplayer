@@ -1,27 +1,27 @@
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
-  getItemsAtom,
-  getPlayStateAtom,
-  getShowControlsBarAtom,
-  getValuesAtom,
-  getVideoDimensionsAtom,
-  getVideoElemAtom,
+  itemsAtom,
   myScope,
   PlayState,
+  playStateAtom,
+  showControlsBarAtom,
+  valuesAtom,
+  videoDimensionsAtom,
+  videoElemAtom,
 } from '@/lib/atoms';
 import { Fragment, useMemo } from 'react';
 import { clamp, getSvgPath } from '../utils';
 import { CustoplayerItem } from '@/types';
 
 function PlayIndicator() {
-  const [videoValues] = useAtom(getValuesAtom, myScope);
-  const [videoElem] = useAtom(getVideoElemAtom, myScope);
-  const [videoDimensions] = useAtom(getVideoDimensionsAtom, myScope);
-  const [videoPlayState] = useAtom(getPlayStateAtom, myScope);
-  const [isControlsBarShowing] = useAtom(getShowControlsBarAtom, myScope);
-  const [items] = useAtom(getItemsAtom, myScope);
+  const videoValues = useAtomValue(valuesAtom, myScope);
+  const videoElem = useAtomValue(videoElemAtom, myScope);
+  const videoDimensions = useAtomValue(videoDimensionsAtom, myScope);
+  const videoPlayState = useAtom(playStateAtom, myScope);
+  const isControlsBarShowing = useAtomValue(showControlsBarAtom, myScope);
+  const items = useAtomValue(itemsAtom, myScope);
 
   const iconWidth =
     videoElem === null

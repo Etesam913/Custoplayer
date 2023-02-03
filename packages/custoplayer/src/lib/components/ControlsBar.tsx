@@ -1,20 +1,21 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useAtom } from 'jotai';
+import { useAtomValue } from 'jotai';
 import styled from 'styled-components';
 import {
-  getShowControlsBarAtom,
-  getItemsAtom,
   myScope,
   draggableSymbol,
+  showControlsBarAtom,
+  itemsAtom,
 } from '../atoms';
 import { renderItemFromData } from '../utils';
 
 function ControlsBar() {
-  const [isControlsBarShowing] = useAtom(getShowControlsBarAtom, myScope);
-  const [items] = useAtom(getItemsAtom, myScope);
+  const isControlsBarShowing = useAtomValue(showControlsBarAtom, myScope);
+  const items = useAtomValue(itemsAtom, myScope);
+
   return (
     <AnimatePresence>
-      {(true || isControlsBarShowing) && (
+      {isControlsBarShowing && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           initial={{ opacity: 0 }}

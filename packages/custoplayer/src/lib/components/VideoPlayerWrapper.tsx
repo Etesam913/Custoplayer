@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import HTMLVideoPlayer from '@/lib/components/HTMLVideoPlayer';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
   myScope,
-  setShowControlsBarAtom,
-  getVideoElemAtom,
-  setVideoContainerAtom,
+  showControlsBarAtom,
+  videoContainerAtom,
+  videoElemAtom,
 } from '@/lib/atoms';
 import ControlsBar from '@/lib/components/ControlsBar';
 import { motion } from 'framer-motion';
@@ -16,10 +16,10 @@ import PlayIndicator from './PlayIndicator';
 import { useEffect, useRef } from 'react';
 
 function VideoPlayerWrapper() {
-  const [videoElem] = useAtom(getVideoElemAtom, myScope);
-  const [, setIsControlsBarShowing] = useAtom(setShowControlsBarAtom, myScope);
+  const videoElem = useAtomValue(videoElemAtom, myScope);
+  const setIsControlsBarShowing = useSetAtom(showControlsBarAtom, myScope);
   useDimensions();
-  const [, setVideoContainer] = useAtom(setVideoContainerAtom, myScope);
+  const setVideoContainer = useSetAtom(videoContainerAtom, myScope);
   const videoContainerRef = useRef(null);
   useEffect(() => {
     if (videoContainerRef && videoContainerRef.current) {

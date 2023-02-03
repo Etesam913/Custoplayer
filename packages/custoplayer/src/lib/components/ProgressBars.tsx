@@ -1,13 +1,13 @@
 import { CustoplayerItem } from '@/types';
 import { motion } from 'framer-motion';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
-  getVideoContainerAtom,
-  getVideoElemAtom,
   myScope,
   progressAtom,
+  videoContainerAtom,
+  videoElemAtom,
 } from '@/lib/atoms';
 import { barMouseEvent, clamp } from '@/lib/utils';
 
@@ -19,9 +19,9 @@ function ProgressBars({ item }: ProgressBarsProps) {
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [videoElem] = useAtom(getVideoElemAtom, myScope);
+  const videoElem = useAtomValue(videoElemAtom, myScope);
   const [progress, setProgress] = useAtom(progressAtom, myScope);
-  const [videoContainer] = useAtom(getVideoContainerAtom, myScope);
+  const videoContainer = useAtomValue(videoContainerAtom, myScope);
 
   function handleProgressMouse(mousePos: number, videoContainerRect: DOMRect) {
     if (progressBarRef && progressBarRef.current) {

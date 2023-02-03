@@ -113,6 +113,7 @@ export function barMouseEvent(
 ) {
   mouseMove(e);
   e.stopPropagation();
+  const oldCursor = document.body.style.cursor;
   setIsActive(true);
   document.body.style.cursor = 'col-resize';
 
@@ -126,7 +127,6 @@ export function barMouseEvent(
 
   function cleanUpDocumentEvents() {
     setIsActive(false);
-    document.body.style.cursor = 'auto';
     document.removeEventListener('mousemove', mouseMove);
     document.removeEventListener('mouseup', cleanUpDocumentEvents);
   }

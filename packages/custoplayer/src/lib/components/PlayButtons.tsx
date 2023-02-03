@@ -1,14 +1,14 @@
 import { CustoplayerItem } from '@/types';
 import { motion } from 'framer-motion';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { Fragment } from 'react';
 import styled from 'styled-components';
 import {
-  getPlayStateAtom,
   myScope,
   PlayState,
-  getVideoElemAtom,
+  playStateAtom,
   showControlsBarAtom,
+  videoElemAtom,
 } from '@/lib/atoms';
 import { getSvgPath, handlePlayState } from '@/lib/utils';
 
@@ -17,8 +17,8 @@ interface PlayButtonsProps {
 }
 
 function PlayButtons({ item }: PlayButtonsProps) {
-  const [videoElem] = useAtom(getVideoElemAtom, myScope);
-  const [playState] = useAtom(getPlayStateAtom, myScope);
+  const videoElem = useAtomValue(videoElemAtom, myScope);
+  const playState = useAtomValue(playStateAtom, myScope);
   const [showControlsBar, setShowControlsBar] = useAtom(
     showControlsBarAtom,
     myScope,

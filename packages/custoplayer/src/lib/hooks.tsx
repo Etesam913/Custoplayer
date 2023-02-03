@@ -1,20 +1,20 @@
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
 import {
   myScope,
-  setVideoDimensionsAtom,
   videoDimensionsObserverAtom,
-  getVideoElemAtom,
-} from './atoms';
-import { throttle } from './utils';
+  videoDimensionsAtom,
+  videoElemAtom,
+} from '@/lib/atoms';
+import { throttle } from '@/lib/utils';
 
 export function useDimensions() {
   const [videoDimensionsObserver, setVideoDimensionsObserver] = useAtom(
     videoDimensionsObserverAtom,
     myScope,
   );
-  const [, setVideoDimensions] = useAtom(setVideoDimensionsAtom, myScope);
-  const [videoElem] = useAtom(getVideoElemAtom, myScope);
+  const setVideoDimensions = useSetAtom(videoDimensionsAtom, myScope);
+  const videoElem = useAtomValue(videoElemAtom, myScope);
 
   useEffect(() => {
     if (videoElem !== null) {

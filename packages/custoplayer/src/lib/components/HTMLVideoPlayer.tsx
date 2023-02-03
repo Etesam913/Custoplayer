@@ -1,25 +1,24 @@
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import styled from 'styled-components';
 import {
   controlsBarTimeoutAtom,
   draggableSymbol,
-  getPlayStateAtom,
   myScope,
   PlayState,
+  playStateAtom,
   progressAtom,
-  setPlayStateAtom,
   showControlsBarAtom,
   valuesAtom,
   videoElemAtom,
 } from '@/lib/atoms';
-import { SyntheticEvent, useCallback, useMemo } from 'react';
+import { SyntheticEvent, useCallback } from 'react';
 import { handlePlayState, throttle } from '../utils';
 
 function HTMLVideoPlayer() {
   const [videoElem, setVideoElem] = useAtom(videoElemAtom, myScope);
   const [values, setValues] = useAtom(valuesAtom, myScope);
-  const [, setPlayState] = useAtom(setPlayStateAtom, myScope);
-  const [playState] = useAtom(getPlayStateAtom, myScope);
+  const setPlayState = useSetAtom(playStateAtom, myScope);
+  const playState = useAtomValue(playStateAtom, myScope);
   const [controlsBarTimeout, setControlsBarTimeout] = useAtom(
     controlsBarTimeoutAtom,
     myScope,
