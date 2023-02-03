@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import {
   myScope,
   progressAtom,
+  progressBarActiveAtom,
   videoContainerAtom,
   videoElemAtom,
 } from '@/lib/atoms';
@@ -18,7 +19,7 @@ interface ProgressBarsProps {
 function ProgressBars({ item }: ProgressBarsProps) {
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useAtom(progressBarActiveAtom, myScope);
   const videoElem = useAtomValue(videoElemAtom, myScope);
   const [progress, setProgress] = useAtom(progressAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
@@ -53,15 +54,15 @@ function ProgressBars({ item }: ProgressBarsProps) {
     }
   }
 
-  if (item.id === 'progressBar1') {
-    return (
-      <ProgressBarContainer
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onMouseDown={(e) =>
-          barMouseEvent(e, handleProgressMouse, setIsActive, videoContainer)
-        }
-      >
+  return (
+    <ProgressBarContainer
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onMouseDown={(e) =>
+        barMouseEvent(e, handleProgressMouse, setIsActive, videoContainer)
+      }
+    >
+      {item.id === 'progressBar1' && (
         <ProgressBar1
           ref={progressBarRef}
           role='progressbar'
@@ -69,11 +70,9 @@ function ProgressBars({ item }: ProgressBarsProps) {
         >
           <Progress style={{ width: progress + '%' }} />
         </ProgressBar1>
-      </ProgressBarContainer>
-    );
-  } else {
-    return <div>test</div>;
-  }
+      )}
+    </ProgressBarContainer>
+  );
 }
 
 const ProgressBarContainer = styled.div`

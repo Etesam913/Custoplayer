@@ -6,16 +6,17 @@ import {
   draggableSymbol,
   showControlsBarAtom,
   itemsAtom,
+  progressBarActiveAtom,
 } from '../atoms';
 import { renderItemFromData } from '../utils';
 
 function ControlsBar() {
   const isControlsBarShowing = useAtomValue(showControlsBarAtom, myScope);
   const items = useAtomValue(itemsAtom, myScope);
-
+  const isProgressBarActive = useAtomValue(progressBarActiveAtom, myScope);
   return (
     <AnimatePresence>
-      {isControlsBarShowing && (
+      {(isProgressBarActive || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           initial={{ opacity: 0 }}
