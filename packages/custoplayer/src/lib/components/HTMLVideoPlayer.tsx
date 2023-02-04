@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import {
   controlsBarTimeoutAtom,
   draggableSymbol,
+  isSeekingAtom,
+  isSeekingTimeoutAtom,
   myScope,
   PlayState,
   playStateAtom,
@@ -12,7 +14,7 @@ import {
   videoElemAtom,
 } from '@/lib/atoms';
 import { SyntheticEvent, useCallback } from 'react';
-import { handlePlayState, throttle } from '../utils';
+import { debounce, handlePlayState, throttle } from '../utils';
 
 function HTMLVideoPlayer() {
   const [videoElem, setVideoElem] = useAtom(videoElemAtom, myScope);
@@ -23,11 +25,13 @@ function HTMLVideoPlayer() {
     controlsBarTimeoutAtom,
     myScope,
   );
-  const [controlsBar, setShowControlsBar] = useAtom(
-    showControlsBarAtom,
+  const setShowControlsBar = useSetAtom(showControlsBarAtom, myScope);
+  const setProgress = useSetAtom(progressAtom, myScope);
+  const setIsSeeking = useSetAtom(isSeekingAtom, myScope);
+  const [isSeekingTimeout, setIsSeekingTimeout] = useAtom(
+    isSeekingTimeoutAtom,
     myScope,
   );
-  const [progress, setProgress] = useAtom(progressAtom, myScope);
 
   const handlePause = useCallback(() => {
     setPlayState(PlayState.paused);
@@ -60,14 +64,43 @@ function HTMLVideoPlayer() {
         );
       }
     }, 200),
-    [controlsBarTimeout, playState, setShowControlsBar, setControlsBarTimeout],
+    [controlsBarTimeout, playState],
   );
 
   function handleTimeUpdate(e: SyntheticEvent<HTMLVideoElement, Event>) {
     const video = e.target as HTMLVideoElement;
-    setProgress(
-      parseFloat(((video.currentTime / video.duration) * 100).toFixed(1)),
-    );
+    setProgress(video.currentTime / video.duration);
+  }
+
+  function handleOnSeeking() {
+    // if (isSeekingTimeout !== null) {
+    //   clearTimeout(isSeekingTimeout);
+    //   setIsSeekingTimeout(null);
+    // }
+    // if (isSeekingTimeout !== null) {
+    //   clearTimeout(isSeekingTimeout);
+    // }
+    // setIsSeekingTimeout(
+    //   setTimeout(() => {
+    //     console.log('true');
+    //     setIsSeeking(true);
+    //   }, 2000),
+    // );
+    console.log('seeking');
+    setIsSeeking(true);
+  }
+
+  function handleOnSeeked() {
+    // console.log('end');
+    // if (isSeekingTimeout !== null) {
+    //   window.clearTimeout(isSeekingTimeout);
+    // }
+    // setIsSeekingTimeout(null);
+    // if (isSeekingTimeout !== null) {
+    //   clearTimeout(isSeekingTimeout);
+    // }
+    // setIsSeekingTimeout(null);
+    setIsSeeking(false);
   }
 
   return (
@@ -87,6 +120,8 @@ function HTMLVideoPlayer() {
         setVideoElem(e.target as HTMLVideoElement);
         setValues({ ...values, src: (e.target as HTMLVideoElement).src });
       }}
+      onSeeking={handleOnSeeking}
+      onSeeked={handleOnSeeked}
       onTimeUpdate={handleTimeUpdate}
       preload='metadata'
       tabIndex={-1}

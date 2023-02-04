@@ -73,6 +73,17 @@ export function handleKeyPress(
   if (e.key === ' ' || e.key === 'k') {
     e.preventDefault();
     if (video !== null) handlePlayState(video);
+  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+    e.preventDefault();
+    if (video !== null) {
+      let newTime = video.currentTime;
+      if (e.key === 'ArrowLeft') {
+        newTime -= 5;
+      } else {
+        newTime += 5;
+      }
+      video.currentTime = clamp(newTime, 0, video.duration);
+    }
   }
 }
 

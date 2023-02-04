@@ -20,6 +20,7 @@ export enum PlayState {
   playing,
   ended
 }
+export const isSeekingAtom = atom(false)
 export const playStateAtom = atom<PlayState>(0)
 
 // Controls Bar
@@ -36,6 +37,11 @@ export const itemsAtom = atom<(CustoplayerItem | undefined)[]>([])
 
 // Progress Bar
 export const progressAtom = atom(0)
-
+export const progressStrAtom = atom(get => {
+  const progress = get(progressAtom)
+  return parseFloat((progress * 100).toFixed(1)) + '%'
+})
+export const progressBarActiveAtom = atom(false)
 // Timeout
 export const controlsBarTimeoutAtom = atom<null | NodeJS.Timeout>(null)
+export const isSeekingTimeoutAtom = atom<null | NodeJS.Timeout>(null)

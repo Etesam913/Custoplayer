@@ -1,16 +1,17 @@
 import { CustoplayerItem } from '@/types';
 import { motion } from 'framer-motion';
-import { useAtom, useAtomValue } from 'jotai';
-import { useRef, useState } from 'react';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
   myScope,
   progressAtom,
   progressBarActiveAtom,
+  progressStrAtom,
   videoContainerAtom,
   videoElemAtom,
 } from '@/lib/atoms';
-import { barMouseEvent, clamp } from '@/lib/utils';
+import { barMouseEvent, clamp, debounce, throttle } from '@/lib/utils';
 
 interface ProgressBarsProps {
   item: CustoplayerItem;
@@ -21,8 +22,9 @@ function ProgressBars({ item }: ProgressBarsProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useAtom(progressBarActiveAtom, myScope);
   const videoElem = useAtomValue(videoElemAtom, myScope);
-  const [progress, setProgress] = useAtom(progressAtom, myScope);
+  const setProgress = useSetAtom(progressAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
+  const progressStr = useAtomValue(progressStrAtom, myScope);
 
   function handleProgressMouse(mousePos: number, videoContainerRect: DOMRect) {
     if (progressBarRef && progressBarRef.current) {
@@ -43,14 +45,11 @@ function ProgressBars({ item }: ProgressBarsProps) {
         0,
         largestProgressBarMousePos,
       );
-
       const ratio = clampedMousePos / progressBarRef.current.clientWidth;
-
-      const finalProgress = parseFloat((ratio * 100).toFixed(1));
       if (videoElem) {
         videoElem.currentTime = videoElem?.duration * ratio;
       }
-      setProgress(finalProgress);
+      setProgress(ratio);
     }
   }
 
@@ -58,9 +57,10 @@ function ProgressBars({ item }: ProgressBarsProps) {
     <ProgressBarContainer
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onMouseDown={(e) =>
-        barMouseEvent(e, handleProgressMouse, setIsActive, videoContainer)
-      }
+      onMouseDown={(e) => {
+        videoElem?.pause();
+        barMouseEvent(e, handleProgressMouse, setIsActive, videoContainer);
+      }}
     >
       {item.id === 'progressBar1' && (
         <ProgressBar1
@@ -68,7 +68,7 @@ function ProgressBars({ item }: ProgressBarsProps) {
           role='progressbar'
           animate={{ height: isHovered || isActive ? '0.6rem' : '0.35rem' }}
         >
-          <Progress style={{ width: progress + '%' }} />
+          <Progress style={{ width: progressStr }} />
         </ProgressBar1>
       )}
     </ProgressBarContainer>

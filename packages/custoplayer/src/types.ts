@@ -20,4 +20,5 @@ export interface CustoplayerValues {
 export interface CustoplayerItem {
   id: string;
   color?: string;
+  progressColor?: string;
 }
