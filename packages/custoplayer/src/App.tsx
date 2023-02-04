@@ -15,7 +15,7 @@ function App() {
         values={{
           src: 'https://etesam.nyc3.cdn.digitaloceanspaces.com/Custoplayer/placeholder-video-720',
           playIndicator: {
-            id: 1,
+            id: 2,
           },
           item1: {
             id: 'playButton1',

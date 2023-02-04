@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 import { useDimensions } from '../hooks';
 
 import { handleKeyPress } from '../utils';
-import PlayIndicator from './PlayIndicator';
+import PlayIndicator from './Indicator/PlayIndicator';
 import { useEffect, useRef } from 'react';
 
 function VideoPlayerWrapper() {
