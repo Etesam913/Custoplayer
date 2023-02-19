@@ -1,6 +1,10 @@
 <h1>Custoplayer</h1>
 <p>A React.js npm package that allows for the rapid creation of customizable video players. </p>
-<img src="https://img.shields.io/badge/license-MIT-green"></img>
+<span>
+  <img src="https://img.shields.io/badge/license-MIT-green"></img> 
+  <img src="https://img.shields.io/github/issues/etesam913/Custoplayer"></img>
+</span>
+
 <h2>Overview</h2>
 <h3>Things you can customize:</h3>
 
