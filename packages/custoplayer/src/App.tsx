@@ -22,6 +22,9 @@ function App() {
             color: 'rgb(81, 180, 122)',
           },
           item2: {
+            id: 'volumeButton1',
+          },
+          item3: {
             id: 'progressBar1',
           },
         }}

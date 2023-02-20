@@ -29,7 +29,7 @@ function PlayButtons({ item }: PlayButtonsProps) {
   */
 
   return (
-    <PlayButton
+    <PlayButtonContainer
       onMouseMove={(e) => e.preventDefault}
       onClick={() => handlePlayState(videoElem)}
       onKeyUp={(e) => e.preventDefault()}
@@ -123,11 +123,11 @@ function PlayButtons({ item }: PlayButtonsProps) {
           )}
         </>
       )}
-    </PlayButton>
+    </PlayButtonContainer>
   );
 }
 
-const PlayButton = styled(motion.button)`
+const PlayButtonContainer = styled(motion.button)`
   cursor: pointer;
   background: transparent;
   border: 0;

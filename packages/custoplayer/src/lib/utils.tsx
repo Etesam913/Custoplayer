@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { draggableSymbol, myScope } from './atoms';
 import PlayButtons from './components/PlayButtons';
 import ProgressBars from './components/ProgressBars';
+import VolumeButtons from './components/VolumeButtons';
 
 export const debounce = (fn: Function, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
@@ -47,6 +48,8 @@ export function renderItemFromData(curItem: CustoplayerItem) {
     return <PlayButtons item={curItem} />;
   } else if (curItem?.id.startsWith('progressBar')) {
     return <ProgressBars item={curItem} />;
+  } else if (curItem?.id.startsWith('volumeButton')) {
+    return <VolumeButtons item={curItem} />;
   }
 }
 
@@ -118,7 +121,9 @@ function getMousePos(
 }
 
 export function barMouseEvent(
-  e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  e:
+    | React.MouseEvent<HTMLDivElement, MouseEvent>
+    | React.MouseEvent<HTMLButtonElement, MouseEvent>,
   callback: Function,
   videoContainer: HTMLDivElement | null,
   setIsDragging: (update: SetStateAction<boolean>) => void,

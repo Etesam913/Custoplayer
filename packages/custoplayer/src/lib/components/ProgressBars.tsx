@@ -4,7 +4,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
-  isDraggingAtom,
+  isProgressDraggingAtom,
   myScope,
   progressAtom,
   progressStrAtom,
@@ -24,7 +24,10 @@ function ProgressBars({ item }: ProgressBarsProps) {
   const setProgress = useSetAtom(progressAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
   const progressStr = useAtomValue(progressStrAtom, myScope);
-  const [isDragging, setIsDragging] = useAtom(isDraggingAtom, myScope);
+  const [isProgressDragging, setIsProgressDragging] = useAtom(
+    isProgressDraggingAtom,
+    myScope,
+  );
 
   function handleProgressMouse(mousePos: number, videoContainerRect: DOMRect) {
     if (progressBarRef && progressBarRef.current) {
@@ -55,19 +58,26 @@ function ProgressBars({ item }: ProgressBarsProps) {
 
   return (
     <ProgressBarContainer
-      isDragging={isDragging}
+      isDragging={isProgressDragging}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onMouseDown={(e) => {
         videoElem?.pause();
-        barMouseEvent(e, handleProgressMouse, videoContainer, setIsDragging);
+        barMouseEvent(
+          e,
+          handleProgressMouse,
+          videoContainer,
+          setIsProgressDragging,
+        );
       }}
     >
       {item.id === 'progressBar1' && (
         <ProgressBar1
           ref={progressBarRef}
           role='progressbar'
-          animate={{ height: isHovered || isDragging ? '0.6rem' : '0.35rem' }}
+          animate={{
+            height: isHovered || isProgressDragging ? '0.6rem' : '0.35rem',
+          }}
         >
           <Progress
             style={{ width: progressStr }}

@@ -6,17 +6,20 @@ import {
   draggableSymbol,
   showControlsBarAtom,
   itemsAtom,
-  isDraggingAtom,
+  isProgressDraggingAtom,
+  isVolumeDraggingAtom,
 } from '../atoms';
 import { renderItemFromData } from '../utils';
 
 function ControlsBar() {
   const isControlsBarShowing = useAtomValue(showControlsBarAtom, myScope);
   const items = useAtomValue(itemsAtom, myScope);
-  const isDragging = useAtomValue(isDraggingAtom, myScope);
+  const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
+  const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
+
   return (
     <AnimatePresence>
-      {(isDragging || isControlsBarShowing) && (
+      {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           initial={{ opacity: 0 }}
@@ -67,14 +70,14 @@ const Controls = styled.div<{ height: string }>`
 `;
 
 const ItemContainer = styled.div<{ isProgressBar: boolean }>`
-  height: 36px;
-  width: 36px;
+  height: 100%;
+  width: auto;
   color: ${(props) => (props.color ? props.color : 'white')};
   flex: ${(props) => (props.isProgressBar ? '1' : '0')};
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.65rem;
+  margin-right: 0.35rem;
 
   :last-child {
     margin-right: 0;

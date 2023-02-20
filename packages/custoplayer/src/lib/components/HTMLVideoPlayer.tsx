@@ -4,8 +4,10 @@ import {
   controlsBarTimeoutAtom,
   draggableSymbol,
   isDraggingAtom,
+  isProgressDraggingAtom,
   isSeekingAtom,
   isSeekingTimeoutAtom,
+  isVolumeDraggingAtom,
   myScope,
   PlayState,
   playStateAtom,
@@ -33,7 +35,8 @@ function HTMLVideoPlayer() {
     isSeekingTimeoutAtom,
     myScope,
   );
-  const isDragging = useAtomValue(isDraggingAtom, myScope);
+  const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
+  const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
 
   const handlePause = useCallback(() => {
     setPlayState(PlayState.paused);
@@ -88,7 +91,6 @@ function HTMLVideoPlayer() {
     //     setIsSeeking(true);
     //   }, 2000),
     // );
-    console.log('seeking');
     setIsSeeking(true);
   }
 
@@ -127,7 +129,7 @@ function HTMLVideoPlayer() {
       onTimeUpdate={handleTimeUpdate}
       preload='metadata'
       tabIndex={-1}
-      isDragging={isDragging}
+      isDragging={isProgressDragging || isVolumeDragging}
     />
   );
 }
