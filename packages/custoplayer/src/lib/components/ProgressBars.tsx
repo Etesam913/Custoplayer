@@ -1,17 +1,17 @@
 import { CustoplayerItem } from '@/types';
 import { motion } from 'framer-motion';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { useCallback, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
+  isDraggingAtom,
   myScope,
   progressAtom,
-  progressBarActiveAtom,
   progressStrAtom,
   videoContainerAtom,
   videoElemAtom,
 } from '@/lib/atoms';
-import { barMouseEvent, clamp, debounce, throttle } from '@/lib/utils';
+import { barMouseEvent, clamp } from '@/lib/utils';
 
 interface ProgressBarsProps {
   item: CustoplayerItem;
@@ -20,11 +20,11 @@ interface ProgressBarsProps {
 function ProgressBars({ item }: ProgressBarsProps) {
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [isActive, setIsActive] = useAtom(progressBarActiveAtom, myScope);
   const videoElem = useAtomValue(videoElemAtom, myScope);
   const setProgress = useSetAtom(progressAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
   const progressStr = useAtomValue(progressStrAtom, myScope);
+  const [isDragging, setIsDragging] = useAtom(isDraggingAtom, myScope);
 
   function handleProgressMouse(mousePos: number, videoContainerRect: DOMRect) {
     if (progressBarRef && progressBarRef.current) {
@@ -55,32 +55,36 @@ function ProgressBars({ item }: ProgressBarsProps) {
 
   return (
     <ProgressBarContainer
+      isDragging={isDragging}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onMouseDown={(e) => {
         videoElem?.pause();
-        barMouseEvent(e, handleProgressMouse, setIsActive, videoContainer);
+        barMouseEvent(e, handleProgressMouse, videoContainer, setIsDragging);
       }}
     >
       {item.id === 'progressBar1' && (
         <ProgressBar1
           ref={progressBarRef}
           role='progressbar'
-          animate={{ height: isHovered || isActive ? '0.6rem' : '0.35rem' }}
+          animate={{ height: isHovered || isDragging ? '0.6rem' : '0.35rem' }}
         >
-          <Progress style={{ width: progressStr }} />
+          <Progress
+            style={{ width: progressStr }}
+            progressColor={item.progressColor ?? 'rgb(81, 180, 122)'}
+          />
         </ProgressBar1>
       )}
     </ProgressBarContainer>
   );
 }
 
-const ProgressBarContainer = styled.div`
+const ProgressBarContainer = styled.div<{ isDragging: boolean }>`
   height: calc(100% - 0.15rem);
   width: 100%;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  cursor: ${(props) => (props.isDragging ? 'col-resize' : 'pointer')};
 `;
 
 const ProgressBar1 = styled(motion.div)`
@@ -92,9 +96,9 @@ const ProgressBar1 = styled(motion.div)`
   overflow: hidden;
 `;
 
-const Progress = styled.div`
+const Progress = styled.div<{ progressColor: string }>`
   height: 100%;
-  background-color: #a2cba2;
+  background-color: ${(props) => props.progressColor};
 `;
 
 export default ProgressBars;

@@ -7,6 +7,9 @@ function App() {
     <div className='App'>
       <p>
         <Custoplayer
+          playIndicator={{
+            id: 2,
+          }}
           values={{
             src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm',
             item1: {

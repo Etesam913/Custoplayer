@@ -15,11 +15,11 @@ function App() {
         values={{
           src: 'https://etesam.nyc3.cdn.digitaloceanspaces.com/Custoplayer/placeholder-video-720',
           playIndicator: {
-            id: 2,
+            id: 1,
           },
           item1: {
             id: 'playButton1',
-            color: 'rgb(191, 232, 208)',
+            color: 'rgb(81, 180, 122)',
           },
           item2: {
             id: 'progressBar1',

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {
   controlsBarTimeoutAtom,
   draggableSymbol,
+  isDraggingAtom,
   isSeekingAtom,
   isSeekingTimeoutAtom,
   myScope,
@@ -32,6 +33,7 @@ function HTMLVideoPlayer() {
     isSeekingTimeoutAtom,
     myScope,
   );
+  const isDragging = useAtomValue(isDraggingAtom, myScope);
 
   const handlePause = useCallback(() => {
     setPlayState(PlayState.paused);
@@ -125,15 +127,16 @@ function HTMLVideoPlayer() {
       onTimeUpdate={handleTimeUpdate}
       preload='metadata'
       tabIndex={-1}
+      isDragging={isDragging}
     />
   );
 }
 
-const HTMLPlayer = styled.video`
+const HTMLPlayer = styled.video<{ isDragging: boolean }>`
   width: 100%;
   height: 100%;
   background-color: black;
-  cursor: pointer;
+  cursor: ${(props) => (props.isDragging ? 'col-resize' : 'pointer')};
 `;
 
 export default HTMLVideoPlayer;

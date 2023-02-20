@@ -162,9 +162,9 @@ const IndicatorContainer = styled(motion.div)<{
   width: ${(props) => props.width};
   left: ${(props) => props.left};
   bottom: ${(props) => props.bottom};
-  cursor: pointer;
   pointer-events: none;
-  border-radius: ${(props) => (props.playIndicator === 1 ? '10rem' : '1.25rem')};
+  border-radius: ${(props) =>
+    props.playIndicator === 1 ? '10rem' : '1.25rem'};
   border: 6.5px solid ${(props) => (props.color ? props.color : 'white')};
   display: flex;
   justify-content: center;

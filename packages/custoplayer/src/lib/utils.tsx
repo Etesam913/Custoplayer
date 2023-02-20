@@ -120,14 +120,13 @@ function getMousePos(
 export function barMouseEvent(
   e: React.MouseEvent<HTMLDivElement, MouseEvent>,
   callback: Function,
-  setIsActive: Dispatch<SetStateAction<boolean>>,
   videoContainer: HTMLDivElement | null,
+  setIsDragging: (update: SetStateAction<boolean>) => void,
 ) {
   mouseMove(e);
   e.stopPropagation();
-  const oldCursor = document.body.style.cursor;
-  setIsActive(true);
-  document.body.style.cursor = 'col-resize';
+  setIsDragging(true);
+  // document.body.style.cursor = 'col-resize';
 
   function mouseMove(
     e: MouseEvent | React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -138,7 +137,7 @@ export function barMouseEvent(
   }
 
   function cleanUpDocumentEvents() {
-    setIsActive(false);
+    setIsDragging(false);
     document.removeEventListener('mousemove', mouseMove);
     document.removeEventListener('mouseup', cleanUpDocumentEvents);
   }

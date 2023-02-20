@@ -45,7 +45,7 @@ function VideoPlayerWrapper() {
           setIsControlsBarShowing(false);
         }}
       >
-        <PlayIndicator />
+        {/* <PlayIndicator /> */}
         <HTMLVideoPlayer />
         {videoElem && <ControlsBar />}
       </PlayerContainer>
