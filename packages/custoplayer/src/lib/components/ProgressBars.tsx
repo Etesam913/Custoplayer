@@ -1,11 +1,13 @@
 import { CustoplayerItem } from '@/types';
 import { motion } from 'framer-motion';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
   isProgressDraggingAtom,
   myScope,
+  PlayState,
+  playStateAtom,
   progressAtom,
   progressStrAtom,
   videoContainerAtom,
@@ -24,12 +26,18 @@ function ProgressBars({ item }: ProgressBarsProps) {
   const setProgress = useSetAtom(progressAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
   const progressStr = useAtomValue(progressStrAtom, myScope);
+  const playState = useAtomValue(playStateAtom, myScope);
+  // Needed for remembering what play state to set after progress dragging is complete
+  const [tempVideoPauseState, setTempVideoPauseState] = useState(0);
   const [isProgressDragging, setIsProgressDragging] = useAtom(
     isProgressDraggingAtom,
     myScope,
   );
 
-  function handleProgressMouse(mousePos: number, videoContainerRect: DOMRect) {
+  function handleProgressMouseMove(
+    mousePos: number,
+    videoContainerRect: DOMRect,
+  ) {
     if (progressBarRef && progressBarRef.current) {
       const progressBarRect = progressBarRef.current.getBoundingClientRect();
       const distLeftOfProgressBar =
@@ -56,20 +64,37 @@ function ProgressBars({ item }: ProgressBarsProps) {
     }
   }
 
+  function handleProgressMouseUp() {
+    if (
+      tempVideoPauseState === PlayState.paused ||
+      tempVideoPauseState === PlayState.ended
+    )
+      videoElem?.pause();
+    else videoElem?.play();
+  }
+
+  useEffect(() => {
+    if (isProgressDragging) {
+      setTempVideoPauseState(playState);
+      videoElem?.pause();
+    } else {
+      handleProgressMouseUp();
+    }
+  }, [isProgressDragging]);
+
   return (
     <ProgressBarContainer
       isDragging={isProgressDragging}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onMouseDown={(e) => {
-        videoElem?.pause();
+      onMouseDown={(e) =>
         barMouseEvent(
           e,
-          handleProgressMouse,
+          handleProgressMouseMove,
           videoContainer,
           setIsProgressDragging,
-        );
-      }}
+        )
+      }
     >
       {item.id === 'progressBar1' && (
         <ProgressBar1

@@ -124,20 +124,19 @@ export function barMouseEvent(
   e:
     | React.MouseEvent<HTMLDivElement, MouseEvent>
     | React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  callback: Function,
+  mouseMoveCallback: Function,
   videoContainer: HTMLDivElement | null,
   setIsDragging: (update: SetStateAction<boolean>) => void,
 ) {
   mouseMove(e);
   e.stopPropagation();
   setIsDragging(true);
-  // document.body.style.cursor = 'col-resize';
 
   function mouseMove(
     e: MouseEvent | React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) {
     if (e.target) {
-      getMousePos(e.clientX, callback, videoContainer);
+      getMousePos(e.clientX, mouseMoveCallback, videoContainer);
     }
   }
 

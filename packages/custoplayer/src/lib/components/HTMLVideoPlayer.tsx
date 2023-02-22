@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {
   controlsBarTimeoutAtom,
   draggableSymbol,
-  isDraggingAtom,
   isProgressDraggingAtom,
   isSeekingAtom,
   isSeekingTimeoutAtom,
@@ -17,7 +16,7 @@ import {
   videoElemAtom,
 } from '@/lib/atoms';
 import { SyntheticEvent, useCallback } from 'react';
-import { debounce, handlePlayState, throttle } from '../utils';
+import { handlePlayState, throttle } from '../utils';
 
 function HTMLVideoPlayer() {
   const [videoElem, setVideoElem] = useAtom(videoElemAtom, myScope);
