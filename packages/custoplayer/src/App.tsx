@@ -28,7 +28,7 @@ function App() {
             id: 'progressBar1',
           },
         }}
-      ></Custoplayer>
+      />
     </Wrapper>
   );
 }

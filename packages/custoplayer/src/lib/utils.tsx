@@ -133,7 +133,10 @@ export function barMouseEvent(
   setIsDragging(true);
 
   function mouseMove(
-    e: MouseEvent | React.MouseEvent<HTMLDivElement, MouseEvent>,
+    e:
+      | MouseEvent
+      | React.MouseEvent<HTMLDivElement, MouseEvent>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) {
     if (e.target) {
       getMousePos(e.clientX, mouseMoveCallback, videoContainer);
