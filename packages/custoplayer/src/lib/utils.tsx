@@ -1,8 +1,5 @@
 import { CustoplayerItem } from '@/types';
-import { motion } from 'framer-motion';
-
-import { Dispatch, SetStateAction } from 'react';
-import { draggableSymbol, myScope } from './atoms';
+import { SetStateAction } from 'react';
 import PlayButtons from './components/PlayButtons';
 import ProgressBars from './components/ProgressBars';
 import VolumeButtons from './components/VolumeButtons';
