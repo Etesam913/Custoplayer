@@ -14,7 +14,7 @@ import {
   showControlsBarAtom,
   valuesAtom,
   videoElemAtom,
-} from '@/lib/atoms';
+} from '@root/lib/atoms';
 import { SyntheticEvent, useCallback } from 'react';
 import { handlePlayState, throttle } from '../utils';
 

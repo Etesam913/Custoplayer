@@ -1,4 +1,4 @@
-import { CustoplayerItem } from '@/types';
+import { CustoplayerItem } from '@root/types';
 import { motion } from 'framer-motion';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useRef, useState } from 'react';
@@ -12,8 +12,8 @@ import {
   progressStrAtom,
   videoContainerAtom,
   videoElemAtom,
-} from '@/lib/atoms';
-import { barMouseEvent, clamp } from '@/lib/utils';
+} from '@root/lib/atoms';
+import { barMouseEvent, clamp } from '@root/lib/utils';
 
 interface ProgressBarsProps {
   item: CustoplayerItem;

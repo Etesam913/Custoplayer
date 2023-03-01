@@ -12,7 +12,7 @@ export default defineConfig({
     ],
 
     resolve: {
-        alias: [{ find: '@', replacement: '/src' }],
+        alias: [{ find: '@root', replacement: '/src' }],
     },
 
 

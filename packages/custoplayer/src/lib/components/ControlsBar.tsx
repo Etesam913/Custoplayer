@@ -69,7 +69,7 @@ const Controls = styled.div<{ height: string }>`
   box-sizing: border-box;
 `;
 
-const ItemContainer = styled.div<{ isProgressBar: boolean }>`
+export const ItemContainer = styled.div<{ isProgressBar: boolean }>`
   height: 100%;
   width: auto;
   color: ${(props) => (props.color ? props.color : 'white')};

@@ -11,10 +11,10 @@ import {
   valuesAtom,
   videoDimensionsAtom,
   videoElemAtom,
-} from '@/lib/atoms';
+} from '@root/lib/atoms';
 import { Fragment, useMemo } from 'react';
 import { clamp, getSvgPath } from '../../utils';
-import { CustoplayerItem } from '@/types';
+import { CustoplayerItem } from '@root/types';
 
 function PlayIndicator() {
   const videoValues = useAtomValue(valuesAtom, myScope);

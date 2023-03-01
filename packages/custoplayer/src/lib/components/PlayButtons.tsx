@@ -1,4 +1,4 @@
-import { CustoplayerItem } from '@/types';
+import { CustoplayerItem } from '@root/types';
 import { motion } from 'framer-motion';
 import { useAtom, useAtomValue } from 'jotai';
 import { Fragment } from 'react';
@@ -9,8 +9,8 @@ import {
   playStateAtom,
   showControlsBarAtom,
   videoElemAtom,
-} from '@/lib/atoms';
-import { getSvgPath, handlePlayState } from '@/lib/utils';
+} from '@root/lib/atoms';
+import { getSvgPath, handlePlayState } from '@root/lib/utils';
 
 interface PlayButtonsProps {
   item: CustoplayerItem;

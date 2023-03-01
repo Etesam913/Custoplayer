@@ -1,4 +1,4 @@
-import { CustoplayerItem, CustoplayerValues } from "@/types";
+import { CustoplayerItem, CustoplayerValues } from "@root/types";
 import { atom } from "jotai";
 
 /* 

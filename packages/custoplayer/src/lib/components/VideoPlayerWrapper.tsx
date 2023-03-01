@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import HTMLVideoPlayer from '@/lib/components/HTMLVideoPlayer';
+import HTMLVideoPlayer from '@root/lib/components/HTMLVideoPlayer';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
   myScope,
   showControlsBarAtom,
   videoContainerAtom,
   videoElemAtom,
-} from '@/lib/atoms';
-import ControlsBar from '@/lib/components/ControlsBar';
+} from '@root/lib/atoms';
+import ControlsBar from '@root/lib/components/ControlsBar';
 import { motion } from 'framer-motion';
 import { useDimensions } from '../hooks';
 

@@ -5,8 +5,8 @@ import {
   videoDimensionsObserverAtom,
   videoDimensionsAtom,
   videoElemAtom,
-} from '@/lib/atoms';
-import { throttle } from '@/lib/utils';
+} from '@root/lib/atoms';
+import { throttle } from '@root/lib/utils';
 
 export function useDimensions() {
   const [videoDimensionsObserver, setVideoDimensionsObserver] = useAtom(

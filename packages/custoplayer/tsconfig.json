@@ -16,7 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["./src/*"]
+      "@root/*": ["./src/*"]
     }
   },
   "include": ["./src", "jest.config.js"]

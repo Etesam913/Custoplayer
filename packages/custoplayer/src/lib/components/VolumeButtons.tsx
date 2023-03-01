@@ -1,4 +1,4 @@
-import { CustoplayerItem } from '@/types';
+import { CustoplayerItem } from '@root/types';
 import { motion } from 'framer-motion';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useRef, useState } from 'react';

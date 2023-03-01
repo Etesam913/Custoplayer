@@ -1,7 +1,7 @@
 import { Provider, useAtom, useSetAtom } from 'jotai';
-import VideoPlayerWrapper from '@/lib/components/VideoPlayerWrapper';
-import { itemsAtom, myScope, valuesAtom } from '@/lib/atoms';
-import { CustoplayerProps } from '@/types';
+import VideoPlayerWrapper from '@root/lib/components/VideoPlayerWrapper';
+import { itemsAtom, myScope, valuesAtom } from '@root/lib/atoms';
+import { CustoplayerProps } from '@root/types';
 import { useEffect } from 'react';
 
 function Custoplayer({ values }: CustoplayerProps) {

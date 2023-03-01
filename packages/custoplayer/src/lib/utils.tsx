@@ -1,4 +1,4 @@
-import { CustoplayerItem } from '@/types';
+import { CustoplayerItem } from '@root/types';
 import { SetStateAction } from 'react';
 import PlayButtons from './components/PlayButtons';
 import ProgressBars from './components/ProgressBars';
