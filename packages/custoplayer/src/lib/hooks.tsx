@@ -30,10 +30,10 @@ export function useDimensions() {
         ),
       );
     }
-  }, [videoElem]);
+  }, [videoElem, setVideoDimensions, setVideoDimensionsObserver]);
 
   useEffect(() => {
     if (videoDimensionsObserver !== null && videoElem !== null)
       videoDimensionsObserver.observe(videoElem);
-  }, [videoDimensionsObserver]);
+  }, [videoDimensionsObserver, videoElem]);
 }

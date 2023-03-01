@@ -19,10 +19,10 @@ interface PlayButtonsProps {
 function PlayButtons({ item }: PlayButtonsProps) {
   const videoElem = useAtomValue(videoElemAtom, myScope);
   const playState = useAtomValue(playStateAtom, myScope);
-  const [showControlsBar, setShowControlsBar] = useAtom(
-    showControlsBarAtom,
-    myScope,
-  );
+  // const [showControlsBar, setShowControlsBar] = useAtom(
+  //   showControlsBarAtom,
+  //   myScope,
+  // );
   /* 
     Prevent default onKeyUp to prevent space from triggering onClick
     <PlayerWrapper> handles key presses

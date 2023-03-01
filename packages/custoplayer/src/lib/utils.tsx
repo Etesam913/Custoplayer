@@ -4,7 +4,7 @@ import PlayButtons from './components/PlayButtons';
 import ProgressBars from './components/ProgressBars';
 import VolumeButtons from './components/VolumeButtons';
 
-export const debounce = (fn: Function, ms = 300) => {
+export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
   return function (this: any, ...args: any[]) {
     clearTimeout(timeoutId);
@@ -12,19 +12,19 @@ export const debounce = (fn: Function, ms = 300) => {
   };
 };
 
-export const throttle = (fn: Function, ms = 300) => {
+export const throttle = (fn: (...args: any[]) => void, ms = 300) => {
   let isThrottled = false,
-    savedArgs: any,
+    savedArgs: any[] | null,
     savedThis: any;
 
-  function wrapper(this: any) {
+  function wrapper(...args: any[]) {
     if (isThrottled) {
-      savedArgs = arguments;
-      savedThis = this;
+      savedArgs = args.slice(1);
+      savedThis = args[0];
       return;
     }
 
-    fn.apply(this, arguments);
+    fn.apply(args[0], args.slice(1));
 
     isThrottled = true;
 
@@ -88,7 +88,7 @@ export function handleKeyPress(
   }
 }
 
-export function getSvgPath(path: string, strokeWidth: string = '1.8') {
+export function getSvgPath(path: string, strokeWidth = '1.8') {
   return (
     <path
       d={path}
@@ -106,7 +106,7 @@ export function clamp(val: number, min: number, max: number) {
 
 function getMousePos(
   xMousePos: number,
-  callback: Function,
+  callback: (a: number, b: DOMRect) => void,
   videoContainer: HTMLDivElement | null,
 ) {
   // TODO: Fix bug where drag goes into dev tools
@@ -121,7 +121,7 @@ export function barMouseEvent(
   e:
     | React.MouseEvent<HTMLDivElement, MouseEvent>
     | React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  mouseMoveCallback: Function,
+  mouseMoveCallback: (a: number, b: DOMRect) => void,
   videoContainer: HTMLDivElement | null,
   setIsDragging: (update: SetStateAction<boolean>) => void,
 ) {

@@ -12,7 +12,7 @@ import {
   videoDimensionsAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
-import { Fragment, useMemo } from 'react';
+import { useMemo } from 'react';
 import { clamp, getSvgPath } from '../../utils';
 import { CustoplayerItem } from '@root/types';
 
@@ -74,6 +74,7 @@ function PlayIndicator() {
     },
     anim: getPlayIndicatorAnimation(),
   };
+
   return useMemo(() => {
     return (
       <IndicatorContainer

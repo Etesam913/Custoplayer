@@ -7,7 +7,7 @@ export interface CustoplayerValues {
   playIndicator?: {
     id?: number;
     color?: string;
-  }
+  };
   item1?: CustoplayerItem;
   item2?: CustoplayerItem;
   item3?: CustoplayerItem;
