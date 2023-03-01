@@ -53,7 +53,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
   );
 
   return (
-    <VolumeButtonContainer isDragging={isVolumeDragging}>
+    <VolumeButtonContainer isDragging={isVolumeDragging} data-testid={item.id}>
       {item.id === 'volumeButton1' && (
         <svg
           width='1.75rem'

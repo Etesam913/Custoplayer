@@ -40,6 +40,6 @@ it('Renders Play Button 2 Color', () => {
       <PlayButtons item={{ id: 'playButton2', color: colorVal }} />
     </ItemContainer>,
   );
-  const playButton2 = screen.queryByTestId('playButton2');
+  const playButton2 = screen.getByTestId('playButton2');
   expect(playButton2.parentElement).toHaveStyle(`color: ${colorVal}`);
 });
