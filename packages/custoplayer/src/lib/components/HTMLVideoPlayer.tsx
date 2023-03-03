@@ -42,21 +42,31 @@ function HTMLVideoPlayer() {
     controlsBarTimeout !== null && clearInterval(controlsBarTimeout);
     setControlsBarTimeout(null);
     setShowControlsBar(true);
-  }, [controlsBarTimeout]);
+  }, [
+    controlsBarTimeout,
+    setControlsBarTimeout,
+    setPlayState,
+    setShowControlsBar,
+  ]);
 
   const handlePlay = useCallback(() => {
     setPlayState(PlayState.playing);
     setControlsBarTimeout(() =>
       setTimeout(() => setShowControlsBar(false), 3000),
     );
-  }, []);
+  }, [setControlsBarTimeout, setPlayState, setShowControlsBar]);
 
   const handleEnded = useCallback(() => {
     setPlayState(PlayState.ended);
     controlsBarTimeout !== null && clearInterval(controlsBarTimeout);
     setControlsBarTimeout(null);
     setShowControlsBar(true);
-  }, [controlsBarTimeout]);
+  }, [
+    controlsBarTimeout,
+    setControlsBarTimeout,
+    setPlayState,
+    setShowControlsBar,
+  ]);
 
   const handleMouseMove = useCallback(
     throttle(() => {

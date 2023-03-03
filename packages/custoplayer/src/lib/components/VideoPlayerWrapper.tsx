@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import HTMLVideoPlayer from '@root/lib/components/HTMLVideoPlayer';
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import {
   myScope,
   showControlsBarAtom,
@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 import { useDimensions } from '../hooks';
 
 import { handleKeyPress } from '../utils';
-import PlayIndicator from './Indicator/PlayIndicator';
+//import PlayIndicator from './Indicator/PlayIndicator';
 import { useEffect, useRef } from 'react';
 
 function VideoPlayerWrapper() {
@@ -28,6 +28,7 @@ function VideoPlayerWrapper() {
   }, [videoContainerRef]);
   return (
     <PlayerWrapper
+      data-testid="videoPlayerWrapper"
       ref={videoContainerRef}
       onFocus={() => setIsControlsBarShowing(true)}
       onBlur={() => setIsControlsBarShowing(false)}

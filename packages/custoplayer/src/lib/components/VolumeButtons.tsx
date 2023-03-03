@@ -7,7 +7,6 @@ import {
   isVolumeDraggingAtom,
   myScope,
   videoContainerAtom,
-  videoElemAtom,
   volumeAtom,
   volumeStrAtom,
 } from '../atoms';
@@ -20,7 +19,6 @@ interface VolumeButtonsProps {
 function VolumeButtons({ item }: VolumeButtonsProps) {
   const [isBarHovered, setIsBarHovered] = useState(false);
   const volumeBarRef = useRef<HTMLDivElement | null>(null);
-  const videoElem = useAtomValue(videoElemAtom, myScope);
   const setVolume = useSetAtom(volumeAtom, myScope);
   const volumeStr = useAtomValue(volumeStrAtom, myScope);
 

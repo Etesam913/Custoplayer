@@ -73,6 +73,15 @@
     }
   },
   "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/lib/components/**/*.tsx"
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
     "moduleNameMapper": {
       "^@root(.*)$": "<rootDir>/src$1"
     },
