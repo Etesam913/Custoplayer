@@ -22,10 +22,12 @@ export function useDimensions() {
         new ResizeObserver(
           throttle((entries: ResizeObserverEntry[]) => {
             const video = entries[0];
-            setVideoDimensions({
-              height: parseFloat(video.contentRect.height.toFixed(2)),
-              width: parseFloat(video.contentRect.width.toFixed(2)),
-            });
+            if (video && video.contentRect) {
+              setVideoDimensions({
+                height: parseFloat(video.contentRect.height.toFixed(2)),
+                width: parseFloat(video.contentRect.width.toFixed(2)),
+              });
+            }
           }, 10),
         ),
       );
