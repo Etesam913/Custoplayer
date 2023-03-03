@@ -37,36 +37,16 @@ function HTMLVideoPlayer() {
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
 
-  const handlePause = useCallback(() => {
-    setPlayState(PlayState.paused);
-    controlsBarTimeout !== null && clearInterval(controlsBarTimeout);
-    setControlsBarTimeout(null);
-    setShowControlsBar(true);
-  }, [
-    controlsBarTimeout,
-    setControlsBarTimeout,
-    setPlayState,
-    setShowControlsBar,
-  ]);
-
-  const handlePlay = useCallback(() => {
+  const handlePlay = () => {
     setPlayState(PlayState.playing);
-    setControlsBarTimeout(() =>
-      setTimeout(() => setShowControlsBar(false), 3000),
-    );
-  }, [setControlsBarTimeout, setPlayState, setShowControlsBar]);
+  };
+  const handlePause = () => {
+    setPlayState(PlayState.paused);
+  };
 
-  const handleEnded = useCallback(() => {
+  const handleEnded = () => {
     setPlayState(PlayState.ended);
-    controlsBarTimeout !== null && clearInterval(controlsBarTimeout);
-    setControlsBarTimeout(null);
-    setShowControlsBar(true);
-  }, [
-    controlsBarTimeout,
-    setControlsBarTimeout,
-    setPlayState,
-    setShowControlsBar,
-  ]);
+  };
 
   const handleMouseMove = useCallback(
     throttle(() => {
@@ -122,7 +102,7 @@ function HTMLVideoPlayer() {
       onClick={() => handlePlayState(videoElem)}
       src={values.src}
       playsInline
-      onMouseMove={handleMouseMove}
+      // onMouseMove={handleMouseMove}
       onPause={handlePause}
       onPlay={handlePlay}
       onEnded={handleEnded}

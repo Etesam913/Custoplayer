@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAtom, useAtomValue } from 'jotai';
+import { Fragment } from 'react';
 import styled from 'styled-components';
 import {
   myScope,
@@ -12,49 +13,43 @@ import {
 import { renderItemFromData } from '../utils';
 
 function ControlsBar() {
-  const [isControlsBarShowing, setIsControlsBarShowing] = useAtom(
-    showControlsBarAtom,
-    myScope,
-  );
+  const isControlsBarShowing = useAtomValue(showControlsBarAtom, myScope);
   const items = useAtomValue(itemsAtom, myScope);
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
 
   return (
-    <div data-testid={isControlsBarShowing + ''}>
-      <AnimatePresence>
-        {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
-          <ControlsContainer
-            className={draggableSymbol.toString()}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            data-testid='controlsBar'
-          >
-            <Controls height='45px'>
-              {items.map((curItem, idx) => {
-                return (
-                  <>
-                    {curItem === undefined ? (
-                      <></>
-                    ) : (
-                      <ItemContainer
-                        isProgressBar={curItem?.id.startsWith('progressBar')}
-                        key={`item-${idx}`}
-                        color={curItem.color}
-                      >
-                        {renderItemFromData(curItem)}
-                      </ItemContainer>
-                    )}
-                  </>
-                );
-              })}
-            </Controls>
-          </ControlsContainer>
-        )}
-      </AnimatePresence>
-    </div>
+    <AnimatePresence>
+      {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
+        <ControlsContainer
+          className={draggableSymbol.toString()}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          data-testid='controlsBar'
+        >
+          <Controls height='45px'>
+            {items.map((curItem, idx) => {
+              return (
+                <Fragment key={`item-${idx}`}>
+                  {curItem === undefined ? (
+                    <></>
+                  ) : (
+                    <ItemContainer
+                      isProgressBar={curItem?.id.startsWith('progressBar')}
+                      color={curItem.color}
+                    >
+                      {renderItemFromData(curItem)}
+                    </ItemContainer>
+                  )}
+                </Fragment>
+              );
+            })}
+          </Controls>
+        </ControlsContainer>
+      )}
+    </AnimatePresence>
   );
 }
 

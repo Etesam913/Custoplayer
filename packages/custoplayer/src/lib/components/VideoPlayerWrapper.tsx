@@ -21,14 +21,16 @@ function VideoPlayerWrapper() {
   useDimensions();
   const setVideoContainer = useSetAtom(videoContainerAtom, myScope);
   const videoContainerRef = useRef(null);
+  
   useEffect(() => {
     if (videoContainerRef && videoContainerRef.current) {
       setVideoContainer(videoContainerRef.current);
     }
   }, [videoContainerRef]);
+
   return (
     <PlayerWrapper
-      data-testid="videoPlayerWrapper"
+      data-testid='videoPlayerWrapper'
       ref={videoContainerRef}
       onFocus={() => setIsControlsBarShowing(true)}
       onBlur={() => setIsControlsBarShowing(false)}
@@ -38,6 +40,7 @@ function VideoPlayerWrapper() {
       }
     >
       <PlayerContainer
+        data-testid='playerContainer'
         tabIndex={-1}
         onMouseEnter={() => {
           setIsControlsBarShowing(true);

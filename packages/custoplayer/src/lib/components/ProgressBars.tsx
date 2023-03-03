@@ -28,7 +28,7 @@ function ProgressBars({ item }: ProgressBarsProps) {
   const progressStr = useAtomValue(progressStrAtom, myScope);
   const playState = useAtomValue(playStateAtom, myScope);
   // Needed for remembering what play state to set after progress dragging is complete
-  const [tempVideoPauseState, setTempVideoPauseState] = useState(0);
+  const [tempVideoPauseState, setTempVideoPauseState] = useState(-1);
   const [isProgressDragging, setIsProgressDragging] = useAtom(
     isProgressDraggingAtom,
     myScope,
@@ -70,7 +70,7 @@ function ProgressBars({ item }: ProgressBarsProps) {
       tempVideoPauseState === PlayState.ended
     )
       videoElem?.pause();
-    else videoElem?.play();
+    else if (tempVideoPauseState === PlayState.playing) videoElem?.play();
   }
 
   useEffect(() => {
