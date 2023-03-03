@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "yarn run cypress open"
   },
   "dependencies": {
     "custoplayer": "*",
@@ -13,10 +14,10 @@
     "styled-components": "5.3.5"
   },
   "devDependencies": {
-    "@playwright/test": "^1.31.0",
     "@types/react": "17.0.43",
     "@types/react-dom": "17.0.14",
     "@vitejs/plugin-react": "1.2.0",
+    "cypress": "^12.7.0",
     "typescript": "4.6.3",
     "vite": "2.9.13"
   }
