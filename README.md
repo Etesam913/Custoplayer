@@ -3,7 +3,14 @@
 <span>
   <img src="https://img.shields.io/badge/license-MIT-green"></img> 
   <img src="https://img.shields.io/github/issues/etesam913/Custoplayer"></img>
+ 
 </span>
+
+<div>
+  <img src="./packages/custoplayer/badges/badge-lines.svg"></img>
+  <img src="./packages/custoplayer/badges/badge-statements.svg"></img>
+  <img src="./packages/custoplayer/badges/badge-branches.svg"></img>
+</div>
 
 <h2>Overview</h2>
 <h3>Things you can customize:</h3>
