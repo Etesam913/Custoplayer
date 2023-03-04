@@ -21,7 +21,6 @@ function VideoPlayerWrapper() {
   useDimensions();
   const setVideoContainer = useSetAtom(videoContainerAtom, myScope);
   const videoContainerRef = useRef(null);
-  
   useEffect(() => {
     if (videoContainerRef && videoContainerRef.current) {
       setVideoContainer(videoContainerRef.current);

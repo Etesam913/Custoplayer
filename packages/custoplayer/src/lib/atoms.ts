@@ -1,9 +1,6 @@
 import { CustoplayerItem, CustoplayerValues } from '@root/types';
 import { atom } from 'jotai';
 
-
-
-
 /* 
   Scope is required to prevent two custoplayer's
   from sharing the same atoms

@@ -118,7 +118,7 @@ function HTMLVideoPlayer() {
       onTimeUpdate={handleTimeUpdate}
       preload='metadata'
       tabIndex={-1}
-      data-testid="HTMLVideoPlayer"
+      data-testid='HTMLVideoPlayer'
       isDragging={isProgressDragging || isVolumeDragging}
     />
   );
