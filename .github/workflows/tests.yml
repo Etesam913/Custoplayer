@@ -28,7 +28,7 @@ jobs:
         with:
           wait-on: 'http://localhost:3000'
           browser: chrome
-          config-file: sites/my-site/cypress.config.js
+          config-file: cypress.config.js
           working-directory: sites/my-site
           build: bash cypress-build.sh
           start: yarn dev
