@@ -1,4 +1,4 @@
-name: tests
+name: 📊 Tests
 on:
   pull_request:
     paths-ignore:
@@ -21,5 +21,16 @@ jobs:
           node-version: '14.x'
 
       - name: 📦 Installing Dependencies
-        run: yarn install
+        run: yarn install && ls
+      
+      - name: ⌛️ Running Cypress Tests
+        uses: cypress-io/github-action@v5.3.0
+        with:
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+          config-file: sites/my-site/cypress.config.js
+          build: bash .github/cypress-build.sh
+          start: bash .github/cypress-start.sh
+      
+
       
