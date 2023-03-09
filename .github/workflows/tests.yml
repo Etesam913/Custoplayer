@@ -8,7 +8,7 @@ on:
     paths-ignore:
       - '**.md'
 jobs:
-  🤡 jest-tests:
+  jest-tests:
     runs-on: ubuntu-latest
     
     steps:
@@ -28,7 +28,7 @@ jobs:
           cd packages/custoplayer
           yarn test
 
-   🏁 cypress-tests:
+   cypress-tests:
     runs-on: ubuntu-latest
 
     steps:
