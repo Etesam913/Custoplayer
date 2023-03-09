@@ -28,7 +28,7 @@ jobs:
           cd packages/custoplayer
           yarn test
 
-   cypress-tests:
+  cypress-tests:
     runs-on: ubuntu-latest
 
     steps:
