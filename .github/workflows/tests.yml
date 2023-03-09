@@ -30,7 +30,6 @@ jobs:
           browser: chrome
           config-file: sites/my-site/cypress.config.js
           build: bash .github/cypress-build.sh
-          start: bash .github/cypress-start.sh
-      
-
+          start: yarn dev
+          working-directory: sites/my-site
       
