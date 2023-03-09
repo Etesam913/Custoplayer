@@ -2,11 +2,11 @@ name: 📊 Tests
 on:
   pull_request:
     paths-ignore:
-      - "**.md"
+      - '**.md'
   push:
     branches: [main]
     paths-ignore:
-      - "**.md"
+      - '**.md'
 jobs:
   cypress-tests:
     runs-on: ubuntu-latest
@@ -22,14 +22,13 @@ jobs:
 
       - name: 📦 Installing Dependencies
         run: yarn install && ls
-      
+
       - name: ⌛️ Running Cypress Tests
         uses: cypress-io/github-action@v5.3.0
         with:
           wait-on: 'http://localhost:3000'
           browser: chrome
           config-file: sites/my-site/cypress.config.js
-          build: bash .github/cypress-build.sh
-          start: yarn dev
           working-directory: sites/my-site
-      
+          build: bash cypress-build.sh
+          start: yarn dev
