@@ -3,14 +3,10 @@
 <span>
   <img src="https://img.shields.io/badge/license-MIT-green"></img> 
   <img src="https://img.shields.io/github/issues/etesam913/Custoplayer"></img>
- 
+  <a href="https://codecov.io/gh/Etesam913/Custoplayer" > 
+    <img src="https://codecov.io/gh/Etesam913/Custoplayer/branch/main/graph/badge.svg?token=GOZ1AQ77C2"/> 
+  </a>
 </span>
-
-<div>
-  <img src="./packages/custoplayer/badges/badge-lines.svg"></img>
-  <img src="./packages/custoplayer/badges/badge-statements.svg"></img>
-  <img src="./packages/custoplayer/badges/badge-branches.svg"></img>
-</div>
 
 <h2>Overview</h2>
 <h3>Things you can customize:</h3>
@@ -27,7 +23,6 @@
   <li>Alternatively, you may want your progress bar to be to the right of the play button.</li>
   <li>Changing the location of video elements in a custoplayer component is very easy to do through the item prop.</li>
 </ul>
-
 
 <h4>💄 The Appearance of Video Elements</h4>
 <ul>
