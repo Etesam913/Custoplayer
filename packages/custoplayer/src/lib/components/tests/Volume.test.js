@@ -39,6 +39,23 @@ it('Renders Volume Button Color', () => {
 });
 
 it('Renders Volume Bar Color', () => {
+  const volumeBarColor = '#6f7ee0';
+  const id = 'volumeButton1';
+  const barId = 'volumeBar1';
+  render(
+    <VolumeButtons
+      item={{
+        id: id,
+        barId: barId,
+        barColor: volumeBarColor,
+      }}
+    />,
+  );
+  const volumeBar1 = screen.getByTestId(barId);
+  expect(volumeBar1).toHaveStyle(`background-color: ${volumeBarColor}`);
+});
+
+it('Renders Volume Color', () => {
   const volumeColor = '#9be06f';
   const id = 'volumeButton1';
   const barId = 'volumeBar1';

@@ -68,6 +68,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
         }
       >
         <VolumeBar1
+          barColor={item.barColor}
           data-testid={item.barId}
           ref={volumeBarRef}
           animate={{
@@ -103,9 +104,9 @@ const VolumeBarContainer = styled.div`
   align-items: center;
 `;
 
-const VolumeBar1 = styled(motion.div)`
+const VolumeBar1 = styled(motion.div)<{ barColor: string | undefined }>`
   height: 0.35rem;
-  background-color: white;
+  background-color: ${(props) => (props.barColor ? props.barColor : 'white')};
   width: 3.5rem;
   border-radius: 0.35rem;
   margin-left: 0.35rem;
