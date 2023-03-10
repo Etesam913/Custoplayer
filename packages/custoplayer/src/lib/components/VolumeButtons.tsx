@@ -68,6 +68,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
         }
       >
         <VolumeBar1
+          data-testid={item.barId}
           ref={volumeBarRef}
           animate={{
             height: isBarHovered || isVolumeDragging ? '0.5rem' : '0.35rem',

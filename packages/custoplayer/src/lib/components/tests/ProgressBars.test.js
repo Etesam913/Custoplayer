@@ -15,7 +15,7 @@ it('Renders Progress Bar 1', () => {
 it('Renders Progress Bar 1 Progress Color', () => {
   
   // This is the default color when no progressColor prop is specified
-  let colorVal = 'rgb(81, 180, 122)';
+  let colorVal = 'rgb(74, 184, 96)';
   render(<ProgressBars item={{ id: 'progressBar1' }} />);
   let progressBar1 = screen.getByTestId('progressBar1');
   let progressElem = progressBar1.firstChild.firstChild;

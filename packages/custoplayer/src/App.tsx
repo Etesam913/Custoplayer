@@ -33,12 +33,6 @@ function App() {
   );
 }
 
-/*
-  item2: {
-    []
-  }
-*/
-
 const Wrapper = styled.div`
   margin: 2rem;
   display: flex;
