@@ -1,0 +1,57 @@
+name: 📊 Tests
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+jobs:
+  jest-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🔀 Checking out Repo
+        uses: actions/checkout@v2
+
+      - name: ⬇️ Installing Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: 📦 Installing Dependencies
+        run: yarn install && ls
+      
+      - name: ⌛️ Running Jest Unit Tests
+        run: |
+          cd packages/custoplayer
+          yarn test
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+
+  cypress-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔀 Checking out Repo
+        uses: actions/checkout@v2
+
+      - name: ⬇️ Installing Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: 📦 Installing Dependencies
+        run: yarn install && ls
+
+      - name: ⌛️ Running Cypress E2E Tests
+        uses: cypress-io/github-action@v5.3.0
+        with:
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+          config-file: cypress.config.js
+          working-directory: sites/my-site
+          build: bash cypress-build.sh
+          start: yarn dev
