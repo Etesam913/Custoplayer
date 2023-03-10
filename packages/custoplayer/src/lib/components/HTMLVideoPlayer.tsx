@@ -14,6 +14,7 @@ import {
   showControlsBarAtom,
   valuesAtom,
   videoElemAtom,
+  volumeAtom,
 } from '@root/lib/atoms';
 import { SyntheticEvent, useCallback } from 'react';
 import { handlePlayState, throttle } from '../utils';
@@ -29,6 +30,7 @@ function HTMLVideoPlayer() {
   );
   const setShowControlsBar = useSetAtom(showControlsBarAtom, myScope);
   const setProgress = useSetAtom(progressAtom, myScope);
+  const setVolume = useSetAtom(volumeAtom, myScope);
   const setIsSeeking = useSetAtom(isSeekingAtom, myScope);
   const [isSeekingTimeout, setIsSeekingTimeout] = useAtom(
     isSeekingTimeoutAtom,
@@ -113,6 +115,7 @@ function HTMLVideoPlayer() {
         setVideoElem(e.target as HTMLVideoElement);
         setValues({ ...values, src: (e.target as HTMLVideoElement).src });
       }}
+      onVolumeChange={(e) => setVolume((e.target as HTMLVideoElement).volume)}
       onSeeking={handleOnSeeking}
       onSeeked={handleOnSeeked}
       onTimeUpdate={handleTimeUpdate}

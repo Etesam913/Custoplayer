@@ -1,13 +1,13 @@
 import { CustoplayerItem } from '@root/types';
 import { motion } from 'framer-motion';
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
   isVolumeDraggingAtom,
   myScope,
   videoContainerAtom,
-  volumeAtom,
+  videoElemAtom,
   volumeStrAtom,
 } from '../atoms';
 import { barMouseEvent, getSvgPath, clamp } from '../utils';
@@ -19,29 +19,18 @@ interface VolumeButtonsProps {
 function VolumeButtons({ item }: VolumeButtonsProps) {
   const [isBarHovered, setIsBarHovered] = useState(false);
   const volumeBarRef = useRef<HTMLDivElement | null>(null);
-  const setVolume = useSetAtom(volumeAtom, myScope);
   const volumeStr = useAtomValue(volumeStrAtom, myScope);
+  const videoElem = useAtomValue(videoElemAtom, myScope);
 
   function handleProgressMouse(mousePos: number, videoContainerRect: DOMRect) {
     if (volumeBarRef && volumeBarRef.current) {
       const volumeBarRect = volumeBarRef.current.getBoundingClientRect();
       const distLeftOfProgressBar =
         volumeBarRect.left - videoContainerRect.left;
-      const distRightOfProgressBar = Math.abs(
-        volumeBarRect.right - videoContainerRect.right,
-      );
       const adjustedMousePos = mousePos - distLeftOfProgressBar;
-
-      const largestProgressBarMousePos =
-        videoContainerRect.width -
-        distLeftOfProgressBar -
-        distRightOfProgressBar;
       const clampedMousePos = clamp(adjustedMousePos, 0, 56);
       const ratio = clampedMousePos / volumeBarRef.current.clientWidth;
-      // if (videoElem) {
-      //   videoElem.currentTime = videoElem?.duration * ratio;
-      // }
-      setVolume(ratio);
+      videoElem ? (videoElem.volume = ratio) : null;
     }
   }
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
