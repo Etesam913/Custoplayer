@@ -1,0 +1,30 @@
+name: 💄 Linting
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+  
+jobs: 
+  eslint:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🔀 Checking out Repo
+        uses: actions/checkout@v2
+
+      - name: ⬇️ Installing Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: 📦 Installing Dependencies
+        run: yarn install && ls
+      
+      - name: ⌛️ Running Jest Unit Tests
+        run: |
+          cd packages/custoplayer
+          yarn lint
