@@ -6,6 +6,8 @@
   <a href="https://codecov.io/gh/Etesam913/Custoplayer" > 
     <img src="https://codecov.io/gh/Etesam913/Custoplayer/branch/main/graph/badge.svg?token=GOZ1AQ77C2"/> 
   </a>
+  <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/linting.yml/badge.svg"/>
+  <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/tests.yml/badge.svg"/>
 </span>
 
 <h2>Overview</h2>
