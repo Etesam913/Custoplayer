@@ -8,6 +8,7 @@ import { SetStateAction } from 'react';
 import PlayButtons from './components/PlayButtons';
 import ProgressBars from './components/ProgressBars';
 import VolumeButtons from './components/VolumeButtons';
+import { isVolumeDraggingType } from './atoms';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
@@ -129,39 +130,37 @@ export function clamp(val: number, min: number, max: number) {
   return Math.min(Math.max(val, min), max);
 }
 
+export type BarMouseEvent =
+  | MouseEvent
+  | React.MouseEvent<HTMLDivElement, MouseEvent>
+  | React.MouseEvent<HTMLButtonElement, MouseEvent>;
+
 function getMousePos(
-  xMousePos: number,
-  callback: (a: number, b: DOMRect) => void,
+  mousePos: BarMouseEvent,
+  callback: (a: BarMouseEvent, b: DOMRect) => void,
   videoContainer: HTMLDivElement | null,
 ) {
   // TODO: Fix bug where drag goes into dev tools
   const videoContainerRect = videoContainer?.getBoundingClientRect();
   if (videoContainerRect) {
-    const mousePos = xMousePos - videoContainerRect.left;
     callback(mousePos, videoContainerRect);
   }
 }
 
 export function barMouseEvent(
-  e:
-    | React.MouseEvent<HTMLDivElement, MouseEvent>
-    | React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  mouseMoveCallback: (a: number, b: DOMRect) => void,
+  e: BarMouseEvent,
+  mouseMoveCallback: (a: BarMouseEvent, b: DOMRect) => void,
   videoContainer: HTMLDivElement | null,
-  setIsDragging: (update: SetStateAction<boolean>) => void,
+  setIsDragging:
+    | ((update: SetStateAction<boolean>) => void)
+    | ((update: SetStateAction<isVolumeDraggingType>) => void),
 ) {
   mouseMove(e);
   e.stopPropagation();
-  setIsDragging(true);
 
-  function mouseMove(
-    e:
-      | MouseEvent
-      | React.MouseEvent<HTMLDivElement, MouseEvent>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) {
+  function mouseMove(e: BarMouseEvent) {
     if (e.target) {
-      getMousePos(e.clientX, mouseMoveCallback, videoContainer);
+      getMousePos(e, mouseMoveCallback, videoContainer);
     }
   }
 

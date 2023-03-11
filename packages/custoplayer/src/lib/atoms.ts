@@ -57,7 +57,9 @@ export const volumeStrAtom = atom((get) => {
   const volume = get(volumeAtom);
   return parseFloat((volume * 100).toFixed(1)) + '%';
 });
-export const isVolumeDraggingAtom = atom(false);
+
+export type isVolumeDraggingType = 'horizontal' | 'vertical' | false
+export const isVolumeDraggingAtom = atom<isVolumeDraggingType>(false);
 
 // Timeout
 export const controlsBarTimeoutAtom = atom<null | NodeJS.Timeout>(null);

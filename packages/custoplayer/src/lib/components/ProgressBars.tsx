@@ -13,7 +13,7 @@ import {
   videoContainerAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
-import { barMouseEvent, clamp } from '@root/lib/utils';
+import { BarMouseEvent, barMouseEvent, clamp } from '@root/lib/utils';
 
 interface ProgressBarsProps {
   item: ProgressBarItem;
@@ -35,10 +35,12 @@ function ProgressBars({ item }: ProgressBarsProps) {
   );
 
   function handleProgressMouseMove(
-    mousePos: number,
+    mousePos: BarMouseEvent,
     videoContainerRect: DOMRect,
   ) {
+    setIsProgressDragging(true);
     if (progressBarRef && progressBarRef.current) {
+      let updatedMousePos = mousePos.clientX - videoContainerRect.left;
       const progressBarRect = progressBarRef.current.getBoundingClientRect();
       const distLeftOfProgressBar =
         progressBarRect.left - videoContainerRect.left;
@@ -46,7 +48,7 @@ function ProgressBars({ item }: ProgressBarsProps) {
         progressBarRect.right - videoContainerRect.right,
       );
 
-      const adjustedMousePos = mousePos - distLeftOfProgressBar;
+      const adjustedMousePos = updatedMousePos - distLeftOfProgressBar;
       const largestProgressBarMousePos =
         videoContainerRect.width -
         distLeftOfProgressBar -
