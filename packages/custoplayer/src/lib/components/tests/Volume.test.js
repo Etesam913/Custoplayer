@@ -39,35 +39,69 @@ it('Renders Volume Button Color', () => {
 });
 
 it('Renders Volume Bar Color', () => {
-  const volumeBarColor = '#6f7ee0';
+  const volumeBarColor1 = '#6f7ee0';
+  const volumeBarColor2 = '#24da82';
   const id = 'volumeButton1';
-  const barId = 'volumeBar1';
+  const barId1 = 'volumeBar1';
+  const barId2 = 'volumeBar2';
   render(
-    <VolumeButtons
-      item={{
-        id: id,
-        barId: barId,
-        barColor: volumeBarColor,
-      }}
-    />,
+    <div>
+      <VolumeButtons
+        item={{
+          id: id,
+          barId: barId1,
+          barColor: volumeBarColor1,
+        }}
+      />
+      <VolumeButtons
+        item={{
+          id: id,
+          barId: barId2,
+          barColor: volumeBarColor2,
+        }}
+      />
+    </div>,
   );
-  const volumeBar1 = screen.getByTestId(barId);
-  expect(volumeBar1).toHaveStyle(`background-color: ${volumeBarColor}`);
+  const volumeBar1 = screen.getByTestId(barId1);
+  expect(volumeBar1).toHaveStyle(`background-color: ${volumeBarColor1}`);
+
+  const volumeBar2 = screen.getByTestId(barId2);
+  expect(volumeBar2).toHaveStyle(`background-color: ${volumeBarColor2}`);
 });
 
 it('Renders Volume Color', () => {
-  const volumeColor = '#9be06f';
+  const volumeColor1 = '#9be06f';
+  const volumeColor2 = '#e06fa7';
   const id = 'volumeButton1';
-  const barId = 'volumeBar1';
+  const barId1 = 'volumeBar1';
+  const barId2 = 'volumeBar2';
+
   render(
-    <VolumeButtons
-      item={{
-        id: id,
-        barId: barId,
-        volumeColor: volumeColor,
-      }}
-    />,
+    <div>
+      <VolumeButtons
+        item={{
+          id: id,
+          barId: barId1,
+          volumeColor: volumeColor1,
+        }}
+      />
+      <VolumeButtons
+        item={{
+          id: id,
+          barId: barId2,
+          volumeColor: volumeColor2,
+        }}
+      />
+    </div>,
   );
-  const volumeBar1 = screen.getByTestId(barId);
-  expect(volumeBar1.firstChild).toHaveStyle(`background-color: ${volumeColor}`);
+  
+  const volumeBar1 = screen.getByTestId(barId1);
+  expect(volumeBar1.firstChild).toHaveStyle(
+    `background-color: ${volumeColor1}`,
+  );
+
+  const volumeBar2 = screen.getByTestId(barId2);
+  expect(volumeBar2.firstChild).toHaveStyle(
+    `background-color: ${volumeColor2}`,
+  );
 });

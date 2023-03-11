@@ -40,7 +40,7 @@ function ProgressBars({ item }: ProgressBarsProps) {
   ) {
     setIsProgressDragging(true);
     if (progressBarRef && progressBarRef.current) {
-      let updatedMousePos = mousePos.clientX - videoContainerRect.left;
+      const updatedMousePos = mousePos.clientX - videoContainerRect.left;
       const progressBarRect = progressBarRef.current.getBoundingClientRect();
       const distLeftOfProgressBar =
         progressBarRect.left - videoContainerRect.left;

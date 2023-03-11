@@ -29,7 +29,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
       setIsVolumeDragging(
         item.barId === 'volumeBar1' ? 'horizontal' : 'vertical',
       );
-      let updatedMousePos =
+      const updatedMousePos =
         item.barId === 'volumeBar1'
           ? mousePos.clientX - videoContainerRect.left
           : mousePos.clientY - videoContainerRect.top;

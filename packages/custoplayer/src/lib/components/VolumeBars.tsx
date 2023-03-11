@@ -48,6 +48,7 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
     );
   } else return <></>;
 });
+VolumeBars.displayName = 'VolumeBars';
 
 export default VolumeBars;
 
