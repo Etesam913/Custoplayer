@@ -1,4 +1,4 @@
-import { CustoplayerItem } from '@root/types';
+import { VolumeItem } from '@root/types';
 import { motion } from 'framer-motion';
 import { useAtom, useAtomValue } from 'jotai';
 import { useRef, useState } from 'react';
@@ -13,7 +13,7 @@ import {
 import { barMouseEvent, getSvgPath, clamp } from '../utils';
 
 interface VolumeButtonsProps {
-  item: CustoplayerItem;
+  item: VolumeItem;
 }
 
 function VolumeButtons({ item }: VolumeButtonsProps) {
@@ -68,12 +68,17 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
         }
       >
         <VolumeBar1
+          barColor={item.barColor}
+          data-testid={item.barId}
           ref={volumeBarRef}
           animate={{
             height: isBarHovered || isVolumeDragging ? '0.5rem' : '0.35rem',
           }}
         >
-          <Progress style={{ width: volumeStr }} />
+          <Progress
+            style={{ width: volumeStr }}
+            volumeColor={item.volumeColor}
+          />
         </VolumeBar1>
       </VolumeBarContainer>
     </VolumeButtonContainer>
@@ -99,9 +104,9 @@ const VolumeBarContainer = styled.div`
   align-items: center;
 `;
 
-const VolumeBar1 = styled(motion.div)`
+const VolumeBar1 = styled(motion.div)<{ barColor: string | undefined }>`
   height: 0.35rem;
-  background-color: white;
+  background-color: ${(props) => (props.barColor ? props.barColor : 'white')};
   width: 3.5rem;
   border-radius: 0.35rem;
   margin-left: 0.35rem;
@@ -109,9 +114,10 @@ const VolumeBar1 = styled(motion.div)`
   overflow: hidden;
 `;
 
-const Progress = styled.div`
+const Progress = styled.div<{ volumeColor: string | undefined }>`
   height: 100%;
-  background-color: orange;
+  background-color: ${(props) =>
+    props.volumeColor ? props.volumeColor : '#4ab860'};
   width: 50%;
 `;
 

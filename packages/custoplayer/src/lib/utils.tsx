@@ -1,4 +1,9 @@
-import { CustoplayerItem } from '@root/types';
+import {
+  CustoplayerItem,
+  PlayButtonItem,
+  ProgressBarItem,
+  VolumeItem,
+} from '@root/types';
 import { SetStateAction } from 'react';
 import PlayButtons from './components/PlayButtons';
 import ProgressBars from './components/ProgressBars';
@@ -40,12 +45,32 @@ export const throttle = (fn: (...args: any[]) => void, ms = 300) => {
   return wrapper;
 };
 
+// https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
+export function isPlayButton(
+  curItem: CustoplayerItem,
+): curItem is PlayButtonItem {
+  return (curItem as PlayButtonItem).id.startsWith('playButton');
+}
+
+export function isProgressBar(
+  curItem: CustoplayerItem,
+): curItem is ProgressBarItem {
+  return (curItem as ProgressBarItem).id.startsWith('progressBar');
+}
+
+export function isVolume(curItem: CustoplayerItem): curItem is VolumeItem {
+  return (
+    (curItem as VolumeItem).id.startsWith('volumeButton') &&
+    (curItem as VolumeItem).barId !== undefined
+  );
+}
+
 export function renderItemFromData(curItem: CustoplayerItem) {
-  if (curItem?.id.startsWith('playButton')) {
+  if (isPlayButton(curItem)) {
     return <PlayButtons item={curItem} />;
-  } else if (curItem?.id.startsWith('progressBar')) {
+  } else if (isProgressBar(curItem)) {
     return <ProgressBars item={curItem} />;
-  } else if (curItem?.id.startsWith('volumeButton')) {
+  } else if (isVolume(curItem)) {
     return <VolumeButtons item={curItem} />;
   }
 }

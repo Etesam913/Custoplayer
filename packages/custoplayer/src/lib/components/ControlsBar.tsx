@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtomValue } from 'jotai';
 import { Fragment } from 'react';
 import styled from 'styled-components';
 import {
@@ -10,7 +10,12 @@ import {
   isProgressDraggingAtom,
   isVolumeDraggingAtom,
 } from '../atoms';
-import { renderItemFromData } from '../utils';
+import {
+  isPlayButton,
+  isProgressBar,
+  isVolume,
+  renderItemFromData,
+} from '../utils';
 
 function ControlsBar() {
   const isControlsBarShowing = useAtomValue(showControlsBarAtom, myScope);
@@ -37,8 +42,12 @@ function ControlsBar() {
                     <></>
                   ) : (
                     <ItemContainer
-                      isProgressBar={curItem?.id.startsWith('progressBar')}
-                      color={curItem.color}
+                      isProgressBar={isProgressBar(curItem)}
+                      color={
+                        isPlayButton(curItem) || isVolume(curItem)
+                          ? curItem.buttonColor
+                          : undefined
+                      }
                     >
                       {renderItemFromData(curItem)}
                     </ItemContainer>

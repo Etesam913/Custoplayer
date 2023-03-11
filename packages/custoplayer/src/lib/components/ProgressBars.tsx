@@ -1,4 +1,4 @@
-import { CustoplayerItem } from '@root/types';
+import { ProgressBarItem } from '@root/types';
 import { motion } from 'framer-motion';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useEffect, useRef, useState } from 'react';
@@ -16,7 +16,7 @@ import {
 import { barMouseEvent, clamp } from '@root/lib/utils';
 
 interface ProgressBarsProps {
-  item: CustoplayerItem;
+  item: ProgressBarItem;
 }
 
 function ProgressBars({ item }: ProgressBarsProps) {
@@ -107,7 +107,7 @@ function ProgressBars({ item }: ProgressBarsProps) {
         >
           <Progress
             style={{ width: progressStr }}
-            progressColor={item.progressColor ?? 'rgb(81, 180, 122)'}
+            progressColor={item.progressColor}
           />
         </ProgressBar1>
       )}
@@ -132,9 +132,10 @@ const ProgressBar1 = styled(motion.div)`
   overflow: hidden;
 `;
 
-const Progress = styled.div<{ progressColor: string }>`
+const Progress = styled.div<{ progressColor: string | undefined }>`
   height: 100%;
-  background-color: ${(props) => props.progressColor};
+  background-color: ${(props) =>
+    props.progressColor ? props.progressColor : '#4ab860'};
 `;
 
 export default ProgressBars;

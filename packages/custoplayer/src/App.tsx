@@ -19,10 +19,10 @@ function App() {
           },
           item1: {
             id: 'playButton1',
-            color: 'rgb(81, 180, 122)',
           },
           item2: {
             id: 'volumeButton1',
+            barId: 'volumeBar1',
           },
           item3: {
             id: 'progressBar1',
