@@ -26,7 +26,7 @@ jobs:
       - name: ⌛️ Running Cypress Component Tests
         uses: cypress-io/github-action@v5.3.0
         with:
-          config-file: cypress.config.js
+          config-file: cypress.config.ts
           working-directory: packages/custoplayer
           component: true
           build: yarn build
@@ -36,9 +36,8 @@ jobs:
         with:
           wait-on: 'http://localhost:3000'
           browser: chrome
-          config-file: cypress.config.js
+          config-file: cypress.config.ts
           working-directory: packages/custoplayer
-          build: yarn build
           start: yarn dev
           install: false
 
