@@ -42,7 +42,7 @@ jobs:
           install: false
 
       - name: 📝 Create coverage xml file
-        run: npx nyc report --reporter=clover
+        run: cd packages/custoplayer/ &&  npx nyc report --reporter=clover
 
       - name: ⬆️ Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
