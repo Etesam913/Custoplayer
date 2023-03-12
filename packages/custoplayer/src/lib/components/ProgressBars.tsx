@@ -86,7 +86,7 @@ function ProgressBars({ item }: ProgressBarsProps) {
 
   return (
     <ProgressBarContainer
-      data-testid={item.id}
+      data-cy={item.id}
       isDragging={isProgressDragging}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

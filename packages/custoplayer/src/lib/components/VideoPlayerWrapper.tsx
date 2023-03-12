@@ -29,7 +29,7 @@ function VideoPlayerWrapper() {
 
   return (
     <PlayerWrapper
-      data-testid='videoPlayerWrapper'
+      data-cy='videoPlayerWrapper'
       ref={videoContainerRef}
       onFocus={() => setIsControlsBarShowing(true)}
       onBlur={() => setIsControlsBarShowing(false)}
@@ -39,8 +39,8 @@ function VideoPlayerWrapper() {
       }
     >
       <PlayerContainer
-        data-testid='playerContainer'
-        tabIndex={-1}
+        data-cy='playerContainer'
+        //tabIndex={-1}
         onMouseEnter={() => {
           setIsControlsBarShowing(true);
         }}

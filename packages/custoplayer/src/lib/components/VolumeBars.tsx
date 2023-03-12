@@ -18,7 +18,7 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
     return (
       <VolumeBar1
         barColor={props.barColor}
-        data-testid={props.barId}
+        data-cy={props.barId}
         ref={ref}
         animate={{
           height:
@@ -34,11 +34,7 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
   } else if (props.barId === 'volumeBar2') {
     return (
       <VolumeBar2Shade>
-        <VolumeBar2
-          barColor={props.barColor}
-          data-testid={props.barId}
-          ref={ref}
-        >
+        <VolumeBar2 barColor={props.barColor} data-cy={props.barId} ref={ref}>
           <Progress
             style={{ height: volumeStr }}
             volumeColor={props.volumeColor}

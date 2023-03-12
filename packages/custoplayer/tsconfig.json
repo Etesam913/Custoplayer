@@ -12,6 +12,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
+    "types": ["cypress", "node"],
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
@@ -19,5 +20,5 @@
       "@root/*": ["./src/*"]
     }
   },
-  "include": ["./src", "jest.config.js"]
+  "include": ["./src", "jest.config.js", "**/*.ts", "**/*.tsx"]
 }

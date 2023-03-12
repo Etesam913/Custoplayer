@@ -63,7 +63,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
   );
 
   return (
-    <VolumeButtonContainer isDragging={isVolumeDragging} data-testid={item.id}>
+    <VolumeButtonContainer isDragging={isVolumeDragging} data-cy={item.id}>
       {item.id === 'volumeButton1' && (
         <svg
           width='28px'
@@ -79,6 +79,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
         </svg>
       )}
       <VolumeBarContainer
+        data-cy='volumeContainer'
         onMouseEnter={() => setIsBarHovered(true)}
         onMouseLeave={() => setIsBarHovered(false)}
         onMouseDown={(e) =>
