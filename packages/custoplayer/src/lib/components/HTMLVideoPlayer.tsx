@@ -7,6 +7,7 @@ import {
   isSeekingAtom,
   isSeekingTimeoutAtom,
   isVolumeDraggingAtom,
+  isVolumeDraggingType,
   myScope,
   PlayState,
   playStateAtom,
@@ -121,17 +122,22 @@ function HTMLVideoPlayer() {
       onTimeUpdate={handleTimeUpdate}
       preload='metadata'
       tabIndex={-1}
-      data-testid='HTMLVideoPlayer'
+      data-cy='HTMLVideoPlayer'
       isDragging={isProgressDragging || isVolumeDragging}
     />
   );
 }
 
-const HTMLPlayer = styled.video<{ isDragging: boolean }>`
+const HTMLPlayer = styled.video<{ isDragging: boolean | isVolumeDraggingType }>`
   width: 100%;
   height: 100%;
   background-color: black;
-  cursor: ${(props) => (props.isDragging ? 'col-resize' : 'pointer')};
+  cursor: ${(props) =>
+    props.isDragging
+      ? props.isDragging === 'vertical'
+        ? 'row-resize'
+        : 'col-resize'
+      : 'pointer'};
 `;
 
 export default HTMLVideoPlayer;

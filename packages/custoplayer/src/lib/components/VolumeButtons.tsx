@@ -1,16 +1,16 @@
 import { VolumeItem } from '@root/types';
-import { motion } from 'framer-motion';
 import { useAtom, useAtomValue } from 'jotai';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
   isVolumeDraggingAtom,
+  isVolumeDraggingType,
   myScope,
   videoContainerAtom,
   videoElemAtom,
-  volumeStrAtom,
 } from '../atoms';
-import { barMouseEvent, getSvgPath, clamp } from '../utils';
+import { barMouseEvent, getSvgPath, clamp, BarMouseEvent } from '../utils';
+import VolumeBars from './VolumeBars';
 
 interface VolumeButtonsProps {
   item: VolumeItem;
@@ -19,17 +19,40 @@ interface VolumeButtonsProps {
 function VolumeButtons({ item }: VolumeButtonsProps) {
   const [isBarHovered, setIsBarHovered] = useState(false);
   const volumeBarRef = useRef<HTMLDivElement | null>(null);
-  const volumeStr = useAtomValue(volumeStrAtom, myScope);
   const videoElem = useAtomValue(videoElemAtom, myScope);
 
-  function handleProgressMouse(mousePos: number, videoContainerRect: DOMRect) {
+  function handleProgressMouse(
+    mousePos: BarMouseEvent,
+    videoContainerRect: DOMRect,
+  ) {
     if (volumeBarRef && volumeBarRef.current) {
+      setIsVolumeDragging(
+        item.barId === 'volumeBar1' ? 'horizontal' : 'vertical',
+      );
+      const updatedMousePos =
+        item.barId === 'volumeBar1'
+          ? mousePos.clientX - videoContainerRect.left
+          : mousePos.clientY - videoContainerRect.top;
+
       const volumeBarRect = volumeBarRef.current.getBoundingClientRect();
-      const distLeftOfProgressBar =
-        volumeBarRect.left - videoContainerRect.left;
-      const adjustedMousePos = mousePos - distLeftOfProgressBar;
-      const clampedMousePos = clamp(adjustedMousePos, 0, 56);
-      const ratio = clampedMousePos / volumeBarRef.current.clientWidth;
+      const distVolumeBar =
+        item.barId === 'volumeBar1'
+          ? volumeBarRect.left - videoContainerRect.left
+          : volumeBarRect.bottom - videoContainerRect.top;
+      const mousePosConstant = item.barId === 'volumeBar1' ? 1 : -1;
+      const volumeBarMaxVal =
+        item.barId === 'volumeBar1'
+          ? volumeBarRect.width
+          : volumeBarRect.height;
+      const adjustedMousePos =
+        mousePosConstant * (updatedMousePos - distVolumeBar);
+      const clampedMousePos = clamp(adjustedMousePos, 0, volumeBarMaxVal);
+
+      const ratio =
+        clampedMousePos /
+        (item.barId === 'volumeBar1'
+          ? volumeBarRef.current.clientWidth
+          : volumeBarRef.current.clientHeight);
       videoElem ? (videoElem.volume = ratio) : null;
     }
   }
@@ -40,7 +63,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
   );
 
   return (
-    <VolumeButtonContainer isDragging={isVolumeDragging} data-testid={item.id}>
+    <VolumeButtonContainer isDragging={isVolumeDragging} data-cy={item.id}>
       {item.id === 'volumeButton1' && (
         <svg
           width='28px'
@@ -56,6 +79,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
         </svg>
       )}
       <VolumeBarContainer
+        data-cy='volumeContainer'
         onMouseEnter={() => setIsBarHovered(true)}
         onMouseLeave={() => setIsBarHovered(false)}
         onMouseDown={(e) =>
@@ -67,25 +91,22 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
           )
         }
       >
-        <VolumeBar1
+        <VolumeBars
+          barId={item.barId}
+          isBarHovered={isBarHovered}
+          isVolumeDragging={isVolumeDragging}
           barColor={item.barColor}
-          data-testid={item.barId}
+          volumeColor={item.volumeColor}
           ref={volumeBarRef}
-          animate={{
-            height: isBarHovered || isVolumeDragging ? '0.5rem' : '0.35rem',
-          }}
-        >
-          <Progress
-            style={{ width: volumeStr }}
-            volumeColor={item.volumeColor}
-          />
-        </VolumeBar1>
+        />
       </VolumeBarContainer>
     </VolumeButtonContainer>
   );
 }
 
-const VolumeButtonContainer = styled.button<{ isDragging: boolean }>`
+const VolumeButtonContainer = styled.button<{
+  isDragging: isVolumeDraggingType;
+}>`
   height: 100%;
   width: auto;
   background-color: transparent;
@@ -93,7 +114,12 @@ const VolumeButtonContainer = styled.button<{ isDragging: boolean }>`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  cursor: ${(props) => (props.isDragging ? 'col-resize' : 'pointer')};
+  cursor: ${(props) =>
+    props.isDragging
+      ? props.isDragging === 'horizontal'
+        ? 'col-resize'
+        : 'row-resize'
+      : 'pointer'};
   color: currentColor;
   padding: 0;
 `;
@@ -102,23 +128,6 @@ const VolumeBarContainer = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-`;
-
-const VolumeBar1 = styled(motion.div)<{ barColor: string | undefined }>`
-  height: 0.35rem;
-  background-color: ${(props) => (props.barColor ? props.barColor : 'white')};
-  width: 3.5rem;
-  border-radius: 0.35rem;
-  margin-left: 0.35rem;
-  display: flex;
-  overflow: hidden;
-`;
-
-const Progress = styled.div<{ volumeColor: string | undefined }>`
-  height: 100%;
-  background-color: ${(props) =>
-    props.volumeColor ? props.volumeColor : '#4ab860'};
-  width: 50%;
 `;
 
 export default VolumeButtons;

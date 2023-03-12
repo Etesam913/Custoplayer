@@ -35,7 +35,7 @@ function PlayButtons({ item }: PlayButtonsProps) {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       whileFocus={{ scale: 1.05 }}
-      data-testid={item.id}
+      data-cy={item.id}
     >
       {item.id === 'playButton1' && (
         <>

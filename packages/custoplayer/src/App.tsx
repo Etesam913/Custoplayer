@@ -14,18 +14,12 @@ function App() {
       <Custoplayer
         values={{
           src: 'https://etesam.nyc3.cdn.digitaloceanspaces.com/Custoplayer/placeholder-video-720',
-          playIndicator: {
-            id: 1,
-          },
           item1: {
             id: 'playButton1',
           },
           item2: {
             id: 'volumeButton1',
             barId: 'volumeBar1',
-          },
-          item3: {
-            id: 'progressBar1',
           },
         }}
       />

@@ -32,7 +32,7 @@ function ControlsBar() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          data-testid='controlsBar'
+          data-cy='controlsBar'
         >
           <Controls height='45px'>
             {items.map((curItem, idx) => {

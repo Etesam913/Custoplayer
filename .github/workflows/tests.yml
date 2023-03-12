@@ -8,29 +8,6 @@ on:
     paths-ignore:
       - '**.md'
 jobs:
-  jest-tests:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 🔀 Checking out Repo
-        uses: actions/checkout@v3
-
-      - name: ⬇️ Installing Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-
-      - name: 📦 Installing Dependencies
-        run: yarn install && ls
-
-      - name: ⌛️ Running Jest Unit Tests
-        run: |
-          cd packages/custoplayer
-          yarn test
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-
   cypress-tests:
     runs-on: ubuntu-latest
 
@@ -43,15 +20,29 @@ jobs:
         with:
           node-version: '16.x'
 
-      - name: 📦 Installing Dependencies
+      - name: 📦 Installing Other Dependencies
         run: yarn install && ls
+
+      - name: ⌛️ Running Cypress Component Tests
+        uses: cypress-io/github-action@v5.3.0
+        with:
+          config-file: cypress.config.ts
+          working-directory: packages/custoplayer
+          component: true
+          build: yarn build
 
       - name: ⌛️ Running Cypress E2E Tests
         uses: cypress-io/github-action@v5.3.0
         with:
           wait-on: 'http://localhost:3000'
           browser: chrome
-          config-file: cypress.config.js
-          working-directory: sites/my-site
-          build: bash cypress-build.sh
+          config-file: cypress.config.ts
+          working-directory: packages/custoplayer
           start: yarn dev
+          install: false
+
+      - name: 📝 Create coverage xml file
+        run: cd packages/custoplayer/ &&  npx nyc report --reporter=clover
+
+      - name: ⬆️ Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3

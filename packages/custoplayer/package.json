@@ -5,12 +5,13 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "yarn jest src",
+    "cy:open-e2e": "cypress open --e2e --browser chrome",
+    "cy:open-unit": "cypress open --component --browser chrome",
+    "cy:run-e2e": "cypress run --e2e",
+    "cy:run-unit": "cypress run --component",
     "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\"",
     "lint": "eslint './src/**/*.{tsx,ts}'",
-    "lint-fix": "eslint './src/**/*.{tsx,ts}' --fix",
-    "test:coverage": "yarn test -- --coverage",
-    "test:badges": "yarn test:coverage  && jest-coverage-badges --output './badges'"
+    "lint-fix": "eslint './src/**/*.{tsx,ts}' --fix"
   },
   "dependencies": {
     "framer-motion": "^8.5.0",
@@ -18,16 +19,15 @@
     "minimist": "^1.2.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "5.3.5",
-    "ts-jest": "^29.0.5"
+    "styled-components": "5.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.21.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0",
-    "@types/jest": "^29.4.0",
+    "@cypress/code-coverage": "^3.10.0",
+    "@cypress/vite-dev-server": "^5.0.4",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
@@ -36,24 +36,24 @@
     "@typescript-eslint/parser": "^5.54.0",
     "@vitejs/plugin-react": "1.3.2",
     "acorn-jsx": "5.3.2",
-    "babel-jest": "^29.4.3",
     "babel-loader": "8.2.4",
+    "babel-plugin-istanbul": "^6.1.1",
+    "cypress": "^12.7.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-sonarjs": "^0.18.0",
-    "jest": "^29.4.3",
-    "jest-environment-jsdom": "^29.4.3",
     "json": "11.0.0",
+    "nyc": "^15.1.0",
     "prettier": "^2.8.4",
     "prettier-eslint": "^15.0.1",
     "storybook-builder-vite": "0.1.21",
-    "ts-jest": "^29.0.5",
     "typescript": "^4.9.4",
     "vite": "^2.9.13",
-    "vite-plugin-dts": "^1.7.1"
+    "vite-plugin-dts": "^1.7.1",
+    "vite-plugin-istanbul": "^4.0.1"
   },
   "license": "UNLICENSED",
   "peerDependencies": {
@@ -75,20 +75,10 @@
       "require": "./dist/custoplayer.umd.js"
     }
   },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/lib/components/**/*.tsx"
-    ],
-    "coverageReporters": [
-      "json-summary",
-      "text",
-      "lcov"
-    ],
-    "moduleNameMapper": {
-      "^@root(.*)$": "<rootDir>/src$1"
-    },
-    "testEnvironment": "jsdom"
+  "nyc": {
+    "reporter": [
+      "html"
+    ]
   },
   "resolutions": {
     "minimist": "^1.2.5"

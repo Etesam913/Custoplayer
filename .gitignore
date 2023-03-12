@@ -10,6 +10,9 @@ node_modules/
 dist/
 build/
 
+packages/custoplayer/coverage
+packages/custoplayer/.nyc_output/
+
 # Compiled Java class files
 *.class
 

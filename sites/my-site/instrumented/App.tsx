@@ -1,5 +1,7 @@
 import { Custoplayer } from 'custoplayer';
 import './App.css';
+import React from 'react';
+import Test from './Test';
 
 function App() {
   return (
@@ -24,13 +26,7 @@ function App() {
             },
           }}
         />
-        {/* <Custoplayer
-          values={{
-            src: 'https://media.w3.org/2010/05/sintel/trailer.mp4',
-          }}
-        >
-          Click here!
-        </Custoplayer> */}
+        <Test />
       </div>
     </div>
   );

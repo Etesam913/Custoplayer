@@ -2,6 +2,8 @@ import react from '@vitejs/plugin-react';
 import path from 'node:path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import istanbul from "vite-plugin-istanbul";
+
 
 export default defineConfig({
     plugins: [
@@ -9,7 +11,15 @@ export default defineConfig({
             insertTypesEntry: true,
         }),
         react(),
+        istanbul({
+            cypress: true,
+            requireEnv: false,
+        }),
     ],
+    server: {
+        host: true,
+        port: 3000,
+    },
 
     resolve: {
         alias: [{ find: '@root', replacement: '/src' }],
