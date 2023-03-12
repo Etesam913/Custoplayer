@@ -1,5 +1,3 @@
-import { defineConfig } from "cypress";
-
 module.exports = {
   env: {
     codeCoverage: {
@@ -8,9 +6,9 @@ module.exports = {
   },
   e2e: {
     baseUrl: 'http://localhost:3000',
+    video: false,
     setupNodeEvents(on: any, config: any) {
       require('@cypress/code-coverage/task')(on, config)
-
       return config
     },
   },
@@ -19,12 +17,13 @@ module.exports = {
       framework: "react",
       bundler: "vite",
     },
+    video: false,
     setupNodeEvents(on: any, config: any) {
       require('@cypress/code-coverage/task')(on, config)
-
       return config
     },
   }
 
 };
 
+export { }
