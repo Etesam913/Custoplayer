@@ -21,7 +21,7 @@ describe('Video Actions', () => {
     cy.dataCy('HTMLVideoPlayer')
       .should('have.prop', 'currentTime')
       .then((x) => expect(x).to.be.greaterThan(1));
-
+    cy.dataCy('currentTime').should('not.contain.text', "00:00");
   })
 })
 

@@ -1,3 +1,4 @@
+import { CustoplayerItem } from '@root/types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { Fragment } from 'react';
@@ -19,7 +20,7 @@ import {
   renderItemFromData,
 } from '../utils';
 
-function extractColor(curItem) {
+function extractColor(curItem: CustoplayerItem) {
   if (isPlayButton(curItem) || isVolume(curItem)) return curItem.buttonColor;
   else if (isDuration(curItem) || isCurrentTime(curItem))
     return curItem.textColor;

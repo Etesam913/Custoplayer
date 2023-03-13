@@ -7,7 +7,10 @@ function CurrentTime() {
   // When the length is < 60 minutes the length is 5 otherwise it is 7
 
   return (
-    <TimeText isLargerThan60Minutes={formattedCurrentTime.length === 7}>
+    <TimeText
+      isLargerThan60Minutes={formattedCurrentTime.length === 7}
+      data-cy='currentTime'
+    >
       {formattedCurrentTime}
     </TimeText>
   );

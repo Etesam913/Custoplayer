@@ -7,7 +7,10 @@ function Duration() {
   // When the length is < 60 minutes the length is 5 otherwise it is 7
   console.log(formattedDuration.length);
   return (
-    <TimeText isLargerThan60Minutes={formattedDuration.length === 7}>
+    <TimeText
+      isLargerThan60Minutes={formattedDuration.length === 7}
+      data-cy='duration'
+    >
       {formattedDuration}
     </TimeText>
   );
