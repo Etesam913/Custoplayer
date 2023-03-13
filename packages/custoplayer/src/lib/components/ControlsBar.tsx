@@ -36,7 +36,7 @@ function ControlsBar() {
 
   return (
     <AnimatePresence>
-      {(true || isVolumeDragging || isControlsBarShowing) && (
+      {(isProgressBar || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           initial={{ opacity: 0 }}
