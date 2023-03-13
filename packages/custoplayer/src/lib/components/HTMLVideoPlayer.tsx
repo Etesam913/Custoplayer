@@ -2,7 +2,9 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import styled from 'styled-components';
 import {
   controlsBarTimeoutAtom,
+  currentTimeAtom,
   draggableSymbol,
+  durationAtom,
   isProgressDraggingAtom,
   isSeekingAtom,
   isSeekingTimeoutAtom,
@@ -32,7 +34,9 @@ function HTMLVideoPlayer() {
   const setShowControlsBar = useSetAtom(showControlsBarAtom, myScope);
   const setProgress = useSetAtom(progressAtom, myScope);
   const setVolume = useSetAtom(volumeAtom, myScope);
+  const setDuration = useSetAtom(durationAtom, myScope);
   const setIsSeeking = useSetAtom(isSeekingAtom, myScope);
+  const setCurrentTime = useSetAtom(currentTimeAtom, myScope);
   const [isSeekingTimeout, setIsSeekingTimeout] = useAtom(
     isSeekingTimeoutAtom,
     myScope,
@@ -67,6 +71,7 @@ function HTMLVideoPlayer() {
   function handleTimeUpdate(e: SyntheticEvent<HTMLVideoElement, Event>) {
     const video = e.target as HTMLVideoElement;
     setProgress(video.currentTime / video.duration);
+    setCurrentTime(video.currentTime);
   }
 
   function handleOnSeeking() {
@@ -124,6 +129,9 @@ function HTMLVideoPlayer() {
       tabIndex={-1}
       data-cy='HTMLVideoPlayer'
       isDragging={isProgressDragging || isVolumeDragging}
+      onDurationChange={(e) =>
+        setDuration((e.target as HTMLVideoElement).duration)
+      }
     />
   );
 }

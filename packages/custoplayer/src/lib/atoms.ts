@@ -1,5 +1,6 @@
 import { CustoplayerItem, CustoplayerValues } from '@root/types';
 import { atom } from 'jotai';
+import { formatTime } from './utils';
 
 /* 
   Scope is required to prevent two custoplayer's
@@ -25,6 +26,17 @@ export enum PlayState {
 }
 export const isSeekingAtom = atom(false);
 export const playStateAtom = atom<PlayState>(0);
+
+// Video Text
+export const currentTimeAtom = atom(0);
+export const formattedCurrentTimeAtom = atom((get) => {
+  return formatTime(get(currentTimeAtom));
+});
+
+export const durationAtom = atom(0);
+export const formattedDurationAtom = atom((get) => {
+  return formatTime(get(durationAtom));
+});
 
 // Controls Bar
 export const showControlsBarAtom = atom(false);
