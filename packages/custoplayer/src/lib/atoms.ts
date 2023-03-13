@@ -64,7 +64,7 @@ export const progressStrAtom = atom((get) => {
 export const isProgressDraggingAtom = atom(false);
 
 // Volume Bar
-export const volumeAtom = atom(0.5);
+export const volumeAtom = atom(1);
 export const volumeStrAtom = atom((get) => {
   const volume = get(volumeAtom);
   return parseFloat((volume * 100).toFixed(1)) + '%';
