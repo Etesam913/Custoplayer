@@ -14,6 +14,7 @@ import {
   videoElemAtom,
 } from '@root/lib/atoms';
 import { BarMouseEvent, barMouseEvent, clamp } from '@root/lib/utils';
+import { useProgressDragging } from '../hooks';
 
 interface ProgressBarsProps {
   item: ProgressBarItem;
@@ -66,23 +67,14 @@ function ProgressBars({ item }: ProgressBarsProps) {
     }
   }
 
-  function handleProgressMouseUp() {
-    if (
-      tempVideoPauseState === PlayState.paused ||
-      tempVideoPauseState === PlayState.ended
-    )
-      videoElem?.pause();
-    else if (tempVideoPauseState === PlayState.playing) videoElem?.play();
-  }
-
-  useEffect(() => {
-    if (isProgressDragging) {
-      setTempVideoPauseState(playState);
-      videoElem?.pause();
-    } else {
-      handleProgressMouseUp();
-    }
-  }, [isProgressDragging]);
+  // Handles play state when progress bar is being dragged
+  useProgressDragging(
+    tempVideoPauseState,
+    videoElem,
+    isProgressDragging,
+    setTempVideoPauseState,
+    playState,
+  );
 
   return (
     <ProgressBarContainer
