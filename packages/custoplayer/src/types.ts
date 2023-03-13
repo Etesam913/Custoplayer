@@ -22,21 +22,25 @@ export interface VolumeItem {
   volumeColor?: string;
   barColor?: string;
   buttonColor?: string;
+  hideOnMobile?: boolean;
 }
 
 export interface PlayButtonItem {
   id: 'playButton1' | 'playButton2';
   buttonColor?: string;
+  hideOnMobile?: boolean;
 }
 
 export interface ProgressBarItem {
   id: 'progressBar1' | 'progressBar2';
   progressColor?: string;
+  hideOnMobile?: boolean;
 }
 
 export interface TimeItem {
   id: 'currentTime' | 'duration';
   textColor?: string;
+  hideOnMobile?: boolean;
 }
 
 export type CustoplayerItem =
