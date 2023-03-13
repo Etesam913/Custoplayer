@@ -19,14 +19,13 @@ function App() {
           item2: {
             id: 'volumeButton1',
             barId: 'volumeBar1',
+            hideOnMobile: true,
           },
           item3: {
             id: 'currentTime',
-            textColor: '#f7ddb4',
           },
           item5: {
             id: 'duration',
-            textColor: '#6fdbbe',
           },
           item4: {
             id: 'progressBar1',

@@ -10,6 +10,7 @@ import {
   itemsAtom,
   isProgressDraggingAtom,
   isVolumeDraggingAtom,
+  videoDimensionsAtom,
 } from '../atoms';
 import {
   isCurrentTime,
@@ -33,6 +34,24 @@ function ControlsBar() {
   const items = useAtomValue(itemsAtom, myScope);
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
+  const videoDimensions = useAtomValue(videoDimensionsAtom, myScope);
+
+  function renderItem(curItem: CustoplayerItem | undefined) {
+    if (
+      curItem === undefined ||
+      (curItem.hideOnMobile && videoDimensions.width < 768)
+    ) {
+      return <></>;
+    }
+    return (
+      <ItemContainer
+        isProgressBar={isProgressBar(curItem)}
+        color={extractColor(curItem)}
+      >
+        {renderItemFromData(curItem)}
+      </ItemContainer>
+    );
+  }
 
   return (
     <AnimatePresence>
@@ -48,18 +67,7 @@ function ControlsBar() {
           <Controls height='45px'>
             {items.map((curItem, idx) => {
               return (
-                <Fragment key={`item-${idx}`}>
-                  {curItem === undefined ? (
-                    <></>
-                  ) : (
-                    <ItemContainer
-                      isProgressBar={isProgressBar(curItem)}
-                      color={extractColor(curItem)}
-                    >
-                      {renderItemFromData(curItem)}
-                    </ItemContainer>
-                  )}
-                </Fragment>
+                <Fragment key={`item-${idx}`}>{renderItem(curItem)}</Fragment>
               );
             })}
           </Controls>
