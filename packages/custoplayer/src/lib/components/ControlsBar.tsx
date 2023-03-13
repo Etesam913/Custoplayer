@@ -1,3 +1,4 @@
+import { CustoplayerItem } from '@root/types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { Fragment } from 'react';
@@ -11,11 +12,21 @@ import {
   isVolumeDraggingAtom,
 } from '../atoms';
 import {
+  isCurrentTime,
+  isDuration,
   isPlayButton,
   isProgressBar,
   isVolume,
   renderItemFromData,
 } from '../utils';
+
+function extractColor(curItem: CustoplayerItem) {
+  if (isPlayButton(curItem) || isVolume(curItem)) return curItem.buttonColor;
+  else if (isDuration(curItem) || isCurrentTime(curItem))
+    return curItem.textColor;
+
+  return undefined;
+}
 
 function ControlsBar() {
   const isControlsBarShowing = useAtomValue(showControlsBarAtom, myScope);
@@ -43,11 +54,7 @@ function ControlsBar() {
                   ) : (
                     <ItemContainer
                       isProgressBar={isProgressBar(curItem)}
-                      color={
-                        isPlayButton(curItem) || isVolume(curItem)
-                          ? curItem.buttonColor
-                          : undefined
-                      }
+                      color={extractColor(curItem)}
                     >
                       {renderItemFromData(curItem)}
                     </ItemContainer>

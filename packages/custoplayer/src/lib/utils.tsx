@@ -2,6 +2,7 @@ import {
   CustoplayerItem,
   PlayButtonItem,
   ProgressBarItem,
+  TimeItem,
   VolumeItem,
 } from '@root/types';
 import { SetStateAction } from 'react';
@@ -9,6 +10,8 @@ import PlayButtons from './components/PlayButtons';
 import ProgressBars from './components/ProgressBars';
 import VolumeButtons from './components/VolumeButtons';
 import { isVolumeDraggingType } from './atoms';
+import CurrentTime from './components/CurrentTime';
+import Duration from './components/Duration';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
@@ -66,14 +69,20 @@ export function isVolume(curItem: CustoplayerItem): curItem is VolumeItem {
   );
 }
 
+export function isCurrentTime(curItem: CustoplayerItem): curItem is TimeItem {
+  return (curItem as TimeItem).id === 'currentTime';
+}
+
+export function isDuration(curItem: CustoplayerItem): curItem is TimeItem {
+  return (curItem as TimeItem).id === 'duration';
+}
+
 export function renderItemFromData(curItem: CustoplayerItem) {
-  if (isPlayButton(curItem)) {
-    return <PlayButtons item={curItem} />;
-  } else if (isProgressBar(curItem)) {
-    return <ProgressBars item={curItem} />;
-  } else if (isVolume(curItem)) {
-    return <VolumeButtons item={curItem} />;
-  }
+  if (isPlayButton(curItem)) return <PlayButtons item={curItem} />;
+  else if (isProgressBar(curItem)) return <ProgressBars item={curItem} />;
+  else if (isVolume(curItem)) return <VolumeButtons item={curItem} />;
+  else if (isCurrentTime(curItem)) return <CurrentTime />;
+  else if (isDuration(curItem)) return <Duration />;
 }
 
 export function handlePlayState(video: HTMLVideoElement | null) {
@@ -172,4 +181,30 @@ export function barMouseEvent(
 
   document.addEventListener('mousemove', mouseMove);
   document.addEventListener('mouseup', cleanUpDocumentEvents);
+}
+
+export function formatTime(durationInSeconds: number) {
+  const hours = Math.floor(durationInSeconds / 3600);
+  const minutes = Math.floor((durationInSeconds - hours * 3600) / 60);
+  const seconds = Math.floor(durationInSeconds - hours * 3600 - minutes * 60);
+
+  let formattedTime = '';
+
+  if (hours > 0) {
+    formattedTime += `${hours}:`;
+  }
+
+  if (minutes < 10) {
+    formattedTime += `0${minutes}:`;
+  } else {
+    formattedTime += `${minutes}:`;
+  }
+
+  if (seconds < 10) {
+    formattedTime += `0${seconds}`;
+  } else {
+    formattedTime += `${seconds}`;
+  }
+
+  return formattedTime;
 }

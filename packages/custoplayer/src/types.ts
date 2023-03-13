@@ -34,4 +34,13 @@ export interface ProgressBarItem {
   progressColor?: string;
 }
 
-export type CustoplayerItem = ProgressBarItem | PlayButtonItem | VolumeItem;
+export interface TimeItem {
+  id: 'currentTime' | 'duration';
+  textColor?: string;
+}
+
+export type CustoplayerItem =
+  | ProgressBarItem
+  | PlayButtonItem
+  | VolumeItem
+  | TimeItem;
