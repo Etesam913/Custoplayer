@@ -12,7 +12,7 @@ function App() {
     <Wrapper>
       <Custoplayer
         values={{
-          src: 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/1-hour-video-new.mp4',
+          src: 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4',
           item1: {
             id: 'playButton1',
           },
@@ -24,10 +24,11 @@ function App() {
           item3: {
             id: 'currentTime',
           },
-          item5: {
-            id: 'duration',
-          },
           item4: {
+            id: 'duration',
+            hideOnMobile: true,
+          },
+          item7: {
             id: 'progressBar1',
           },
         }}
