@@ -7,6 +7,7 @@ import {
   previewTooltipWidth,
   progressAtom,
   progressStrAtom,
+  valuesAtom,
   videoContainerAtom,
   videoDimensionsAtom,
   videoElemAtom,
@@ -31,6 +32,7 @@ interface ProgressBarsProps {
 }
 
 function ProgressBars({ item }: ProgressBarsProps) {
+  const values = useAtomValue(valuesAtom, myScope);
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const videoElem = useAtomValue(videoElemAtom, myScope);
@@ -50,7 +52,6 @@ function ProgressBars({ item }: ProgressBarsProps) {
     myScope,
   );
   const setTooltipStr = useSetAtom(previewTooltipStrAtom, myScope);
-  const videoDimensions = useAtomValue(videoDimensionsAtom, myScope);
 
   function handleProgressMouseMove(
     e: BarMouseEvent,
@@ -60,11 +61,8 @@ function ProgressBars({ item }: ProgressBarsProps) {
     if (progressBarRef && progressBarRef.current) {
       const mousePos = e.clientX;
       const progressBarRect = progressBarRef.current.getBoundingClientRect();
-      const [
-        largestProgressBarMousePos,
-        distLeftOfProgressBar,
-        _,
-      ] = getLargestProgressBarMousePos(videoContainerRect, progressBarRect);
+      const [largestProgressBarMousePos, distLeftOfProgressBar, _] =
+        getLargestProgressBarMousePos(videoContainerRect, progressBarRect);
 
       const updatedMousePos = mousePos - videoContainerRect.left;
 
@@ -167,10 +165,13 @@ function ProgressBars({ item }: ProgressBarsProps) {
             style={{ width: progressStr }}
             progressColor={item.progressColor}
           />
-          <PreviewTooltips
-            isHovered={isHovered}
-            isProgressDragging={isProgressDragging}
-          />
+          {values.previewTooltip && (
+            <PreviewTooltips
+              isHovered={isHovered}
+              isProgressDragging={isProgressDragging}
+              data={values.previewTooltip}
+            />
+          )}
         </ProgressBar1>
       )}
     </ProgressBarContainer>

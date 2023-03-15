@@ -1,3 +1,4 @@
+import { PreviewTooltipItem } from '@root/types';
 import { useAtomValue } from 'jotai';
 import styled from 'styled-components';
 import {
@@ -9,11 +10,13 @@ import {
 interface PreviewTooltipProps {
   isHovered: boolean;
   isProgressDragging: boolean;
+  data: PreviewTooltipItem;
 }
 
 function PreviewTooltips({
   isHovered,
   isProgressDragging,
+  data,
 }: PreviewTooltipProps) {
   const previewTooltipPosition = useAtomValue(
     previewTooltipPositionAtom,
@@ -21,14 +24,19 @@ function PreviewTooltips({
   );
   const previewTooltipStr = useAtomValue(previewTooltipStrAtom, myScope);
   return (
-    <TextTooltip
-      isVisible={isHovered || isProgressDragging}
-      style={{
-        transform: `translate(${previewTooltipPosition}px, -60px)`,
-      }}
-    >
-      {previewTooltipStr}
-    </TextTooltip>
+    <>
+      {data.id === 'text' && (
+        <TextTooltip
+          data-cy='textPreviewTooltip'
+          isVisible={isHovered || isProgressDragging}
+          style={{
+            transform: `translate(${previewTooltipPosition}px, -60px)`,
+          }}
+        >
+          {previewTooltipStr}
+        </TextTooltip>
+      )}
+    </>
   );
 }
 

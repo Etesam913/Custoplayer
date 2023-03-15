@@ -13,6 +13,9 @@ function App() {
       <Custoplayer
         values={{
           src: 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4',
+          previewTooltip: {
+            id: 'text'
+          },
           item1: {
             id: 'playButton1',
           },
@@ -25,11 +28,11 @@ function App() {
             id: 'currentTime',
           },
           item4: {
+            id: 'progressBar1',
+          },
+          item5: {
             id: 'duration',
             hideOnMobile: true,
-          },
-          item7: {
-            id: 'progressBar1',
           },
         }}
       />
