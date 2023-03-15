@@ -14,7 +14,7 @@ function App() {
         values={{
           src: 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4',
           previewTooltip: {
-            id: 'text'
+            id: 'text',
           },
           item1: {
             id: 'playButton1',
