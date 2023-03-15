@@ -2,7 +2,7 @@ import { CustoplayerItem, CustoplayerValues } from '@root/types';
 import { atom } from 'jotai';
 import { formatTime } from './utils';
 
-/* 
+/*
   Scope is required to prevent two custoplayer's
   from sharing the same atoms
 */
@@ -62,6 +62,12 @@ export const progressStrAtom = atom((get) => {
   return parseFloat((progress * 100).toFixed(1)) + '%';
 });
 export const isProgressDraggingAtom = atom(false);
+
+// Preview Tooltips
+export const previewTooltipWidth = 60;
+
+export const previewTooltipStrAtom = atom('00:00');
+export const previewTooltipPositionAtom = atom(0);
 
 // Volume Bar
 export const volumeAtom = atom(1);

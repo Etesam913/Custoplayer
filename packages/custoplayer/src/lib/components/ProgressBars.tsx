@@ -1,94 +1,148 @@
-import { ProgressBarItem } from '@root/types';
-import { motion } from 'framer-motion';
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 import {
   isProgressDraggingAtom,
   myScope,
-  PlayState,
   playStateAtom,
+  previewTooltipPositionAtom,
+  previewTooltipStrAtom,
+  previewTooltipWidth,
   progressAtom,
   progressStrAtom,
+  valuesAtom,
   videoContainerAtom,
+  videoDimensionsAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
-import { BarMouseEvent, barMouseEvent, clamp } from '@root/lib/utils';
+import {
+  BarMouseEvent,
+  barMouseEvent,
+  clamp,
+  formatTime,
+  getLargestProgressBarMousePos,
+} from '@root/lib/utils';
+import { ProgressBarItem } from '@root/types';
+import { motion } from 'framer-motion';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useRef, useState } from 'react';
+import styled from 'styled-components';
+import { useProgressDragging } from '../hooks';
+import PreviewTooltips from './PreviewTooltips';
 
 interface ProgressBarsProps {
   item: ProgressBarItem;
 }
 
 function ProgressBars({ item }: ProgressBarsProps) {
+  const values = useAtomValue(valuesAtom, myScope);
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const videoElem = useAtomValue(videoElemAtom, myScope);
-  const setProgress = useSetAtom(progressAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
+  const setProgress = useSetAtom(progressAtom, myScope);
   const progressStr = useAtomValue(progressStrAtom, myScope);
   const playState = useAtomValue(playStateAtom, myScope);
+
   // Needed for remembering what play state to set after progress dragging is complete
   const [tempVideoPauseState, setTempVideoPauseState] = useState(-1);
   const [isProgressDragging, setIsProgressDragging] = useAtom(
     isProgressDraggingAtom,
     myScope,
   );
+  const setPreviewTooltipPosition = useSetAtom(
+    previewTooltipPositionAtom,
+    myScope,
+  );
+  const setTooltipStr = useSetAtom(previewTooltipStrAtom, myScope);
 
   function handleProgressMouseMove(
-    mousePos: BarMouseEvent,
+    e: BarMouseEvent,
     videoContainerRect: DOMRect,
   ) {
     setIsProgressDragging(true);
     if (progressBarRef && progressBarRef.current) {
-      const updatedMousePos = mousePos.clientX - videoContainerRect.left;
+      const mousePos = e.clientX;
       const progressBarRect = progressBarRef.current.getBoundingClientRect();
-      const distLeftOfProgressBar =
-        progressBarRect.left - videoContainerRect.left;
-      const distRightOfProgressBar = Math.abs(
-        progressBarRect.right - videoContainerRect.right,
-      );
+      const [largestProgressBarMousePos, distLeftOfProgressBar, _] =
+        getLargestProgressBarMousePos(videoContainerRect, progressBarRect);
 
+      const updatedMousePos = mousePos - videoContainerRect.left;
+
+      handleMouseMove(e);
       const adjustedMousePos = updatedMousePos - distLeftOfProgressBar;
-      const largestProgressBarMousePos =
-        videoContainerRect.width -
-        distLeftOfProgressBar -
-        distRightOfProgressBar;
       const clampedMousePos = clamp(
         adjustedMousePos,
         0,
         largestProgressBarMousePos,
       );
+
       const ratio = clampedMousePos / progressBarRef.current.clientWidth;
-      if (videoElem) {
-        videoElem.currentTime = videoElem?.duration * ratio;
+      if (videoElem && videoElem.duration) {
+        const currentTime = videoElem.duration * ratio;
+        videoElem.currentTime = currentTime;
+        setTooltipStr(formatTime(currentTime));
       }
+
       setProgress(ratio);
     }
   }
-
-  function handleProgressMouseUp() {
+  /* Shows the preview thumbnail when mouse is over progress bar */
+  function handleMouseMove(e: BarMouseEvent) {
     if (
-      tempVideoPauseState === PlayState.paused ||
-      tempVideoPauseState === PlayState.ended
+      isProgressDragging ||
+      !progressBarRef ||
+      !progressBarRef.current ||
+      !videoContainer
     )
-      videoElem?.pause();
-    else if (tempVideoPauseState === PlayState.playing) videoElem?.play();
+      return;
+    const progressBarRect = progressBarRef.current.getBoundingClientRect();
+    const widthOfItemsToLeftOfProgressBar =
+      progressBarRef.current.getBoundingClientRect().left -
+      videoContainer?.getBoundingClientRect().left;
+    const widthOfItemsToRightOfProgressBar =
+      videoContainer?.getBoundingClientRect().right -
+      progressBarRef.current.getBoundingClientRect().right;
+    const defaultHoverPos = e.clientX - progressBarRect.left;
+    let hoverPos = e.clientX - progressBarRect.left - previewTooltipWidth / 2;
+    const modifiedUpperBound =
+      progressBarRef.current?.clientWidth -
+      previewTooltipWidth / 2 +
+      widthOfItemsToRightOfProgressBar;
+    const maxHoverPos =
+      progressBarRef.current.clientWidth - previewTooltipWidth / 2;
+    const minHoverPos = Math.max(
+      (-1 * previewTooltipWidth) / 2,
+      -1 * widthOfItemsToLeftOfProgressBar,
+    );
+
+    if (defaultHoverPos > modifiedUpperBound) {
+      hoverPos = modifiedUpperBound - previewTooltipWidth / 2;
+    }
+    hoverPos = clamp(hoverPos, minHoverPos, maxHoverPos);
+    setPreviewTooltipPosition(hoverPos);
+
+    const leftDist = progressBarRef.current.getBoundingClientRect().left;
+    const timePos = e.clientX - leftDist;
+    if (videoElem && videoElem.duration) {
+      const ratio = clamp(timePos / progressBarRef.current.clientWidth, 0, 1);
+      const currentTime = videoElem.duration * ratio;
+      setTooltipStr(formatTime(currentTime));
+    }
   }
 
-  useEffect(() => {
-    if (isProgressDragging) {
-      setTempVideoPauseState(playState);
-      videoElem?.pause();
-    } else {
-      handleProgressMouseUp();
-    }
-  }, [isProgressDragging]);
+  // Handles play state when progress bar is being dragged
+  useProgressDragging(
+    tempVideoPauseState,
+    videoElem,
+    isProgressDragging,
+    setTempVideoPauseState,
+    playState,
+  );
 
   return (
     <ProgressBarContainer
       data-cy={item.id}
       isDragging={isProgressDragging}
       onMouseEnter={() => setIsHovered(true)}
+      onMouseMove={handleMouseMove}
       onMouseLeave={() => setIsHovered(false)}
       onMouseDown={(e) =>
         barMouseEvent(
@@ -111,6 +165,13 @@ function ProgressBars({ item }: ProgressBarsProps) {
             style={{ width: progressStr }}
             progressColor={item.progressColor}
           />
+          {values.previewTooltip && (
+            <PreviewTooltips
+              isHovered={isHovered}
+              isProgressDragging={isProgressDragging}
+              data={values.previewTooltip}
+            />
+          )}
         </ProgressBar1>
       )}
     </ProgressBarContainer>
@@ -136,6 +197,7 @@ const ProgressBar1 = styled(motion.div)`
 
 const Progress = styled.div<{ progressColor: string | undefined }>`
   height: 100%;
+  pointer-events: none;
   background-color: ${(props) =>
     props.progressColor ? props.progressColor : '#4ab860'};
 `;

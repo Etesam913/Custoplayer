@@ -8,6 +8,7 @@ export interface CustoplayerValues {
     id?: number;
     color?: string;
   };
+  previewTooltip?: PreviewTooltipItem;
   item1?: CustoplayerItem;
   item2?: CustoplayerItem;
   item3?: CustoplayerItem;
@@ -16,6 +17,11 @@ export interface CustoplayerValues {
   item6?: CustoplayerItem;
   item7?: CustoplayerItem;
 }
+
+export interface PreviewTooltipItem {
+  id: 'text' | 'thumbnail' | 'textAndThumbnail';
+}
+
 export interface VolumeItem {
   id: 'volumeButton1' | 'volumeButton2';
   barId: 'volumeBar1' | 'volumeBar2';

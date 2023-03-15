@@ -5,6 +5,7 @@ import {
   videoDimensionsObserverAtom,
   videoDimensionsAtom,
   videoElemAtom,
+  PlayState,
 } from '@root/lib/atoms';
 
 export function useDimensions() {
@@ -36,4 +37,29 @@ export function useDimensions() {
       videoDimensionsObserver.observe(videoElem);
     }
   }, [videoDimensionsObserver, videoElem]);
+}
+
+export function useProgressDragging(
+  tempVideoPauseState: number,
+  videoElem: HTMLVideoElement | null,
+  isProgressDragging: boolean,
+  setTempVideoPauseState: (value: React.SetStateAction<number>) => void,
+  playState: PlayState,
+) {
+  function handleProgressMouseUp() {
+    if (
+      tempVideoPauseState === PlayState.paused ||
+      tempVideoPauseState === PlayState.ended
+    )
+      videoElem?.pause();
+    else if (tempVideoPauseState === PlayState.playing) videoElem?.play();
+  }
+  useEffect(() => {
+    if (isProgressDragging) {
+      setTempVideoPauseState(playState);
+      videoElem?.pause();
+    } else {
+      handleProgressMouseUp();
+    }
+  }, [isProgressDragging]);
 }

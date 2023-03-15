@@ -9,7 +9,7 @@ import { SetStateAction } from 'react';
 import PlayButtons from './components/PlayButtons';
 import ProgressBars from './components/ProgressBars';
 import VolumeButtons from './components/VolumeButtons';
-import { isVolumeDraggingType } from './atoms';
+import { isVolumeDraggingType, previewTooltipWidth } from '@root/lib/atoms';
 import CurrentTime from './components/CurrentTime';
 import Duration from './components/Duration';
 
@@ -207,4 +207,38 @@ export function formatTime(durationInSeconds: number) {
   }
 
   return formattedTime;
+}
+
+export function adjustPreviewTootipPos(
+  updatedMousePos: number,
+  videoDimensions: { height: number; width: number },
+) {
+  let leftEndOfTooltip = updatedMousePos;
+  const distFromLeft = 32;
+  const distFromRight = 36;
+
+  leftEndOfTooltip = Math.max(leftEndOfTooltip, distFromLeft);
+  leftEndOfTooltip = Math.min(
+    leftEndOfTooltip,
+    videoDimensions.width - distFromRight,
+  );
+
+  return leftEndOfTooltip;
+}
+
+export function getLargestProgressBarMousePos(
+  videoContainerRect: DOMRect,
+  progressBarRect: DOMRect,
+) {
+  const distLeftOfProgressBar = progressBarRect.left - videoContainerRect.left;
+  const distRightOfProgressBar = Math.abs(
+    progressBarRect.right - videoContainerRect.right,
+  );
+  const largestProgressBarMousePos =
+    videoContainerRect.width - distLeftOfProgressBar - distRightOfProgressBar;
+  return [
+    largestProgressBarMousePos,
+    distLeftOfProgressBar,
+    distRightOfProgressBar,
+  ];
 }

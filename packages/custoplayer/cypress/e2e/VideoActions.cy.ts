@@ -33,6 +33,20 @@ describe('Video Actions', () => {
     cy.dataCy('volumeContainer').trigger('mouseover').trigger('mousedown').trigger('mousemove').trigger('mouseup', 20, 20)
     cy.dataCy('HTMLVideoPlayer').should('have.prop', 'volume').then((x) => expect(x).to.be.lessThan(0.7))
   })
+
+  it('changes current time of the video via progress bar', () => {
+    cy.visit('/')
+    cy.dataCy('videoPlayerWrapper').should('exist')
+    cy.dataCy('videoPlayerWrapper').trigger('mouseover')
+    cy.dataCy('HTMLVideoPlayer').should('exist')
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'currentTime', 0);
+    cy.dataCy('HTMLVideoPlayer').should(($video) => {
+      expect(($video[0] as HTMLVideoElement).duration).to.be.gt(6)
+    })
+    cy.dataCy('progressBar1').trigger('mouseover').trigger('mousedown')
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'currentTime').then((x) => expect(x).to.be.greaterThan(2));
+    cy.dataCy('textPreviewTooltip').should('exist')
+  })
 })
 
 
