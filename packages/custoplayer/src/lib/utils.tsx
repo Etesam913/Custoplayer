@@ -7,13 +7,7 @@ import {
   VolumeItem,
 } from '@root/types';
 import { SetStateAction } from 'react';
-import PlayButtons from './components/PlayButtons';
-import ProgressBars from './components/ProgressBars';
-import VolumeButtons from './components/VolumeButtons';
-import { isVolumeDraggingType, previewTooltipWidth } from '@root/lib/atoms';
-import CurrentTime from './components/CurrentTime';
-import Duration from './components/Duration';
-import FullscreenButtons from './components/FullscreenButtons';
+import { isVolumeDraggingType } from '@root/lib/atoms';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
@@ -64,7 +58,9 @@ export function isProgressBar(
   return (curItem as ProgressBarItem).id.startsWith('progressBar');
 }
 
-export function isVolume(curItem: CustoplayerItem): curItem is VolumeItem {
+export function isVolumeComponent(
+  curItem: CustoplayerItem,
+): curItem is VolumeItem {
   return (
     (curItem as VolumeItem).id.startsWith('volumeButton') &&
     (curItem as VolumeItem).barId !== undefined
@@ -79,19 +75,10 @@ export function isDuration(curItem: CustoplayerItem): curItem is TimeItem {
   return (curItem as TimeItem).id === 'duration';
 }
 
-export function isFullscreen(
+export function isFullscreenButton(
   curItem: CustoplayerItem,
 ): curItem is FullscreenItem {
   return (curItem as FullscreenItem).id.startsWith('fullscreenButton');
-}
-
-export function renderItemFromData(curItem: CustoplayerItem) {
-  if (isPlayButton(curItem)) return <PlayButtons item={curItem} />;
-  else if (isProgressBar(curItem)) return <ProgressBars item={curItem} />;
-  else if (isVolume(curItem)) return <VolumeButtons item={curItem} />;
-  else if (isCurrentTime(curItem)) return <CurrentTime />;
-  else if (isDuration(curItem)) return <Duration />;
-  else if (isFullscreen(curItem)) return <FullscreenButtons item={curItem} />;
 }
 
 export function handlePlayState(video: HTMLVideoElement | null) {

@@ -8,6 +8,7 @@ function Custoplayer({ values }: CustoplayerProps) {
   const setValues = useSetAtom(valuesAtom, myScope);
   const setItems = useSetAtom(itemsAtom, myScope);
 
+  /* TODO: These values to not update because they are in the file that is being exported */
   useEffect(() => {
     console.log(values);
     setValues(values);

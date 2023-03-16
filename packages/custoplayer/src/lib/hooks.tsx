@@ -1,5 +1,5 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { useEffect } from 'react';
+import { SetStateAction, useEffect } from 'react';
 import {
   myScope,
   videoDimensionsObserverAtom,
@@ -7,6 +7,7 @@ import {
   videoElemAtom,
   PlayState,
 } from '@root/lib/atoms';
+import screenfull from 'screenfull';
 
 export function useDimensions() {
   const [videoDimensionsObserver, setVideoDimensionsObserver] = useAtom(
@@ -62,4 +63,22 @@ export function useProgressDragging(
       handleProgressMouseUp();
     }
   }, [isProgressDragging]);
+}
+
+export function useFullscreenEvent(
+  setIsFullscreen: (update: SetStateAction<boolean>) => void,
+) {
+  useEffect(() => {
+    function updateFullscreen() {
+      setIsFullscreen(screenfull.isFullscreen);
+    }
+    if (screenfull.isEnabled) {
+      screenfull.on('change', updateFullscreen);
+    }
+    return () => {
+      if (screenfull.isEnabled) {
+        screenfull.off('change', updateFullscreen);
+      }
+    };
+  }, [setIsFullscreen]);
 }

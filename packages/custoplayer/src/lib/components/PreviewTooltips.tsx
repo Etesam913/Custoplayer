@@ -23,7 +23,7 @@ function PreviewTooltips({
     myScope,
   );
   const previewTooltipStr = useAtomValue(previewTooltipStrAtom, myScope);
-  console.log(isHovered || isProgressDragging);
+
   return (
     <>
       {data.id === 'text' && (

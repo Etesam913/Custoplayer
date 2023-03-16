@@ -1,19 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FullscreenItem } from '@root/types';
+import { useAtomValue } from 'jotai';
+import { isFullscreenAtom, myScope, videoContainerAtom } from '@root/lib/atoms';
+import screenfull from 'screenfull';
 
 interface FullscreenButtonsProps {
   item: FullscreenItem;
+  isFullscreen: boolean;
 }
 
-function FullscreenButtons({ item }: FullscreenButtonsProps) {
+function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const videoContainer = useAtomValue(videoContainerAtom, myScope);
+
+  function handleFullscreen() {
+    if (videoContainer && screenfull.isEnabled)
+      screenfull.toggle(videoContainer);
+  }
 
   return (
-    <>
+    <div>
       {item.id === 'fullscreenButton1' && (
         <FullscreenButtonContainer
           onMouseEnter={() => setIsHovered(true)}
@@ -23,7 +32,7 @@ function FullscreenButtons({ item }: FullscreenButtonsProps) {
           }}
           onMouseDown={() => setIsMouseDown(true)}
           onMouseUp={() => setIsMouseDown(false)}
-          onClick={() => setIsFullscreen(!isFullscreen)}
+          onClick={handleFullscreen}
         >
           {isFullscreen ? (
             <svg
@@ -33,13 +42,42 @@ function FullscreenButtons({ item }: FullscreenButtonsProps) {
               fill='none'
               xmlns='http://www.w3.org/2000/svg'
             >
-              <FullscreenPath animate={{ d: isHovered && !isMouseDown ? "M29 3L19 13" : "M29 3L21 11" }} d="M29 3L21 11" />
-              <FullscreenPath animate={{ d: isHovered && !isMouseDown ? "M19 13V7" : "M21 11V7" }} d="M21 11V7" />
-              <FullscreenPath animate={{ d: isHovered && !isMouseDown ? "M19 13H25" : "M21 11H25" }} d="" />
-              <FullscreenPath animate={{ d: isHovered && !isMouseDown ? "M4 28L14 18" : "M4 28L12 20" }} d="M4 28L12 20" />
-              <FullscreenPath animate={{ d: isHovered && !isMouseDown ? "M14 18V24" : "M12 20V24" }} d="M12 20V24" />
-              <FullscreenPath animate={{ d: isHovered && !isMouseDown ? "M14 18H8" : "M12 20H8" }} d="M12 20H8" />
-
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M29 3L19 13' : 'M29 3L21 11',
+                }}
+                d='M29 3L21 11'
+              />
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M19 13V7' : 'M21 11V7',
+                }}
+                d='M21 11V7'
+              />
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M19 13H25' : 'M21 11H25',
+                }}
+                d='M21 11H25'
+              />
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M3 29L13 19' : 'M3 29L11 21',
+                }}
+                d='M3 29L11 21'
+              />
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M13 19H7' : 'M11 21H7',
+                }}
+                d='M11 21H7'
+              />
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M13 19V25' : 'M11 21V25',
+                }}
+                d='M11 21V25'
+              />
             </svg>
           ) : (
             <svg
@@ -86,7 +124,7 @@ function FullscreenButtons({ item }: FullscreenButtonsProps) {
           )}
         </FullscreenButtonContainer>
       )}
-    </>
+    </div>
   );
 }
 

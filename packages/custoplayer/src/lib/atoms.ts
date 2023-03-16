@@ -82,3 +82,6 @@ export const isVolumeDraggingAtom = atom<isVolumeDraggingType>(false);
 // Timeout
 export const controlsBarTimeoutAtom = atom<null | NodeJS.Timeout>(null);
 export const isSeekingTimeoutAtom = atom<null | NodeJS.Timeout>(null);
+
+// Fullscreen Button
+export const isFullscreenAtom = atom(false);
