@@ -15,6 +15,7 @@ import {
 import {
   isCurrentTime,
   isDuration,
+  isFullscreen,
   isPlayButton,
   isProgressBar,
   isVolume,
@@ -22,7 +23,8 @@ import {
 } from '../utils';
 
 function extractColor(curItem: CustoplayerItem) {
-  if (isPlayButton(curItem) || isVolume(curItem)) return curItem.buttonColor;
+  if (isPlayButton(curItem) || isVolume(curItem) || isFullscreen(curItem))
+    return curItem.buttonColor;
   else if (isDuration(curItem) || isCurrentTime(curItem))
     return curItem.textColor;
 
@@ -55,7 +57,7 @@ function ControlsBar() {
 
   return (
     <AnimatePresence>
-      {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
+      {(true || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           initial={{ opacity: 0 }}
@@ -90,7 +92,7 @@ const Controls = styled.div<{ height: string }>`
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 0.3rem 0.7rem;
+  padding: 0.3rem 0.5rem;
   box-sizing: border-box;
 `;
 

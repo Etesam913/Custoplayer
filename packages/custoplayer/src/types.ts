@@ -49,8 +49,14 @@ export interface TimeItem {
   hideOnMobile?: boolean;
 }
 
+export interface FullscreenItem {
+  id: 'fullscreenButton1' | 'fullscreenButton2';
+  buttonColor?: string;
+}
+
 export type CustoplayerItem =
   | ProgressBarItem
   | PlayButtonItem
   | VolumeItem
-  | TimeItem;
+  | TimeItem
+  | FullscreenItem;

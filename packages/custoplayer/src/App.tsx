@@ -34,6 +34,10 @@ function App() {
             id: 'duration',
             hideOnMobile: true,
           },
+          item6: {
+            id: 'fullscreenButton1',
+            buttonColor: 'rgb(137, 178, 245)',
+          },
         }}
       />
     </Wrapper>
