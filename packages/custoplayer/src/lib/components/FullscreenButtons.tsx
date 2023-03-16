@@ -7,7 +7,7 @@ import { myScope, videoContainerAtom } from '@root/lib/atoms';
 import screenfull from 'screenfull';
 
 interface FullscreenButtonsProps {
-  item: FullscreenItem;
+  item: { id: 'fullscreenButton1' | 'fullscreenButton2' };
   isFullscreen: boolean;
 }
 
@@ -24,6 +24,7 @@ function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
   return (
     <>
       <FullscreenButtonContainer
+        data-cy={item.id}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => {
           setIsHovered(false);
@@ -36,6 +37,7 @@ function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
         {item.id === 'fullscreenButton1' &&
           (isFullscreen ? (
             <svg
+              data-cy='fullscreenButton1-fullscreened'
               width='32'
               height='32'
               viewBox='0 0 32 32'
@@ -86,6 +88,7 @@ function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
               viewBox='0 0 32 32'
               fill='none'
               xmlns='http://www.w3.org/2000/svg'
+              data-cy='fullscreenButton1-not-fullscreened'
             >
               <FullscreenPath
                 animate={{
@@ -131,6 +134,7 @@ function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
               viewBox='0 0 32 32'
               fill='none'
               xmlns='http://www.w3.org/2000/svg'
+              data-cy='fullscreenButton2-fullscreened'
             >
               <FullscreenRect x='1' y='1' width='30' height='30' />
               <FullscreenRect
@@ -168,6 +172,7 @@ function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
               viewBox='0 0 32 32'
               fill='none'
               xmlns='http://www.w3.org/2000/svg'
+              data-cy='fullscreenButton2-not-fullscreened'
             >
               <FullscreenRect x='1' y='1' width='30' height='30' />
               <FullscreenRect
