@@ -32,3 +32,5 @@
   <li>The colors of a play buttons, progress bar, volume bar, fullscreen button, settings button, and more can be customized. </li>
   <li>In addition, there are different variants of a component. </li>
 </ul>
+
+<img src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2FWritten-By-Human-Not-By-AI-Badge-white.svg"/>
