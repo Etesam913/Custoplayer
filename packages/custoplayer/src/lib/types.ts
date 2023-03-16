@@ -52,6 +52,7 @@ export interface TimeItem {
 export interface FullscreenItem {
   id: 'fullscreenButton1' | 'fullscreenButton2';
   buttonColor?: string;
+  hideOnMobile?: boolean;
 }
 
 export type CustoplayerItem =
