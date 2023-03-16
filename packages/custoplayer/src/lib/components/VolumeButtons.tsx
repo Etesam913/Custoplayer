@@ -1,4 +1,4 @@
-import { VolumeItem } from '@root/types';
+import { VolumeItem } from '@root/lib/types';
 import { useAtom, useAtomValue } from 'jotai';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';

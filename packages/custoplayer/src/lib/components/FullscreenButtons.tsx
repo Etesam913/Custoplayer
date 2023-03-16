@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FullscreenItem } from '@root/types';
+import { FullscreenItem } from '@root/lib/types';
 import { useAtomValue } from 'jotai';
-import { isFullscreenAtom, myScope, videoContainerAtom } from '@root/lib/atoms';
+import { myScope, videoContainerAtom } from '@root/lib/atoms';
 import screenfull from 'screenfull';
 
 interface FullscreenButtonsProps {
@@ -22,19 +22,19 @@ function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
   }
 
   return (
-    <div>
-      {item.id === 'fullscreenButton1' && (
-        <FullscreenButtonContainer
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => {
-            setIsHovered(false);
-            setIsMouseDown(false);
-          }}
-          onMouseDown={() => setIsMouseDown(true)}
-          onMouseUp={() => setIsMouseDown(false)}
-          onClick={handleFullscreen}
-        >
-          {isFullscreen ? (
+    <>
+      <FullscreenButtonContainer
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          setIsMouseDown(false);
+        }}
+        onMouseDown={() => setIsMouseDown(true)}
+        onMouseUp={() => setIsMouseDown(false)}
+        onClick={handleFullscreen}
+      >
+        {item.id === 'fullscreenButton1' &&
+          (isFullscreen ? (
             <svg
               width='32'
               height='32'
@@ -121,10 +121,86 @@ function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
                 }}
               />
             </svg>
-          )}
-        </FullscreenButtonContainer>
-      )}
-    </div>
+          ))}
+
+        {item.id === 'fullscreenButton2' &&
+          (isFullscreen ? (
+            <svg
+              width='32'
+              height='32'
+              viewBox='0 0 32 32'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <FullscreenRect x='1' y='1' width='30' height='30' />
+              <FullscreenRect
+                x='1'
+                initial={{ y: '18px', width: '12px', height: '13px' }}
+                animate={{
+                  width: isHovered && !isMouseDown ? '10px' : '12px',
+                  height: isHovered && !isMouseDown ? '11px' : '13px',
+                  y: isHovered && !isMouseDown ? '20px' : '18px',
+                }}
+              />
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M26 5L16 15' : 'M26 5L18 13',
+                }}
+                d='M26 5L18 13'
+              />
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M16 15H22' : 'M18 13H22',
+                }}
+                d='M18 13H22'
+              />
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M16 15V9' : 'M18 13V9',
+                }}
+                d='M18 13V9'
+              />
+            </svg>
+          ) : (
+            <svg
+              width='32'
+              height='32'
+              viewBox='0 0 32 32'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <FullscreenRect x='1' y='1' width='30' height='30' />
+              <FullscreenRect
+                x='1'
+                initial={{ y: '8px' }}
+                animate={{
+                  y: isHovered && !isMouseDown ? '6px' : '8px',
+                  width: isHovered ? '24px' : '21px',
+                  height: isHovered ? '25px' : '23px',
+                }}
+              />
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M7 24L17 14' : 'M7 24L15 16',
+                }}
+                d='M7 24L15 16'
+              />
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M17 14H11' : 'M15 16H11',
+                }}
+                d='M15 16H11'
+              />
+              <FullscreenPath
+                animate={{
+                  d: isHovered && !isMouseDown ? 'M17 14V20' : 'M15 16V20',
+                }}
+                d='M15 16V20'
+              />
+            </svg>
+          ))}
+      </FullscreenButtonContainer>
+    </>
   );
 }
 
@@ -140,7 +216,13 @@ const FullscreenButtonContainer = styled.button`
 
 const FullscreenPath = styled(motion.path)`
   stroke: currentColor;
-  stroke-width: 2.2;
+  stroke-width: 2;
+  stroke-linecap: round;
+`;
+
+const FullscreenRect = styled(motion.rect)`
+  stroke: currentColor;
+  stroke-width: 2;
   stroke-linecap: round;
 `;
 

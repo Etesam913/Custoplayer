@@ -1,4 +1,4 @@
-import { CustoplayerItem } from '@root/types';
+import { CustoplayerItem } from '@root/lib/types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { Fragment } from 'react';
@@ -61,7 +61,7 @@ function ControlsBar() {
 
   return (
     <AnimatePresence>
-      {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
+      {(true || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           initial={{ opacity: 0 }}

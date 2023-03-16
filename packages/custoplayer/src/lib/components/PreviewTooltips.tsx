@@ -1,4 +1,4 @@
-import { PreviewTooltipItem } from '@root/types';
+import { PreviewTooltipItem } from '@root/lib/types';
 import { useAtomValue } from 'jotai';
 import styled from 'styled-components';
 import {

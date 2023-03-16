@@ -1,4 +1,4 @@
-import { PlayButtonItem } from '@root/types';
+import { PlayButtonItem } from '@root/lib/types';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { Fragment } from 'react';

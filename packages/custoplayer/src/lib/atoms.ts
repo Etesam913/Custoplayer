@@ -1,4 +1,4 @@
-import { CustoplayerItem, CustoplayerValues } from '@root/types';
+import { CustoplayerItem, CustoplayerValues } from '@root/lib/types';
 import { atom } from 'jotai';
 import { formatTime } from './utils';
 

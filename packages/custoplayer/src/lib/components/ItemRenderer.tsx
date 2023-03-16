@@ -6,7 +6,7 @@ import {
   isProgressBar,
   isVolumeComponent,
 } from '../utils';
-import { CustoplayerItem } from '../../types';
+import { CustoplayerItem } from '../types';
 import PlayButtons from './PlayButtons';
 import ProgressBars from './ProgressBars';
 import VolumeButtons from './VolumeButtons';

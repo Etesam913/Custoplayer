@@ -5,7 +5,7 @@ import {
   ProgressBarItem,
   TimeItem,
   VolumeItem,
-} from '@root/types';
+} from '@root/lib/types';
 import { SetStateAction } from 'react';
 import { isVolumeDraggingType } from '@root/lib/atoms';
 
