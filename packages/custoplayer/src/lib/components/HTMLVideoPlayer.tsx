@@ -5,6 +5,7 @@ import {
   currentTimeAtom,
   draggableSymbol,
   durationAtom,
+  isMutedAtom,
   isProgressDraggingAtom,
   isSeekingAtom,
   isSeekingTimeoutAtom,
@@ -38,6 +39,7 @@ function HTMLVideoPlayer() {
   const setDuration = useSetAtom(durationAtom, myScope);
   const setIsSeeking = useSetAtom(isSeekingAtom, myScope);
   const setCurrentTime = useSetAtom(currentTimeAtom, myScope);
+  const setIsMuted = useSetAtom(isMutedAtom, myScope);
   const [isSeekingTimeout, setIsSeekingTimeout] = useAtom(
     isSeekingTimeoutAtom,
     myScope,
@@ -156,6 +158,7 @@ function HTMLVideoPlayer() {
       }}
       onVolumeChange={(e) => {
         setVolume((e.target as HTMLVideoElement).volume);
+        setIsMuted((e.target as HTMLVideoElement).muted);
         onVolumeChange && onVolumeChange(e);
       }}
       onSeeking={(e) => {
