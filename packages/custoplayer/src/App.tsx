@@ -13,7 +13,7 @@ function App() {
       <Custoplayer
         src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
         playsInline={true}
-        onClick={() => console.log('📝')}
+
         values={{
           previewTooltip: {
             id: 'text',
@@ -41,6 +41,16 @@ function App() {
             buttonColor: 'rgb(137, 178, 245)',
           },
         }}
+        /* The below handlers are for the cypress tests. They do not change any styles */
+        onClick={() => console.log('video clicked')}
+        onPlay={() => console.log('video playing')}
+        onPause={() => console.log('video paused')}
+        onLoadStart={() => console.log('video data load start')}
+        onLoadedData={() => console.log('video data loaded')}
+        onTimeUpdate={() => console.log('time updated')}
+        onDurationChange={() => console.log('video duration changed')}
+        onSeeked={() => console.log('video seeked')}
+        onSeeking={() => console.log('video seeking')}
       />
     </Wrapper>
   );
