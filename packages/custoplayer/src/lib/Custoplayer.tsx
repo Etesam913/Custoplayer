@@ -1,10 +1,15 @@
 import { Provider, useSetAtom } from 'jotai';
 import VideoPlayerWrapper from '@root/lib/components/VideoPlayerWrapper';
-import { itemsAtom, myScope, valuesAtom } from '@root/lib/atoms';
+import {
+  itemsAtom,
+  myScope,
+  valuesAtom,
+  videoAttributesAtom,
+} from '@root/lib/atoms';
 import { CustoplayerProps } from './types';
 import { useEffect } from 'react';
 
-function Custoplayer({ values }: CustoplayerProps) {
+function Custoplayer({ values, ...rest }: CustoplayerProps) {
   const setValues = useSetAtom(valuesAtom, myScope);
   const setItems = useSetAtom(itemsAtom, myScope);
 
@@ -40,6 +45,7 @@ function Custoplayer({ values }: CustoplayerProps) {
             values.item7,
           ],
         ],
+        [videoAttributesAtom, rest],
       ]}
     >
       <div style={{ display: 'flex', flexDirection: 'column' }}>

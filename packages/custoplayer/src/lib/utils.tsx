@@ -6,7 +6,7 @@ import {
   TimeItem,
   VolumeItem,
 } from '@root/lib/types';
-import { SetStateAction } from 'react';
+import { ComponentPropsWithoutRef, SetStateAction } from 'react';
 import { isVolumeDraggingType } from '@root/lib/atoms';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
