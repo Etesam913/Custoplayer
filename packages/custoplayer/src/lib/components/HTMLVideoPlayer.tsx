@@ -16,6 +16,7 @@ import {
   progressAtom,
   showControlsBarAtom,
   valuesAtom,
+  videoAttributesAtom,
   videoElemAtom,
   volumeAtom,
 } from '@root/lib/atoms';
@@ -43,6 +44,24 @@ function HTMLVideoPlayer() {
   );
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
+  const videoAttributes = useAtomValue(videoAttributesAtom, myScope);
+  const {
+    onClick,
+    playsInline,
+    onPause,
+    onPlay,
+    onEnded,
+    onTimeUpdate,
+    onVolumeChange,
+    onLoadedData,
+    onLoadStart,
+    onSeeking,
+    onSeeked,
+    preload,
+    tabIndex,
+    onDurationChange,
+    ...otherAttributes
+  } = videoAttributes;
 
   const handlePlay = () => {
     setPlayState(PlayState.playing);
@@ -106,32 +125,59 @@ function HTMLVideoPlayer() {
 
   return (
     <HTMLPlayer
+      {...otherAttributes}
       className={draggableSymbol.toString()}
-      onClick={() => handlePlayState(videoElem)}
-      src={values.src}
-      playsInline
+      onClick={(e) => {
+        handlePlayState(videoElem);
+        onClick && onClick(e);
+      }}
+      playsInline={playsInline !== null ? playsInline : true}
       // onMouseMove={handleMouseMove}
-      onPause={handlePause}
-      onPlay={handlePlay}
-      onEnded={handleEnded}
-      onLoadedData={(e: SyntheticEvent<HTMLVideoElement, Event>) =>
-        setVideoElem(e.target as HTMLVideoElement)
-      }
+      onPause={(e) => {
+        handlePause();
+        onPause && onPause(e);
+      }}
+      onPlay={(e) => {
+        handlePlay();
+        onPlay && onPlay(e);
+      }}
+      onEnded={(e) => {
+        handleEnded();
+        onEnded && onEnded(e);
+      }}
+      onLoadedData={(e: SyntheticEvent<HTMLVideoElement, Event>) => {
+        setVideoElem(e.target as HTMLVideoElement);
+        onLoadedData && onLoadedData(e);
+      }}
       onLoadStart={(e: SyntheticEvent<HTMLVideoElement, Event>) => {
         setVideoElem(e.target as HTMLVideoElement);
-        setValues({ ...values, src: (e.target as HTMLVideoElement).src });
+        setValues({ ...values });
+        onLoadStart && onLoadStart(e);
       }}
-      onVolumeChange={(e) => setVolume((e.target as HTMLVideoElement).volume)}
-      onSeeking={handleOnSeeking}
-      onSeeked={handleOnSeeked}
-      onTimeUpdate={handleTimeUpdate}
-      preload='metadata'
-      tabIndex={-1}
+      onVolumeChange={(e) => {
+        setVolume((e.target as HTMLVideoElement).volume);
+        onVolumeChange && onVolumeChange(e);
+      }}
+      onSeeking={(e) => {
+        handleOnSeeking();
+        onSeeking && onSeeking(e);
+      }}
+      onSeeked={(e) => {
+        handleOnSeeked();
+        onSeeked && e;
+      }}
+      onTimeUpdate={(e) => {
+        handleTimeUpdate(e);
+        onTimeUpdate && onTimeUpdate(e);
+      }}
+      onDurationChange={(e) => {
+        setDuration((e.target as HTMLVideoElement).duration);
+        onDurationChange && onDurationChange(e);
+      }}
+      preload={preload !== null ? preload : 'metadata'}
+      tabIndex={tabIndex !== null ? tabIndex : -1}
       data-cy='HTMLVideoPlayer'
       isDragging={isProgressDragging || isVolumeDragging}
-      onDurationChange={(e) =>
-        setDuration((e.target as HTMLVideoElement).duration)
-      }
     />
   );
 }

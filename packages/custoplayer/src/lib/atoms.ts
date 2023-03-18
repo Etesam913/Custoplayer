@@ -1,6 +1,7 @@
 import { CustoplayerItem, CustoplayerValues } from '@root/lib/types';
 import { atom } from 'jotai';
 import { formatTime } from './utils';
+import { ComponentPropsWithoutRef } from 'react';
 
 /*
   Scope is required to prevent two custoplayer's
@@ -17,6 +18,8 @@ export const setVideoContainerAtom = atom(
     set(videoContainerAtom, update);
   },
 );
+
+export const videoAttributesAtom = atom<ComponentPropsWithoutRef<'video'>>({});
 
 // Video Play State
 export enum PlayState {
@@ -48,9 +51,7 @@ export const videoDimensionsAtom = atom<{ height: number; width: number }>({
   width: 0,
 });
 
-export const valuesAtom = atom<CustoplayerValues>({
-  src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm',
-});
+export const valuesAtom = atom<CustoplayerValues>({});
 
 // Rendering Items
 export const itemsAtom = atom<(CustoplayerItem | undefined)[]>([]);

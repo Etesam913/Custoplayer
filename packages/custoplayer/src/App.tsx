@@ -11,8 +11,10 @@ function App() {
   return (
     <Wrapper>
       <Custoplayer
+        src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
+        playsInline={true}
+        onClick={() => console.log('📝')}
         values={{
-          src: 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4',
           previewTooltip: {
             id: 'text',
           },

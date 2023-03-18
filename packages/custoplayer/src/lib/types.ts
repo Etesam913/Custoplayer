@@ -1,9 +1,10 @@
-export interface CustoplayerProps {
+import { ComponentPropsWithoutRef } from 'react';
+
+export interface CustoplayerProps extends ComponentPropsWithoutRef<'video'> {
   values: CustoplayerValues;
 }
 
 export interface CustoplayerValues {
-  src: string;
   playIndicator?: {
     id?: number;
     color?: string;
