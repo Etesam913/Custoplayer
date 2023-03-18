@@ -1,4 +1,4 @@
-import { CustoplayerItem, CustoplayerValues } from '@root/types';
+import { CustoplayerItem, CustoplayerValues } from '@root/lib/types';
 import { atom } from 'jotai';
 import { formatTime } from './utils';
 
@@ -82,3 +82,6 @@ export const isVolumeDraggingAtom = atom<isVolumeDraggingType>(false);
 // Timeout
 export const controlsBarTimeoutAtom = atom<null | NodeJS.Timeout>(null);
 export const isSeekingTimeoutAtom = atom<null | NodeJS.Timeout>(null);
+
+// Fullscreen Button
+export const isFullscreenAtom = atom(false);

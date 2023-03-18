@@ -1,4 +1,4 @@
-import { PreviewTooltipItem } from '@root/types';
+import { PreviewTooltipItem } from '@root/lib/types';
 import { useAtomValue } from 'jotai';
 import styled from 'styled-components';
 import {
@@ -23,7 +23,7 @@ function PreviewTooltips({
     myScope,
   );
   const previewTooltipStr = useAtomValue(previewTooltipStrAtom, myScope);
-  console.log(isHovered || isProgressDragging);
+
   return (
     <>
       {data.id === 'text' && (

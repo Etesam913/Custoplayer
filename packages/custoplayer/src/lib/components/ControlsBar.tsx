@@ -1,29 +1,33 @@
-import { CustoplayerItem } from '@root/types';
+import { CustoplayerItem } from '@root/lib/types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { Fragment } from 'react';
 import styled from 'styled-components';
+import ItemRenderer from './ItemRenderer';
 import {
-  myScope,
   draggableSymbol,
-  showControlsBarAtom,
-  itemsAtom,
   isProgressDraggingAtom,
   isVolumeDraggingAtom,
+  itemsAtom,
+  myScope,
+  showControlsBarAtom,
   videoDimensionsAtom,
 } from '../atoms';
 import {
   isCurrentTime,
   isDuration,
-  isFullscreen,
+  isFullscreenButton,
   isPlayButton,
   isProgressBar,
-  isVolume,
-  renderItemFromData,
+  isVolumeComponent,
 } from '../utils';
 
 function extractColor(curItem: CustoplayerItem) {
-  if (isPlayButton(curItem) || isVolume(curItem) || isFullscreen(curItem))
+  if (
+    isPlayButton(curItem) ||
+    isVolumeComponent(curItem) ||
+    isFullscreenButton(curItem)
+  )
     return curItem.buttonColor;
   else if (isDuration(curItem) || isCurrentTime(curItem))
     return curItem.textColor;
@@ -50,14 +54,14 @@ function ControlsBar() {
         isProgressBar={isProgressBar(curItem)}
         color={extractColor(curItem)}
       >
-        {renderItemFromData(curItem)}
+        <ItemRenderer item={curItem} />
       </ItemContainer>
     );
   }
 
   return (
     <AnimatePresence>
-      {(true || isVolumeDragging || isControlsBarShowing) && (
+      {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           initial={{ opacity: 0 }}

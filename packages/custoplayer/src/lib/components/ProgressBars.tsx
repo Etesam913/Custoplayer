@@ -19,7 +19,7 @@ import {
   formatTime,
   getLargestProgressBarMousePos,
 } from '@root/lib/utils';
-import { ProgressBarItem } from '@root/types';
+import { ProgressBarItem } from '@root/lib/types';
 import { motion } from 'framer-motion';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useRef, useState } from 'react';
@@ -160,6 +160,7 @@ function ProgressBars({ item }: ProgressBarsProps) {
           animate={{
             height: isHovered || isProgressDragging ? '0.6rem' : '0.35rem',
           }}
+          transition={{ duration: 0.2 }}
         >
           <Progress
             style={{ width: progressStr }}
@@ -190,7 +191,6 @@ const ProgressBar1 = styled(motion.div)`
   display: flex;
   background-color: #f2f2f2;
   width: 100%;
-  height: 0.35rem;
   border-radius: 0.7rem;
   overflow: hidden;
 `;

@@ -18,7 +18,7 @@ describe('PlayButtons.cy.tsx', () => {
     const colorVal = 'rgb(248, 219, 94)';
     cy.mount(
       <ItemContainer isProgressBar={false} color={colorVal}>
-        <PlayButtons item={{ id: 'playButton1', buttonColor: colorVal }} />
+        <PlayButtons item={{ id: 'playButton1' }} />
       </ItemContainer>,
     );
     cy.dataCy('playButton1').should('have.css', 'color', colorVal);

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import HTMLVideoPlayer from '@root/lib/components/HTMLVideoPlayer';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
+  isFullscreenAtom,
   myScope,
   showControlsBarAtom,
   videoContainerAtom,
@@ -9,7 +10,7 @@ import {
 } from '@root/lib/atoms';
 import ControlsBar from '@root/lib/components/ControlsBar';
 import { motion } from 'framer-motion';
-import { useDimensions } from '../hooks';
+import { useDimensions, useFullscreenEvent } from '../hooks';
 
 import { handleKeyPress } from '../utils';
 //import PlayIndicator from './Indicator/PlayIndicator';
@@ -21,11 +22,15 @@ function VideoPlayerWrapper() {
   useDimensions();
   const setVideoContainer = useSetAtom(videoContainerAtom, myScope);
   const videoContainerRef = useRef(null);
+  const setIsFullscreen = useSetAtom(isFullscreenAtom, myScope);
+
   useEffect(() => {
     if (videoContainerRef && videoContainerRef.current) {
       setVideoContainer(videoContainerRef.current);
     }
   }, [videoContainerRef]);
+
+  useFullscreenEvent(setIsFullscreen);
 
   return (
     <PlayerWrapper
@@ -61,6 +66,9 @@ const PlayerWrapper = styled.div`
   background: black;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const PlayerContainer = styled.div`
