@@ -24,6 +24,7 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
           height:
             props.isBarHovered || props.isVolumeDragging ? '0.5rem' : '0.35rem',
         }}
+        transition={{ duration: 0.2 }}
       >
         <Progress
           style={{ width: volumeStr }}

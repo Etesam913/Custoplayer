@@ -13,7 +13,6 @@ function App() {
       <Custoplayer
         src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
         playsInline={true}
-
         values={{
           previewTooltip: {
             id: 'text',
@@ -25,6 +24,8 @@ function App() {
             id: 'volumeButton1',
             barId: 'volumeBar1',
             hideOnMobile: true,
+            buttonColor: 'rgb(137, 178, 245)',
+            volumeColor: 'rgb(137, 178, 245)',
           },
           item3: {
             id: 'currentTime',
@@ -51,6 +52,7 @@ function App() {
         onDurationChange={() => console.log('video duration changed')}
         onSeeked={() => console.log('video seeked')}
         onSeeking={() => console.log('video seeking')}
+        onVolumeChange={(e) => console.log('muted')}
       />
     </Wrapper>
   );
