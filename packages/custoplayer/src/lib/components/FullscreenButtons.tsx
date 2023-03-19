@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FullscreenItem } from '@root/lib/types';
 import { useAtomValue } from 'jotai';
 import { myScope, videoContainerAtom, videoElemAtom } from '@root/lib/atoms';
 import screenfull from 'screenfull';

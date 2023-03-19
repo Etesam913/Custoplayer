@@ -133,7 +133,7 @@ function HTMLVideoPlayer() {
         handlePlayState(videoElem);
         onClick && onClick(e);
       }}
-      playsInline={playsInline !== null ? playsInline : true}
+      playsInline={playsInline ?? true}
       // onMouseMove={handleMouseMove}
       onPause={(e) => {
         handlePause();
@@ -177,8 +177,8 @@ function HTMLVideoPlayer() {
         setDuration((e.target as HTMLVideoElement).duration);
         onDurationChange && onDurationChange(e);
       }}
-      preload={preload !== null ? preload : 'metadata'}
-      tabIndex={tabIndex !== null ? tabIndex : -1}
+      preload={preload ?? 'metadata'}
+      tabIndex={tabIndex ?? -1}
       data-cy='HTMLVideoPlayer'
       isDragging={isProgressDragging || isVolumeDragging}
     />

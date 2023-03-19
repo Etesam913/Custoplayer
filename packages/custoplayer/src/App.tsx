@@ -13,6 +13,7 @@ function App() {
       <Custoplayer
         src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
         playsInline={true}
+        preload='metadata'
         values={{
           previewTooltip: {
             id: 'text',
@@ -23,12 +24,12 @@ function App() {
           item2: {
             id: 'volumeButton1',
             barId: 'volumeBar1',
-            hideOnMobile: true,
             buttonColor: 'rgb(137, 178, 245)',
             volumeColor: 'rgb(137, 178, 245)',
           },
           item3: {
             id: 'currentTime',
+            hideOnMobile: true,
           },
           item4: {
             id: 'progressBar1',
@@ -54,14 +55,61 @@ function App() {
         onSeeking={() => console.log('video seeking')}
         onVolumeChange={(e) => console.log('muted')}
       />
+      <div style={{ marginTop: '5rem' }}>
+        <Custoplayer
+          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
+          playsInline={true}
+          values={{
+            previewTooltip: {
+              id: 'text',
+            },
+            item1: {
+              id: 'playButton1',
+            },
+            item2: {
+              id: 'volumeButton1',
+              barId: 'volumeBar1',
+              hideOnMobile: true,
+              buttonColor: 'rgb(137, 178, 245)',
+              volumeColor: 'rgb(137, 178, 245)',
+            },
+            item3: {
+              id: 'currentTime',
+            },
+            item4: {
+              id: 'progressBar1',
+            },
+            item5: {
+              id: 'duration',
+              hideOnMobile: true,
+            },
+            item6: {
+              id: 'fullscreenButton2',
+              buttonColor: 'rgb(137, 178, 245)',
+            },
+          }}
+          /* The below handlers are for the cypress tests. They do not change any styles */
+          onClick={() => console.log('video clicked')}
+          onPlay={() => console.log('video playing')}
+          onPause={() => console.log('video paused')}
+          onLoadStart={() => console.log('video data load start')}
+          onLoadedData={() => console.log('video data loaded')}
+          onTimeUpdate={() => console.log('time updated')}
+          onDurationChange={() => console.log('video duration changed')}
+          onSeeked={() => console.log('video seeked')}
+          onSeeking={() => console.log('video seeking')}
+          onVolumeChange={(e) => console.log('muted')}
+        />
+      </div>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  margin: 2rem;
+  margin: 0.75rem;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 `;
 
 export default App;
