@@ -3,7 +3,7 @@ describe('Smaller Properties', () => {
     cy.visit('/')
     cy.dataCy('videoPlayerWrapper').should('exist')
     cy.dataCy('videoPlayerWrapper').trigger('mouseover')
-    cy.dataCy('volumeButton1').should('exist')
+    cy.dataCy('duration').should('exist')
     Cypress.config('viewportWidth', 768)
   })
 

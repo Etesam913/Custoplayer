@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { myScope, isVolumeDraggingType, volumeStrAtom } from '../atoms';
 
 interface VolumeBarsProps {
-  barId: 'volumeBar1' | 'volumeBar2';
+  barId?: 'volumeBar1' | 'volumeBar2';
   volumeColor?: string;
   barColor?: string;
   isBarHovered: boolean;

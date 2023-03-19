@@ -18,6 +18,8 @@ import {
   clamp,
   formatTime,
   getLargestProgressBarMousePos,
+  isMouseFunc,
+  isTouchscreenFunc,
 } from '@root/lib/utils';
 import { ProgressBarItem } from '@root/lib/types';
 import { motion } from 'framer-motion';
@@ -29,18 +31,6 @@ import PreviewTooltips from './PreviewTooltips';
 
 interface ProgressBarsProps {
   item: ProgressBarItem;
-}
-
-function isTouchscreenFunc(
-  event: BarMouseEvent,
-): event is React.TouchEvent<HTMLDivElement> {
-  return (event as React.TouchEvent<HTMLDivElement>).touches !== undefined;
-}
-
-function isMouseFunc(
-  event: BarMouseEvent,
-): event is React.MouseEvent<HTMLDivElement> {
-  return (event as React.MouseEvent<HTMLDivElement>).clientX !== undefined;
 }
 
 function ProgressBars({ item }: ProgressBarsProps) {

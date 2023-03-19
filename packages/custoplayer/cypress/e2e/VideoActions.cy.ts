@@ -24,7 +24,7 @@ describe('Video Actions', () => {
     cy.dataCy('currentTime').should('not.contain.text', "00:00");
   })
 
-  it('changes volume of the video via volume bar', () => {
+  it('changes volume of the video via volume bar using mouse', () => {
     cy.visit('/')
     cy.dataCy('videoPlayerWrapper').should('exist')
     cy.dataCy('videoPlayerWrapper').trigger('mouseover')
@@ -39,6 +39,23 @@ describe('Video Actions', () => {
     cy.dataCy('volumeButton1').click()
     cy.dataCy('HTMLVideoPlayer').should('have.prop', 'muted', false)
   })
+
+  it('changes volume of the video via volume bar using touchscreen', () => {
+    cy.visit('/')
+    cy.dataCy('videoPlayerWrapper').should('exist')
+    cy.dataCy('videoPlayerWrapper').trigger('mouseover')
+    cy.dataCy('HTMLVideoPlayer').should('exist')
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'volume', 1)
+    cy.dataCy('volumeContainer').trigger('touchstart').trigger('touchmove', { x: 20 })
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'volume').then((x) => expect(x).to.be.lessThan(0.7))
+    cy.dataCy('volumeButton1').should('exist')
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'muted', false)
+    cy.dataCy('volumeButton1').click()
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'muted', true)
+    cy.dataCy('volumeButton1').click()
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'muted', false)
+  })
+
 
   it('changes current time of the video via progress bar using mouse', () => {
     cy.visit('/')

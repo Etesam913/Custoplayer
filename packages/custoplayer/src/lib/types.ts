@@ -25,7 +25,7 @@ export interface PreviewTooltipItem {
 
 export interface VolumeItem {
   id: 'volumeButton1' | 'volumeButton2';
-  barId: 'volumeBar1' | 'volumeBar2';
+  barId?: 'volumeBar1' | 'volumeBar2';
   volumeColor?: string;
   barColor?: string;
   buttonColor?: string;

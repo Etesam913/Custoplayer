@@ -61,10 +61,7 @@ export function isProgressBar(
 export function isVolumeComponent(
   curItem: CustoplayerItem,
 ): curItem is VolumeItem {
-  return (
-    (curItem as VolumeItem).id.startsWith('volumeButton') &&
-    (curItem as VolumeItem).barId !== undefined
-  );
+  return (curItem as VolumeItem).id.startsWith('volumeButton');
 }
 
 export function isCurrentTime(curItem: CustoplayerItem): curItem is TimeItem {
@@ -83,7 +80,6 @@ export function isFullscreenButton(
 
 export function handlePlayState(video: HTMLVideoElement | null) {
   if (video === null) return;
-  //const mobileDebug = document.getElementById('mobile-debug');
   const isPlaying = !video.paused && !video.ended && video.currentTime > 0;
 
   if (isPlaying) {
@@ -253,4 +249,16 @@ export function getLargestProgressBarMousePos(
     distLeftOfProgressBar,
     distRightOfProgressBar,
   ];
+}
+
+export function isTouchscreenFunc(
+  event: BarMouseEvent,
+): event is React.TouchEvent<HTMLDivElement> {
+  return (event as React.TouchEvent<HTMLDivElement>).touches !== undefined;
+}
+
+export function isMouseFunc(
+  event: BarMouseEvent,
+): event is React.MouseEvent<HTMLDivElement> {
+  return (event as React.MouseEvent<HTMLDivElement>).clientX !== undefined;
 }
