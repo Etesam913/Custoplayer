@@ -13,16 +13,14 @@ interface FullscreenButtonsProps {
 function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
-  const videoElem = useAtomValue(videoElemAtom, myScope)
+  const videoElem = useAtomValue(videoElemAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
 
   function handleFullscreen() {
     if (videoContainer && screenfull.isEnabled) {
       screenfull.toggle(videoContainer);
-    }
-
-    else if (videoContainer && videoElem && !screenfull.isEnabled) {
-      (videoElem as any).webkitEnterFullscreen()
+    } else if (videoContainer && videoElem && !screenfull.isEnabled) {
+      (videoElem as any).webkitEnterFullscreen();
     }
   }
 

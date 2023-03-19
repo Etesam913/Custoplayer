@@ -31,16 +31,17 @@ interface ProgressBarsProps {
   item: ProgressBarItem;
 }
 
-
-function isTouchscreenFunc(event: BarMouseEvent): event is React.TouchEvent<HTMLDivElement> {
-  return (event as React.TouchEvent<HTMLDivElement>).touches !== null;
+function isTouchscreenFunc(
+  event: BarMouseEvent,
+): event is React.TouchEvent<HTMLDivElement> {
+  return (event as React.TouchEvent<HTMLDivElement>).touches !== undefined;
 }
 
-function isMouseFunc(event: BarMouseEvent): event is React.MouseEvent<HTMLDivElement> {
-  return (event as React.MouseEvent<HTMLDivElement>).clientX !== null;
+function isMouseFunc(
+  event: BarMouseEvent,
+): event is React.MouseEvent<HTMLDivElement> {
+  return (event as React.MouseEvent<HTMLDivElement>).clientX !== undefined;
 }
-
-
 
 function ProgressBars({ item }: ProgressBarsProps) {
   const values = useAtomValue(valuesAtom, myScope);
@@ -70,9 +71,10 @@ function ProgressBars({ item }: ProgressBarsProps) {
   ) {
     setIsProgressDragging(true);
     if (progressBarRef && progressBarRef.current) {
-      let xPos = 0
-      if (isTouchscreenFunc(e)) xPos = e.touches[0].clientX
+      let xPos = 0;
+      if (isTouchscreenFunc(e)) xPos = e.touches[0].clientX;
       else if (isMouseFunc(e)) xPos = e.clientX;
+      console.log(xPos);
       const progressBarRect = progressBarRef.current.getBoundingClientRect();
       const [largestProgressBarMousePos, distLeftOfProgressBar, _] =
         getLargestProgressBarMousePos(videoContainerRect, progressBarRect);
@@ -106,8 +108,8 @@ function ProgressBars({ item }: ProgressBarsProps) {
       !videoContainer
     )
       return;
-    let xPos = 0
-    if (isTouchscreenFunc(e)) xPos = e.touches[0].clientX
+    let xPos = 0;
+    if (isTouchscreenFunc(e)) xPos = e.touches[0].clientX;
     else if (isMouseFunc(e)) xPos = e.clientX;
     const progressBarRect = progressBarRef.current.getBoundingClientRect();
     const widthOfItemsToLeftOfProgressBar =
@@ -153,26 +155,10 @@ function ProgressBars({ item }: ProgressBarsProps) {
     playState,
   );
 
-
-  // onMouseEnter={() => setIsHovered(true)}
-  // onMouseMove={(e) => handleMouseMove(e, false)}
-  // onMouseLeave={() => setIsHovered(false)}
-  // onMouseDown={(e) =>
-  //   barMouseEvent(
-  //     e,
-  //     handleProgressMouseMove,
-  //     videoContainer,
-  //     setIsProgressDragging,
-  //     false
-  //   )
-  // }
-
-
   return (
     <ProgressBarContainer
       data-cy={item.id}
       isDragging={isProgressDragging}
-
       onTouchStart={(e) => {
         setIsHovered(true);
         barMouseEvent(
@@ -180,11 +166,22 @@ function ProgressBars({ item }: ProgressBarsProps) {
           handleProgressMouseMove,
           videoContainer,
           setIsProgressDragging,
-          true
-        )
+          true,
+        );
       }}
       onTouchEnd={() => setIsHovered(false)}
-
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setIsHovered(false)}
+      onMouseDown={(e) =>
+        barMouseEvent(
+          e,
+          handleProgressMouseMove,
+          videoContainer,
+          setIsProgressDragging,
+          false,
+        )
+      }
     >
       {item.id === 'progressBar1' && (
         <ProgressBar1

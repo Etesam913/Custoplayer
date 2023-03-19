@@ -19,9 +19,10 @@ export default defineConfig({
   server: {
     host: true,
     port: 3000,
-    hmr: {
-      clientPort: 443,
-    },
+    // Uncomment this out when using ngrok
+    // hmr: {
+    //   clientPort: 443,
+    // },
   },
 
   resolve: {

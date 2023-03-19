@@ -40,7 +40,7 @@ describe('Video Actions', () => {
     cy.dataCy('HTMLVideoPlayer').should('have.prop', 'muted', false)
   })
 
-  it('changes current time of the video via progress bar', () => {
+  it('changes current time of the video via progress bar using mouse', () => {
     cy.visit('/')
     cy.dataCy('videoPlayerWrapper').should('exist')
     cy.dataCy('videoPlayerWrapper').trigger('mouseover')
@@ -49,12 +49,26 @@ describe('Video Actions', () => {
     cy.dataCy('HTMLVideoPlayer').should(($video) => {
       expect(($video[0] as HTMLVideoElement).duration).to.be.gt(6)
     })
-    cy.dataCy('progressBar1').trigger('mouseover').trigger('mousedown')
-    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'currentTime').then((x) => expect(x).to.be.greaterThan(2));
+    cy.dataCy('progressBar1').trigger('mousedown').trigger('mousemove', { x: 20 })
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'currentTime').then((x) => expect(x).to.be.greaterThan(2))
+
     cy.dataCy('textPreviewTooltip').should('exist')
   })
+
+  it('changes current time of the video via progress bar using touchscreen', () => {
+    cy.visit('/')
+    cy.dataCy('videoPlayerWrapper').should('exist')
+    cy.dataCy('videoPlayerWrapper').trigger('mouseover')
+    cy.dataCy('HTMLVideoPlayer').should('exist')
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'currentTime', 0);
+    cy.dataCy('HTMLVideoPlayer').should(($video) => {
+      expect(($video[0] as HTMLVideoElement).duration).to.be.gt(6)
+    })
+    cy.dataCy('progressBar1').trigger('touchstart').trigger('touchmove', { x: 20 })
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'currentTime').then((x) => expect(x).to.be.greaterThan(2))
+    cy.dataCy('textPreviewTooltip').should('exist')
+  })
+
 })
-
-
 
 export { }

@@ -11,7 +11,7 @@ import { isVolumeDraggingType } from '@root/lib/atoms';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
-  return function(this: any, ...args: any[]) {
+  return function (this: any, ...args: any[]) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
@@ -33,7 +33,7 @@ export const throttle = (fn: (...args: any[]) => void, ms = 300) => {
 
     isThrottled = true;
 
-    setTimeout(function() {
+    setTimeout(function () {
       isThrottled = false;
       if (savedArgs) {
         wrapper.apply(savedThis, savedArgs);
@@ -143,7 +143,7 @@ export type BarMouseEvent =
   | React.TouchEvent<HTMLDivElement>
   | React.TouchEvent<HTMLButtonElement>;
 
-type MouseMoveCallback = (a: BarMouseEvent, b: DOMRect) => void
+type MouseMoveCallback = (a: BarMouseEvent, b: DOMRect) => void;
 
 function getMousePos(
   mousePos: BarMouseEvent,
@@ -164,13 +164,13 @@ export function barMouseEvent(
   setIsDragging:
     | ((update: SetStateAction<boolean>) => void)
     | ((update: SetStateAction<isVolumeDraggingType>) => void),
-  isTouchscreen: boolean
+  isTouchscreen: boolean,
 ) {
   mouseMove(e);
   e.stopPropagation();
 
   function mouseMove(e: BarMouseEvent) {
-    if (isTouchscreen) e.preventDefault()
+    if (isTouchscreen) e.preventDefault();
     if (e.target) {
       getMousePos(e, mouseMoveCallback, videoContainer);
     }
@@ -181,22 +181,18 @@ export function barMouseEvent(
     if (isTouchscreen) {
       document.removeEventListener('touchmove', mouseMove);
       document.removeEventListener('touchend', cleanUpDocumentEvents);
-    }
-    else {
+    } else {
       document.removeEventListener('mousemove', mouseMove);
       document.removeEventListener('mouseup', cleanUpDocumentEvents);
     }
-
   }
   if (isTouchscreen) {
     document.addEventListener('touchmove', mouseMove, { passive: false });
     document.addEventListener('touchend', cleanUpDocumentEvents);
-  }
-  else {
+  } else {
     document.addEventListener('mousemove', mouseMove);
     document.addEventListener('mouseup', cleanUpDocumentEvents);
   }
-
 }
 
 export function formatTime(durationInSeconds: number) {
