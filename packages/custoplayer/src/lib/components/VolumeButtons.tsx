@@ -69,8 +69,9 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
   );
 
   return (
-    <VolumeButtonContainer isDragging={isVolumeDragging} data-cy={item.id}>
+    <VolumeButtonContainer isDragging={isVolumeDragging}>
       <ButtonContainer
+        data-cy={item.id}
         whileHover={{ scale: 1.075 }}
         whileTap={{ scale: 0.925 }}
         onClick={() =>

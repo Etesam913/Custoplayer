@@ -32,6 +32,12 @@ describe('Video Actions', () => {
     cy.dataCy('HTMLVideoPlayer').should('have.prop', 'volume', 1)
     cy.dataCy('volumeContainer').trigger('mouseover').trigger('mousedown').trigger('mousemove').trigger('mouseup', 20, 20)
     cy.dataCy('HTMLVideoPlayer').should('have.prop', 'volume').then((x) => expect(x).to.be.lessThan(0.7))
+    cy.dataCy('volumeButton1').should('exist')
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'muted', false)
+    cy.dataCy('volumeButton1').click()
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'muted', true)
+    cy.dataCy('volumeButton1').click()
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'muted', false)
   })
 
   it('changes current time of the video via progress bar', () => {
