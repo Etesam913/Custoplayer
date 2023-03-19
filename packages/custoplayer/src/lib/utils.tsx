@@ -61,10 +61,7 @@ export function isProgressBar(
 export function isVolumeComponent(
   curItem: CustoplayerItem,
 ): curItem is VolumeItem {
-  return (
-    (curItem as VolumeItem).id.startsWith('volumeButton') &&
-    (curItem as VolumeItem).barId !== undefined
-  );
+  return (curItem as VolumeItem).id.startsWith('volumeButton');
 }
 
 export function isCurrentTime(curItem: CustoplayerItem): curItem is TimeItem {
@@ -83,17 +80,16 @@ export function isFullscreenButton(
 
 export function handlePlayState(video: HTMLVideoElement | null) {
   if (video === null) return;
-  const mobileDebug = document.getElementById('mobile-debug');
   const isPlaying = !video.paused && !video.ended && video.currentTime > 0;
 
   if (isPlaying) {
-    if (mobileDebug) mobileDebug.innerText = 'paused';
+    //if (mobileDebug) mobileDebug.innerText = 'paused';
     video.pause();
   } else if (video.paused) {
-    if (mobileDebug) mobileDebug.innerText = 'playing';
+    //if (mobileDebug) mobileDebug.innerText = 'playing';
     video.play();
   } else if (video.ended) {
-    if (mobileDebug) mobileDebug.innerText = 'playing';
+    //if (mobileDebug) mobileDebug.innerText = 'playing';
     video.play();
   }
 }
@@ -137,12 +133,17 @@ export function clamp(val: number, min: number, max: number) {
 
 export type BarMouseEvent =
   | MouseEvent
+  | TouchEvent
   | React.MouseEvent<HTMLDivElement, MouseEvent>
-  | React.MouseEvent<HTMLButtonElement, MouseEvent>;
+  | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  | React.TouchEvent<HTMLDivElement>
+  | React.TouchEvent<HTMLButtonElement>;
+
+type MouseMoveCallback = (a: BarMouseEvent, b: DOMRect) => void;
 
 function getMousePos(
   mousePos: BarMouseEvent,
-  callback: (a: BarMouseEvent, b: DOMRect) => void,
+  callback: MouseMoveCallback,
   videoContainer: HTMLDivElement | null,
 ) {
   // TODO: Fix bug where drag goes into dev tools
@@ -154,16 +155,18 @@ function getMousePos(
 
 export function barMouseEvent(
   e: BarMouseEvent,
-  mouseMoveCallback: (a: BarMouseEvent, b: DOMRect) => void,
+  mouseMoveCallback: MouseMoveCallback,
   videoContainer: HTMLDivElement | null,
   setIsDragging:
     | ((update: SetStateAction<boolean>) => void)
     | ((update: SetStateAction<isVolumeDraggingType>) => void),
+  isTouchscreen: boolean,
 ) {
   mouseMove(e);
   e.stopPropagation();
 
   function mouseMove(e: BarMouseEvent) {
+    if (isTouchscreen) e.preventDefault();
     if (e.target) {
       getMousePos(e, mouseMoveCallback, videoContainer);
     }
@@ -171,12 +174,21 @@ export function barMouseEvent(
 
   function cleanUpDocumentEvents() {
     setIsDragging(false);
-    document.removeEventListener('mousemove', mouseMove);
-    document.removeEventListener('mouseup', cleanUpDocumentEvents);
+    if (isTouchscreen) {
+      document.removeEventListener('touchmove', mouseMove);
+      document.removeEventListener('touchend', cleanUpDocumentEvents);
+    } else {
+      document.removeEventListener('mousemove', mouseMove);
+      document.removeEventListener('mouseup', cleanUpDocumentEvents);
+    }
   }
-
-  document.addEventListener('mousemove', mouseMove);
-  document.addEventListener('mouseup', cleanUpDocumentEvents);
+  if (isTouchscreen) {
+    document.addEventListener('touchmove', mouseMove, { passive: false });
+    document.addEventListener('touchend', cleanUpDocumentEvents);
+  } else {
+    document.addEventListener('mousemove', mouseMove);
+    document.addEventListener('mouseup', cleanUpDocumentEvents);
+  }
 }
 
 export function formatTime(durationInSeconds: number) {
@@ -237,4 +249,16 @@ export function getLargestProgressBarMousePos(
     distLeftOfProgressBar,
     distRightOfProgressBar,
   ];
+}
+
+export function isTouchscreenFunc(
+  event: BarMouseEvent,
+): event is React.TouchEvent<HTMLDivElement> {
+  return (event as React.TouchEvent<HTMLDivElement>).touches !== undefined;
+}
+
+export function isMouseFunc(
+  event: BarMouseEvent,
+): event is React.MouseEvent<HTMLDivElement> {
+  return (event as React.MouseEvent<HTMLDivElement>).clientX !== undefined;
 }

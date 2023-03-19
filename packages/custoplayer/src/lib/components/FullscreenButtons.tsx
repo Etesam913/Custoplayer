@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FullscreenItem } from '@root/lib/types';
 import { useAtomValue } from 'jotai';
-import { myScope, videoContainerAtom } from '@root/lib/atoms';
+import { myScope, videoContainerAtom, videoElemAtom } from '@root/lib/atoms';
 import screenfull from 'screenfull';
 
 interface FullscreenButtonsProps {
@@ -14,11 +13,15 @@ interface FullscreenButtonsProps {
 function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
+  const videoElem = useAtomValue(videoElemAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
 
   function handleFullscreen() {
-    if (videoContainer && screenfull.isEnabled)
+    if (videoContainer && screenfull.isEnabled) {
       screenfull.toggle(videoContainer);
+    } else if (videoContainer && videoElem && !screenfull.isEnabled) {
+      (videoElem as any).webkitEnterFullscreen();
+    }
   }
 
   return (
