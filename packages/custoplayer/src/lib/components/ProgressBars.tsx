@@ -64,7 +64,6 @@ function ProgressBars({ item }: ProgressBarsProps) {
       let xPos = 0;
       if (isTouchscreenFunc(e)) xPos = e.touches[0].clientX;
       else if (isMouseFunc(e)) xPos = e.clientX;
-      console.log(xPos);
       const progressBarRect = progressBarRef.current.getBoundingClientRect();
       const [largestProgressBarMousePos, distLeftOfProgressBar, _] =
         getLargestProgressBarMousePos(videoContainerRect, progressBarRect);
