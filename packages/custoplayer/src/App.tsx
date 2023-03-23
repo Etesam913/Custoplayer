@@ -2,11 +2,6 @@ import styled from 'styled-components';
 import Custoplayer from './lib/Custoplayer';
 
 function App() {
-  // useEffect(() => {
-  //   window.setInterval(() => {
-  //     console.log(document.activeElement);
-  //   }, 2000);
-  // }, []);
 
   return (
     <Wrapper>
