@@ -4,52 +4,55 @@
 
 If you would like to contribute by fixing an open issue or developing a new feature you can use this suggested workflow:
 
-First fork the repository, 
-
-Create a new feature branch off the `main` branch.
-
-Second, install the dependencies of the monorepo:
-
+* First fork the repository, 
+  * Create a new feature branch off the `main` branch.
+* Second, install the dependencies of the monorepo:
 ```bash
 yarn install
 ```
 
-Build the library:
-
+* Build the library:
 ```bash
 cd packages/custoplayer && yarn build
 ```
 
-Run the development server of the test project:
+* Run the development server of the test project:
 
 ```bash
-cd sites/my-site && yarn dev
+yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+* Make and commit desired changes.
+  * Make sure to run `yarn lint --fix` before commiting to ensure that there are no linting errors.
 
-#### Finally, [submit a PR](https://github.com/Etesam913/Custoplayer/pulls) for the review 
+* Finally, submit a pr from your forked branch to the Custoplayer main branch 
 
 
 ## Testing
 
-If you want to run the unit tests run:
+### If you want to run the unit tests run:
 
 ```bash
-cd packages/custoplayer && yarn jest
+cd packages/custoplayer && yarn cy:open-unit
 ```
 
-If you want to run the integration tests run:
+If you want to run the unit tests headlessly do:
 
 ```bash
-cd sites/my-site && yarn dev
+yarn cy:run-unit
 ```
 
-In a new terminal window run (make sure you are in `sites/my-site`)
+### If you want to run the end to end tests run:
 
-```
-yarn test
+```bash
+cd packages/custoplayer && yarn cy:open-e2e
 ```
 
-This should open a cypress window where you can run tests.
+If you want to run the end to end tests headlessly do:
+
+```bash
+yarn cy:run-e2e
+```
+

@@ -215,6 +215,9 @@ const VolumeButtonPath = styled(motion.path)`
 
 const ButtonContainer = styled(motion.button)`
   border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: transparent;
   padding: 0;
   cursor: pointer;

@@ -7,11 +7,11 @@ on:
     branches: [main]
     paths-ignore:
       - '**.md'
-  
-jobs: 
+
+jobs:
   eslint:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: 🔀 Checking out Repo
         uses: actions/checkout@v3
@@ -23,8 +23,8 @@ jobs:
 
       - name: 📦 Installing Dependencies
         run: yarn install && ls
-      
-      - name: ⌛️ Running Jest Unit Tests
+
+      - name: ⌛️ Running ESLint
         run: |
           cd packages/custoplayer
           yarn lint

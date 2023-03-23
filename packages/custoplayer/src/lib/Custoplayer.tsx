@@ -15,7 +15,6 @@ function Custoplayer({ values, ...rest }: CustoplayerProps) {
 
   /* TODO: These values to not update because they are in the file that is being exported */
   useEffect(() => {
-    console.log(values);
     setValues(values);
     setItems([
       values.item1,

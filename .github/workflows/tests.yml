@@ -26,20 +26,21 @@ jobs:
       - name: ⌛️ Running Cypress Component Tests
         uses: cypress-io/github-action@v5.3.0
         with:
+          build: yarn build
+          component: true
           config-file: cypress.config.ts
           working-directory: packages/custoplayer
-          component: true
-          build: yarn build
 
       - name: ⌛️ Running Cypress E2E Tests
         uses: cypress-io/github-action@v5.3.0
         with:
-          wait-on: 'http://localhost:3000'
+
           browser: chrome
           config-file: cypress.config.ts
-          working-directory: packages/custoplayer
-          start: yarn dev
           install: false
+          start: yarn dev
+          wait-on: 'http://localhost:3000'
+          working-directory: packages/custoplayer
 
       - name: 📝 Create coverage xml file
         run: cd packages/custoplayer/ &&  npx nyc report --reporter=clover
