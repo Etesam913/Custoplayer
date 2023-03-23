@@ -3,7 +3,7 @@
 <span>
   <img src="https://img.shields.io/badge/license-MIT-green"></img> 
   <img src="https://img.shields.io/github/issues/etesam913/Custoplayer"></img>
-  <a href="https://codecov.io/gh/Etesam913/Custoplayer" > 
+  <a href="https://codecov.io/gh/Etesam913/Custoplayer"> 
     <img src="https://codecov.io/gh/Etesam913/Custoplayer/branch/main/graph/badge.svg?token=GOZ1AQ77C2"/> 
   </a>
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/linting.yml/badge.svg"/>
@@ -34,3 +34,53 @@
 </ul>
 
 <img src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2FWritten-By-Human-Not-By-AI-Badge-white.svg"/>
+
+<h2>📦 Installation</h2>
+<h3>npm</h3>
+
+```
+npm install custoplayer
+```
+<h3>yarn</h3>
+
+```
+yarn add custoplayer
+```
+
+<h2>💻 Example Usage</h2>
+
+```jsx
+<Custoplayer
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
+  playsInline={true}
+  preload='metadata'
+  values={{
+    item1: {
+      id: 'playButton1',
+    },
+    item2: {
+      id: 'volumeButton1',
+      barId: 'volumeBar1',
+      buttonColor: 'rgb(137, 178, 245)',
+      volumeColor: 'rgb(137, 178, 245)',
+    },
+    item3: {
+      id: 'currentTime',
+    },
+    item4: {
+      id: 'progressBar1',
+    },
+    item5: {
+      id: 'duration',
+      hideOnMobile: true,
+    },
+    item6: {
+      id: 'fullscreenButton2',
+      buttonColor: 'rgb(137, 178, 245)',
+    },
+  }}
+/>
+```
+
+<h2> See More at the <a>Documentation Page</a> </h2>
+* Docs are not created yet
