@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Custoplayer from './lib/Custoplayer';
 
 function App() {
-
   return (
     <Wrapper>
       <Custoplayer
