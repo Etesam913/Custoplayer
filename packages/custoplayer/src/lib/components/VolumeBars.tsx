@@ -2,7 +2,12 @@ import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { forwardRef } from 'react';
 import styled from 'styled-components';
-import { myScope, isVolumeDraggingType, volumeStrAtom } from '../atoms';
+import {
+  myScope,
+  isVolumeDraggingType,
+  volumeStrAtom,
+  valuesAtom,
+} from '../atoms';
 
 interface VolumeBarsProps {
   barId?: 'volumeBar1' | 'volumeBar2';
@@ -13,7 +18,9 @@ interface VolumeBarsProps {
 }
 type Ref = HTMLDivElement;
 const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
+  const videoValues = useAtomValue(valuesAtom, myScope);
   const volumeStr = useAtomValue(volumeStrAtom, myScope);
+
   if (props.barId === 'volumeBar1') {
     return (
       <VolumeBar1
@@ -34,7 +41,7 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
     );
   } else if (props.barId === 'volumeBar2') {
     return (
-      <VolumeBar2Shade>
+      <VolumeBar2Shade backgroundColor={videoValues.controlsBar?.barColor}>
         <VolumeBar2 barColor={props.barColor} data-cy={props.barId} ref={ref}>
           <Progress
             style={{ height: volumeStr }}
@@ -59,10 +66,11 @@ const VolumeBar1 = styled(motion.div)<{ barColor: string | undefined }>`
   overflow: hidden;
 `;
 
-const VolumeBar2Shade = styled.div`
+const VolumeBar2Shade = styled.div<{ backgroundColor: string | undefined }>`
   height: 5.9rem;
   width: 2rem;
-  background-color: rgba(28, 28, 28, 0.7);
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
   display: flex;
   justify-content: center;
   align-items: center;

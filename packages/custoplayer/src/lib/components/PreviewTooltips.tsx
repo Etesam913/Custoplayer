@@ -5,6 +5,7 @@ import {
   myScope,
   previewTooltipPositionAtom,
   previewTooltipStrAtom,
+  valuesAtom,
 } from '../atoms';
 
 interface PreviewTooltipProps {
@@ -23,11 +24,12 @@ function PreviewTooltips({
     myScope,
   );
   const previewTooltipStr = useAtomValue(previewTooltipStrAtom, myScope);
-
+  const videoValues = useAtomValue(valuesAtom, myScope);
   return (
     <>
       {data.id === 'text' && (
         <TextTooltip
+          backgroundColor={videoValues.controlsBar?.barColor}
           data-cy='textPreviewTooltip'
           isVisible={isHovered || isProgressDragging}
           style={{
@@ -41,14 +43,19 @@ function PreviewTooltips({
   );
 }
 
-const TextTooltip = styled.span<{ isVisible: boolean }>`
+const TextTooltip = styled.span<{
+  isVisible: boolean;
+  backgroundColor: string | undefined;
+}>`
   position: absolute;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background-color: rgba(28, 28, 28, 0.7);
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
   pointer-events: none;
   opacity: ${(props) => (props.isVisible ? 1 : 0)};
   transition: opacity 300ms;
+  box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.25);
 `;
 
 export default PreviewTooltips;

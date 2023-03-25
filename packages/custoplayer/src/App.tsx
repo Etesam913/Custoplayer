@@ -12,14 +12,18 @@ function App() {
           previewTooltip: {
             id: 'text',
           },
+          controlsBar: {
+            barColor: '#386641',
+          },
           item1: {
             id: 'playButton1',
+            buttonColor: '#a7c957',
           },
           item2: {
             id: 'volumeButton1',
-            barId: 'volumeBar1',
-            buttonColor: 'rgb(137, 178, 245)',
-            volumeColor: 'rgb(137, 178, 245)',
+            barId: 'volumeBar2',
+            buttonColor: '#a7c957',
+            volumeColor: '#6a994e',
             hideOnMobile: true,
           },
           item3: {
@@ -28,6 +32,7 @@ function App() {
           },
           item4: {
             id: 'progressBar1',
+            progressColor: '#6a994e',
           },
           item5: {
             id: 'duration',
@@ -35,7 +40,7 @@ function App() {
           },
           item6: {
             id: 'fullscreenButton2',
-            buttonColor: 'rgb(137, 178, 245)',
+            buttonColor: '#a7c957',
           },
         }}
         /* The below handlers are for the cypress tests. They do not change any styles */
