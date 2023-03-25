@@ -31,7 +31,6 @@ function VideoPlayerWrapper() {
   }, [videoContainerRef]);
 
   useFullscreenEvent(setIsFullscreen);
-
   return (
     <PlayerWrapper
       data-cy='videoPlayerWrapper'
