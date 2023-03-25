@@ -1,4 +1,4 @@
-import { Provider, useSetAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import VideoPlayerWrapper from '@root/lib/components/VideoPlayerWrapper';
 import {
   itemsAtom,
@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 function Custoplayer({ values, ...rest }: CustoplayerProps) {
   const setValues = useSetAtom(valuesAtom, myScope);
   const setItems = useSetAtom(itemsAtom, myScope);
+  const setVideoAttributes = useSetAtom(videoAttributesAtom, myScope);
 
   /* TODO: These values to not update because they are in the file that is being exported */
   useEffect(() => {
@@ -27,33 +28,17 @@ function Custoplayer({ values, ...rest }: CustoplayerProps) {
     ]);
   }, [values]);
 
+  useEffect(() => {
+    setVideoAttributes(rest);
+  }, [rest]);
+
   return (
-    <Provider
-      scope={myScope}
-      initialValues={[
-        [valuesAtom, values],
-        [
-          itemsAtom,
-          [
-            values.item1,
-            values.item2,
-            values.item3,
-            values.item4,
-            values.item5,
-            values.item6,
-            values.item7,
-          ],
-        ],
-        [videoAttributesAtom, rest],
-      ]}
-    >
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        {/* <div id='mobile-debug' style={{ marginBottom: '1rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {/* <div id='mobile-debug' style={{ marginBottom: '1rem' }}>
           mobile debug
         </div> */}
-        <VideoPlayerWrapper />
-      </div>
-    </Provider>
+      <VideoPlayerWrapper />
+    </div>
   );
 }
 

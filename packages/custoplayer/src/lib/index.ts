@@ -1,1 +1,1 @@
-export { default as Custoplayer } from './Custoplayer';
+export { default as Custoplayer } from './EntryPoint';

@@ -11,6 +11,7 @@ import {
   itemsAtom,
   myScope,
   showControlsBarAtom,
+  valuesAtom,
   videoDimensionsAtom,
 } from '../atoms';
 import {
@@ -41,6 +42,7 @@ function ControlsBar() {
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
   const videoDimensions = useAtomValue(videoDimensionsAtom, myScope);
+  const videoValues = useAtomValue(valuesAtom, myScope);
 
   function renderItem(curItem: CustoplayerItem | undefined) {
     if (
@@ -70,7 +72,10 @@ function ControlsBar() {
           transition={{ duration: 0.25 }}
           data-cy='controlsBar'
         >
-          <Controls height='45px'>
+          <Controls
+            height='45px'
+            backgroundColor={videoValues.controlsBar?.barColor}
+          >
             {items.map((curItem, idx) => {
               return (
                 <Fragment key={`item-${idx}`}>{renderItem(curItem)}</Fragment>
@@ -90,9 +95,13 @@ const ControlsContainer = styled(motion.div)`
   bottom: 0;
 `;
 
-const Controls = styled.div<{ height: string }>`
+const Controls = styled.div<{
+  height: string;
+  backgroundColor: string | undefined;
+}>`
   height: ${(props) => props.height};
-  background-color: rgba(28, 28, 28, 0.7);
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
   width: 100%;
   display: flex;
   align-items: center;

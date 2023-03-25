@@ -38,6 +38,7 @@ export interface CustoplayerProps extends ComponentPropsWithoutRef<'video'> {
 }
 
 export interface CustoplayerValues {
+  controlsBar?: ControlsBarItem;
   // playIndicator?: {
   //   id?: number;
   //   color?: string;
@@ -102,6 +103,10 @@ export interface CustoplayerValues {
     textColor: 'rgb(137, 178, 245)'
   } */
   item7?: CustoplayerItem;
+}
+
+export interface ControlsBarItem {
+  barColor: string;
 }
 
 export interface PreviewTooltipItem {
