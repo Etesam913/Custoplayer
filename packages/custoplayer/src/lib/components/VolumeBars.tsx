@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { forwardRef } from 'react';
 import styled from 'styled-components';
 import {
@@ -7,7 +7,9 @@ import {
   isVolumeDraggingType,
   volumeStrAtom,
   valuesAtom,
+  focusedItemAtom,
 } from '../atoms';
+import { buttonFocusShadow, buttonFocusTransition } from '../theme';
 
 interface VolumeBarsProps {
   barId?: 'volumeBar1' | 'volumeBar2';
@@ -20,13 +22,17 @@ type Ref = HTMLDivElement;
 const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
   const videoValues = useAtomValue(valuesAtom, myScope);
   const volumeStr = useAtomValue(volumeStrAtom, myScope);
+  const setFocusedItem = useSetAtom(focusedItemAtom, myScope);
 
   if (props.barId === 'volumeBar1') {
     return (
       <VolumeBar1
+        tabIndex={0}
         barColor={props.barColor}
         data-cy={props.barId}
         ref={ref}
+        onFocus={() => setFocusedItem('volumeBar1')}
+        onBlur={() => setFocusedItem('')}
         animate={{
           height:
             props.isBarHovered || props.isVolumeDragging ? '0.5rem' : '0.35rem',
@@ -42,7 +48,14 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
   } else if (props.barId === 'volumeBar2') {
     return (
       <VolumeBar2Shade backgroundColor={videoValues.controlsBar?.barColor}>
-        <VolumeBar2 barColor={props.barColor} data-cy={props.barId} ref={ref}>
+        <VolumeBar2
+          tabIndex={0}
+          onFocus={() => setFocusedItem('volumeBar2')}
+          onBlur={() => setFocusedItem('')}
+          barColor={props.barColor}
+          data-cy={props.barId}
+          ref={ref}
+        >
           <Progress
             style={{ height: volumeStr }}
             volumeColor={props.volumeColor}
@@ -61,9 +74,14 @@ const VolumeBar1 = styled(motion.div)<{ barColor: string | undefined }>`
   background-color: ${(props) => (props.barColor ? props.barColor : 'white')};
   width: 3.5rem;
   border-radius: 0.35rem;
-  margin-left: 0.35rem;
   display: flex;
   overflow: hidden;
+  transition: ${buttonFocusTransition};
+  &:focus-visible {
+    outline: none;
+    box-shadow: ${buttonFocusShadow};
+    transition: ${buttonFocusTransition};
+  }
 `;
 
 const VolumeBar2Shade = styled.div<{ backgroundColor: string | undefined }>`
@@ -86,6 +104,12 @@ const VolumeBar2 = styled.div<{ barColor: string | undefined }>`
   flex-direction: column-reverse;
   border-radius: 0.35rem;
   overflow: hidden;
+  transition: ${buttonFocusTransition};
+  &:focus-visible {
+    outline: none;
+    box-shadow: ${buttonFocusShadow};
+    transition: ${buttonFocusTransition};
+  }
   background-color: ${(props) => (props.barColor ? props.barColor : 'white')};
 `;
 

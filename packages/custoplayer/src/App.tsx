@@ -1,7 +1,13 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import Custoplayer from './lib/Custoplayer';
 
 function App() {
+  useEffect(() => {
+    window.setInterval(() => {
+      console.log(document.activeElement);
+    }, 2000);
+  }, []);
   return (
     <Wrapper>
       <Custoplayer
@@ -21,7 +27,7 @@ function App() {
           },
           item2: {
             id: 'volumeButton1',
-            barId: 'volumeBar1',
+            barId: 'volumeBar2',
             buttonColor: '#a7c957',
             volumeColor: '#6a994e',
             hideOnMobile: true,
@@ -53,7 +59,7 @@ function App() {
         onDurationChange={() => console.log('video duration changed')}
         onSeeked={() => console.log('video seeked')}
         onSeeking={() => console.log('video seeking')}
-        onVolumeChange={(e) => console.log('muted')}
+        onVolumeChange={(e) => console.log('volume change')}
       />
     </Wrapper>
   );
@@ -65,5 +71,4 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
 `;
-
 export default App;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import HTMLVideoPlayer from '@root/lib/components/HTMLVideoPlayer';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
+  focusedItemAtom,
   isFullscreenAtom,
   myScope,
   showControlsBarAtom,
@@ -15,6 +16,7 @@ import { useDimensions, useFullscreenEvent } from '../hooks';
 import { handleKeyPress } from '../utils';
 //import PlayIndicator from './Indicator/PlayIndicator';
 import { useEffect, useRef } from 'react';
+import { wrapperFocusShadow, wrapperFocusTransition } from '../theme';
 
 function VideoPlayerWrapper() {
   const videoElem = useAtomValue(videoElemAtom, myScope);
@@ -23,6 +25,7 @@ function VideoPlayerWrapper() {
   const setVideoContainer = useSetAtom(videoContainerAtom, myScope);
   const videoContainerRef = useRef(null);
   const setIsFullscreen = useSetAtom(isFullscreenAtom, myScope);
+  const [focusedItem, setFocusedItem] = useAtom(focusedItemAtom, myScope);
 
   useEffect(() => {
     if (videoContainerRef && videoContainerRef.current) {
@@ -35,11 +38,21 @@ function VideoPlayerWrapper() {
     <PlayerWrapper
       data-cy='videoPlayerWrapper'
       ref={videoContainerRef}
-      onFocus={() => setIsControlsBarShowing(true)}
-      onBlur={() => setIsControlsBarShowing(false)}
+      onFocus={() => {
+        setIsControlsBarShowing(true);
+        {
+          /* setFocusedItem('playerWrapper'); */
+        }
+      }}
+      onBlur={() => {
+        setIsControlsBarShowing(false);
+        {
+          /* setFocusedItem(''); */
+        }
+      }}
       tabIndex={0}
       onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) =>
-        handleKeyPress(e, videoElem)
+        handleKeyPress(e, videoElem, focusedItem)
       }
     >
       <PlayerContainer
@@ -68,6 +81,13 @@ const PlayerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: ${wrapperFocusTransition};
+  border-radius: 0.15rem;
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: ${wrapperFocusShadow};
+    transition: ${wrapperFocusTransition};
+  }
 `;
 
 const PlayerContainer = styled.div`
@@ -82,10 +102,6 @@ const PlayerContainer = styled.div`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 export const ControlsContainer = styled(motion.div)`

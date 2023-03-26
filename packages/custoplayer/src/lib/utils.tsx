@@ -1,5 +1,6 @@
 import {
   CustoplayerItem,
+  FocusedItem,
   FullscreenItem,
   PlayButtonItem,
   ProgressBarItem,
@@ -97,20 +98,48 @@ export function handlePlayState(video: HTMLVideoElement | null) {
 export function handleKeyPress(
   e: React.KeyboardEvent<HTMLDivElement>,
   video: HTMLVideoElement | null,
+  focusedItem: FocusedItem,
 ) {
   if (e.key === ' ' || e.key === 'k') {
     e.preventDefault();
     if (video !== null) handlePlayState(video);
-  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+  } else if (
+    e.key === 'ArrowLeft' ||
+    e.key === 'ArrowRight' ||
+    e.key === 'ArrowUp' ||
+    e.key === 'ArrowDown'
+  ) {
     e.preventDefault();
     if (video !== null) {
-      let newTime = video.currentTime;
-      if (e.key === 'ArrowLeft') {
-        newTime -= 5;
+      if (focusedItem.startsWith('volumeBar')) {
+        let newVolume = video.volume;
+        // Horizontal Volume Bar
+        if (focusedItem === 'volumeBar1') {
+          if (e.key === 'ArrowLeft') {
+            newVolume -= 0.05;
+          } else if (e.key === 'ArrowRight') {
+            newVolume += 0.05;
+          }
+        }
+        // Vertical Volume Bar
+        else if (focusedItem === 'volumeBar2') {
+          if (e.key === 'ArrowDown') {
+            newVolume -= 0.05;
+          } else if (e.key === 'ArrowUp') {
+            newVolume += 0.05;
+          }
+        }
+
+        video.volume = clamp(newVolume, 0, 1);
       } else {
-        newTime += 5;
+        let newTime = video.currentTime;
+        if (e.key === 'ArrowLeft') {
+          newTime -= 5;
+        } else if (e.key === 'ArrowRight') {
+          newTime += 5;
+        }
+        video.currentTime = clamp(newTime, 0, video.duration);
       }
-      video.currentTime = clamp(newTime, 0, video.duration);
     }
   }
 }

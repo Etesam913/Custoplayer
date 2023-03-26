@@ -73,7 +73,7 @@ function ControlsBar() {
           data-cy='controlsBar'
         >
           <Controls
-            height='45px'
+            height='50px'
             backgroundColor={videoValues.controlsBar?.barColor}
           >
             {items.map((curItem, idx) => {

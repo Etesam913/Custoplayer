@@ -1,15 +1,17 @@
 import { PlayButtonItem } from '@root/lib/types';
 import { motion } from 'framer-motion';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { Fragment } from 'react';
 import styled from 'styled-components';
 import {
+  focusedItemAtom,
   myScope,
   PlayState,
   playStateAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
 import { getSvgPath, handlePlayState } from '@root/lib/utils';
+import { buttonFocusShadow, buttonFocusTransition } from '../theme';
 
 interface PlayButtonsProps {
   item: PlayButtonItem;
@@ -18,11 +20,12 @@ interface PlayButtonsProps {
 function PlayButtons({ item }: PlayButtonsProps) {
   const videoElem = useAtomValue(videoElemAtom, myScope);
   const playState = useAtomValue(playStateAtom, myScope);
+  const setFocusedItem = useSetAtom(focusedItemAtom, myScope);
   // const [showControlsBar, setShowControlsBar] = useAtom(
   //   showControlsBarAtom,
   //   myScope,
   // );
-  /* 
+  /*
     Prevent default onKeyUp to prevent space from triggering onClick
     <PlayerWrapper> handles key presses
   */
@@ -35,6 +38,10 @@ function PlayButtons({ item }: PlayButtonsProps) {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       whileFocus={{ scale: 1.05 }}
+      onFocus={(e) => {
+        setFocusedItem('playButton');
+      }}
+      onBlur={() => setFocusedItem('')}
       data-cy={item.id}
     >
       {item.id === 'playButton1' && (
@@ -138,5 +145,12 @@ const PlayButtonContainer = styled(motion.button)`
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 0.25rem;
+  transition: ${buttonFocusTransition};
+  &:focus-visible {
+    outline: none;
+    box-shadow: ${buttonFocusShadow};
+    transition: ${buttonFocusTransition};
+  }
 `;
 export default PlayButtons;

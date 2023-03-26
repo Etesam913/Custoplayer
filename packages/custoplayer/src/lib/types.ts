@@ -159,3 +159,11 @@ export type CustoplayerItem =
   | VolumeItem
   | TimeItem
   | FullscreenItem;
+
+export type FocusedItem =
+  | 'fullscreen'
+  | 'playButton'
+  | 'volumeButton'
+  | 'volumeBar1'
+  | 'volumeBar2'
+  | '';

@@ -1,4 +1,5 @@
 import {
+  focusedItemAtom,
   isProgressDraggingAtom,
   myScope,
   playStateAtom,
@@ -9,7 +10,6 @@ import {
   progressStrAtom,
   valuesAtom,
   videoContainerAtom,
-  videoDimensionsAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
 import {
@@ -28,6 +28,7 @@ import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useProgressDragging } from '../hooks';
 import PreviewTooltips from './PreviewTooltips';
+import { buttonFocusShadow, buttonFocusTransition } from '../theme';
 
 interface ProgressBarsProps {
   item: ProgressBarItem;
@@ -42,6 +43,7 @@ function ProgressBars({ item }: ProgressBarsProps) {
   const setProgress = useSetAtom(progressAtom, myScope);
   const progressStr = useAtomValue(progressStrAtom, myScope);
   const playState = useAtomValue(playStateAtom, myScope);
+  const setFocusedItem = useSetAtom(focusedItemAtom, myScope);
 
   // Needed for remembering what play state to set after progress dragging is complete
   const [tempVideoPauseState, setTempVideoPauseState] = useState(-1);
@@ -146,6 +148,11 @@ function ProgressBars({ item }: ProgressBarsProps) {
 
   return (
     <ProgressBarContainer
+      tabIndex={0}
+      onFocus={(e) => {
+        setFocusedItem('playButton');
+      }}
+      onBlur={() => setFocusedItem('')}
       data-cy={item.id}
       isDragging={isProgressDragging}
       onTouchStart={(e) => {
@@ -204,6 +211,13 @@ const ProgressBarContainer = styled.div<{ isDragging: boolean }>`
   display: flex;
   align-items: center;
   cursor: ${(props) => (props.isDragging ? 'col-resize' : 'pointer')};
+  transition: ${buttonFocusTransition};
+  border-radius: 0.25rem;
+  &:focus-visible {
+    outline: none;
+    box-shadow: ${buttonFocusShadow};
+    transition: ${buttonFocusTransition};
+  }
 `;
 
 const ProgressBar1 = styled(motion.div)`

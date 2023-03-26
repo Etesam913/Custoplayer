@@ -1,4 +1,8 @@
-import { CustoplayerItem, CustoplayerValues } from '@root/lib/types';
+import {
+  CustoplayerItem,
+  CustoplayerValues,
+  FocusedItem,
+} from '@root/lib/types';
 import { atom } from 'jotai';
 import { formatTime } from './utils';
 import { ComponentPropsWithoutRef } from 'react';
@@ -55,6 +59,7 @@ export const valuesAtom = atom<CustoplayerValues>({});
 
 // Rendering Items
 export const itemsAtom = atom<(CustoplayerItem | undefined)[]>([]);
+export const focusedItemAtom = atom<FocusedItem>('');
 
 // Progress Bar
 export const progressAtom = atom(0);

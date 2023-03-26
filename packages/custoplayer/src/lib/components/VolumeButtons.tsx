@@ -1,8 +1,9 @@
 import { VolumeItem } from '@root/lib/types';
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
+  focusedItemAtom,
   isMutedAtom,
   isVolumeDraggingAtom,
   isVolumeDraggingType,
@@ -20,6 +21,7 @@ import {
 } from '../utils';
 import VolumeBars from './VolumeBars';
 import { motion, AnimatePresence } from 'framer-motion';
+import { buttonFocusShadow, buttonFocusTransition } from '../theme';
 
 interface VolumeButtonsProps {
   item: VolumeItem;
@@ -31,6 +33,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
   const volumeBarRef = useRef<HTMLDivElement | null>(null);
   const videoElem = useAtomValue(videoElemAtom, myScope);
   const volume = useAtomValue(volumeAtom, myScope);
+  const setFocusedItem = useSetAtom(focusedItemAtom, myScope);
 
   function handleProgressMouse(e: BarMouseEvent, videoContainerRect: DOMRect) {
     if (volumeBarRef && volumeBarRef.current) {
@@ -92,6 +95,8 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
         onClick={() =>
           videoElem ? (videoElem.muted = !videoElem.muted) : null
         }
+        onFocus={() => setFocusedItem('volumeButton')}
+        onBlur={() => setFocusedItem('')}
       >
         {item.id === 'volumeButton1' && (
           <svg
@@ -145,6 +150,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
       {(
         <VolumeBarContainer
           data-cy='volumeContainer'
+          volumeBarId={item.barId}
           onMouseEnter={() => setIsBarHovered(true)}
           onMouseLeave={() => setIsBarHovered(false)}
           onMouseDown={(e) =>
@@ -200,11 +206,13 @@ const VolumeButtonContainer = styled.div<{
   color: currentColor;
 `;
 
-const VolumeBarContainer = styled.div`
+const VolumeBarContainer = styled.div<{ volumeBarId: string | undefined }>`
   height: 100%;
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin-left: ${(props) =>
+    props.volumeBarId === 'volumeBar1' ? '0.35rem' : '0'};
 `;
 
 const VolumeButtonPath = styled(motion.path)`
@@ -222,6 +230,13 @@ const ButtonContainer = styled(motion.button)`
   padding: 0;
   cursor: pointer;
   color: inherit;
+  border-radius: 0.25rem;
+  transition: ${buttonFocusTransition};
+  &:focus-visible {
+    outline: none;
+    box-shadow: ${buttonFocusShadow};
+    transition: ${buttonFocusTransition};
+  }
 `;
 
 export default VolumeButtons;
