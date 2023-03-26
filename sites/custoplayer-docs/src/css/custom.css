@@ -4,33 +4,85 @@
  * work well for content-centric websites.
  */
 
- @font-face{
-     font-family: "Manrope";
-     src: url('Manrope-VariableFont_wght.ttf') format("truetype");
- }
+@font-face {
+  font-family: 'Manrope';
+  src: url('Manrope-VariableFont_wght.ttf') format('truetype');
+}
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
+  --ifm-color-primary: #3578e5;
+  --ifm-color-primary-dark: #1d68e1;
+  --ifm-color-primary-darker: #1b62d4;
+  --ifm-color-primary-darkest: #1751af;
+  --ifm-color-primary-light: #4e89e8;
+  --ifm-color-primary-lighter: #5a91ea;
+  --ifm-color-primary-lightest: #80aaef;
+  --ifm-code-font-size: 90%; /*95%;*/
+  --ifm-code-font-size: 90%;
   --ifm-font-family-base: 'Manrope', 'sans-serif';
+
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  color: #2b2f43;
+  --ifm-button-border-color: rgb(207, 207, 207);
+  --ifm-button-border-hover-color: rgb(145, 144, 144);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  color: #e9e9e9;
+  --ifm-button-border-color: rgb(168, 168, 168);
+  --ifm-button-border-hover-color: rgb(194, 194, 194);
+  --ifm-background-color: #1e2125 !important;
+  --ifm-background-surface-color: #121212 !important;
+  --ifm-navbar-background-color: #25292f;
+}
+
+.footer {
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.iconExternalLink {
+  display: none;
+}
+
+.footer__col {
+  margin-bottom: 0;
+}
+
+.link-button {
+  background-color: transparent;
+  border: 0;
+  font-size: 0.95em;
+  color: inherit;
+  font-family: inherit;
+  font-weight: 600;
+  border: 2.5px solid var(--ifm-button-border-color);
+  border-radius: 1.15rem;
+  box-sizing: border-box;
+  height: auto;
+  padding: 0.65rem 0.35rem;
+  transition: border 200ms;
+}
+.link-button:hover {
+  border: 2.5px solid var(--ifm-button-border-hover-color);
+  transition: border 200ms;
+}
+
+.link-button > a {
+  color: inherit;
+  padding: inherit;
+}
+.link-button > a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+nav {
+  box-shadow: none;
+}
+.navbar .navbar__items {
+  flex: auto;
 }
