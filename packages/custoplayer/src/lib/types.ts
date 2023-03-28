@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react';
 
-export interface CustoplayerProps extends ComponentPropsWithoutRef<'video'> {
+export interface EntryPointProps extends ComponentPropsWithoutRef<'video'> {
   /** You can define video attributes here. Things like playButtons, previewTooltips, and fullscreenButtons.
   @example
   values={{

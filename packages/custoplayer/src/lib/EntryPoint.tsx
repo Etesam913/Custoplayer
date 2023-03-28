@@ -1,12 +1,12 @@
-import { CustoplayerProps } from '@root/lib/types';
+import { EntryPointProps } from '@root/lib/types';
 import { Provider } from 'jotai';
 import { myScope } from '@root/lib/atoms';
 import Custoplayer from './Custoplayer';
 
-function EntryPoint({ values }: CustoplayerProps) {
+function EntryPoint({ values, ...rest }: EntryPointProps) {
   return (
     <Provider scope={myScope}>
-      <Custoplayer values={values} />
+      <Custoplayer values={values} rest={rest} />
     </Provider>
   );
 }

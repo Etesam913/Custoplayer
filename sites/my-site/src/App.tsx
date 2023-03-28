@@ -1,6 +1,6 @@
 import React from 'react';
-import { Custoplayer } from 'custoplayer';
 import './App.css';
+import { Custoplayer } from 'custoplayer';
 
 function App() {
   return (
@@ -8,6 +8,7 @@ function App() {
       <h2 data-cy='website-header'>Custoplayer Tests</h2>
       <div className='custoplayer-container'>
         <Custoplayer
+          playsInline={true}
           src='https://etesam.nyc3.cdn.digitaloceanspaces.com/Custoplayer/placeholder-video-720'
           values={{
             item1: {
