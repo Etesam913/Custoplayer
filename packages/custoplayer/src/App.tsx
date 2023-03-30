@@ -22,7 +22,7 @@ function App() {
           },
           item2: {
             id: 'volumeButton1',
-            barId: 'volumeBar1',
+            barId: 'volumeBar2',
             buttonColor: '#a7c957',
             volumeColor: '#6a994e',
             hideOnMobile: true,

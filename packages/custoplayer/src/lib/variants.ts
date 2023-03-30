@@ -21,3 +21,22 @@ export const controlsBarMovementAnimation = {
   anim: { y: 0, opacity: 1 },
   exit: { y: 45, opacity: 0 },
 };
+
+export const volumeBar1ScrubberAnimation = {
+  init: { height: '0.75rem', width: '0.75rem', y: 0 },
+  anim: (shouldAnimate: boolean) => ({
+    height: shouldAnimate ? '0.85rem' : '0.75rem',
+    width: shouldAnimate ? '0.85rem' : '0.75rem',
+    y: shouldAnimate ? 1.2 : 0,
+  })
+}
+
+
+export const volumeBar2ScrubberAnimation = {
+  init: { height: '0.825rem', width: '0.825rem', y: 0 },
+  anim: (shouldAnimate: boolean) => ({
+    height: shouldAnimate ? '0.925rem' : '0.825rem',
+    width: shouldAnimate ? '0.925rem' : '0.825rem',
+    y: shouldAnimate ? -1 : 0,
+  })
+}

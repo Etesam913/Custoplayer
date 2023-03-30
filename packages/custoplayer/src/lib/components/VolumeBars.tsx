@@ -11,6 +11,7 @@ import {
   volumeAtom,
 } from '../atoms';
 import { lightenColor } from '../utils';
+import { volumeBar1ScrubberAnimation, volumeBar2ScrubberAnimation } from '../variants';
 
 interface VolumeBarsProps {
   barId?: 'volumeBar1' | 'volumeBar2';
@@ -53,13 +54,13 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
             style={{ width: videoVolume * volumeBar1Width + 4 + 'px' }}
           >
             <Scrubber
+              data-cy="volume-scrubber"
               scrubberBorderColor={props.scrubberBorderColor}
               scrubberColor={props.scrubberColor ?? props.volumeColor}
-              animate={{
-                height: shouldAnimate ? '0.85rem' : '0.75rem',
-                width: shouldAnimate ? '0.85rem' : '0.75rem',
-                y: shouldAnimate ? 1.2 : 0,
-              }}
+              variants={volumeBar1ScrubberAnimation}
+              custom={shouldAnimate}
+              initial='init'
+              animate='anim'
             />
           </ScrubberProgress1>
         </Progress>
@@ -78,13 +79,13 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
               style={{ height: (videoVolume * volumeBar2Height + 8) + 'px' }}
             >
               <Scrubber
+                data-cy="volume-scrubber"
                 scrubberBorderColor={props.scrubberBorderColor}
                 scrubberColor={props.scrubberColor ?? props.volumeColor}
-                animate={{
-                  height: shouldAnimate ? '0.925rem' : '0.825rem',
-                  width: shouldAnimate ? '0.925rem' : '0.825rem',
-                  y: -1,
-                }}
+                variants={volumeBar2ScrubberAnimation}
+                custom={shouldAnimate}
+                initial='init'
+                animate='anim'
               />
             </ScrubberProgress2>
           </Progress>
