@@ -12,7 +12,7 @@ import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
-  return function(this: any, ...args: any[]) {
+  return function (this: any, ...args: any[]) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
@@ -34,7 +34,7 @@ export const throttle = (fn: (...args: any[]) => void, ms = 300) => {
 
     isThrottled = true;
 
-    setTimeout(function() {
+    setTimeout(function () {
       isThrottled = false;
       if (savedArgs) {
         wrapper.apply(savedThis, savedArgs);

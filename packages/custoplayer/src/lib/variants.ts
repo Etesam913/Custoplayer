@@ -22,20 +22,29 @@ export const controlsBarMovementAnimation = {
   exit: { y: 45, opacity: 0 },
 };
 
+export const progressBar1ScrubberAnimation = {
+  init: { height: '0.85rem', width: '0.85rem', y: 0 },
+  anim: (shouldAnimate: boolean) => ({
+    height: shouldAnimate ? '1rem' : '0.85rem',
+    width: shouldAnimate ? '1rem' : '0.85rem',
+    y: shouldAnimate ? 1.5 : 0,
+  }),
+};
+
 export const volumeBar1ScrubberAnimation = {
-  init: { height: '0.75rem', width: '0.75rem', y: 0 },
+  init: { height: '0.75rem', width: '0.75rem' },
   anim: (shouldAnimate: boolean) => ({
     height: shouldAnimate ? '0.85rem' : '0.75rem',
     width: shouldAnimate ? '0.85rem' : '0.75rem',
-    y: shouldAnimate ? 1.2 : 0,
-  })
-}
+
+  }),
+};
 
 export const volumeBar2ScrubberAnimation = {
-  init: { height: '0.825rem', width: '0.825rem', y: 0 },
+  init: { height: '0.825rem', width: '0.825rem' },
   anim: (shouldAnimate: boolean) => ({
     height: shouldAnimate ? '0.925rem' : '0.825rem',
     width: shouldAnimate ? '0.925rem' : '0.825rem',
-    y: shouldAnimate ? -1 : 0,
-  })
-}
+
+  }),
+};

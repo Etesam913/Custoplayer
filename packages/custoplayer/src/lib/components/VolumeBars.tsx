@@ -7,10 +7,12 @@ import {
   isVolumeDraggingType,
   volumeStrAtom,
   valuesAtom,
-  volumeAtom,
-} from '../atoms';
-import { lightenColor } from '../utils';
-import { volumeBar1ScrubberAnimation, volumeBar2ScrubberAnimation } from '../variants';
+} from '@root/lib/atoms';
+import { lightenColor } from '@root/lib/utils';
+import {
+  volumeBar1ScrubberAnimation,
+  volumeBar2ScrubberAnimation,
+} from '@root/lib/variants';
 
 interface VolumeBarsProps {
   barId?: 'volumeBar1' | 'volumeBar2';
@@ -22,8 +24,6 @@ interface VolumeBarsProps {
   isVolumeDragging: isVolumeDraggingType;
 }
 const volumeBar1Width = 56;
-const volumeBar1Height = 5.6;
-const volumeBar2Width = 8;
 const volumeBar2Height = 76;
 
 type Ref = HTMLDivElement;
@@ -32,7 +32,6 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
   const shouldAnimate = props.isBarHovered || props.isVolumeDragging;
   const videoValues = useAtomValue(valuesAtom, myScope);
   const volumeStr = useAtomValue(volumeStrAtom, myScope);
-  const videoVolume = useAtomValue(volumeAtom, myScope);
   if (props.barId === 'volumeBar1') {
     return (
       <VolumeBar1
@@ -48,20 +47,17 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
           style={{ width: volumeStr }}
           volumeColor={props.volumeColor}
           volumeBar2={false}
+          hasScrubber={props.scrubberColor !== 'transparent' && props.scrubberBorderColor !== 'transparent'}
         >
-          <ScrubberProgress1
-            style={{ width: videoVolume * volumeBar1Width + 4 + 'px' }}
-          >
-            <Scrubber
-              data-cy="volumeScrubber1"
-              scrubberBorderColor={props.scrubberBorderColor}
-              scrubberColor={props.scrubberColor ?? props.volumeColor}
-              variants={volumeBar1ScrubberAnimation}
-              custom={shouldAnimate}
-              initial='init'
-              animate='anim'
-            />
-          </ScrubberProgress1>
+          <Scrubber
+            data-cy='volumeScrubber1'
+            scrubberBorderColor={props.scrubberBorderColor}
+            scrubberColor={props.scrubberColor ?? props.volumeColor}
+            variants={volumeBar1ScrubberAnimation}
+            custom={shouldAnimate}
+            initial='init'
+            animate='anim'
+          />
         </Progress>
       </VolumeBar1>
     );
@@ -73,21 +69,19 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
             volumeBar2
             style={{ height: volumeStr }}
             volumeColor={props.volumeColor}
+            hasScrubber={props.scrubberColor !== 'transparent' && props.scrubberBorderColor !== 'transparent'}
           >
-            <ScrubberProgress2
-              style={{ height: (videoVolume * volumeBar2Height + 8) + 'px' }}
-            >
-              <Scrubber
-                data-cy="volumeScrubber2"
-                scrubberBorderColor={props.scrubberBorderColor}
-                scrubberColor={props.scrubberColor ?? props.volumeColor}
-                variants={volumeBar2ScrubberAnimation}
-                custom={shouldAnimate}
-                initial='init'
-                animate='anim'
-              />
-            </ScrubberProgress2>
+            <Scrubber
+              data-cy='volumeScrubber2'
+              scrubberBorderColor={props.scrubberBorderColor}
+              scrubberColor={props.scrubberColor ?? props.volumeColor}
+              variants={volumeBar2ScrubberAnimation}
+              custom={shouldAnimate}
+              initial='init'
+              animate='anim'
+            />
           </Progress>
+
         </VolumeBar2>
       </VolumeBar2Shade>
     );
@@ -105,7 +99,6 @@ const VolumeBar1 = styled(motion.div) <{ barColor: string | undefined }>`
   border-radius: 0.35rem;
   margin-left: 0.35rem;
   display: flex;
-  overflow: hidden;
 `;
 
 const VolumeBar2Shade = styled.div<{ backgroundColor: string | undefined }>`
@@ -127,46 +120,41 @@ const VolumeBar2 = styled.div<{ barColor: string | undefined }>`
   display: flex;
   flex-direction: column-reverse;
   border-radius: 0.35rem;
-  overflow: hidden;
   background-color: ${(props) => (props.barColor ? props.barColor : 'white')};
 `;
 
 const Progress = styled.div<{
   volumeColor: string | undefined;
   volumeBar2: boolean;
+  hasScrubber: boolean;
 }>`
-  height: 100%;
   background-color: ${(props) =>
     props.volumeColor ? props.volumeColor : '#4ab860'};
+  border-radius: 0.35rem;
+  display: flex;
+  ${props => !props.volumeBar2 && css`
+    height: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    ${props.hasScrubber && css`
+      min-width: 12.8px;
+      max-width: ${volumeBar1Width - 5.5}px;
+    `}
+  `}
 
   ${(props) =>
     props.volumeBar2 &&
     css`
+      width: 100%;
       display: flex;
       flex-direction: column-reverse;
-      width: 100%;
+      justify-content: flex-end;
+      align-items: center;
+      ${props.hasScrubber && css`
+        min-height: 12.8px;
+        max-height: ${volumeBar2Height}px;
+      `}
     `}
-`;
-
-const ScrubberProgress1 = styled.div`
-  height: ${volumeBar1Height}px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  min-width: 12.8px;
-  max-width: ${volumeBar1Width - 5.5}px;
-  position: absolute;
-`;
-
-const ScrubberProgress2 = styled.div`
-  width: ${volumeBar2Width}px;
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
-  align-items: center;
-  position: absolute;
-  min-height: 12.8px;
-  max-height: ${volumeBar2Height}px;
 `;
 
 const Scrubber = styled(motion.div) <{

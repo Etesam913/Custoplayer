@@ -94,8 +94,8 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
     <VolumeButtonBarContainer
       data-cy={`volumeButtonBarContainer-${item.id}`}
       isDragging={isVolumeDragging}
-      onMouseLeave={() => setIsVolumeHovered(isTouchscreen() ? true : false)}
       onMouseEnter={() => setIsVolumeHovered(true)}
+      onMouseLeave={() => setIsVolumeHovered(isTouchscreen() ? true : false)}
     >
       <ButtonContainer
         data-cy={item.id}
