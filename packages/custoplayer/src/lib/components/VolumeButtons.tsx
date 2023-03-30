@@ -28,7 +28,9 @@ interface VolumeButtonsProps {
 }
 
 function VolumeButtons({ item }: VolumeButtonsProps) {
-  const [isVolumeHovered, setIsVolumeHovered] = useState(isTouchscreen() ? true : false);
+  const [isVolumeHovered, setIsVolumeHovered] = useState(
+    isTouchscreen() ? true : false,
+  );
   const [isBarHovered, setIsBarHovered] = useState(false);
   const isMuted = useAtomValue(isMutedAtom, myScope);
   const volumeBarRef = useRef<HTMLDivElement | null>(null);
@@ -101,7 +103,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
           videoElem ? (videoElem.muted = !videoElem.muted) : null
         }
       >
-        {(item.id === 'volumeButton1' || item.id === "volumeButton2") && (
+        {(item.id === 'volumeButton1' || item.id === 'volumeButton2') && (
           <svg
             width='32'
             height='32'
