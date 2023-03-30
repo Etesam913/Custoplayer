@@ -28,6 +28,8 @@ function App() {
             },
             item3: {
               id: 'progressBar1',
+              progressColor: "orange",
+              scrubberColor: "green"
             },
             item4: {
               id: 'fullscreenButton2',

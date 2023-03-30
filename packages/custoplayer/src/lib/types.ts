@@ -136,9 +136,9 @@ export interface VolumeItem {
   buttonColor?: string;
   /** Hides the volumeButton and the volumeBar when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;
-  /** Changes the color of the volume bar scrubber. Accepts any hex or rgb color code. */
+  /** Changes the color of the volume bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
   scrubberColor?: string;
-  /** Changes the border color of the volume bar scrubber. Accepts any hex or rgb color code. */
+  /** Changes the border color of the volume bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
   scrubberBorderColor?: string;
 }
 
@@ -158,9 +158,9 @@ export interface ProgressBarItem {
   progressColor?: string;
   /** Hides the progress bar when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;
-  /** Changes the color of the progress bar scrubber. Accepts any hex or rgb color code. */
+  /** Changes the color of the progress bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
   scrubberColor?: string;
-  /** Changes the border color of the progress bar scrubber. Accepts any hex or rgb color code. */
+  /** Changes the border color of the progress bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
   scrubberBorderColor?: string;
 }
 
