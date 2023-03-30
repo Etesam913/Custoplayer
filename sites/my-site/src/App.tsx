@@ -11,12 +11,20 @@ function App() {
           playsInline={true}
           src='https://etesam.nyc3.cdn.digitaloceanspaces.com/Custoplayer/placeholder-video-720'
           values={{
+            controlsBar: {
+              barColor: '#1b5a31d1',
+            },
+            previewTooltip: {
+              id: 'text',
+            },
             item1: {
               id: 'playButton1',
             },
             item2: {
               id: 'volumeButton1',
               barId: 'volumeBar1',
+              volumeColor: 'orange',
+              barColor: 'green',
             },
             item3: {
               id: 'progressBar1',

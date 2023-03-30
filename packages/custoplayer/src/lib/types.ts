@@ -106,20 +106,27 @@ export interface CustoplayerValues {
 }
 
 export interface ControlsBarItem {
+  /** Changes the color of the controlsBar. This also changes the default backgroundColor for the previewToolip. Accepts any hex or rgb color code. */
   barColor: string;
 }
 
 export interface PreviewTooltipItem {
-  /** Accepts values of "text" */
+  /** Accepts value of "text" */
   id: 'text' | 'thumbnail' | 'textAndThumbnail';
 }
 
 export interface VolumeItem {
+  /** Accepts values of "volumeButton1" or "volumeButton2" */
   id: 'volumeButton1' | 'volumeButton2';
+  /** Accepts values of "volumeBar1" or "volumeBar2". volumeBar1 is horizontal and volumeBar2 is vertical. */
   barId?: 'volumeBar1' | 'volumeBar2';
+  /** Changes the color of the volume progress in the bar. Accepts any hex or rgb color code. */
   volumeColor?: string;
+  /** Changes the color of the volume background color of the bar. Accepts any hex or rgb color code. */
   barColor?: string;
+  /** Changes the color of the volume button icon. Accepts any hex or rgb color code. */
   buttonColor?: string;
+  /** Hides the volumeButton and the volumeBar when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;
 }
 
@@ -142,14 +149,20 @@ export interface ProgressBarItem {
 }
 
 export interface TimeItem {
+  /** Accepts values of "currentTime" or "duration" */
   id: 'currentTime' | 'duration';
+  /** Changes the color of the time text. Accepts any hex or rgb color code. */
   textColor?: string;
+  /** Hides the currentTime text or duration text when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;
 }
 
 export interface FullscreenItem {
+  /** Accepts values of "fullscreenButton1" or "fullscreenButton2" */
   id: 'fullscreenButton1' | 'fullscreenButton2';
+  /** Changes the color of the fullscreen button. Accepts any hex or rgb color code. */
   buttonColor?: string;
+  /** Hides the fullscreen button when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;
 }
 
