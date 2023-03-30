@@ -17,6 +17,7 @@ import {
   BarMouseEvent,
   isTouchscreenFunc,
   isMouseFunc,
+  isTouchscreen,
 } from '@root/lib/utils';
 import VolumeBars from './VolumeBars';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -27,7 +28,7 @@ interface VolumeButtonsProps {
 }
 
 function VolumeButtons({ item }: VolumeButtonsProps) {
-  const [isVolumeHovered, setIsVolumeHovered] = useState(false);
+  const [isVolumeHovered, setIsVolumeHovered] = useState(isTouchscreen() ? true : false);
   const [isBarHovered, setIsBarHovered] = useState(false);
   const isMuted = useAtomValue(isMutedAtom, myScope);
   const volumeBarRef = useRef<HTMLDivElement | null>(null);
@@ -86,10 +87,11 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
   );
 
   return (
-    <VolumeButtonContainer
+    <VolumeButtonBarContainer
+      data-cy={`volumeButtonBarContainer-${item.id}`}
       isDragging={isVolumeDragging}
       onMouseEnter={() => setIsVolumeHovered(true)}
-      onMouseLeave={() => setIsVolumeHovered(false)}
+      onMouseLeave={() => setIsVolumeHovered(isTouchscreen() ? true : false)}
     >
       <ButtonContainer
         data-cy={item.id}
@@ -99,7 +101,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
           videoElem ? (videoElem.muted = !videoElem.muted) : null
         }
       >
-        {item.id === 'volumeButton1' && (
+        {(item.id === 'volumeButton1' || item.id === "volumeButton2") && (
           <svg
             width='32'
             height='32'
@@ -196,11 +198,11 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
           )}
         </AnimatePresence>
       ) ?? item.barId}
-    </VolumeButtonContainer>
+    </VolumeButtonBarContainer>
   );
 }
 
-const VolumeButtonContainer = styled.div<{
+const VolumeButtonBarContainer = styled.div<{
   isDragging: isVolumeDraggingType;
 }>`
   height: 100%;

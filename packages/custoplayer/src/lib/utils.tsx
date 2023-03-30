@@ -11,7 +11,7 @@ import { isVolumeDraggingType } from '@root/lib/atoms';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
-  return function (this: any, ...args: any[]) {
+  return function(this: any, ...args: any[]) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
@@ -33,7 +33,7 @@ export const throttle = (fn: (...args: any[]) => void, ms = 300) => {
 
     isThrottled = true;
 
-    setTimeout(function () {
+    setTimeout(function() {
       isThrottled = false;
       if (savedArgs) {
         wrapper.apply(savedThis, savedArgs);
@@ -261,4 +261,12 @@ export function isMouseFunc(
   event: BarMouseEvent,
 ): event is React.MouseEvent<HTMLDivElement> {
   return (event as React.MouseEvent<HTMLDivElement>).clientX !== undefined;
+}
+
+export function isTouchscreen() {
+  // Check if the device supports touch events
+  if ('ontouchstart' in window || navigator.maxTouchPoints) {
+    return true
+  }
+  return false
 }
