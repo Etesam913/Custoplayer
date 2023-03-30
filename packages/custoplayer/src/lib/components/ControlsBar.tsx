@@ -22,7 +22,10 @@ import {
   isProgressBar,
   isVolumeComponent,
 } from '@root/lib/utils';
-import { controlsBarMovementAnimation, controlsBarOpacityAnimation } from '@root/lib/variants';
+import {
+  controlsBarMovementAnimation,
+  controlsBarOpacityAnimation,
+} from '@root/lib/variants';
 
 function extractColor(curItem: CustoplayerItem) {
   if (
@@ -67,7 +70,11 @@ function ControlsBar() {
       {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
-          variants={videoValues.controlsBar?.animate === "movement" ? controlsBarMovementAnimation : controlsBarOpacityAnimation}
+          variants={
+            videoValues.controlsBar?.animate === 'movement'
+              ? controlsBarMovementAnimation
+              : controlsBarOpacityAnimation
+          }
           initial='init'
           animate='anim'
           exit='exit'
@@ -84,34 +91,31 @@ function ControlsBar() {
             })}
           </Controls>
         </ControlsContainer>
-      )
-      }
-    </AnimatePresence >
-
+      )}
+    </AnimatePresence>
   );
 }
 
-
 const ControlsContainer = styled(motion.div)`
-      width: 100%;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      `;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+`;
 
 const Controls = styled.div<{
   height: string;
   backgroundColor: string | undefined;
 }>`
-      height: ${(props) => props.height};
-      background-color: ${(props) =>
+  height: ${(props) => props.height};
+  background-color: ${(props) =>
     props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
-      width: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0.3rem 0.5rem;
-      box-sizing: border-box;
-      `;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0.5rem;
+  box-sizing: border-box;
+`;
 
 export const ItemContainer = styled.div<{ isProgressBar: boolean }>`
       height: 100%;
