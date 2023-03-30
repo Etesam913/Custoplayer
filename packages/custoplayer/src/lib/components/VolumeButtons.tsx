@@ -70,13 +70,15 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
         mousePosConstant * (updatedMousePos - distVolumeBar);
       const clampedMousePos = clamp(adjustedMousePos, 0, volumeBarMaxVal);
 
-      const ratio =
+      const ratio = clamp(
         clampedMousePos /
-        (item.barId === 'volumeBar1'
-          ? volumeBarRef.current.clientWidth
-          : volumeBarRef.current.clientHeight);
-      if (videoElem) {
-      }
+          (item.barId === 'volumeBar1'
+            ? volumeBarRef.current.clientWidth
+            : volumeBarRef.current.clientHeight),
+        0,
+        1,
+      );
+
       videoElem ? (videoElem.volume = ratio) : null;
       videoElem ? (videoElem.muted = false) : null;
     }
@@ -194,6 +196,8 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
                 isVolumeDragging={isVolumeDragging}
                 barColor={item.barColor}
                 volumeColor={item.volumeColor}
+                scrubberColor={item.scrubberColor}
+                scrubberBorderColor={item.scrubberBorderColor}
                 ref={volumeBarRef}
               />
             </VolumeBarContainer>
