@@ -30,4 +30,16 @@ describe('ProgressBars.cy.tsx', () => {
       .first()
       .should('have.css', 'background-color', colorVal);
   });
+
+  it('renders progressBar1 scrubber color and scrubber border color', () => {
+    // This is the default color when no progressColor prop is specified
+    let scrubberColor = 'rgb(51, 255, 85)'
+    let scrubberBorderColor = "rgb(153, 102, 255)"
+
+    cy.mount(<ProgressBars item={{ id: 'progressBar1', scrubberColor: scrubberColor, scrubberBorderColor: scrubberBorderColor }} />);
+    cy.dataCy('progressBar1Scrubber').should('have.css', 'background-color', scrubberColor);
+    cy.dataCy('progressBar1Scrubber').should('have.css', 'border', '2px solid ' + scrubberBorderColor);
+  });
+
+
 });

@@ -23,11 +23,10 @@ export const controlsBarMovementAnimation = {
 };
 
 export const progressBar1ScrubberAnimation = {
-  init: { height: '0.85rem', width: '0.85rem', y: 0 },
+  init: { height: '0.85rem', width: '0.85rem' },
   anim: (shouldAnimate: boolean) => ({
     height: shouldAnimate ? '1rem' : '0.85rem',
     width: shouldAnimate ? '1rem' : '0.85rem',
-    y: shouldAnimate ? 1.5 : 0,
   }),
 };
 
@@ -36,7 +35,6 @@ export const volumeBar1ScrubberAnimation = {
   anim: (shouldAnimate: boolean) => ({
     height: shouldAnimate ? '0.85rem' : '0.75rem',
     width: shouldAnimate ? '0.85rem' : '0.75rem',
-
   }),
 };
 
@@ -45,6 +43,5 @@ export const volumeBar2ScrubberAnimation = {
   anim: (shouldAnimate: boolean) => ({
     height: shouldAnimate ? '0.925rem' : '0.825rem',
     width: shouldAnimate ? '0.925rem' : '0.825rem',
-
   }),
 };

@@ -72,9 +72,9 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
 
       const ratio = clamp(
         clampedMousePos /
-        (item.barId === 'volumeBar1'
-          ? volumeBarRef.current.clientWidth
-          : volumeBarRef.current.clientHeight),
+          (item.barId === 'volumeBar1'
+            ? volumeBarRef.current.clientWidth
+            : volumeBarRef.current.clientHeight),
         0,
         1,
       );

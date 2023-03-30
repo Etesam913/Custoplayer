@@ -9,7 +9,6 @@ import {
   progressStrAtom,
   valuesAtom,
   videoContainerAtom,
-  videoDimensionsAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
 import {
@@ -20,14 +19,16 @@ import {
   getLargestProgressBarMousePos,
   isMouseFunc,
   isTouchscreenFunc,
+  lightenColor,
 } from '@root/lib/utils';
 import { ProgressBarItem } from '@root/lib/types';
 import { motion } from 'framer-motion';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useProgressDragging } from '../hooks';
 import PreviewTooltips from './PreviewTooltips';
+import { progressBar1ScrubberAnimation } from '../variants';
 
 interface ProgressBarsProps {
   item: ProgressBarItem;
@@ -144,6 +145,10 @@ function ProgressBars({ item }: ProgressBarsProps) {
     playState,
   );
 
+  const shouldAnimate = isHovered || isProgressDragging;
+  const hasScrubber =
+    item.scrubberColor !== 'transparent' &&
+    item.scrubberBorderColor !== 'transparent';
   return (
     <ProgressBarContainer
       data-cy={item.id}
@@ -177,14 +182,29 @@ function ProgressBars({ item }: ProgressBarsProps) {
           ref={progressBarRef}
           role='progressbar'
           animate={{
-            height: isHovered || isProgressDragging ? '0.6rem' : '0.35rem',
+            height: shouldAnimate ? '0.6rem' : '0.35rem',
           }}
           transition={{ duration: 0.2 }}
         >
           <Progress
-            style={{ width: progressStr }}
+            hasScrubber={hasScrubber}
+            style={{
+              width: hasScrubber ? `calc(${progressStr} + 6px)` : progressStr,
+            }}
             progressColor={item.progressColor}
-          />
+          >
+            {' '}
+            <Scrubber
+              scrubberColor={item.scrubberColor ?? item.progressColor}
+              scrubberBorderColor={item.scrubberBorderColor}
+              variants={progressBar1ScrubberAnimation}
+              custom={shouldAnimate}
+              initial='init'
+              animate='anim'
+              data-cy='progressBar1Scrubber'
+            />
+          </Progress>
+
           {values.previewTooltip && (
             <PreviewTooltips
               isHovered={isHovered}
@@ -211,14 +231,43 @@ const ProgressBar1 = styled(motion.div)`
   background-color: #f2f2f2;
   width: 100%;
   border-radius: 0.7rem;
-  overflow: hidden;
+  justify-content: flex-start;
 `;
 
-const Progress = styled.div<{ progressColor: string | undefined }>`
+const Progress = styled.div<{
+  progressColor: string | undefined;
+  hasScrubber: boolean;
+}>`
   height: 100%;
   pointer-events: none;
+  border-radius: 0.7rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  ${(props) =>
+    props.hasScrubber &&
+    css`
+      min-width: 16px;
+    `}
   background-color: ${(props) =>
     props.progressColor ? props.progressColor : '#4ab860'};
+`;
+
+const Scrubber = styled(motion.div)<{
+  scrubberColor: string | undefined;
+  scrubberBorderColor: string | undefined;
+}>`
+  height: 0.75rem;
+  width: 0.75rem;
+  background-color: ${(props) => props.scrubberColor ?? 'white'};
+  position: absolute;
+  border-radius: 50rem;
+  border: ${(props) =>
+    props.scrubberBorderColor !== undefined
+      ? '2px solid ' + props.scrubberBorderColor
+      : props.scrubberColor !== undefined
+      ? '2px solid ' + lightenColor(props.scrubberColor)
+      : 'none'};
 `;
 
 export default ProgressBars;
