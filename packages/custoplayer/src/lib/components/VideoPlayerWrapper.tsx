@@ -68,6 +68,7 @@ const PlayerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
 `;
 
 const PlayerContainer = styled.div`

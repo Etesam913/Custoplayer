@@ -13,7 +13,7 @@ import {
   showControlsBarAtom,
   valuesAtom,
   videoDimensionsAtom,
-} from '../atoms';
+} from '@root/lib/atoms';
 import {
   isCurrentTime,
   isDuration,
@@ -21,7 +21,8 @@ import {
   isPlayButton,
   isProgressBar,
   isVolumeComponent,
-} from '../utils';
+} from '@root/lib/utils';
+import { controlsBarMovementAnimation, controlsBarOpacityAnimation } from '@root/lib/variants';
 
 function extractColor(curItem: CustoplayerItem) {
   if (
@@ -66,10 +67,10 @@ function ControlsBar() {
       {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
+          variants={videoValues.controlsBar?.animate === "movement" ? controlsBarMovementAnimation : controlsBarOpacityAnimation}
+          initial='init'
+          animate='anim'
+          exit='exit'
           data-cy='controlsBar'
         >
           <Controls
@@ -83,45 +84,48 @@ function ControlsBar() {
             })}
           </Controls>
         </ControlsContainer>
-      )}
-    </AnimatePresence>
+      )
+      }
+    </AnimatePresence >
+
   );
 }
 
+
 const ControlsContainer = styled(motion.div)`
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-`;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      `;
 
 const Controls = styled.div<{
   height: string;
   backgroundColor: string | undefined;
 }>`
-  height: ${(props) => props.height};
-  background-color: ${(props) =>
+      height: ${(props) => props.height};
+      background-color: ${(props) =>
     props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0.3rem 0.5rem;
-  box-sizing: border-box;
-`;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0.3rem 0.5rem;
+      box-sizing: border-box;
+      `;
 
 export const ItemContainer = styled.div<{ isProgressBar: boolean }>`
-  height: 100%;
-  width: auto;
-  color: ${(props) => (props.color ? props.color : 'white')};
-  flex: ${(props) => (props.isProgressBar ? '1' : '0')};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.35rem;
+      height: 100%;
+      width: auto;
+      color: ${(props) => (props.color ? props.color : 'white')};
+      flex: ${(props) => (props.isProgressBar ? '1' : '0')};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.35rem;
 
-  :last-child {
-    margin-right: 0;
+      :last-child {
+        margin - right: 0;
   }
-`;
+      `;
 
 export default ControlsBar;
