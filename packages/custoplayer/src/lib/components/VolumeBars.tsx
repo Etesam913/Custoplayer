@@ -1,4 +1,3 @@
-import { findLastIndex } from 'cypress/types/lodash';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { forwardRef } from 'react';
@@ -54,7 +53,7 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
             style={{ width: videoVolume * volumeBar1Width + 4 + 'px' }}
           >
             <Scrubber
-              data-cy="volume-scrubber"
+              data-cy="volumeScrubber1"
               scrubberBorderColor={props.scrubberBorderColor}
               scrubberColor={props.scrubberColor ?? props.volumeColor}
               variants={volumeBar1ScrubberAnimation}
@@ -79,7 +78,7 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
               style={{ height: (videoVolume * volumeBar2Height + 8) + 'px' }}
             >
               <Scrubber
-                data-cy="volume-scrubber"
+                data-cy="volumeScrubber2"
                 scrubberBorderColor={props.scrubberBorderColor}
                 scrubberColor={props.scrubberColor ?? props.volumeColor}
                 variants={volumeBar2ScrubberAnimation}

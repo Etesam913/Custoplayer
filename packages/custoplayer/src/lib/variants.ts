@@ -31,7 +31,6 @@ export const volumeBar1ScrubberAnimation = {
   })
 }
 
-
 export const volumeBar2ScrubberAnimation = {
   init: { height: '0.825rem', width: '0.825rem', y: 0 },
   anim: (shouldAnimate: boolean) => ({

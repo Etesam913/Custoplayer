@@ -89,11 +89,12 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
     isVolumeDraggingAtom,
     myScope,
   );
-  //onMouseLeave={() => setIsVolumeHovered(isTouchscreen() ? true : false)}
+
   return (
     <VolumeButtonBarContainer
       data-cy={`volumeButtonBarContainer-${item.id}`}
       isDragging={isVolumeDragging}
+      onMouseLeave={() => setIsVolumeHovered(isTouchscreen() ? true : false)}
       onMouseEnter={() => setIsVolumeHovered(true)}
     >
       <ButtonContainer
