@@ -71,12 +71,10 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
       const clampedMousePos = clamp(adjustedMousePos, 0, volumeBarMaxVal);
 
       const ratio =
-        clampedMousePos /
-        (item.barId === 'volumeBar1'
-          ? volumeBarRef.current.clientWidth
-          : volumeBarRef.current.clientHeight);
-      if (videoElem) {
-      }
+        clamp(clampedMousePos /
+          (item.barId === 'volumeBar1'
+            ? volumeBarRef.current.clientWidth
+            : volumeBarRef.current.clientHeight), 0, 1);
       videoElem ? (videoElem.volume = ratio) : null;
       videoElem ? (videoElem.muted = false) : null;
     }
