@@ -1,26 +1,38 @@
+import { findLastIndex } from 'cypress/types/lodash';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { forwardRef } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
   myScope,
   isVolumeDraggingType,
   volumeStrAtom,
   valuesAtom,
+  volumeAtom,
 } from '../atoms';
+import { lightenColor } from '../utils';
 
 interface VolumeBarsProps {
   barId?: 'volumeBar1' | 'volumeBar2';
   volumeColor?: string;
   barColor?: string;
+  scrubberColor?: string;
+  scrubberBorderColor?: string;
   isBarHovered: boolean;
   isVolumeDragging: isVolumeDraggingType;
 }
+const volumeBar1Width = 56;
+const volumeBar1Height = 5.6;
+const volumeBar2Width = 8;
+const volumeBar2Height = 76;
+
 type Ref = HTMLDivElement;
+
 const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
+  const shouldAnimate = props.isBarHovered || props.isVolumeDragging;
   const videoValues = useAtomValue(valuesAtom, myScope);
   const volumeStr = useAtomValue(volumeStrAtom, myScope);
-
+  const videoVolume = useAtomValue(volumeAtom, myScope);
   if (props.barId === 'volumeBar1') {
     return (
       <VolumeBar1
@@ -28,15 +40,29 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
         data-cy={props.barId}
         ref={ref}
         animate={{
-          height:
-            props.isBarHovered || props.isVolumeDragging ? '0.5rem' : '0.35rem',
+          height: shouldAnimate ? '0.5rem' : '0.35rem',
         }}
         transition={{ duration: 0.2 }}
       >
         <Progress
           style={{ width: volumeStr }}
           volumeColor={props.volumeColor}
-        />
+          volumeBar2={false}
+        >
+          <ScrubberProgress1
+            style={{ width: videoVolume * volumeBar1Width + 4 + 'px' }}
+          >
+            <Scrubber
+              scrubberBorderColor={props.scrubberBorderColor}
+              scrubberColor={props.scrubberColor ?? props.volumeColor}
+              animate={{
+                height: shouldAnimate ? '0.85rem' : '0.75rem',
+                width: shouldAnimate ? '0.85rem' : '0.75rem',
+                y: shouldAnimate ? 1.2 : 0,
+              }}
+            />
+          </ScrubberProgress1>
+        </Progress>
       </VolumeBar1>
     );
   } else if (props.barId === 'volumeBar2') {
@@ -44,19 +70,35 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
       <VolumeBar2Shade backgroundColor={videoValues.controlsBar?.barColor}>
         <VolumeBar2 barColor={props.barColor} data-cy={props.barId} ref={ref}>
           <Progress
+            volumeBar2
             style={{ height: volumeStr }}
             volumeColor={props.volumeColor}
-          />
+          >
+            <ScrubberProgress2
+              style={{ height: (videoVolume * volumeBar2Height + 8) + 'px' }}
+            >
+              <Scrubber
+                scrubberBorderColor={props.scrubberBorderColor}
+                scrubberColor={props.scrubberColor ?? props.volumeColor}
+                animate={{
+                  height: shouldAnimate ? '0.925rem' : '0.825rem',
+                  width: shouldAnimate ? '0.925rem' : '0.825rem',
+                  y: -1,
+                }}
+              />
+            </ScrubberProgress2>
+          </Progress>
         </VolumeBar2>
       </VolumeBar2Shade>
     );
   } else return <></>;
 });
+
 VolumeBars.displayName = 'VolumeBars';
 
 export default VolumeBars;
 
-const VolumeBar1 = styled(motion.div)<{ barColor: string | undefined }>`
+const VolumeBar1 = styled(motion.div) <{ barColor: string | undefined }>`
   height: 0.35rem;
   background-color: ${(props) => (props.barColor ? props.barColor : 'white')};
   width: 3.5rem;
@@ -89,8 +131,57 @@ const VolumeBar2 = styled.div<{ barColor: string | undefined }>`
   background-color: ${(props) => (props.barColor ? props.barColor : 'white')};
 `;
 
-const Progress = styled.div<{ volumeColor: string | undefined }>`
+const Progress = styled.div<{
+  volumeColor: string | undefined;
+  volumeBar2: boolean;
+}>`
   height: 100%;
   background-color: ${(props) =>
     props.volumeColor ? props.volumeColor : '#4ab860'};
+
+  ${(props) =>
+    props.volumeBar2 &&
+    css`
+      display: flex;
+      flex-direction: column-reverse;
+      width: 100%;
+    `}
+`;
+
+const ScrubberProgress1 = styled.div`
+  height: ${volumeBar1Height}px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 12.8px;
+  max-width: ${volumeBar1Width - 5.5}px;
+  position: absolute;
+`;
+
+const ScrubberProgress2 = styled.div`
+  width: ${volumeBar2Width}px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  min-height: 12.8px;
+  max-height: ${volumeBar2Height}px;
+`;
+
+const Scrubber = styled(motion.div) <{
+  scrubberColor: string | undefined;
+  scrubberBorderColor: string | undefined;
+}>`
+  height: 0.75rem;
+  width: 0.75rem;
+  background-color: ${(props) => props.scrubberColor ?? 'white'};
+  position: absolute;
+  border-radius: 50rem;
+  border: ${(props) =>
+    props.scrubberBorderColor !== undefined
+      ? '2px solid ' + props.scrubberBorderColor
+      : props.scrubberColor !== undefined
+        ? '2px solid ' + lightenColor(props.scrubberColor)
+        : 'none'};
 `;

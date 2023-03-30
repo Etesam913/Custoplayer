@@ -8,10 +8,11 @@ import {
 } from '@root/lib/types';
 import { ComponentPropsWithoutRef, SetStateAction } from 'react';
 import { isVolumeDraggingType } from '@root/lib/atoms';
+import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
-  return function (this: any, ...args: any[]) {
+  return function(this: any, ...args: any[]) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
@@ -33,7 +34,7 @@ export const throttle = (fn: (...args: any[]) => void, ms = 300) => {
 
     isThrottled = true;
 
-    setTimeout(function () {
+    setTimeout(function() {
       isThrottled = false;
       if (savedArgs) {
         wrapper.apply(savedThis, savedArgs);
@@ -269,4 +270,9 @@ export function isTouchscreen() {
     return true;
   }
   return false;
+}
+
+export function lightenColor(color: string | undefined) {
+  const lightenedColor = Color(color).lighten(0.3);
+  return lightenedColor;
 }
