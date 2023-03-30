@@ -37,6 +37,12 @@ function VideoPlayerWrapper() {
       ref={videoContainerRef}
       onFocus={() => setIsControlsBarShowing(true)}
       onBlur={() => setIsControlsBarShowing(false)}
+      onMouseEnter={() => {
+        setIsControlsBarShowing(true);
+      }}
+      onMouseLeave={() => {
+        setIsControlsBarShowing(false);
+      }}
       tabIndex={0}
       onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) =>
         handleKeyPress(e, videoElem)
@@ -45,12 +51,6 @@ function VideoPlayerWrapper() {
       <PlayerContainer
         data-cy='playerContainer'
         //tabIndex={-1}
-        onMouseEnter={() => {
-          setIsControlsBarShowing(true);
-        }}
-        onMouseLeave={() => {
-          setIsControlsBarShowing(false);
-        }}
       >
         {/* <PlayIndicator /> */}
         <HTMLVideoPlayer />
@@ -68,6 +68,7 @@ const PlayerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
 `;
 
 const PlayerContainer = styled.div`

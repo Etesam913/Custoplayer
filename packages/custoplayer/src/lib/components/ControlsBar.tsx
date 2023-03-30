@@ -13,7 +13,7 @@ import {
   showControlsBarAtom,
   valuesAtom,
   videoDimensionsAtom,
-} from '../atoms';
+} from '@root/lib/atoms';
 import {
   isCurrentTime,
   isDuration,
@@ -21,7 +21,11 @@ import {
   isPlayButton,
   isProgressBar,
   isVolumeComponent,
-} from '../utils';
+} from '@root/lib/utils';
+import {
+  controlsBarMovementAnimation,
+  controlsBarOpacityAnimation,
+} from '@root/lib/variants';
 
 function extractColor(curItem: CustoplayerItem) {
   if (
@@ -66,10 +70,14 @@ function ControlsBar() {
       {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
+          variants={
+            videoValues.controlsBar?.animate === 'movement'
+              ? controlsBarMovementAnimation
+              : controlsBarOpacityAnimation
+          }
+          initial='init'
+          animate='anim'
+          exit='exit'
           data-cy='controlsBar'
         >
           <Controls
@@ -110,18 +118,18 @@ const Controls = styled.div<{
 `;
 
 export const ItemContainer = styled.div<{ isProgressBar: boolean }>`
-  height: 100%;
-  width: auto;
-  color: ${(props) => (props.color ? props.color : 'white')};
-  flex: ${(props) => (props.isProgressBar ? '1' : '0')};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.35rem;
+      height: 100%;
+      width: auto;
+      color: ${(props) => (props.color ? props.color : 'white')};
+      flex: ${(props) => (props.isProgressBar ? '1' : '0')};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.35rem;
 
-  :last-child {
-    margin-right: 0;
+      :last-child {
+        margin - right: 0;
   }
-`;
+      `;
 
 export default ControlsBar;

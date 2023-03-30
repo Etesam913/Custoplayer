@@ -14,6 +14,7 @@ function App() {
           },
           controlsBar: {
             barColor: '#386641',
+            animate: 'opacity',
           },
           item1: {
             id: 'playButton1',
