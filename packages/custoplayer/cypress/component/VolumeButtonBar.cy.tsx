@@ -35,7 +35,10 @@ describe('VolumeButtonBar.cy.tsx', () => {
   it('renders volumeButtonBar1 & volumeBar2 bar color', () => {
     const volumeBarColor1 = 'rgb(211, 215, 22)';
     const volumeBarColor2 = 'rgb(218, 36, 157)';
-    const id = 'volumeButton1';
+    const buttonBarContainer1 = 'volumeButtonBarContainer-volumeButton1'
+    const buttonBarContainer2 = 'volumeButtonBarContainer-volumeButton2'
+    const id1 = 'volumeButton1';
+    const id2 = 'volumeButton2';
     const barId1 = 'volumeBar1';
     const barId2 = 'volumeBar2';
 
@@ -43,28 +46,33 @@ describe('VolumeButtonBar.cy.tsx', () => {
       <div>
         <VolumeButtons
           item={{
-            id: id,
+            id: id1,
             barId: barId1,
             barColor: volumeBarColor1,
           }}
         />
         <VolumeButtons
           item={{
-            id: id,
+            id: id2,
             barId: barId2,
             barColor: volumeBarColor2,
           }}
         />
       </div>,
     );
+    cy.dataCy(buttonBarContainer1).trigger('mouseover')
     cy.dataCy(barId1).should('have.css', 'background-color', volumeBarColor1);
+    cy.dataCy(buttonBarContainer2).trigger('mouseover')
     cy.dataCy(barId2).should('have.css', 'background-color', volumeBarColor2);
   });
 
   it('renders volumeButtonBar1 & volumeBar2 volume color', () => {
     const volumeColor1 = 'rgb(111, 126, 224)';
     const volumeColor2 = 'rgb(36, 218, 130)';
-    const id = 'volumeButton1';
+    const buttonBarContainer1 = 'volumeButtonBarContainer-volumeButton1'
+    const buttonBarContainer2 = 'volumeButtonBarContainer-volumeButton2'
+    const id1 = 'volumeButton1';
+    const id2 = 'volumeButton2';
     const barId1 = 'volumeBar1';
     const barId2 = 'volumeBar2';
 
@@ -72,24 +80,26 @@ describe('VolumeButtonBar.cy.tsx', () => {
       <div>
         <VolumeButtons
           item={{
-            id: id,
+            id: id1,
             barId: barId1,
             volumeColor: volumeColor1,
           }}
         />
         <VolumeButtons
           item={{
-            id: id,
+            id: id2,
             barId: barId2,
             volumeColor: volumeColor2,
           }}
         />
       </div>,
     );
+    cy.dataCy(buttonBarContainer1).trigger('mouseover')
     cy.dataCy(barId1)
       .children()
       .first()
       .should('have.css', 'background-color', volumeColor1);
+    cy.dataCy(buttonBarContainer2).trigger('mouseover')
     cy.dataCy(barId2)
       .children()
       .first()

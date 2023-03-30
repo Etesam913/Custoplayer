@@ -262,3 +262,11 @@ export function isMouseFunc(
 ): event is React.MouseEvent<HTMLDivElement> {
   return (event as React.MouseEvent<HTMLDivElement>).clientX !== undefined;
 }
+
+export function isTouchscreen() {
+  // Check if the device supports touch events
+  if ('ontouchstart' in window || navigator.maxTouchPoints) {
+    return true;
+  }
+  return false;
+}
