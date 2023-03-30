@@ -1,4 +1,8 @@
-import { EntryPointProps } from '@root/lib/types';
+/* 
+  EntryPointProps has to have an external path for the 
+  types to work externally
+*/
+import { EntryPointProps } from './types';
 import { Provider } from 'jotai';
 import { myScope } from '@root/lib/atoms';
 import Custoplayer from './Custoplayer';
