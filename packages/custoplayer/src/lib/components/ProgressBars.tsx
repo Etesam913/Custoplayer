@@ -253,7 +253,7 @@ const Progress = styled.div<{
     props.progressColor ? props.progressColor : '#4ab860'};
 `;
 
-const Scrubber = styled(motion.div)<{
+const Scrubber = styled(motion.div) <{
   scrubberColor: string | undefined;
   scrubberBorderColor: string | undefined;
 }>`
@@ -266,8 +266,8 @@ const Scrubber = styled(motion.div)<{
     props.scrubberBorderColor !== undefined
       ? '2px solid ' + props.scrubberBorderColor
       : props.scrubberColor !== undefined
-      ? '2px solid ' + lightenColor(props.scrubberColor)
-      : 'none'};
+        ? '2px solid ' + lightenColor(props.scrubberColor)
+        : 'none'};
 `;
 
 export default ProgressBars;
