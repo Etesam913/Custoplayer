@@ -48,7 +48,7 @@ function HomepageHeader() {
         <HeroTitle>{siteConfig.title}</HeroTitle>
         <HeroTagline>{siteConfig.tagline}</HeroTagline>
         <button className='link-button'>
-          <Link to='/docs/intro'>Learn More</Link>
+          <Link to='/docs/quick-start'>Learn More</Link>
         </button>
       </div>
     </Header>

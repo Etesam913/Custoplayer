@@ -19,7 +19,7 @@ function CustoplayerExample() {
         },
         item2: {
           id: 'volumeButton1',
-          barId: 'volumeBar1',
+          barId: 'volumeBar2',
           volumeColor: '#a4c3f5',
           buttonColor: "#a4c3f5"
         },
