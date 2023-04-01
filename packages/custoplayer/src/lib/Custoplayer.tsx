@@ -6,10 +6,15 @@ import {
   valuesAtom,
   videoAttributesAtom,
 } from '@root/lib/atoms';
-import { CustoplayerProps } from './types';
-import { useEffect } from 'react';
+import { CustoplayerValues } from './types';
+import { ComponentPropsWithoutRef, useEffect } from 'react';
 
-function Custoplayer({ values, ...rest }: CustoplayerProps) {
+interface CustoplayerProps {
+  values: CustoplayerValues;
+  rest: ComponentPropsWithoutRef<'video'>;
+}
+
+function Custoplayer({ values, rest }: CustoplayerProps) {
   const setValues = useSetAtom(valuesAtom, myScope);
   const setItems = useSetAtom(itemsAtom, myScope);
   const setVideoAttributes = useSetAtom(videoAttributesAtom, myScope);

@@ -8,6 +8,7 @@ import {
 } from '@root/lib/types';
 import { ComponentPropsWithoutRef, SetStateAction } from 'react';
 import { isVolumeDraggingType } from '@root/lib/atoms';
+import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
@@ -261,4 +262,17 @@ export function isMouseFunc(
   event: BarMouseEvent,
 ): event is React.MouseEvent<HTMLDivElement> {
   return (event as React.MouseEvent<HTMLDivElement>).clientX !== undefined;
+}
+
+export function isTouchscreen() {
+  // Check if the device supports touch events
+  if ('ontouchstart' in window || navigator.maxTouchPoints) {
+    return true;
+  }
+  return false;
+}
+
+export function lightenColor(color: string | undefined) {
+  const lightenedColor = Color(color).lighten(0.3);
+  return lightenedColor;
 }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Custoplayer from './lib/Custoplayer';
+import Custoplayer from './lib/EntryPoint';
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
           },
           controlsBar: {
             barColor: '#386641',
+            animate: 'opacity',
           },
           item1: {
             id: 'playButton1',

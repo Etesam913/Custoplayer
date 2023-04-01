@@ -10,22 +10,27 @@ import {
   videoContainerAtom,
   videoElemAtom,
   volumeAtom,
-} from '../atoms';
+} from '@root/lib/atoms';
 import {
   barMouseEvent,
   clamp,
   BarMouseEvent,
   isTouchscreenFunc,
   isMouseFunc,
-} from '../utils';
+  isTouchscreen,
+} from '@root/lib/utils';
 import VolumeBars from './VolumeBars';
 import { motion, AnimatePresence } from 'framer-motion';
+import { volumeBar1Animation, volumeBar2Animation } from '@root/lib/variants';
 
 interface VolumeButtonsProps {
   item: VolumeItem;
 }
 
 function VolumeButtons({ item }: VolumeButtonsProps) {
+  const [isVolumeHovered, setIsVolumeHovered] = useState(
+    isTouchscreen() ? true : false,
+  );
   const [isBarHovered, setIsBarHovered] = useState(false);
   const isMuted = useAtomValue(isMutedAtom, myScope);
   const volumeBarRef = useRef<HTMLDivElement | null>(null);
@@ -65,13 +70,15 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
         mousePosConstant * (updatedMousePos - distVolumeBar);
       const clampedMousePos = clamp(adjustedMousePos, 0, volumeBarMaxVal);
 
-      const ratio =
+      const ratio = clamp(
         clampedMousePos /
-        (item.barId === 'volumeBar1'
-          ? volumeBarRef.current.clientWidth
-          : volumeBarRef.current.clientHeight);
-      if (videoElem) {
-      }
+          (item.barId === 'volumeBar1'
+            ? volumeBarRef.current.clientWidth
+            : volumeBarRef.current.clientHeight),
+        0,
+        1,
+      );
+
       videoElem ? (videoElem.volume = ratio) : null;
       videoElem ? (videoElem.muted = false) : null;
     }
@@ -84,7 +91,12 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
   );
 
   return (
-    <VolumeButtonContainer isDragging={isVolumeDragging}>
+    <VolumeButtonBarContainer
+      data-cy={`volumeButtonBarContainer-${item.id}`}
+      isDragging={isVolumeDragging}
+      onMouseEnter={() => setIsVolumeHovered(true)}
+      onMouseLeave={() => setIsVolumeHovered(isTouchscreen() ? true : false)}
+    >
       <ButtonContainer
         data-cy={item.id}
         whileHover={{ scale: 1.075 }}
@@ -93,7 +105,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
           videoElem ? (videoElem.muted = !videoElem.muted) : null
         }
       >
-        {item.id === 'volumeButton1' && (
+        {(item.id === 'volumeButton1' || item.id === 'volumeButton2') && (
           <svg
             width='32'
             height='32'
@@ -143,46 +155,60 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
         )}
       </ButtonContainer>
       {(
-        <VolumeBarContainer
-          data-cy='volumeContainer'
-          onMouseEnter={() => setIsBarHovered(true)}
-          onMouseLeave={() => setIsBarHovered(false)}
-          onMouseDown={(e) =>
-            barMouseEvent(
-              e,
-              handleProgressMouse,
-              videoContainer,
-              setIsVolumeDragging,
-              false,
-            )
-          }
-          onTouchStart={(e) => {
-            setIsBarHovered(true);
-            barMouseEvent(
-              e,
-              handleProgressMouse,
-              videoContainer,
-              setIsVolumeDragging,
-              true,
-            );
-          }}
-          onTouchEnd={() => setIsBarHovered(false)}
-        >
-          <VolumeBars
-            barId={item.barId}
-            isBarHovered={isBarHovered}
-            isVolumeDragging={isVolumeDragging}
-            barColor={item.barColor}
-            volumeColor={item.volumeColor}
-            ref={volumeBarRef}
-          />
-        </VolumeBarContainer>
+        <AnimatePresence>
+          {(isVolumeHovered || isVolumeDragging) && (
+            <VolumeBarContainer
+              variants={
+                item.barId === 'volumeBar1'
+                  ? volumeBar1Animation
+                  : volumeBar2Animation
+              }
+              initial='init'
+              animate='anim'
+              exit='exit'
+              data-cy='volumeContainer'
+              onMouseEnter={() => setIsBarHovered(true)}
+              onMouseLeave={() => setIsBarHovered(false)}
+              onMouseDown={(e) =>
+                barMouseEvent(
+                  e,
+                  handleProgressMouse,
+                  videoContainer,
+                  setIsVolumeDragging,
+                  false,
+                )
+              }
+              onTouchStart={(e) => {
+                setIsBarHovered(true);
+                barMouseEvent(
+                  e,
+                  handleProgressMouse,
+                  videoContainer,
+                  setIsVolumeDragging,
+                  true,
+                );
+              }}
+              onTouchEnd={() => setIsBarHovered(false)}
+            >
+              <VolumeBars
+                barId={item.barId}
+                isBarHovered={isBarHovered}
+                isVolumeDragging={isVolumeDragging}
+                barColor={item.barColor}
+                volumeColor={item.volumeColor}
+                scrubberColor={item.scrubberColor}
+                scrubberBorderColor={item.scrubberBorderColor}
+                ref={volumeBarRef}
+              />
+            </VolumeBarContainer>
+          )}
+        </AnimatePresence>
       ) ?? item.barId}
-    </VolumeButtonContainer>
+    </VolumeButtonBarContainer>
   );
 }
 
-const VolumeButtonContainer = styled.div<{
+const VolumeButtonBarContainer = styled.div<{
   isDragging: isVolumeDraggingType;
 }>`
   height: 100%;
@@ -200,7 +226,7 @@ const VolumeButtonContainer = styled.div<{
   color: currentColor;
 `;
 
-const VolumeBarContainer = styled.div`
+const VolumeBarContainer = styled(motion.div)`
   height: 100%;
   display: flex;
   align-items: center;

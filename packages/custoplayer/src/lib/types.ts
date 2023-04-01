@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react';
 
-export interface CustoplayerProps extends ComponentPropsWithoutRef<'video'> {
+export interface EntryPointProps extends ComponentPropsWithoutRef<'video'> {
   /** You can define video attributes here. Things like playButtons, previewTooltips, and fullscreenButtons.
   @example
   values={{
@@ -38,6 +38,12 @@ export interface CustoplayerProps extends ComponentPropsWithoutRef<'video'> {
 }
 
 export interface CustoplayerValues {
+  /** You can define properties related to the controls bar here:
+  @example
+  controlsBar: {
+    barColor: "#386641",
+    textColor: "movement"
+  } */
   controlsBar?: ControlsBarItem;
   // playIndicator?: {
   //   id?: number;
@@ -106,21 +112,34 @@ export interface CustoplayerValues {
 }
 
 export interface ControlsBarItem {
+  /** Changes the color of the controlsBar. This also changes the default backgroundColor for the previewToolip. Accepts any hex or rgb color code. */
   barColor: string;
+  /** Changes how the controlsBar animates. Accepts values of "opacity" and "movement". Setting animate to "opacity" will do a simple fade in animation. Setting animate to "movement" will animate the controls bar from bottom -> up*/
+  animate?: 'opacity' | 'movement';
 }
 
 export interface PreviewTooltipItem {
-  /** Accepts values of "text" */
+  /** Accepts value of "text" */
   id: 'text' | 'thumbnail' | 'textAndThumbnail';
 }
 
 export interface VolumeItem {
+  /** Accepts values of "volumeButton1" or "volumeButton2" */
   id: 'volumeButton1' | 'volumeButton2';
+  /** Accepts values of "volumeBar1" or "volumeBar2". volumeBar1 is horizontal and volumeBar2 is vertical. */
   barId?: 'volumeBar1' | 'volumeBar2';
+  /** Changes the color of the volume progress in the bar. Accepts any hex or rgb color code. */
   volumeColor?: string;
+  /** Changes the color of the volume background color of the bar. Accepts any hex or rgb color code. */
   barColor?: string;
+  /** Changes the color of the volume button icon. Accepts any hex or rgb color code. */
   buttonColor?: string;
+  /** Hides the volumeButton and the volumeBar when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;
+  /** Changes the color of the volume bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
+  scrubberColor?: string;
+  /** Changes the border color of the volume bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
+  scrubberBorderColor?: string;
 }
 
 export interface PlayButtonItem {
@@ -139,17 +158,27 @@ export interface ProgressBarItem {
   progressColor?: string;
   /** Hides the progress bar when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;
+  /** Changes the color of the progress bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
+  scrubberColor?: string;
+  /** Changes the border color of the progress bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
+  scrubberBorderColor?: string;
 }
 
 export interface TimeItem {
+  /** Accepts values of "currentTime" or "duration" */
   id: 'currentTime' | 'duration';
+  /** Changes the color of the time text. Accepts any hex or rgb color code. */
   textColor?: string;
+  /** Hides the currentTime text or duration text when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;
 }
 
 export interface FullscreenItem {
+  /** Accepts values of "fullscreenButton1" or "fullscreenButton2" */
   id: 'fullscreenButton1' | 'fullscreenButton2';
+  /** Changes the color of the fullscreen button. Accepts any hex or rgb color code. */
   buttonColor?: string;
+  /** Hides the fullscreen button when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;
 }
 
