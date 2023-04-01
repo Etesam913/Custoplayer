@@ -21,7 +21,7 @@
   --ifm-code-font-size: 90%; /*95%;*/
   --ifm-code-font-size: 90%;
   --ifm-font-family-base: 'Manrope', 'sans-serif';
-
+  --ifm-paragraph-margin-bottom: 0.5rem;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   color: #2b2f43;
   --ifm-button-border-color: rgb(207, 207, 207);
@@ -85,4 +85,7 @@ nav {
 }
 .navbar .navbar__items {
   flex: auto;
+}
+.menu{
+    padding: 0.5rem !important;
 }

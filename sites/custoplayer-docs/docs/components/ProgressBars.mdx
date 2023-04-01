@@ -1,0 +1,31 @@
+# Progress Bars
+
+There is currently one progress bar component
+
+1. `"progressBar1"`
+
+## Demo of `progressBar1`
+
+<video width="100%" autoPlay={true} loop={true} src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fprogress-bars%2FprogressBar1.mp4"/>
+
+## Usage
+```jsx
+item1: {
+  id: 'progressBar1',
+  progressColor: '#a4c3f5',
+  scrubberColor: "#a4c3f5",
+  scrubberBorderColor: "white",
+},
+```
+* The `"progressColor"` property changes the color of the progress in the progress bar
+  * Accepts any hex or rgb color code
+* The `scrubberColor` property changes the color of the scrubber (the circle at the end of the progress).
+  * Accepts any hex or rgb color code
+  * If no `scrubberColor` is defined, the `scrubberColor` is defaulted to the same as the `progressColor`
+
+* The `scrubberBorder` property changes the border color of the scrubber (the circle at the end of the progress).
+  * Accepts any hex or rgb color code
+  * If no `scrubberBorderColor` is defined, the `scrubberBorderColor` is defaulted to a lightened version of the `scrubberColor`
+
+* The `hideOnMobile` property hides the progressBar component when the video's width is less than 768px.
+  * Accepts values of true or false
