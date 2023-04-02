@@ -1,0 +1,42 @@
+# Time
+
+There are 2 time components
+1. `"currentTime"`
+2. `"duration"`
+
+## ⌛️ Current Time
+The currentTime component shows the current time of the video.
+
+### Usage
+```js
+values={{
+  item1: {
+    id: 'currentTime',
+    textColor: '#b7cef4',
+  },
+}}
+```
+
+* The `textColor` property changes the color of the time text.
+  * Accepts any hex or rgb color code.
+* The `hideOnMobile` property hides the currentTime component when the video's width is less than 768px.
+  * Accepts values of true or false
+
+
+## ⏳ Duration
+The duration component shows the duration of the video.
+
+### Usage
+```js
+values={{
+  item1: {
+    id: 'duration',
+    textColor: '#b7cef4',
+  },
+}}
+```
+
+* The `textColor` property changes the color of the time text.
+  * Accepts any hex or rgb color code
+* The `hideOnMobile` property hides the duration component when the video's width is less than 768px.
+  * Accepts values of true or false

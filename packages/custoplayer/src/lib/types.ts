@@ -130,7 +130,7 @@ export interface VolumeItem {
   barId?: 'volumeBar1' | 'volumeBar2';
   /** Changes the color of the volume progress in the bar. Accepts any hex or rgb color code. */
   volumeColor?: string;
-  /** Changes the color of the volume background color of the bar. Accepts any hex or rgb color code. */
+  /** Changes the volume background color of the bar. Accepts any hex or rgb color code. */
   barColor?: string;
   /** Changes the color of the volume button icon. Accepts any hex or rgb color code. */
   buttonColor?: string;
