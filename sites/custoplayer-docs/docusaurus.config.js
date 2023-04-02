@@ -15,7 +15,7 @@ const config = {
   url: 'https://etesam913.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/custoplayer/',
+  baseUrl: '/Custoplayer/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -71,7 +71,7 @@ const config = {
           },
           // { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://github.com/etesam913/custoplayer',
+            href: 'https://github.com/Etesam913/Custoplayer',
             label: 'GitHub',
             position: 'right',
           },
