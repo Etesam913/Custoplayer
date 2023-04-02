@@ -10,6 +10,8 @@
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/tests.yml/badge.svg"/>
 </span>
 
+<h2><a href="https://etesam913.github.io/Custoplayer/">Documentation Page</a> </h2>
+
 <h2>Overview</h2>
 <h3>Things you can customize:</h3>
 
@@ -41,6 +43,7 @@
 ```
 npm install custoplayer
 ```
+
 <h3>yarn</h3>
 
 ```
@@ -82,5 +85,4 @@ yarn add custoplayer
 />
 ```
 
-<h2> See More at the <a>Documentation Page</a> </h2>
-* Docs are not created yet
+<h2> See More at the <a href="https://etesam913.github.io/Custoplayer/">Documentation Page</a> </h2>
