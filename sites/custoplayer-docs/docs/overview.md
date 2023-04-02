@@ -22,9 +22,9 @@ The are many components that can be put in a item container. Some of them are `"
 
 If a component name is suffixed with a number like 1 or 2, that means that the component has numerous types. For example, there are two fullscreenButton components, `"fullscreenButton1"` & `"fullscreenButton2"`.
 
-You can go to the bottom of the <a href="/docs/quick-start#-usage">quick start page</a> to see the above example in action with its code.
+You can go to the bottom of the [quick start age](/docs/quick-start#-usage) to see the above example in action with its code.
 
-To learn more about components you can go to the <a href="/docs/components">components page</a>
+To learn more about components you can go to the [components page](/docs/category/components)
 
 ## 📔 Other Properties
 

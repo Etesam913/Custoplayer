@@ -1,10 +1,10 @@
 <h1>Custoplayer</h1>
 <p>A React.js npm package that allows for the rapid creation of customizable video players. </p>
 <span>
-  <img src="https://img.shields.io/badge/license-MIT-green"></img> 
+  <img src="https://img.shields.io/badge/license-MIT-green"></img>
   <img src="https://img.shields.io/github/issues/etesam913/Custoplayer"></img>
-  <a href="https://codecov.io/gh/Etesam913/Custoplayer"> 
-    <img src="https://codecov.io/gh/Etesam913/Custoplayer/branch/main/graph/badge.svg?token=GOZ1AQ77C2"/> 
+  <a href="https://codecov.io/gh/Etesam913/Custoplayer">
+    <img src="https://codecov.io/gh/Etesam913/Custoplayer/branch/main/graph/badge.svg?token=GOZ1AQ77C2"/>
   </a>
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/linting.yml/badge.svg"/>
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/tests.yml/badge.svg"/>

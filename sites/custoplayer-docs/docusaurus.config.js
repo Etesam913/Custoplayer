@@ -43,13 +43,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
+
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -73,11 +67,11 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Quick Start',
           },
           // { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/etesam913/custoplayer',
             label: 'GitHub',
             position: 'right',
           },
@@ -90,16 +84,12 @@ const config = {
             title: 'Links',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Quick Start',
+                to: '/docs/quick-start',
               },
               {
                 label: 'GitHub',
                 to: 'https://github.com/etesam913/custoplayer',
-              },
-              {
-                label: 'Blog',
-                to: '/blog',
               },
             ],
           },
