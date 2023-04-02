@@ -42,7 +42,7 @@ export interface CustoplayerValues {
   @example
   controlsBar: {
     barColor: "#386641",
-    textColor: "movement"
+    animate: "movement"
   } */
   controlsBar?: ControlsBarItem;
   // playIndicator?: {
