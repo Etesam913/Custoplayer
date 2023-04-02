@@ -12,14 +12,14 @@ const config = {
     'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Ficon.svg',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://etesam913.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/custoplayer/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Etesam913', // Usually your GitHub org/user name.
+  organizationName: 'etesam913', // Usually your GitHub org/user name.
   projectName: 'Custoplayer', // Usually your repo name.
 
   onBrokenLinks: 'throw',
