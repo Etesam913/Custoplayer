@@ -10,6 +10,8 @@ import {
   videoElemAtom,
 } from '@root/lib/atoms';
 import { getSvgPath, handlePlayState } from '@root/lib/utils';
+import PauseButton2 from './PauseButton2';
+import PlayButton2 from './PlayButton2';
 
 interface PlayButtonsProps {
   item: PlayButtonItem;
@@ -22,7 +24,7 @@ function PlayButtons({ item }: PlayButtonsProps) {
   //   showControlsBarAtom,
   //   myScope,
   // );
-  /* 
+  /*
     Prevent default onKeyUp to prevent space from triggering onClick
     <PlayerWrapper> handles key presses
   */
@@ -82,7 +84,11 @@ function PlayButtons({ item }: PlayButtonsProps) {
       )}
       {item.id === 'playButton2' && (
         <>
-          {playState === PlayState.paused || playState === PlayState.playing ? (
+          {playState === PlayState.playing && <PauseButton2 />}
+          {playState === PlayState.paused && <PlayButton2 />}
+
+
+          {/* {playState === PlayState.paused || playState === PlayState.playing ? (
             <svg
               width='100%'
               height='100%'
@@ -120,7 +126,7 @@ function PlayButtons({ item }: PlayButtonsProps) {
                 '2.3',
               )}
             </svg>
-          )}
+          )} */}
         </>
       )}
     </PlayButtonContainer>
@@ -133,8 +139,7 @@ const PlayButtonContainer = styled(motion.button)`
   border: 0;
   padding: 0;
   color: currentColor;
-  width: 36px;
-  height: 36px;
+
   display: flex;
   justify-content: center;
   align-items: center;
