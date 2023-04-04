@@ -46,5 +46,11 @@
   },
   "resolutions": {
     "minimist": "^1.2.5"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "vite-plugin-dts": "^2.2.0",
+    "vite-plugin-istanbul": "^4.0.1"
   }
 }
