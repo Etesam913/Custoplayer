@@ -1,7 +1,6 @@
 import { PlayButtonItem } from '@root/lib/types';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
-import { Fragment } from 'react';
 import styled from 'styled-components';
 import {
   myScope,
@@ -9,7 +8,7 @@ import {
   playStateAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
-import { getSvgPath, handlePlayState } from '@root/lib/utils';
+import { handlePlayState } from '@root/lib/utils';
 import PauseButton2 from './PauseButton2';
 import PlayButton2 from './PlayButton2';
 import PlayButton1 from './PlayButton1';
@@ -22,10 +21,7 @@ interface PlayButtonsProps {
 function PlayButtons({ item }: PlayButtonsProps) {
   const videoElem = useAtomValue(videoElemAtom, myScope);
   const playState = useAtomValue(playStateAtom, myScope);
-  // const [showControlsBar, setShowControlsBar] = useAtom(
-  //   showControlsBarAtom,
-  //   myScope,
-  // );
+
   /*
     Prevent default onKeyUp to prevent space from triggering onClick
     <PlayerWrapper> handles key presses
@@ -63,7 +59,6 @@ const PlayButtonContainer = styled(motion.button)`
   border: 0;
   padding: 0;
   color: currentColor;
-
   display: flex;
   justify-content: center;
   align-items: center;
