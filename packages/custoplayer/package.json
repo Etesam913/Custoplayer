@@ -64,6 +64,7 @@
         "@cypress/code-coverage": "^3.10.0",
         "@cypress/vite-dev-server": "^5.0.4",
         "@istanbuljs/nyc-config-typescript": "^1.0.2",
+        "@types/color": "^3.0.3",
         "@types/node": "^18.11.18",
         "@types/react": "^18.0.27",
         "@types/react-dom": "^18.0.10",
