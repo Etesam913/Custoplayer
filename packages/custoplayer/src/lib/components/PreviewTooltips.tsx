@@ -27,7 +27,6 @@ function PreviewTooltips({
   const previewTooltipStr = useAtomValue(previewTooltipStrAtom, myScope);
   const videoValues = useAtomValue(valuesAtom, myScope);
   const videoDuration = useAtomValue(durationAtom, myScope);
-
   return (
     <>
       {data.id === 'text' && (
