@@ -1,0 +1,63 @@
+---
+sidebar_position: 3
+---
+
+# Contributing
+
+## Development
+
+If you would like to contribute by fixing an open issue or developing a new feature you can use this suggested workflow:
+
+- First fork the repository,
+  - Create a new feature branch off the `main` branch.
+- Second, install the dependencies of the monorepo:
+
+```bash
+yarn install
+```
+
+- Build the library:
+
+```bash
+cd packages/custoplayer && yarn build
+```
+
+- Run the development server of the test project:
+
+```bash
+yarn dev
+```
+
+- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+- Make and commit desired changes.
+
+  - Make sure to run `yarn lint --fix` before commiting to ensure that there are no linting errors.
+
+- Finally, submit a pr from your forked branch to the Custoplayer main branch
+
+## Testing
+
+### Run Unit Tests
+
+```bash
+cd packages/custoplayer && yarn cy:open-unit
+```
+
+If you want to run the unit tests headlessly do:
+
+```bash
+yarn cy:run-unit
+```
+
+### Run e2e Tests
+
+```bash
+cd packages/custoplayer && yarn cy:open-e2e
+```
+
+If you want to run the end to end tests headlessly do:
+
+```bash
+yarn cy:run-e2e
+```
