@@ -2,6 +2,7 @@ import { PreviewTooltipItem } from '@root/lib/types';
 import { useAtomValue } from 'jotai';
 import styled from 'styled-components';
 import {
+  durationAtom,
   myScope,
   previewTooltipPositionAtom,
   previewTooltipStrAtom,
@@ -25,13 +26,15 @@ function PreviewTooltips({
   );
   const previewTooltipStr = useAtomValue(previewTooltipStrAtom, myScope);
   const videoValues = useAtomValue(valuesAtom, myScope);
+  const videoDuration = useAtomValue(durationAtom, myScope);
+
   return (
     <>
       {data.id === 'text' && (
         <TextTooltip
           backgroundColor={videoValues.controlsBar?.barColor}
           data-cy='textPreviewTooltip'
-          isVisible={isHovered || isProgressDragging}
+          isVisible={(isHovered || isProgressDragging) && videoDuration > 0}
           style={{
             transform: `translate(${previewTooltipPosition}px, -60px)`,
           }}
