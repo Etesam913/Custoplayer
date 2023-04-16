@@ -1,9 +1,14 @@
-import { myScope, progressStrAtom } from '@root/lib/atoms';
+import {
+  myScope,
+  progressStrAtom,
+  valuesAtom,
+} from '@root/lib/atoms';
 import { ProgressBarItem } from '@root/lib/types';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { forwardRef } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import PreviewTooltips from '@root/lib/components/PreviewTooltips';
 
 type Ref = HTMLDivElement;
 
@@ -17,6 +22,8 @@ interface ProgressBarProps {
 
 const ProgressBar2 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   const progressStr = useAtomValue(progressStrAtom, myScope);
+  const values = useAtomValue(valuesAtom, myScope);
+
   return (
     <Bar2 ref={ref} role='progressbar' barColor={props.item.barColor}>
       <Progress
@@ -25,7 +32,14 @@ const ProgressBar2 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
           width: props.hasScrubber ? `calc(${progressStr} + 6px)` : progressStr,
         }}
         progressColor={props.item.progressColor}
-      ></Progress>
+      />
+      {values.previewTooltip && (
+        <PreviewTooltips
+          isHovered={props.isHovered}
+          isProgressDragging={props.isProgressDragging}
+          data={values.previewTooltip}
+        />
+      )}
     </Bar2>
   );
 });
@@ -49,9 +63,6 @@ const Progress = styled.div<{
   align-items: center;
   background-color: ${(props) =>
     props.progressColor ? props.progressColor : '#4ab860'};
-`;
-const Indicator = styled.div`
-  background-color: black;
 `;
 
 ProgressBar2.displayName = 'ProgressBar2';
