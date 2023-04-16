@@ -32,7 +32,7 @@ function App() {
             hideOnMobile: true,
           },
           item4: {
-            id: 'progressBar1',
+            id: 'progressBar2',
             progressColor: '#6a994e',
             barColor: "#54c116"
           },
