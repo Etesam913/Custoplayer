@@ -4,7 +4,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import {
   isFullscreenAtom,
   myScope,
-  showControlsBarAtom,
+  showControlsBarAtom, videoAttributesAtom,
   videoContainerAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
@@ -12,7 +12,7 @@ import ControlsBar from '@root/lib/components/ControlsBar';
 import { motion } from 'framer-motion';
 import { useDimensions, useFullscreenEvent } from '../hooks';
 
-import { handleKeyPress } from '../utils';
+import { handleKeyPress, handlePlayState } from '../utils';
 //import PlayIndicator from './Indicator/PlayIndicator';
 import { useEffect, useRef } from 'react';
 
@@ -29,8 +29,11 @@ function VideoPlayerWrapper() {
       setVideoContainer(videoContainerRef.current);
     }
   }, [videoContainerRef]);
+  const videoAttributes = useAtomValue(videoAttributesAtom, myScope);
+  const {onClick, ...other} = videoAttributes
 
   useFullscreenEvent(setIsFullscreen);
+
   return (
     <PlayerWrapper
       data-cy='videoPlayerWrapper'
@@ -43,6 +46,14 @@ function VideoPlayerWrapper() {
       onMouseLeave={() => {
         setIsControlsBarShowing(false);
       }}
+      // @ts-ignore
+      onClick={(e: React.MouseEvent<HTMLVideoElement>) => {
+        if((e.target as Element).tagName === "VIDEO") {
+          handlePlayState(videoElem);
+          onClick && onClick(e);
+        }
+      }}
+
       tabIndex={0}
       onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) =>
         handleKeyPress(e, videoElem)
@@ -83,7 +94,8 @@ const PlayerContainer = styled.div`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
+  height: 100%;
+  width: 100%;
   &:focus {
     outline: none;
   }

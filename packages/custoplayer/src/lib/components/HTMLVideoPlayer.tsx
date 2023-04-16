@@ -48,7 +48,6 @@ function HTMLVideoPlayer() {
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
   const videoAttributes = useAtomValue(videoAttributesAtom, myScope);
   const {
-    onClick,
     playsInline,
     onPause,
     onPlay,
@@ -129,11 +128,8 @@ function HTMLVideoPlayer() {
     <HTMLPlayer
       {...otherAttributes}
       className={draggableSymbol.toString()}
-      onClick={(e) => {
-        handlePlayState(videoElem);
-        onClick && onClick(e);
-      }}
       playsInline={playsInline ?? true}
+      onClick={undefined}
       // onMouseMove={handleMouseMove}
       onPause={(e) => {
         handlePause();

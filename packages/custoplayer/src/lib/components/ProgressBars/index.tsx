@@ -6,8 +6,6 @@ import {
   previewTooltipStrAtom,
   previewTooltipWidth,
   progressAtom,
-  progressStrAtom,
-  valuesAtom,
   videoContainerAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
@@ -19,17 +17,14 @@ import {
   getLargestProgressBarMousePos,
   isMouseFunc,
   isTouchscreenFunc,
-  lightenColor,
 } from '@root/lib/utils';
 import { ProgressBarItem } from '@root/lib/types';
-import { motion } from 'framer-motion';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useRef, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useProgressDragging } from '../../hooks';
-import PreviewTooltips from '../PreviewTooltips';
-import { progressBar1ScrubberAnimation } from '../../variants';
 import ProgressBar1 from './ProgressBar1';
+import ProgressBar2 from './ProgressBar2';
 
 interface ProgressBarsProps {
   item: ProgressBarItem;
@@ -187,12 +182,23 @@ function ProgressBars({ item }: ProgressBarsProps) {
           ref={progressBarRef}
         />
       )}
+
+      {item.id === 'progressBar2' && (
+        <ProgressBar2
+          hasScrubber={false}
+          shouldAnimate={shouldAnimate}
+          item={item}
+          isProgressDragging={isProgressDragging}
+          isHovered={isHovered}
+          ref={progressBarRef}
+        />
+      )}
     </ProgressBarContainer>
   );
 }
 
 const ProgressBarContainer = styled.div<{ isDragging: boolean }>`
-  height: calc(100% - 0.15rem);
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;

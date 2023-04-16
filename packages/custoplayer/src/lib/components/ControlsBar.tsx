@@ -57,6 +57,7 @@ function ControlsBar() {
     }
     return (
       <ItemContainer
+        onClick={(e)=>e.stopPropagation()}
         isProgressBar={isProgressBar(curItem)}
         color={extractColor(curItem)}
       >
@@ -67,7 +68,7 @@ function ControlsBar() {
 
   return (
     <AnimatePresence>
-      {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
+      {(true || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           variants={
@@ -118,18 +119,18 @@ const Controls = styled.div<{
 `;
 
 export const ItemContainer = styled.div<{ isProgressBar: boolean }>`
-      height: 100%;
-      width: auto;
-      color: ${(props) => (props.color ? props.color : 'white')};
-      flex: ${(props) => (props.isProgressBar ? '1' : '0')};
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 0.35rem;
+  height: 100%;
+  width: auto;
+  color: ${(props) => (props.color ? props.color : 'white')};
+  flex: ${(props) => (props.isProgressBar ? '1' : '0')};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.35rem;
 
-      :last-child {
-        margin - right: 0;
+  :last-child {
+    margin-right: 0;
   }
-      `;
+`;
 
 export default ControlsBar;
