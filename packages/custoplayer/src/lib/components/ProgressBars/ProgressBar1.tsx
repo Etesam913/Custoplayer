@@ -15,6 +15,7 @@ interface ProgressBarProps {
   isProgressDragging: boolean;
   isHovered: boolean;
 }
+
 type Ref = HTMLDivElement;
 
 const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
@@ -24,6 +25,7 @@ const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   return (
     <Bar1
       ref={ref}
+      barColor={props.item.barColor}
       role='progressbar'
       animate={{
         height: props.shouldAnimate ? '0.6rem' : '0.35rem',
@@ -59,9 +61,9 @@ const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   );
 });
 
-const Bar1 = styled(motion.div)`
+const Bar1 = styled(motion.div)<{ barColor: string | undefined }>`
   display: flex;
-  background-color: #f2f2f2;
+  background-color: ${(props) => (props.barColor ? props.barColor : '#f2f2f2')};
   width: 100%;
   border-radius: 0.7rem;
   justify-content: flex-start;
@@ -102,5 +104,5 @@ const Scrubber = styled(motion.div)<{
       ? '2px solid ' + lightenColor(props.scrubberColor)
       : 'none'};
 `;
-
+ProgressBar1.displayName = 'ProgressBar1';
 export default ProgressBar1;

@@ -57,7 +57,7 @@ function ControlsBar() {
     }
     return (
       <ItemContainer
-        onClick={(e)=>e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         isProgressBar={isProgressBar(curItem)}
         color={extractColor(curItem)}
       >

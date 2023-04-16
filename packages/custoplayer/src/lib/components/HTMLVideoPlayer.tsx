@@ -49,6 +49,7 @@ function HTMLVideoPlayer() {
   const videoAttributes = useAtomValue(videoAttributesAtom, myScope);
   const {
     playsInline,
+    onClick,
     onPause,
     onPlay,
     onEnded,
@@ -129,7 +130,10 @@ function HTMLVideoPlayer() {
       {...otherAttributes}
       className={draggableSymbol.toString()}
       playsInline={playsInline ?? true}
-      onClick={undefined}
+      onClick={(e: React.MouseEvent<HTMLVideoElement>) => {
+        handlePlayState(videoElem);
+        onClick && onClick(e);
+      }}
       // onMouseMove={handleMouseMove}
       onPause={(e) => {
         handlePause();

@@ -154,6 +154,8 @@ export interface PlayButtonItem {
 export interface ProgressBarItem {
   /** Accepts values of "progressBar1" or "progressBar2" */
   id: 'progressBar1' | 'progressBar2';
+  /** Changes the background color of the bar. Accepts any hex or rgb color code. */
+  barColor?: string;
   /** Changes the color of the progress of the progress bar. Accepts any hex or rgb color code. */
   progressColor?: string;
   /** Hides the progress bar when the video's width is less than 768px. Accepts values of true or false*/

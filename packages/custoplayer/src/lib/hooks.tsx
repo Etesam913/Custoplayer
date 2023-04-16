@@ -51,11 +51,9 @@ export function useProgressDragging(
     if (
       tempVideoPauseState === PlayState.paused ||
       tempVideoPauseState === PlayState.ended
-    ){
+    ) {
       videoElem?.pause();
-    }
-
-    else if (tempVideoPauseState === PlayState.playing) {
+    } else if (tempVideoPauseState === PlayState.playing) {
       videoElem?.play();
     }
   }
