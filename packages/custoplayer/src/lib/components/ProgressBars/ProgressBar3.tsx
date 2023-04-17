@@ -1,12 +1,10 @@
-import { myScope, progressStrAtom, valuesAtom } from '@root/lib/atoms';
-import { ProgressBarItem } from '@root/lib/types';
-import { motion } from 'framer-motion';
-import { useAtomValue } from 'jotai';
 import { forwardRef } from 'react';
+import { ProgressBarItem } from '@root/lib/types';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import PreviewTooltips from '@root/lib/components/PreviewTooltips';
-
-type Ref = HTMLDivElement;
+import { useAtomValue } from 'jotai';
+import { myScope, progressStrAtom, valuesAtom } from '@root/lib/atoms';
 
 interface ProgressBarProps {
   hasScrubber: boolean;
@@ -15,17 +13,22 @@ interface ProgressBarProps {
   isProgressDragging: boolean;
   isHovered: boolean;
 }
+type Ref = HTMLDivElement;
 
-const ProgressBar2 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
+const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   const progressStr = useAtomValue(progressStrAtom, myScope);
   const values = useAtomValue(valuesAtom, myScope);
-
   return (
-    <Bar2 ref={ref} role='progressbar' barColor={props.item.barColor}>
+    <Bar3
+      ref={ref}
+      role='progressbar'
+      barBorderColor={props.item.barBorderColor}
+      barColor={props.item.barColor}
+    >
       <Progress
         hasScrubber={props.hasScrubber}
         style={{
-          width: props.hasScrubber ? `calc(${progressStr} + 6px)` : progressStr,
+          width: props.hasScrubber ? `${progressStr}px` : progressStr,
         }}
         progressColor={props.item.progressColor}
       />
@@ -36,30 +39,39 @@ const ProgressBar2 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
           data={values.previewTooltip}
         />
       )}
-    </Bar2>
+    </Bar3>
   );
 });
 
-const Bar2 = styled(motion.div)<{ barColor: string | undefined }>`
+const Bar3 = styled(motion.div)<{
+  barColor: string | undefined;
+  barBorderColor: string | undefined;
+}>`
   display: flex;
-  background-color: ${(props) => (props.barColor ? props.barColor : '#f2f2f2')};
+  background-color: ${(props) =>
+    props.barColor ? props.barColor : 'transparent'};
   width: 100%;
   height: 65%;
   justify-content: flex-start;
+  border-radius: 1rem;
+  align-items: center;
+  border: 3px solid ${(props) => props.barBorderColor};
+  padding: 0 0.5rem;
 `;
 
 const Progress = styled.div<{
   progressColor: string | undefined;
   hasScrubber: boolean;
 }>`
-  height: 100%;
+  height: 35%;
   pointer-events: none;
   display: flex;
   justify-content: flex-end;
+  border-radius: 0.4rem;
   align-items: center;
   background-color: ${(props) =>
     props.progressColor ? props.progressColor : '#4ab860'};
 `;
 
-ProgressBar2.displayName = 'ProgressBar2';
-export default ProgressBar2;
+ProgressBar3.displayName = 'ProgressBar3';
+export default ProgressBar3;

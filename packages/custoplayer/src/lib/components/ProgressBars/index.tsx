@@ -25,6 +25,7 @@ import styled from 'styled-components';
 import { useProgressDragging } from '../../hooks';
 import ProgressBar1 from './ProgressBar1';
 import ProgressBar2 from './ProgressBar2';
+import ProgressBar3 from '@root/lib/components/ProgressBars/ProgressBar3';
 
 interface ProgressBarsProps {
   item: ProgressBarItem;
@@ -185,6 +186,17 @@ function ProgressBars({ item }: ProgressBarsProps) {
 
       {item.id === 'progressBar2' && (
         <ProgressBar2
+          hasScrubber={false}
+          shouldAnimate={shouldAnimate}
+          item={item}
+          isProgressDragging={isProgressDragging}
+          isHovered={isHovered}
+          ref={progressBarRef}
+        />
+      )}
+
+      {item.id === 'progressBar3' && (
+        <ProgressBar3
           hasScrubber={false}
           shouldAnimate={shouldAnimate}
           item={item}
