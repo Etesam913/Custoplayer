@@ -6,8 +6,6 @@ import {
   previewTooltipStrAtom,
   previewTooltipWidth,
   progressAtom,
-  progressStrAtom,
-  valuesAtom,
   videoContainerAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
@@ -19,29 +17,26 @@ import {
   getLargestProgressBarMousePos,
   isMouseFunc,
   isTouchscreenFunc,
-  lightenColor,
 } from '@root/lib/utils';
 import { ProgressBarItem } from '@root/lib/types';
-import { motion } from 'framer-motion';
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useRef, useState } from 'react';
-import styled, { css } from 'styled-components';
-import { useProgressDragging } from '../hooks';
-import PreviewTooltips from './PreviewTooltips';
-import { progressBar1ScrubberAnimation } from '../variants';
+import styled from 'styled-components';
+import { useProgressDragging } from '../../hooks';
+import ProgressBar1 from './ProgressBar1';
+import ProgressBar2 from './ProgressBar2';
+import ProgressBar3 from '@root/lib/components/ProgressBars/ProgressBar3';
 
 interface ProgressBarsProps {
   item: ProgressBarItem;
 }
 
 function ProgressBars({ item }: ProgressBarsProps) {
-  const values = useAtomValue(valuesAtom, myScope);
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const videoElem = useAtomValue(videoElemAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
   const setProgress = useSetAtom(progressAtom, myScope);
-  const progressStr = useAtomValue(progressStrAtom, myScope);
   const playState = useAtomValue(playStateAtom, myScope);
 
   // Needed for remembering what play state to set after progress dragging is complete
@@ -149,6 +144,7 @@ function ProgressBars({ item }: ProgressBarsProps) {
   const hasScrubber =
     item.scrubberColor !== 'transparent' &&
     item.scrubberBorderColor !== 'transparent';
+
   return (
     <ProgressBarContainer
       data-cy={item.id}
@@ -179,95 +175,46 @@ function ProgressBars({ item }: ProgressBarsProps) {
     >
       {item.id === 'progressBar1' && (
         <ProgressBar1
+          hasScrubber={hasScrubber}
+          shouldAnimate={shouldAnimate}
+          item={item}
+          isProgressDragging={isProgressDragging}
+          isHovered={isHovered}
           ref={progressBarRef}
-          role='progressbar'
-          animate={{
-            height: shouldAnimate ? '0.6rem' : '0.35rem',
-          }}
-          transition={{ duration: 0.2 }}
-        >
-          <Progress
-            hasScrubber={hasScrubber}
-            style={{
-              width: hasScrubber ? `calc(${progressStr} + 6px)` : progressStr,
-            }}
-            progressColor={item.progressColor}
-          >
-            {' '}
-            <Scrubber
-              scrubberColor={item.scrubberColor ?? item.progressColor}
-              scrubberBorderColor={item.scrubberBorderColor}
-              variants={progressBar1ScrubberAnimation}
-              custom={shouldAnimate}
-              initial='init'
-              animate='anim'
-              data-cy='progressBar1Scrubber'
-            />
-          </Progress>
+        />
+      )}
 
-          {values.previewTooltip && (
-            <PreviewTooltips
-              isHovered={isHovered}
-              isProgressDragging={isProgressDragging}
-              data={values.previewTooltip}
-            />
-          )}
-        </ProgressBar1>
+      {item.id === 'progressBar2' && (
+        <ProgressBar2
+          hasScrubber={false}
+          shouldAnimate={shouldAnimate}
+          item={item}
+          isProgressDragging={isProgressDragging}
+          isHovered={isHovered}
+          ref={progressBarRef}
+        />
+      )}
+
+      {item.id === 'progressBar3' && (
+        <ProgressBar3
+          hasScrubber={false}
+          shouldAnimate={shouldAnimate}
+          item={item}
+          isProgressDragging={isProgressDragging}
+          isHovered={isHovered}
+          ref={progressBarRef}
+        />
       )}
     </ProgressBarContainer>
   );
 }
 
 const ProgressBarContainer = styled.div<{ isDragging: boolean }>`
-  height: calc(100% - 0.15rem);
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   cursor: ${(props) => (props.isDragging ? 'col-resize' : 'pointer')};
-`;
-
-const ProgressBar1 = styled(motion.div)`
-  display: flex;
-  background-color: #f2f2f2;
-  width: 100%;
-  border-radius: 0.7rem;
-  justify-content: flex-start;
-`;
-
-const Progress = styled.div<{
-  progressColor: string | undefined;
-  hasScrubber: boolean;
-}>`
-  height: 100%;
-  pointer-events: none;
-  border-radius: 0.7rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  ${(props) =>
-    props.hasScrubber &&
-    css`
-      min-width: 16px;
-    `}
-  background-color: ${(props) =>
-    props.progressColor ? props.progressColor : '#4ab860'};
-`;
-
-const Scrubber = styled(motion.div)<{
-  scrubberColor: string | undefined;
-  scrubberBorderColor: string | undefined;
-}>`
-  height: 0.75rem;
-  width: 0.75rem;
-  background-color: ${(props) => props.scrubberColor ?? 'white'};
-  position: absolute;
-  border-radius: 50rem;
-  border: ${(props) =>
-    props.scrubberBorderColor !== undefined
-      ? '2px solid ' + props.scrubberBorderColor
-      : props.scrubberColor !== undefined
-      ? '2px solid ' + lightenColor(props.scrubberColor)
-      : 'none'};
 `;
 
 export default ProgressBars;

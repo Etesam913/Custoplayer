@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import HTMLVideoPlayer from '@root/lib/components/HTMLVideoPlayer';
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import {
   isFullscreenAtom,
   myScope,
@@ -31,6 +31,7 @@ function VideoPlayerWrapper() {
   }, [videoContainerRef]);
 
   useFullscreenEvent(setIsFullscreen);
+
   return (
     <PlayerWrapper
       data-cy='videoPlayerWrapper'
@@ -83,7 +84,8 @@ const PlayerContainer = styled.div`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
+  height: 100%;
+  width: 100%;
   &:focus {
     outline: none;
   }

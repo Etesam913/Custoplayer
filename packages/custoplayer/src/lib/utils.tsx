@@ -6,7 +6,7 @@ import {
   TimeItem,
   VolumeItem,
 } from '@root/lib/types';
-import { ComponentPropsWithoutRef, SetStateAction } from 'react';
+import { SetStateAction } from 'react';
 import { isVolumeDraggingType } from '@root/lib/atoms';
 import Color from 'color';
 
