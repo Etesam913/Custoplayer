@@ -15,6 +15,7 @@ import { useDimensions, useFullscreenEvent } from '../hooks';
 import { handleKeyPress } from '../utils';
 //import PlayIndicator from './Indicator/PlayIndicator';
 import { useEffect, useRef } from 'react';
+import PlayIndicator from './PlayIndicator';
 
 function VideoPlayerWrapper() {
   const videoElem = useAtomValue(videoElemAtom, myScope);
@@ -53,7 +54,7 @@ function VideoPlayerWrapper() {
         data-cy='playerContainer'
         //tabIndex={-1}
       >
-        {/* <PlayIndicator /> */}
+        <PlayIndicator />
         <HTMLVideoPlayer />
         {videoElem && <ControlsBar />}
       </PlayerContainer>

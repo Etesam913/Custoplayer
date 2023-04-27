@@ -2,6 +2,8 @@ describe('Video Actions', () => {
   it('plays and pauses video via play button', () => {
     cy.visit('/')
     cy.dataCy('videoPlayerWrapper').should('exist')
+    cy.dataCy("playIndicator").should('exist')
+    cy.dataCy("playIndicator").children().first().should('have.attr', 'data-cy', 'playButton1-svg')
     cy.dataCy('videoPlayerWrapper').trigger('mouseover')
     cy.dataCy('HTMLVideoPlayer').should('exist')
     cy.dataCy('HTMLVideoPlayer').should('have.prop', 'paused', true)
@@ -12,7 +14,7 @@ describe('Video Actions', () => {
     cy.dataCy('playButton1').trigger('click')
 
     cy.dataCy('HTMLVideoPlayer').should('have.prop', 'paused', false);
-
+    cy.dataCy("playIndicator").children().first().should('have.attr', 'data-cy', 'pauseButton1-svg')
     cy.wait(3000);
     cy.dataCy('playButton1').trigger('click');
 
