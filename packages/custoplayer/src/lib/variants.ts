@@ -1,3 +1,5 @@
+import { PlayState } from './atoms';
+
 export const volumeBar1Animation = {
   init: { opacity: 0, width: 0 },
   anim: { opacity: 1, width: 56 },
@@ -43,5 +45,21 @@ export const volumeBar2ScrubberAnimation = {
   anim: (shouldAnimate: boolean) => ({
     height: shouldAnimate ? '0.925rem' : '0.825rem',
     width: shouldAnimate ? '0.925rem' : '0.825rem',
+  }),
+};
+
+export const playIndicatorAnimation = {
+  anim: (shouldShow: boolean) => ({
+    scale: shouldShow ? 1 : 0.25,
+    opacity: shouldShow ? 1 : 0,
+    transition: {
+      opacity: { duration: 0.25 },
+      scale: {
+        type: 'spring',
+        damping: 10,
+        mass: 0.75,
+        stiffness: 160,
+      },
+    },
   }),
 };
