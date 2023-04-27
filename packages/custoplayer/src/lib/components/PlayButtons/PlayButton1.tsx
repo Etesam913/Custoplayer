@@ -3,6 +3,7 @@ import styled from 'styled-components';
 function PlayButton1({ isIndicator }: { isIndicator?: boolean }) {
   return (
     <svg
+      data-cy='playButton1-svg'
       width={isIndicator ? '128' : '32'}
       height={isIndicator ? '128' : '32'}
       viewBox='0 0 32 32'

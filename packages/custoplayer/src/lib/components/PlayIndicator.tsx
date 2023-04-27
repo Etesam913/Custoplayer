@@ -61,6 +61,7 @@ function PlayIndicator() {
       whileHover={{ scale: 1.2 }}
     >
       <IndicatorContainer
+        data-cy='playIndicator'
         playButtonColor={playButtonItem?.buttonColor ?? 'white'}
         variants={playIndicatorAnimation}
         animate='anim'
