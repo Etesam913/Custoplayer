@@ -1,4 +1,9 @@
-import { myScope, progressStrAtom, valuesAtom } from '@root/lib/atoms';
+import {
+  myScope,
+  progressBufferPercentAtom,
+  progressStrAtom,
+  valuesAtom,
+} from '@root/lib/atoms';
 import { ProgressBarItem } from '@root/lib/types';
 import { lightenColor } from '@root/lib/utils';
 import { progressBar1ScrubberAnimation } from '@root/lib/variants';
@@ -21,6 +26,10 @@ type Ref = HTMLDivElement;
 const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   const values = useAtomValue(valuesAtom, myScope);
   const progressStr = useAtomValue(progressStrAtom, myScope);
+  const progressBufferPercent = useAtomValue(
+    progressBufferPercentAtom,
+    myScope,
+  );
 
   return (
     <Bar1
@@ -32,6 +41,7 @@ const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
       }}
       transition={{ duration: 0.2 }}
     >
+      <ProgressBuffer width={`${progressBufferPercent}%`} bufferedColor={props.item.bufferedColor} />
       <Progress
         hasScrubber={props.hasScrubber}
         style={{
@@ -61,12 +71,13 @@ const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   );
 });
 
-const Bar1 = styled(motion.div)<{ barColor: string | undefined }>`
+const Bar1 = styled(motion.div) <{ barColor: string | undefined }>`
   display: flex;
   background-color: ${(props) => (props.barColor ? props.barColor : '#f2f2f2')};
   width: 100%;
   border-radius: 0.7rem;
   justify-content: flex-start;
+  position: relative;
 `;
 
 const Progress = styled.div<{
@@ -79,6 +90,9 @@ const Progress = styled.div<{
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  position: absolute;
+  z-index: 2;
+
   ${(props) =>
     props.hasScrubber &&
     css`
@@ -88,7 +102,18 @@ const Progress = styled.div<{
     props.progressColor ? props.progressColor : '#4ab860'};
 `;
 
-const Scrubber = styled(motion.div)<{
+const ProgressBuffer = styled.div<{ width: string; bufferedColor: string | undefined; }>`
+  position: absolute;
+  pointer-events: none;
+  height: 100%;
+  width: ${(props) => props.width};
+  background-color: ${(props) =>
+    props.bufferedColor ? props.bufferedColor : 'rgba(0,0,0,0.4)'};
+  z-index: 1;
+  border-radius: 50rem;
+`;
+
+const Scrubber = styled(motion.div) <{
   scrubberColor: string | undefined;
   scrubberBorderColor: string | undefined;
 }>`
@@ -101,8 +126,8 @@ const Scrubber = styled(motion.div)<{
     props.scrubberBorderColor !== undefined
       ? '2px solid ' + props.scrubberBorderColor
       : props.scrubberColor !== undefined
-      ? '2px solid ' + lightenColor(props.scrubberColor)
-      : 'none'};
+        ? '2px solid ' + lightenColor(props.scrubberColor)
+        : 'none'};
 `;
 ProgressBar1.displayName = 'ProgressBar1';
 export default ProgressBar1;

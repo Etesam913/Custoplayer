@@ -1,4 +1,9 @@
-import { myScope, progressStrAtom, valuesAtom } from '@root/lib/atoms';
+import {
+  myScope,
+  progressBufferPercentAtom,
+  progressStrAtom,
+  valuesAtom,
+} from '@root/lib/atoms';
 import { ProgressBarItem } from '@root/lib/types';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
@@ -19,9 +24,17 @@ interface ProgressBarProps {
 const ProgressBar2 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   const progressStr = useAtomValue(progressStrAtom, myScope);
   const values = useAtomValue(valuesAtom, myScope);
+  const progressBufferPercent = useAtomValue(
+    progressBufferPercentAtom,
+    myScope,
+  );
 
   return (
     <Bar2 ref={ref} role='progressbar' barColor={props.item.barColor}>
+      <ProgressBuffer
+        width={`${progressBufferPercent}%`}
+        bufferedColor={props.item.bufferedColor}
+      />
       <Progress
         hasScrubber={props.hasScrubber}
         style={{
@@ -40,12 +53,13 @@ const ProgressBar2 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   );
 });
 
-const Bar2 = styled(motion.div)<{ barColor: string | undefined }>`
+const Bar2 = styled(motion.div) <{ barColor: string | undefined }>`
   display: flex;
   background-color: ${(props) => (props.barColor ? props.barColor : '#f2f2f2')};
   width: 100%;
   height: 65%;
   justify-content: flex-start;
+  position: relative;
 `;
 
 const Progress = styled.div<{
@@ -57,8 +71,23 @@ const Progress = styled.div<{
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  position: absolute;
+  z-index: 2;
   background-color: ${(props) =>
     props.progressColor ? props.progressColor : '#4ab860'};
+`;
+
+const ProgressBuffer = styled.div<{
+  width: string;
+  bufferedColor: string | undefined;
+}>`
+  position: absolute;
+  pointer-events: none;
+  height: 100%;
+  width: ${(props) => props.width};
+  background-color: ${(props) =>
+    props.bufferedColor ? props.bufferedColor : 'rgba(0,0,0,0.2)'};
+  z-index: 1;
 `;
 
 ProgressBar2.displayName = 'ProgressBar2';

@@ -166,6 +166,7 @@ export interface ProgressBarItem {
   scrubberColor?: string;
   /** Changes the border color of the progress bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
   scrubberBorderColor?: string;
+  bufferedColor?: string;
 }
 
 export interface TimeItem {

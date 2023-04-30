@@ -7,7 +7,7 @@ function App() {
       <Custoplayer
         src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
         playsInline={true}
-        preload='metadata'
+        preload='auto'
         values={{
           previewTooltip: {
             id: 'text',
@@ -34,7 +34,7 @@ function App() {
           item4: {
             id: 'progressBar1',
             progressColor: '#6a994e',
-            barColor: '#54c116',
+            barColor: 'white',
           },
           item5: {
             id: 'duration',

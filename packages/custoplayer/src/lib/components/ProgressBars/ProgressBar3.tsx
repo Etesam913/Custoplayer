@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import PreviewTooltips from '@root/lib/components/PreviewTooltips';
 import { useAtomValue } from 'jotai';
-import { myScope, progressStrAtom, valuesAtom } from '@root/lib/atoms';
+import { myScope, progressBufferPercentAtom, progressStrAtom, valuesAtom } from '@root/lib/atoms';
 
 interface ProgressBarProps {
   hasScrubber: boolean;
@@ -18,6 +18,11 @@ type Ref = HTMLDivElement;
 const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   const progressStr = useAtomValue(progressStrAtom, myScope);
   const values = useAtomValue(valuesAtom, myScope);
+  const progressBufferPercent = useAtomValue(
+    progressBufferPercentAtom,
+    myScope,
+  );
+
   return (
     <Bar3
       ref={ref}
@@ -25,6 +30,11 @@ const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
       barBorderColor={props.item.barBorderColor}
       barColor={props.item.barColor}
     >
+      <ProgressBuffer
+        width={`${progressBufferPercent}%`}
+        bufferedColor={props.item.bufferedColor}
+      />
+
       <Progress
         hasScrubber={props.hasScrubber}
         style={{
@@ -43,7 +53,7 @@ const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   );
 });
 
-const Bar3 = styled(motion.div)<{
+const Bar3 = styled(motion.div) <{
   barColor: string | undefined;
   barBorderColor: string | undefined;
 }>`
@@ -57,7 +67,22 @@ const Bar3 = styled(motion.div)<{
   align-items: center;
   border: 3px solid ${(props) => props.barBorderColor};
   padding: 0 0.5rem;
+  position: relative;
 `;
+
+
+const ProgressBuffer = styled.div<{ width: string; bufferedColor: string | undefined; }>`
+  position: absolute;
+  pointer-events: none;
+  height: 100%;
+  width: ${(props) => props.width};
+  background-color: ${(props) =>
+    props.bufferedColor ? props.bufferedColor : 'rgba(0,0,0,0.4)'};
+  z-index: 1;
+  height: 35%;
+  border-radius: 0.4rem;
+`;
+
 
 const Progress = styled.div<{
   progressColor: string | undefined;
@@ -66,6 +91,8 @@ const Progress = styled.div<{
   height: 35%;
   pointer-events: none;
   display: flex;
+  position: absolute;
+  z-index: 2;
   justify-content: flex-end;
   border-radius: 0.4rem;
   align-items: center;
