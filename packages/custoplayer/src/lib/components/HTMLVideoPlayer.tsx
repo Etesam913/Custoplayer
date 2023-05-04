@@ -15,12 +15,14 @@ import {
   PlayState,
   playStateAtom,
   progressAtom,
+  progressBufferPercentAtom,
   showControlsBarAtom,
   valuesAtom,
   videoAttributesAtom,
   videoElemAtom,
   volumeAtom,
 } from '@root/lib/atoms';
+
 import { SyntheticEvent, useCallback } from 'react';
 import { handlePlayState, throttle } from '../utils';
 
@@ -33,7 +35,10 @@ function HTMLVideoPlayer() {
     controlsBarTimeoutAtom,
     myScope,
   );
-  const setShowControlsBar = useSetAtom(showControlsBarAtom, myScope);
+  const [showControlsBar, setShowControlsBar] = useAtom(
+    showControlsBarAtom,
+    myScope,
+  );
   const setProgress = useSetAtom(progressAtom, myScope);
   const setVolume = useSetAtom(volumeAtom, myScope);
   const setDuration = useSetAtom(durationAtom, myScope);
@@ -42,6 +47,10 @@ function HTMLVideoPlayer() {
   const setIsMuted = useSetAtom(isMutedAtom, myScope);
   const [isSeekingTimeout, setIsSeekingTimeout] = useAtom(
     isSeekingTimeoutAtom,
+    myScope,
+  );
+  const setProgressBufferPercent = useSetAtom(
+    progressBufferPercentAtom,
     myScope,
   );
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
@@ -62,6 +71,7 @@ function HTMLVideoPlayer() {
     preload,
     tabIndex,
     onDurationChange,
+    onProgress,
     ...otherAttributes
   } = videoAttributes;
 
@@ -89,8 +99,27 @@ function HTMLVideoPlayer() {
     [controlsBarTimeout, playState],
   );
 
+  function handleProgress(e: SyntheticEvent<HTMLVideoElement, Event>) {
+    /*
+      Buffers do not need to be calculated when the
+      controls bar cannot show them
+    */
+
+    if (!showControlsBar) return;
+    const video = e.target as HTMLVideoElement;
+    // Video Ready States: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/readyState
+    if (video.readyState === 4) {
+      const numOfBuffers = video.buffered.length;
+      const bufferedProgress = video.buffered.end(numOfBuffers - 1);
+      const normalizedBufferedProgress =
+        (bufferedProgress / video.duration) * 100;
+      setProgressBufferPercent(normalizedBufferedProgress);
+    }
+  }
+
   function handleTimeUpdate(e: SyntheticEvent<HTMLVideoElement, Event>) {
     const video = e.target as HTMLVideoElement;
+
     setProgress(video.currentTime / video.duration);
     setCurrentTime(video.currentTime);
   }
@@ -134,7 +163,6 @@ function HTMLVideoPlayer() {
         handlePlayState(videoElem);
         onClick && onClick(e);
       }}
-      // onMouseMove={handleMouseMove}
       onPause={(e) => {
         handlePause();
         onPause && onPause(e);
@@ -167,11 +195,16 @@ function HTMLVideoPlayer() {
       }}
       onSeeked={(e) => {
         handleOnSeeked();
-        onSeeked && e;
+        handleProgress(e);
+        onSeeked && onSeeked(e);
       }}
       onTimeUpdate={(e) => {
         handleTimeUpdate(e);
         onTimeUpdate && onTimeUpdate(e);
+      }}
+      onProgress={(e) => {
+        handleProgress(e);
+        onProgress && onProgress(e);
       }}
       onDurationChange={(e) => {
         setDuration((e.target as HTMLVideoElement).duration);

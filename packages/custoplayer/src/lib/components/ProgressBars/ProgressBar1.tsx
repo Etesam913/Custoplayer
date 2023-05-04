@@ -1,4 +1,9 @@
-import { myScope, progressStrAtom, valuesAtom } from '@root/lib/atoms';
+import {
+  myScope,
+  progressBufferPercentAtom,
+  progressStrAtom,
+  valuesAtom,
+} from '@root/lib/atoms';
 import { ProgressBarItem } from '@root/lib/types';
 import { lightenColor } from '@root/lib/utils';
 import { progressBar1ScrubberAnimation } from '@root/lib/variants';
@@ -21,6 +26,10 @@ type Ref = HTMLDivElement;
 const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   const values = useAtomValue(valuesAtom, myScope);
   const progressStr = useAtomValue(progressStrAtom, myScope);
+  const progressBufferPercent = useAtomValue(
+    progressBufferPercentAtom,
+    myScope,
+  );
 
   return (
     <Bar1
@@ -32,7 +41,13 @@ const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
       }}
       transition={{ duration: 0.2 }}
     >
+      <ProgressBuffer
+        data-cy='progressBuffer1'
+        width={`${progressBufferPercent}%`}
+        bufferedColor={props.item.bufferedColor}
+      />
       <Progress
+        data-cy='progress1'
         hasScrubber={props.hasScrubber}
         style={{
           width: props.hasScrubber ? `calc(${progressStr} + 6px)` : progressStr,
@@ -67,6 +82,7 @@ const Bar1 = styled(motion.div)<{ barColor: string | undefined }>`
   width: 100%;
   border-radius: 0.7rem;
   justify-content: flex-start;
+  position: relative;
 `;
 
 const Progress = styled.div<{
@@ -79,6 +95,9 @@ const Progress = styled.div<{
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  position: absolute;
+  z-index: 2;
+
   ${(props) =>
     props.hasScrubber &&
     css`
@@ -86,6 +105,20 @@ const Progress = styled.div<{
     `}
   background-color: ${(props) =>
     props.progressColor ? props.progressColor : '#4ab860'};
+`;
+
+const ProgressBuffer = styled.div<{
+  width: string;
+  bufferedColor: string | undefined;
+}>`
+  position: absolute;
+  pointer-events: none;
+  height: 100%;
+  width: ${(props) => props.width};
+  background-color: ${(props) =>
+    props.bufferedColor ? props.bufferedColor : 'rgba(0,0,0,0.4)'};
+  z-index: 1;
+  border-radius: 50rem;
 `;
 
 const Scrubber = styled(motion.div)<{

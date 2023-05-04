@@ -63,6 +63,7 @@ export const progressStrAtom = atom((get) => {
   return parseFloat((progress * 100).toFixed(1)) + '%';
 });
 export const isProgressDraggingAtom = atom(false);
+export const progressBufferPercentAtom = atom(0);
 
 // Preview Tooltips
 export const previewTooltipWidth = 60;

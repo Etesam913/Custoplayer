@@ -56,10 +56,7 @@ function PlayIndicator() {
   }
 
   return (
-    <Container
-      onClick={() => handlePlayState(videoElem)}
-      whileHover={{ scale: 1.2 }}
-    >
+    <Container>
       <IndicatorContainer
         data-cy='playIndicator'
         playButtonColor={playButtonItem?.buttonColor ?? 'white'}
@@ -73,7 +70,7 @@ function PlayIndicator() {
   );
 }
 
-const Container = styled(motion.div)`
+const Container = styled.div`
   height: 100%;
   width: 100%;
   position: absolute;
@@ -91,7 +88,6 @@ const IndicatorContainer = styled(motion.button)<{
   filter: drop-shadow(rgba(0, 0, 0, 0.35) 0px 5px 15px);
   padding: 0;
   border: 0;
-  pointer-events: none;
 `;
 
 export default PlayIndicator;
