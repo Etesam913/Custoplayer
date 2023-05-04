@@ -12,12 +12,12 @@ import {
   volumeAtom,
 } from '@root/lib/atoms';
 import {
-  barMouseEvent,
   clamp,
   BarMouseEvent,
   isTouchscreenFunc,
   isMouseFunc,
   isTouchscreen,
+  barMouseDown,
 } from '@root/lib/utils';
 import VolumeBars from './VolumeBars';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -170,7 +170,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
               onMouseEnter={() => setIsBarHovered(true)}
               onMouseLeave={() => setIsBarHovered(false)}
               onMouseDown={(e) =>
-                barMouseEvent(
+                barMouseDown(
                   e,
                   handleProgressMouse,
                   videoContainer,
@@ -180,7 +180,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
               }
               onTouchStart={(e) => {
                 setIsBarHovered(true);
-                barMouseEvent(
+                barMouseDown(
                   e,
                   handleProgressMouse,
                   videoContainer,

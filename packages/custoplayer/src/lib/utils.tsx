@@ -7,12 +7,12 @@ import {
   VolumeItem,
 } from '@root/lib/types';
 import { SetStateAction } from 'react';
-import { isVolumeDraggingType } from '@root/lib/atoms';
+import { isVolumeDraggingType, previewTooltipWidth } from '@root/lib/atoms';
 import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
-  return function(this: any, ...args: any[]) {
+  return function (this: any, ...args: any[]) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
@@ -34,7 +34,7 @@ export const throttle = (fn: (...args: any[]) => void, ms = 300) => {
 
     isThrottled = true;
 
-    setTimeout(function() {
+    setTimeout(function () {
       isThrottled = false;
       if (savedArgs) {
         wrapper.apply(savedThis, savedArgs);
@@ -166,7 +166,6 @@ export function barMouseDown(
     | ((update: SetStateAction<isVolumeDraggingType>) => void),
   isTouchscreen: boolean,
 ) {
-
   mouseMove(e);
   e.stopPropagation();
 
@@ -193,6 +192,113 @@ export function barMouseDown(
   } else {
     document.addEventListener('mousemove', mouseMove);
     document.addEventListener('mouseup', cleanUpDocumentEvents);
+  }
+}
+
+export function handleProgressBarMouseMove(
+  e: BarMouseEvent,
+  videoContainerRect: DOMRect,
+  isProgressDragging: boolean,
+  progressBarRef: React.MutableRefObject<HTMLDivElement | null>,
+  videoContainer: HTMLDivElement | null,
+  videoElem: HTMLVideoElement | null,
+  setProgress: (update: SetStateAction<number>) => void,
+  setIsProgressDragging: (update: SetStateAction<boolean>) => void,
+  setTooltipStr: (update: SetStateAction<string>) => void,
+  setPreviewTooltipPosition: (update: SetStateAction<number>) => void,
+) {
+  setIsProgressDragging(true);
+  if (progressBarRef && progressBarRef.current) {
+    let xPos = 0;
+    if (isTouchscreenFunc(e)) xPos = e.touches[0].clientX;
+    else if (isMouseFunc(e)) xPos = e.clientX;
+    const progressBarRect = progressBarRef.current.getBoundingClientRect();
+    const [largestProgressBarMousePos, distLeftOfProgressBar, _] =
+      getLargestProgressBarMousePos(videoContainerRect, progressBarRect);
+
+    const updatedMousePos = xPos - videoContainerRect.left;
+
+    showPreviewThumbnail(
+      e,
+      isProgressDragging,
+      progressBarRef,
+      videoContainer,
+      videoElem,
+      setTooltipStr,
+      setPreviewTooltipPosition,
+    );
+    const adjustedMousePos = updatedMousePos - distLeftOfProgressBar;
+    const clampedMousePos = clamp(
+      adjustedMousePos,
+      0,
+      largestProgressBarMousePos,
+    );
+
+    const ratio = clampedMousePos / progressBarRef.current.clientWidth;
+    if (videoElem && videoElem.duration) {
+      const currentTime = videoElem.duration * ratio;
+      videoElem.currentTime = currentTime;
+      setTooltipStr(formatTime(currentTime));
+    }
+
+    setProgress(ratio);
+  }
+}
+
+/**
+  Shows the preview thumbnail when mouse is over progress bar
+*/
+export function showPreviewThumbnail(
+  e: BarMouseEvent,
+  isProgressDragging: boolean,
+  progressBarRef: React.MutableRefObject<HTMLDivElement | null>,
+  videoContainer: HTMLDivElement | null,
+  videoElem: HTMLVideoElement | null,
+  setTooltipStr: (update: SetStateAction<string>) => void,
+  setPreviewTooltipPosition: (update: SetStateAction<number>) => void,
+) {
+  if (
+    isProgressDragging ||
+    !progressBarRef ||
+    !progressBarRef.current ||
+    !videoContainer
+  )
+    return;
+  let xPos = 0;
+  if (isTouchscreenFunc(e)) xPos = e.touches[0].clientX;
+  else if (isMouseFunc(e)) xPos = e.clientX;
+  const progressBarRect = progressBarRef.current.getBoundingClientRect();
+  const widthOfItemsToLeftOfProgressBar =
+    progressBarRef.current.getBoundingClientRect().left -
+    videoContainer?.getBoundingClientRect().left;
+  const widthOfItemsToRightOfProgressBar =
+    videoContainer?.getBoundingClientRect().right -
+    progressBarRef.current.getBoundingClientRect().right;
+  const defaultHoverPos = xPos - progressBarRect.left;
+  let hoverPos = xPos - progressBarRect.left - previewTooltipWidth / 2;
+  const modifiedUpperBound =
+    progressBarRef.current?.clientWidth -
+    previewTooltipWidth / 2 +
+    widthOfItemsToRightOfProgressBar;
+  const maxHoverPos =
+    progressBarRef.current.clientWidth - previewTooltipWidth / 2;
+  const minHoverPos = Math.max(
+    (-1 * previewTooltipWidth) / 2,
+    -1 * widthOfItemsToLeftOfProgressBar,
+  );
+
+  if (defaultHoverPos > modifiedUpperBound) {
+    hoverPos = modifiedUpperBound - previewTooltipWidth / 2;
+  }
+  hoverPos = clamp(hoverPos, minHoverPos, maxHoverPos);
+  setPreviewTooltipPosition(hoverPos);
+
+  const leftDist = progressBarRef.current.getBoundingClientRect().left;
+  const timePos = xPos - leftDist;
+  if (videoElem && videoElem.duration) {
+    const ratio = clamp(timePos / progressBarRef.current.clientWidth, 0, 1);
+    const currentTime = videoElem.duration * ratio;
+    setTooltipStr(formatTime(currentTime));
   }
 }
 

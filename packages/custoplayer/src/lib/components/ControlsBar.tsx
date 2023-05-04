@@ -26,6 +26,7 @@ import {
   controlsBarMovementAnimation,
   controlsBarOpacityAnimation,
 } from '@root/lib/variants';
+import ProgressBar1 from './ProgressBars/ProgressBar1';
 
 function extractColor(curItem: CustoplayerItem) {
   if (
@@ -68,7 +69,7 @@ function ControlsBar() {
 
   return (
     <AnimatePresence>
-      {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
+      {(true || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           variants={
