@@ -41,7 +41,11 @@ const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
       }}
       transition={{ duration: 0.2 }}
     >
-      <ProgressBuffer width={`${progressBufferPercent}%`} bufferedColor={props.item.bufferedColor} />
+      <ProgressBuffer
+        data-cy='progressBuffer'
+        width={`${progressBufferPercent}%`}
+        bufferedColor={props.item.bufferedColor}
+      />
       <Progress
         hasScrubber={props.hasScrubber}
         style={{
@@ -71,7 +75,7 @@ const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   );
 });
 
-const Bar1 = styled(motion.div) <{ barColor: string | undefined }>`
+const Bar1 = styled(motion.div)<{ barColor: string | undefined }>`
   display: flex;
   background-color: ${(props) => (props.barColor ? props.barColor : '#f2f2f2')};
   width: 100%;
@@ -102,7 +106,10 @@ const Progress = styled.div<{
     props.progressColor ? props.progressColor : '#4ab860'};
 `;
 
-const ProgressBuffer = styled.div<{ width: string; bufferedColor: string | undefined; }>`
+const ProgressBuffer = styled.div<{
+  width: string;
+  bufferedColor: string | undefined;
+}>`
   position: absolute;
   pointer-events: none;
   height: 100%;
@@ -113,7 +120,7 @@ const ProgressBuffer = styled.div<{ width: string; bufferedColor: string | undef
   border-radius: 50rem;
 `;
 
-const Scrubber = styled(motion.div) <{
+const Scrubber = styled(motion.div)<{
   scrubberColor: string | undefined;
   scrubberBorderColor: string | undefined;
 }>`
@@ -126,8 +133,8 @@ const Scrubber = styled(motion.div) <{
     props.scrubberBorderColor !== undefined
       ? '2px solid ' + props.scrubberBorderColor
       : props.scrubberColor !== undefined
-        ? '2px solid ' + lightenColor(props.scrubberColor)
-        : 'none'};
+      ? '2px solid ' + lightenColor(props.scrubberColor)
+      : 'none'};
 `;
 ProgressBar1.displayName = 'ProgressBar1';
 export default ProgressBar1;

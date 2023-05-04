@@ -107,12 +107,14 @@ function HTMLVideoPlayer() {
 
     if (!showControlsBar) return;
     const video = e.target as HTMLVideoElement;
-    const numOfBuffers = video.buffered.length;
-
-    const bufferedProgress = video.buffered.end(numOfBuffers - 1);
-    const normalizedBufferedProgress =
-      (bufferedProgress / video.duration) * 100;
-    setProgressBufferPercent(normalizedBufferedProgress);
+    // Video Ready States: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/readyState
+    if (video.readyState === 4) {
+      const numOfBuffers = video.buffered.length;
+      const bufferedProgress = video.buffered.end(numOfBuffers - 1);
+      const normalizedBufferedProgress =
+        (bufferedProgress / video.duration) * 100;
+      setProgressBufferPercent(normalizedBufferedProgress);
+    }
   }
 
   function handleTimeUpdate(e: SyntheticEvent<HTMLVideoElement, Event>) {
@@ -161,7 +163,6 @@ function HTMLVideoPlayer() {
         handlePlayState(videoElem);
         onClick && onClick(e);
       }}
-      // onMouseMove={handleMouseMove}
       onPause={(e) => {
         handlePause();
         onPause && onPause(e);

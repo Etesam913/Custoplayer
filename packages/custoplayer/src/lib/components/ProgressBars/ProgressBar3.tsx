@@ -4,7 +4,12 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import PreviewTooltips from '@root/lib/components/PreviewTooltips';
 import { useAtomValue } from 'jotai';
-import { myScope, progressBufferPercentAtom, progressStrAtom, valuesAtom } from '@root/lib/atoms';
+import {
+  myScope,
+  progressBufferPercentAtom,
+  progressStrAtom,
+  valuesAtom,
+} from '@root/lib/atoms';
 
 interface ProgressBarProps {
   hasScrubber: boolean;
@@ -31,6 +36,7 @@ const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
       barColor={props.item.barColor}
     >
       <ProgressBuffer
+        data-cy='progressBuffer'
         width={`${progressBufferPercent}%`}
         bufferedColor={props.item.bufferedColor}
       />
@@ -53,7 +59,7 @@ const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   );
 });
 
-const Bar3 = styled(motion.div) <{
+const Bar3 = styled(motion.div)<{
   barColor: string | undefined;
   barBorderColor: string | undefined;
 }>`
@@ -70,8 +76,10 @@ const Bar3 = styled(motion.div) <{
   position: relative;
 `;
 
-
-const ProgressBuffer = styled.div<{ width: string; bufferedColor: string | undefined; }>`
+const ProgressBuffer = styled.div<{
+  width: string;
+  bufferedColor: string | undefined;
+}>`
   position: absolute;
   pointer-events: none;
   height: 100%;
@@ -82,7 +90,6 @@ const ProgressBuffer = styled.div<{ width: string; bufferedColor: string | undef
   height: 35%;
   border-radius: 0.4rem;
 `;
-
 
 const Progress = styled.div<{
   progressColor: string | undefined;
