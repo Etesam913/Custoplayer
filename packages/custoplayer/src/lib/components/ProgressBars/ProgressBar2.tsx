@@ -32,11 +32,12 @@ const ProgressBar2 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   return (
     <Bar2 ref={ref} role='progressbar' barColor={props.item.barColor}>
       <ProgressBuffer
-        data-cy='progressBuffer'
+        data-cy='progressBuffer2'
         width={`${progressBufferPercent}%`}
         bufferedColor={props.item.bufferedColor}
       />
       <Progress
+        data-cy='progress2'
         hasScrubber={props.hasScrubber}
         style={{
           width: props.hasScrubber ? `calc(${progressStr} + 6px)` : progressStr,

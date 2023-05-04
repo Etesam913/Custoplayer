@@ -10,48 +10,40 @@ describe('ProgressBars.cy.tsx', () => {
     cy.dataCy('progressBar3').should('exist');
   });
 
-  it('renders progressBars progress color', () => {
-    // This is the default color when no progressColor prop is specified
-    let colorVal = 'rgb(74, 184, 96)';
-    cy.mount(<ProgressBars item={{ id: 'progressBar1' }} />);
-    cy.dataCy('progressBar1')
-      .children()
-      .first()
-      .children()
-      .first()
-      .should('have.css', 'background-color', colorVal);
+  it('renders progressBars buffered color', () => {
+    let bufferedColor = 'rgb(82, 158, 233)'
+    cy.mount(
+      <ProgressBars item={{ id: 'progressBar1', bufferedColor: bufferedColor }} />,
+    );
+    cy.dataCy('progressBuffer1').should('have.css', 'background-color', bufferedColor);
 
-    // Actually testing a specified color prop
-    colorVal = 'rgb(252, 249, 47)';
+    cy.mount(
+      <ProgressBars item={{ id: 'progressBar2', bufferedColor: bufferedColor }} />,
+    );
+    cy.dataCy('progressBuffer2').should('have.css', 'background-color', bufferedColor);
+
+    cy.mount(
+      <ProgressBars item={{ id: 'progressBar3', bufferedColor: bufferedColor }} />,
+    );
+    cy.dataCy('progressBuffer3').should('have.css', 'background-color', bufferedColor);
+  })
+
+  it('renders progressBars progress color', () => {
+    let colorVal = 'rgb(252, 249, 47)';
     cy.mount(
       <ProgressBars item={{ id: 'progressBar1', progressColor: colorVal }} />,
     );
-    cy.dataCy('progressBar1')
-      .children()
-      .first()
-      .children()
-      .first()
-      .should('have.css', 'background-color', colorVal);
+    cy.dataCy('progress1').should('have.css', 'background-color', colorVal);
 
     cy.mount(
       <ProgressBars item={{ id: 'progressBar2', progressColor: colorVal }} />,
     );
-    cy.dataCy('progressBar2')
-      .children()
-      .first()
-      .children()
-      .first()
-      .should('have.css', 'background-color', colorVal);
+    cy.dataCy('progress2').should('have.css', 'background-color', colorVal);
 
     cy.mount(
       <ProgressBars item={{ id: 'progressBar3', progressColor: colorVal }} />,
     );
-    cy.dataCy('progressBar3')
-      .children()
-      .first()
-      .children()
-      .first()
-      .should('have.css', 'background-color', colorVal);
+    cy.dataCy('progress3').should('have.css', 'background-color', colorVal);
   });
 
   it('renders progressBar1 scrubberColor and scrubberBorderColor', () => {
@@ -80,7 +72,7 @@ describe('ProgressBars.cy.tsx', () => {
     );
   });
 
-  it('renders progressBar3 barBorderColor', ()=>{
+  it('renders progressBar3 barBorderColor', () => {
     const barBorderColor = 'rgb(153, 102, 255)';
     cy.mount(
       <ProgressBars

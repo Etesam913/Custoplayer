@@ -73,7 +73,7 @@ describe('Video Actions', () => {
     cy.dataCy('progressBar1').trigger('mousedown').trigger('mousemove', { x: 20 })
     cy.dataCy('HTMLVideoPlayer').should('have.prop', 'currentTime').then((x) => expect(x).to.be.greaterThan(2))
     // Some of the video should be buffered
-    cy.dataCy('progressBuffer').invoke('width').should('be.greaterThan', 100)
+    cy.dataCy('progressBuffer1').invoke('width').should('be.greaterThan', 100)
     cy.dataCy('textPreviewTooltip').should('exist')
   })
 
