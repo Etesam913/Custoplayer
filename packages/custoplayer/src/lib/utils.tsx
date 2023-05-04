@@ -12,7 +12,7 @@ import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
-  return function (this: any, ...args: any[]) {
+  return function(this: any, ...args: any[]) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
@@ -34,7 +34,7 @@ export const throttle = (fn: (...args: any[]) => void, ms = 300) => {
 
     isThrottled = true;
 
-    setTimeout(function () {
+    setTimeout(function() {
       isThrottled = false;
       if (savedArgs) {
         wrapper.apply(savedThis, savedArgs);
@@ -79,6 +79,11 @@ export function isFullscreenButton(
   return (curItem as FullscreenItem).id.startsWith('fullscreenButton');
 }
 
+/**
+  Changes the play state of the video.
+  This is ran when the user clicks the video
+  or presses the spacebar or k key
+*/
 export function handlePlayState(video: HTMLVideoElement | null) {
   if (video === null) return;
   const isPlaying = !video.paused && !video.ended && video.currentTime > 0;
@@ -116,18 +121,9 @@ export function handleKeyPress(
   }
 }
 
-export function getSvgPath(path: string, strokeWidth = '1.8') {
-  return (
-    <path
-      d={path}
-      stroke='currentColor'
-      strokeWidth={strokeWidth}
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    />
-  );
-}
-
+/**
+  Clamps val in between min and max
+*/
 export function clamp(val: number, min: number, max: number) {
   return Math.min(Math.max(val, min), max);
 }
@@ -154,7 +150,14 @@ function getMousePos(
   }
 }
 
-export function barMouseEvent(
+/**
+  Runs when the user mousedown/touchstart on the
+  progress or volume bar.
+
+  The function runs sthe mouseMoveCallback function
+  when the mouse moves while the mouse is down as well
+*/
+export function barMouseDown(
   e: BarMouseEvent,
   mouseMoveCallback: MouseMoveCallback,
   videoContainer: HTMLDivElement | null,
@@ -163,6 +166,7 @@ export function barMouseEvent(
     | ((update: SetStateAction<isVolumeDraggingType>) => void),
   isTouchscreen: boolean,
 ) {
+
   mouseMove(e);
   e.stopPropagation();
 
@@ -192,6 +196,10 @@ export function barMouseEvent(
   }
 }
 
+/**
+  Formats time for currentTime and duration components.
+  ex: 120 -> 2:00
+*/
 export function formatTime(durationInSeconds: number) {
   const hours = Math.floor(durationInSeconds / 3600);
   const minutes = Math.floor((durationInSeconds - hours * 3600) / 60);
@@ -252,12 +260,22 @@ export function getLargestProgressBarMousePos(
   ];
 }
 
+/**
+  Used to determine if the device is a
+  touchscreen by checking if TouchEvent
+  exists
+*/
 export function isTouchscreenFunc(
   event: BarMouseEvent,
 ): event is React.TouchEvent<HTMLDivElement> {
   return (event as React.TouchEvent<HTMLDivElement>).touches !== undefined;
 }
 
+/**
+  Used to determine if the device is not a
+  touchscreen by checking if MouseEvent
+  exists
+*/
 export function isMouseFunc(
   event: BarMouseEvent,
 ): event is React.MouseEvent<HTMLDivElement> {
@@ -272,6 +290,10 @@ export function isTouchscreen() {
   return false;
 }
 
+/**
+  Lightens a color by using the Color.js library
+  Used for setting default progressColor on progressBar
+*/
 export function lightenColor(color: string | undefined) {
   const lightenedColor = Color(color).lighten(0.3);
   return lightenedColor;
