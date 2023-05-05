@@ -81,7 +81,7 @@ const Container = styled.div`
   pointer-events: none;
 `;
 
-const IndicatorContainer = styled(motion.button) <{
+const IndicatorContainer = styled(motion.button)<{
   playButtonColor: string | undefined;
 }>`
   color: ${(props) => props.playButtonColor};
