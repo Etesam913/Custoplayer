@@ -160,11 +160,14 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
   );
 }
 
-const ProgressBarContainer = styled.div<{ isDragging: boolean, onTop: boolean }>`
+const ProgressBarContainer = styled.div<{
+  isDragging: boolean;
+  onTop: boolean;
+}>`
   height: 100%;
   width: 100%;
   display: flex;
-  align-items: ${props => props.onTop ? "flex-end" : "center"};
+  align-items: ${(props) => (props.onTop ? 'flex-end' : 'center')};
   cursor: ${(props) => (props.isDragging ? 'col-resize' : 'pointer')};
 `;
 

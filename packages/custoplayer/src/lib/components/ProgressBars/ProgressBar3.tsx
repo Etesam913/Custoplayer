@@ -61,7 +61,7 @@ const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   );
 });
 
-const Bar3 = styled(motion.div) <{
+const Bar3 = styled(motion.div)<{
   barColor: string | undefined;
   barBorderColor: string | undefined;
 }>`

@@ -55,7 +55,7 @@ const ProgressBar2 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   );
 });
 
-const Bar2 = styled(motion.div) <{ barColor: string | undefined }>`
+const Bar2 = styled(motion.div)<{ barColor: string | undefined }>`
   display: flex;
   background-color: ${(props) => (props.barColor ? props.barColor : '#f2f2f2')};
   width: 100%;

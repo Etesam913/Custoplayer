@@ -26,7 +26,6 @@ import {
   controlsBarMovementAnimation,
   controlsBarOpacityAnimation,
 } from '@root/lib/variants';
-import ProgressBar1 from './ProgressBars/ProgressBar1';
 import ProgressBars from './ProgressBars/index';
 
 function extractColor(curItem: CustoplayerItem) {
@@ -70,7 +69,7 @@ function ControlsBar() {
 
   return (
     <AnimatePresence>
-      {(true || isVolumeDragging || isControlsBarShowing) && (
+      {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           variants={
@@ -83,11 +82,11 @@ function ControlsBar() {
           exit='exit'
           data-cy='controlsBar'
         >
-          {videoValues.topProgressBar &&
+          {videoValues.topProgressBar && (
             <TopProgressBarContainer>
               <ProgressBars onTop item={videoValues.topProgressBar} />
             </TopProgressBarContainer>
-          }
+          )}
 
           <Controls
             height='45px'

@@ -51,7 +51,7 @@ export interface CustoplayerValues {
     id: 'progressBar1',
     progressColor: 'rgb(137, 178, 245)'
   } */
-  topProgressBar?: ProgressBarItem,
+  topProgressBar?: ProgressBarItem;
   // playIndicator?: {
   //   id?: number;
   //   color?: string;
