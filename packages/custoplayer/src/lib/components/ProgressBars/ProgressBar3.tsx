@@ -49,6 +49,7 @@ const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
         }}
         progressColor={props.item.progressColor}
       />
+
       {values.previewTooltip && (
         <PreviewTooltips
           isHovered={props.isHovered}
@@ -68,7 +69,7 @@ const Bar3 = styled(motion.div)<{
   background-color: ${(props) =>
     props.barColor ? props.barColor : 'transparent'};
   width: 100%;
-  height: 65%;
+  height: 1.25rem;
   justify-content: flex-start;
   border-radius: 1rem;
   align-items: center;

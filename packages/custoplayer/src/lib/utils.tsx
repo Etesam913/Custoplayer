@@ -7,7 +7,7 @@ import {
   VolumeItem,
 } from '@root/lib/types';
 import { SetStateAction } from 'react';
-import { isVolumeDraggingType } from '@root/lib/atoms';
+import { isVolumeDraggingType, previewTooltipWidth } from '@root/lib/atoms';
 import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
@@ -79,6 +79,11 @@ export function isFullscreenButton(
   return (curItem as FullscreenItem).id.startsWith('fullscreenButton');
 }
 
+/**
+  Changes the play state of the video.
+  This is ran when the user clicks the video
+  or presses the spacebar or k key
+*/
 export function handlePlayState(video: HTMLVideoElement | null) {
   if (video === null) return;
   const isPlaying = !video.paused && !video.ended && video.currentTime > 0;
@@ -116,18 +121,9 @@ export function handleKeyPress(
   }
 }
 
-export function getSvgPath(path: string, strokeWidth = '1.8') {
-  return (
-    <path
-      d={path}
-      stroke='currentColor'
-      strokeWidth={strokeWidth}
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    />
-  );
-}
-
+/**
+  Clamps val in between min and max
+*/
 export function clamp(val: number, min: number, max: number) {
   return Math.min(Math.max(val, min), max);
 }
@@ -154,7 +150,14 @@ function getMousePos(
   }
 }
 
-export function barMouseEvent(
+/**
+  Runs when the user mousedown/touchstart on the
+  progress or volume bar.
+
+  The function runs sthe mouseMoveCallback function
+  when the mouse moves while the mouse is down as well
+*/
+export function barMouseDown(
   e: BarMouseEvent,
   mouseMoveCallback: MouseMoveCallback,
   videoContainer: HTMLDivElement | null,
@@ -192,6 +195,117 @@ export function barMouseEvent(
   }
 }
 
+export function handleProgressBarMouseMove(
+  e: BarMouseEvent,
+  videoContainerRect: DOMRect,
+  isProgressDragging: boolean,
+  progressBarRef: React.MutableRefObject<HTMLDivElement | null>,
+  videoContainer: HTMLDivElement | null,
+  videoElem: HTMLVideoElement | null,
+  setProgress: (update: SetStateAction<number>) => void,
+  setIsProgressDragging: (update: SetStateAction<boolean>) => void,
+  setTooltipStr: (update: SetStateAction<string>) => void,
+  setPreviewTooltipPosition: (update: SetStateAction<number>) => void,
+) {
+  setIsProgressDragging(true);
+  if (progressBarRef && progressBarRef.current) {
+    let xPos = 0;
+    if (isTouchscreenFunc(e)) xPos = e.touches[0].clientX;
+    else if (isMouseFunc(e)) xPos = e.clientX;
+    const progressBarRect = progressBarRef.current.getBoundingClientRect();
+    const [largestProgressBarMousePos, distLeftOfProgressBar, _] =
+      getLargestProgressBarMousePos(videoContainerRect, progressBarRect);
+
+    const updatedMousePos = xPos - videoContainerRect.left;
+
+    showPreviewThumbnail(
+      e,
+      isProgressDragging,
+      progressBarRef,
+      videoContainer,
+      videoElem,
+      setTooltipStr,
+      setPreviewTooltipPosition,
+    );
+    const adjustedMousePos = updatedMousePos - distLeftOfProgressBar;
+    const clampedMousePos = clamp(
+      adjustedMousePos,
+      0,
+      largestProgressBarMousePos,
+    );
+
+    const ratio = clampedMousePos / progressBarRef.current.clientWidth;
+    if (videoElem && videoElem.duration) {
+      const currentTime = videoElem.duration * ratio;
+      videoElem.currentTime = currentTime;
+      setTooltipStr(formatTime(currentTime));
+    }
+
+    setProgress(ratio);
+  }
+}
+
+/**
+  Shows the preview thumbnail when mouse is over progress bar
+*/
+export function showPreviewThumbnail(
+  e: BarMouseEvent,
+  isProgressDragging: boolean,
+  progressBarRef: React.MutableRefObject<HTMLDivElement | null>,
+  videoContainer: HTMLDivElement | null,
+  videoElem: HTMLVideoElement | null,
+  setTooltipStr: (update: SetStateAction<string>) => void,
+  setPreviewTooltipPosition: (update: SetStateAction<number>) => void,
+) {
+  if (
+    isProgressDragging ||
+    !progressBarRef ||
+    !progressBarRef.current ||
+    !videoContainer
+  )
+    return;
+  let xPos = 0;
+  if (isTouchscreenFunc(e)) xPos = e.touches[0].clientX;
+  else if (isMouseFunc(e)) xPos = e.clientX;
+  const progressBarRect = progressBarRef.current.getBoundingClientRect();
+  const widthOfItemsToLeftOfProgressBar =
+    progressBarRef.current.getBoundingClientRect().left -
+    videoContainer?.getBoundingClientRect().left;
+  const widthOfItemsToRightOfProgressBar =
+    videoContainer?.getBoundingClientRect().right -
+    progressBarRef.current.getBoundingClientRect().right;
+  const defaultHoverPos = xPos - progressBarRect.left;
+  let hoverPos = xPos - progressBarRect.left - previewTooltipWidth / 2;
+  const modifiedUpperBound =
+    progressBarRef.current?.clientWidth -
+    previewTooltipWidth / 2 +
+    widthOfItemsToRightOfProgressBar;
+  const maxHoverPos =
+    progressBarRef.current.clientWidth - previewTooltipWidth / 2;
+  const minHoverPos = Math.max(
+    (-1 * previewTooltipWidth) / 2,
+    -1 * widthOfItemsToLeftOfProgressBar,
+  );
+
+  if (defaultHoverPos > modifiedUpperBound) {
+    hoverPos = modifiedUpperBound - previewTooltipWidth / 2;
+  }
+  hoverPos = clamp(hoverPos, minHoverPos, maxHoverPos);
+  setPreviewTooltipPosition(hoverPos);
+
+  const leftDist = progressBarRef.current.getBoundingClientRect().left;
+  const timePos = xPos - leftDist;
+  if (videoElem && videoElem.duration) {
+    const ratio = clamp(timePos / progressBarRef.current.clientWidth, 0, 1);
+    const currentTime = videoElem.duration * ratio;
+    setTooltipStr(formatTime(currentTime));
+  }
+}
+
+/**
+  Formats time for currentTime and duration components.
+  ex: 120 -> 2:00
+*/
 export function formatTime(durationInSeconds: number) {
   const hours = Math.floor(durationInSeconds / 3600);
   const minutes = Math.floor((durationInSeconds - hours * 3600) / 60);
@@ -252,12 +366,22 @@ export function getLargestProgressBarMousePos(
   ];
 }
 
+/**
+  Used to determine if the device is a
+  touchscreen by checking if TouchEvent
+  exists
+*/
 export function isTouchscreenFunc(
   event: BarMouseEvent,
 ): event is React.TouchEvent<HTMLDivElement> {
   return (event as React.TouchEvent<HTMLDivElement>).touches !== undefined;
 }
 
+/**
+  Used to determine if the device is not a
+  touchscreen by checking if MouseEvent
+  exists
+*/
 export function isMouseFunc(
   event: BarMouseEvent,
 ): event is React.MouseEvent<HTMLDivElement> {
@@ -272,6 +396,10 @@ export function isTouchscreen() {
   return false;
 }
 
+/**
+  Lightens a color by using the Color.js library
+  Used for setting default progressColor on progressBar
+*/
 export function lightenColor(color: string | undefined) {
   const lightenedColor = Color(color).lighten(0.3);
   return lightenedColor;

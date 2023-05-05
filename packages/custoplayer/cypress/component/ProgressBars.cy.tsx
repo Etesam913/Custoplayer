@@ -10,6 +10,15 @@ describe('ProgressBars.cy.tsx', () => {
     cy.dataCy('progressBar3').should('exist');
   });
 
+  it("renders topProgressBars", () => {
+    cy.mount(<ProgressBars onTop item={{ id: 'progressBar1' }} />);
+    cy.dataCy('progressBar1').should('exist').should('have.css', 'align-items', 'flex-end');
+    cy.mount(<ProgressBars onTop item={{ id: 'progressBar2' }} />);
+    cy.dataCy('progressBar2').should('exist').should('have.css', 'align-items', 'flex-end');
+    cy.mount(<ProgressBars onTop item={{ id: 'progressBar3' }} />);
+    cy.dataCy('progressBar3').should('exist').should('have.css', 'align-items', 'flex-end');
+  })
+
   it('renders progressBars buffered color', () => {
     let bufferedColor = 'rgb(82, 158, 233)'
     cy.mount(

@@ -45,6 +45,13 @@ export interface CustoplayerValues {
     animate: "movement"
   } */
   controlsBar?: ControlsBarItem;
+  /** You can define your progress bar to be on top of your controls bar here:
+  @example
+  topProgressBar: {
+    id: 'progressBar1',
+    progressColor: 'rgb(137, 178, 245)'
+  } */
+  topProgressBar?: ProgressBarItem;
   // playIndicator?: {
   //   id?: number;
   //   color?: string;
@@ -76,7 +83,8 @@ export interface CustoplayerValues {
   @example
   item3: {
     id: 'progressBar1',
-    progressColor: 'rgb(137, 178, 245)'
+    progressColor: 'rgb(137, 178, 245)',
+    barColor: "white"
   } */
   item3?: CustoplayerItem;
   /** You can define a component in this item container. This container is the fourth container from the left.
