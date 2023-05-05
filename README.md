@@ -8,6 +8,8 @@
   </a>
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/linting.yml/badge.svg"/>
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/tests.yml/badge.svg"/>
+  <img src="https://img.shields.io/npm/v/custoplayer"/>
+
 </span>
 
 <h2><a href="https://etesam913.github.io/Custoplayer/">Documentation Page</a> </h2>
