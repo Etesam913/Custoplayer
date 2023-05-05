@@ -78,6 +78,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  pointer-events: none;
 `;
 
 const IndicatorContainer = styled(motion.button)<{
@@ -88,6 +89,7 @@ const IndicatorContainer = styled(motion.button)<{
   filter: drop-shadow(rgba(0, 0, 0, 0.35) 0px 5px 15px);
   padding: 0;
   border: 0;
+  pointer-events: none;
 `;
 
 export default PlayIndicator;
