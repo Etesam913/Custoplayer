@@ -295,12 +295,14 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  pointer-events: none;
 `,ec=(0,o.ZP)(Vl.button)`
   color: ${t=>t.playButtonColor};
   background-color: transparent;
   filter: drop-shadow(rgba(0, 0, 0, 0.35) 0px 5px 15px);
   padding: 0;
   border: 0;
+  pointer-events: none;
 `;function nc(){const t=k(At,Tt),e=M(Ut,Tt);!function(){const[t,e]=P(zt,Tt),n=M(Nt,Tt),o=k(At,Tt);(0,r.useEffect)((()=>{null!==o&&e(new ResizeObserver((t=>{const e=t[0];e&&e.contentRect&&n({height:parseFloat(e.contentRect.height.toFixed(2)),width:parseFloat(e.contentRect.width.toFixed(2))})})))}),[o,n,e]),(0,r.useEffect)((()=>{null!==t&&null!==o&&t.observe(o)}),[t,o])}();const n=M(Bt,Tt),o=(0,r.useRef)(null),i=M(oe,Tt);return(0,r.useEffect)((()=>{o&&o.current&&n(o.current)}),[o]),function(t){(0,r.useEffect)((()=>{function e(){t(Kl.isFullscreen)}return Kl.isEnabled&&Kl.on("change",e),()=>{Kl.isEnabled&&Kl.off("change",e)}}),[t])}(i),fe(rc,{"data-cy":"videoPlayerWrapper",ref:o,onFocus:()=>e(!0),onBlur:()=>e(!1),onMouseEnter:()=>{e(!0)},onMouseLeave:()=>{e(!1)},tabIndex:0,onKeyDown:e=>function(t,e){if(" "===t.key||"k"===t.key)t.preventDefault(),null!==e&&yt(e);else if(("ArrowLeft"===t.key||"ArrowRight"===t.key)&&(t.preventDefault(),null!==e)){let n=e.currentTime;"ArrowLeft"===t.key?n-=5:n+=5,e.currentTime=bt(n,0,e.duration)}}(e,t),children:me(oc,{"data-cy":"playerContainer",children:[fe(Qu,{}),fe(ve,{}),t&&fe(Wu,{})]})})}const rc=o.ZP.div`
   position: relative;
   background: black;
