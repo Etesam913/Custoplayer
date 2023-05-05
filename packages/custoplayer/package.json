@@ -1,6 +1,6 @@
 {
   "name": "custoplayer",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -51,11 +51,8 @@
     "styled-components": "5.3.5"
   },
   "peerDependencies": {
-    "framer-motion": "8.5.0",
-    "jotai": "1.13.1",
     "react": "17.x || 18.x",
-    "react-dom": " 17.x || 18.x",
-    "styled-components": "5.0.0"
+    "react-dom": " 17.x || 18.x"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
