@@ -21,13 +21,14 @@ import styled from 'styled-components';
 import { useProgressDragging } from '../../hooks';
 import ProgressBar1 from './ProgressBar1';
 import ProgressBar2 from './ProgressBar2';
-import ProgressBar3 from '@root/lib/components/ProgressBars/ProgressBar3';
+import ProgressBar3 from './ProgressBar3';
 
 interface ProgressBarsProps {
   item: ProgressBarItem;
+  onTop?: boolean;
 }
 
-function ProgressBars({ item }: ProgressBarsProps) {
+function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const videoElem = useAtomValue(videoElemAtom, myScope);
@@ -86,6 +87,7 @@ function ProgressBars({ item }: ProgressBarsProps) {
 
   return (
     <ProgressBarContainer
+      onTop={onTop}
       data-cy={item.id}
       isDragging={isProgressDragging}
       onTouchStart={(e) => {
@@ -158,11 +160,11 @@ function ProgressBars({ item }: ProgressBarsProps) {
   );
 }
 
-const ProgressBarContainer = styled.div<{ isDragging: boolean }>`
+const ProgressBarContainer = styled.div<{ isDragging: boolean, onTop: boolean }>`
   height: 100%;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: ${props => props.onTop ? "flex-end" : "center"};
   cursor: ${(props) => (props.isDragging ? 'col-resize' : 'pointer')};
 `;
 

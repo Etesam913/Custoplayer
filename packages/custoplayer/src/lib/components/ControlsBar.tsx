@@ -27,6 +27,7 @@ import {
   controlsBarOpacityAnimation,
 } from '@root/lib/variants';
 import ProgressBar1 from './ProgressBars/ProgressBar1';
+import ProgressBars from './ProgressBars/index';
 
 function extractColor(curItem: CustoplayerItem) {
   if (
@@ -82,6 +83,12 @@ function ControlsBar() {
           exit='exit'
           data-cy='controlsBar'
         >
+          {videoValues.topProgressBar &&
+            <TopProgressBarContainer>
+              <ProgressBars onTop item={videoValues.topProgressBar} />
+            </TopProgressBarContainer>
+          }
+
           <Controls
             height='45px'
             backgroundColor={videoValues.controlsBar?.barColor}
@@ -132,6 +139,14 @@ export const ItemContainer = styled.div<{ isProgressBar: boolean }>`
   :last-child {
     margin-right: 0;
   }
+`;
+
+export const TopProgressBarContainer = styled.div`
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 `;
 
 export default ControlsBar;
