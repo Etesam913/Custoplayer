@@ -28,7 +28,7 @@ function App() {
             hideOnMobile: true,
           },
           item3: {
-            id: 'currentTime',
+            id: 'duration',
             hideOnMobile: true,
           },
 

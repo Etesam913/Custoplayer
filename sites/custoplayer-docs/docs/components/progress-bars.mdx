@@ -1,12 +1,23 @@
 # Progress Bars
 
-There is currently one progress bar component
+There are currently three progress bar components
 
 1. `"progressBar1"`
+2. `"progressBar2"`
+3. `"progressBar3"`
 
 ## Demo of `progressBar1`
 
 <video width="100%" autoPlay={true} loop={true} src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fprogress-bars%2FprogressBar1.mp4"/>
+
+## Demo of `progressBar2`
+
+<video width="100%" autoPlay={true} loop={true} src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fprogress-bars%2FprogressBar2.mp4"/>
+
+## Demo of `progressBar3`
+
+<video width="100%" autoPlay={true} loop={true} src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fprogress-bars%2FprogressBar3.mp4"/>
+
 
 ## Usage
 ```jsx
@@ -15,17 +26,42 @@ item1: {
   progressColor: '#a4c3f5',
   scrubberColor: "#a4c3f5",
   scrubberBorderColor: "white",
-},
+  bufferedColor: "#B7B7B7"
+}
 ```
 * The `"progressColor"` property changes the color of the progress in the progress bar
   * Accepts any hex or rgb color code
+
 * The `scrubberColor` property changes the color of the scrubber (the circle at the end of the progress).
   * Accepts any hex or rgb color code
-  * If no `scrubberColor` is defined, the `scrubberColor` is defaulted to the same as the `progressColor`
+  * If no `scrubberColor` is defined, the `scrubberColor` is defaulted to the
+  same as the `progressColor`
 
-* The `scrubberBorder` property changes the border color of the scrubber (the circle at the end of the progress).
+* The `scrubberBorderColor` property changes the border color of the scrubber (the circle at the end of the progress).
   * Accepts any hex or rgb color code
   * If no `scrubberBorderColor` is defined, the `scrubberBorderColor` is defaulted to a lightened version of the `scrubberColor`
 
+* The `bufferedColor` property changes the color of the buffered part of the progress bar (the content that is already loaded).
+    * Accepts any hex or rgb color code
+
 * The `hideOnMobile` property hides the progressBar component when the video's width is less than 768px.
   * Accepts values of `true` or `false`
+
+
+# Top Progress Bar
+
+Instead of putting the progress bar in the controls bar, it can be put above the controls bar. This is a good way of saving space in the controls bar.
+
+## Demo of `topProgressBar`
+<video width="100%" autoPlay={true} loop={true} src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/progress-bars/topProgressBar.mp4"/>
+
+## Usage
+```jsx
+topProgressBar: {
+  id: 'progressBar1',
+  progressColor: '#a4c3f5',
+  scrubberColor: "#a4c3f5",
+  scrubberBorderColor: "white",
+  bufferedColor: "#B7B7B7"
+}
+```

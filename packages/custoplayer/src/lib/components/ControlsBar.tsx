@@ -69,7 +69,7 @@ function ControlsBar() {
 
   return (
     <AnimatePresence>
-      {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
+      {(true || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           variants={
@@ -84,7 +84,7 @@ function ControlsBar() {
         >
           {videoValues.topProgressBar && (
             <TopProgressBarContainer>
-              <ProgressBars onTop item={videoValues.topProgressBar} />
+              <ProgressBars onTop={true} item={videoValues.topProgressBar} />
             </TopProgressBarContainer>
           )}
 
