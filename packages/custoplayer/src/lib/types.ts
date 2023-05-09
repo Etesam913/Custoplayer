@@ -201,3 +201,7 @@ export type CustoplayerItem =
   | VolumeItem
   | TimeItem
   | FullscreenItem;
+
+export type videoQualitiesAtomType = {
+  [num: number]: null | string
+}

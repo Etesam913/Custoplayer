@@ -20,11 +20,14 @@ import {
   valuesAtom,
   videoAttributesAtom,
   videoElemAtom,
+  videoQualitiesAtom,
   volumeAtom,
 } from '@root/lib/atoms';
 
 import { SyntheticEvent, useCallback } from 'react';
 import { handlePlayState, throttle } from '../utils';
+import { useEffect } from 'react';
+import { videoQualitiesAtomType } from '../types';
 
 function HTMLVideoPlayer() {
   const [videoElem, setVideoElem] = useAtom(videoElemAtom, myScope);
@@ -53,6 +56,7 @@ function HTMLVideoPlayer() {
     progressBufferPercentAtom,
     myScope,
   );
+  const setVideoQualities = useSetAtom(videoQualitiesAtom, myScope);
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
   const videoAttributes = useAtomValue(videoAttributesAtom, myScope);
@@ -75,6 +79,39 @@ function HTMLVideoPlayer() {
     children,
     ...otherAttributes
   } = videoAttributes;
+
+  useEffect(() => {
+    if (children instanceof Object) {
+      const videoQualities: videoQualitiesAtomType = {
+        2160: null,
+        1440: null,
+        1080: null,
+        720: null,
+        480: null,
+        360: null,
+        240: null,
+        144: null,
+      };
+      if ('props' in children) {
+        const quality = parseInt(children['props'].id.split('-')[1]);
+        if (quality in videoQualities) {
+          videoQualities[quality] = children['props'].src;
+        }
+      } else if (Array.isArray(children)) {
+        const qualityInfo = children
+          .map((elem) => elem.props)
+          .filter((val) => val !== undefined);
+
+        qualityInfo.forEach((obj) => {
+          const quality = parseInt(obj.id.split('-')[1]);
+          if (quality in videoQualities) {
+            videoQualities[quality] = obj.src;
+          }
+        });
+        setVideoQualities(videoQualities);
+      }
+    }
+  }, [children]);
 
   const handlePlay = () => {
     setPlayState(PlayState.playing);
