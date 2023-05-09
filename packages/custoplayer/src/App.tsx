@@ -5,7 +5,6 @@ function App() {
   return (
     <Wrapper>
       <Custoplayer
-        src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
         playsInline={true}
         preload='auto'
         values={{
@@ -56,7 +55,12 @@ function App() {
         onSeeked={() => console.log('video seeked')}
         onSeeking={() => console.log('video seeking')}
         onVolumeChange={(e) => console.log('muted')}
-      />
+      >
+        <source
+          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
+          type='video/mp4'
+        />
+      </Custoplayer>
     </Wrapper>
   );
 }
