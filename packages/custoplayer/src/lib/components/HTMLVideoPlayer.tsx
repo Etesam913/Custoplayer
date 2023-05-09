@@ -72,6 +72,7 @@ function HTMLVideoPlayer() {
     tabIndex,
     onDurationChange,
     onProgress,
+    children,
     ...otherAttributes
   } = videoAttributes;
 
@@ -214,7 +215,9 @@ function HTMLVideoPlayer() {
       tabIndex={tabIndex ?? -1}
       data-cy='HTMLVideoPlayer'
       isDragging={isProgressDragging || isVolumeDragging}
-    />
+    >
+      {children}
+    </HTMLPlayer>
   );
 }
 

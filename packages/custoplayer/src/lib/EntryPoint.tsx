@@ -8,6 +8,7 @@ import { myScope } from '@root/lib/atoms';
 import Custoplayer from './Custoplayer';
 
 function EntryPoint({ values, ...rest }: EntryPointProps) {
+
   return (
     <Provider scope={myScope}>
       <Custoplayer values={values} rest={rest} />
