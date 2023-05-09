@@ -1,8 +1,9 @@
 import {
   CustoplayerItem,
-  FullscreenItem,
+  FullscreenButtonItem,
   PlayButtonItem,
   ProgressBarItem,
+  SettingsButtonItem,
   TimeItem,
   VolumeItem,
 } from '@root/lib/types';
@@ -53,6 +54,12 @@ export function isPlayButton(
   return (curItem as PlayButtonItem).id.startsWith('playButton');
 }
 
+export function isSettingsButton(
+  curItem: CustoplayerItem,
+): curItem is SettingsButtonItem {
+  return (curItem as SettingsButtonItem).id.startsWith('settingsButton');
+}
+
 export function isProgressBar(
   curItem: CustoplayerItem,
 ): curItem is ProgressBarItem {
@@ -75,8 +82,8 @@ export function isDuration(curItem: CustoplayerItem): curItem is TimeItem {
 
 export function isFullscreenButton(
   curItem: CustoplayerItem,
-): curItem is FullscreenItem {
-  return (curItem as FullscreenItem).id.startsWith('fullscreenButton');
+): curItem is FullscreenButtonItem {
+  return (curItem as FullscreenButtonItem).id.startsWith('fullscreenButton');
 }
 
 /**

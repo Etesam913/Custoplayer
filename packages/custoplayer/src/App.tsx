@@ -40,7 +40,16 @@ function App() {
             hideOnMobile: true,
           },
           item6: {
-            id: 'fullscreenButton2',
+            id: 'settingsButton1',
+            buttonColor: '#a7c957',
+            options: {
+              subtitles: true,
+              playbackSpeed: [1],
+              quality: true,
+            },
+          },
+          item7: {
+            id: 'fullscreenButton1',
             buttonColor: '#a7c957',
           },
         }}

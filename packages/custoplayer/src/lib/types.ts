@@ -186,7 +186,7 @@ export interface TimeItem {
   hideOnMobile?: boolean;
 }
 
-export interface FullscreenItem {
+export interface FullscreenButtonItem {
   /** Accepts values of "fullscreenButton1" or "fullscreenButton2" */
   id: 'fullscreenButton1' | 'fullscreenButton2';
   /** Changes the color of the fullscreen button. Accepts any hex or rgb color code. */
@@ -195,12 +195,24 @@ export interface FullscreenItem {
   hideOnMobile?: boolean;
 }
 
+export interface SettingsButtonItem {
+  id: 'settingsButton1' | 'settingsButton2';
+  buttonColor?: string;
+  hideOnMobile?: boolean;
+  options?: {
+    subtitles: boolean,
+    playbackSpeed: number[],
+    quality: boolean
+  }
+}
+
 export type CustoplayerItem =
   | ProgressBarItem
   | PlayButtonItem
   | VolumeItem
   | TimeItem
-  | FullscreenItem;
+  | FullscreenButtonItem
+  | SettingsButtonItem;
 
 export type videoQualitiesAtomType = {
   [num: number]: null | string
