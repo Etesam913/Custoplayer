@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 
 export interface EntryPointProps extends ComponentPropsWithoutRef<'video'> {
   /** You can define video attributes here. Things like playButtons, previewTooltips, and fullscreenButtons.
@@ -35,7 +35,6 @@ export interface EntryPointProps extends ComponentPropsWithoutRef<'video'> {
   }}
   */
   values: CustoplayerValues;
-
 }
 
 export interface CustoplayerValues {
