@@ -1,12 +1,38 @@
 import { motion } from 'framer-motion';
+import { useRef } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useOnClickOutside } from '../hooks';
 import { SettingsButtonItem } from '../types';
+import { lightenColor } from '../utils';
 
 function SettingsButtons({ item }: { item: SettingsButtonItem }) {
+  const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState(false);
+  const settingsMenuRef = useRef<HTMLMenuElement>(null);
+  useOnClickOutside(settingsMenuRef, () => setIsSettingsMenuOpen(false));
+
   return (
     <>
+      {isSettingsMenuOpen && (
+        <SettingsMenu
+          ref={settingsMenuRef}
+          settingsMenuColor={item.settingsMenuColor}
+        >
+          <MenuHeader>Settings</MenuHeader>
+          <MenuItem>
+            <MenuButton settingsMenuColor={item.settingsMenuColor}>
+              Quality
+            </MenuButton>
+          </MenuItem>
+          <MenuItem>
+            <MenuButton settingsMenuColor={item.settingsMenuColor}>
+              Subtitles
+            </MenuButton>
+          </MenuItem>
+        </SettingsMenu>
+      )}
       <SettingsButtonContainer
+        onClick={() => setIsSettingsMenuOpen((prev) => !prev)}
         data-cy={item.id}
         whileHover={{ scale: 1.1, rotateZ: 45 }}
         whileTap={{ scale: 0.95, rotateZ: 0 }}
@@ -16,7 +42,6 @@ function SettingsButtons({ item }: { item: SettingsButtonItem }) {
           height='32'
           viewBox='0 0 32 32'
           fill='none'
-          stroke='currentColor'
           xmlns='http://www.w3.org/2000/svg'
         >
           <g>
@@ -45,4 +70,50 @@ const SettingsPath = styled.path`
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
+`;
+
+const SettingsMenu = styled.menu<{ settingsMenuColor: string | undefined }>`
+  border-radius: 0.5rem;
+  background-color: ${(props) =>
+    props.settingsMenuColor ? props.settingsMenuColor : 'currentColor'};
+  position: absolute;
+  margin: 0;
+  padding: 0.35rem;
+  bottom: 3.5rem;
+`;
+
+const MenuHeader = styled.h3`
+  color: white;
+  margin: 0;
+  padding: 0.5rem;
+  font-weight: normal;
+`;
+
+const MenuItem = styled.li`
+  list-style-type: none;
+  margin: 0;
+`;
+
+const MenuButton = styled.button<{ settingsMenuColor: string | undefined }>`
+  background-color: transparent;
+  border: 0;
+  color: white;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  font-size: 1em;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  margin-bottom: 0.25rem;
+  &:hover {
+    background-color: ${(props) =>
+      props.settingsMenuColor
+        ? '' + lightenColor(props.settingsMenuColor)
+        : 'currentColor'};
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;

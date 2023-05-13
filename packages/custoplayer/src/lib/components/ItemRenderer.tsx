@@ -28,8 +28,7 @@ function ItemRenderer({ item }: { item: CustoplayerItem }) {
   else if (isDuration(item)) return <Duration />;
   else if (isFullscreenButton(item))
     return <FullscreenButtons item={item} isFullscreen={isFullscreen} />;
-  else if (isSettingsButton(item))
-    return <SettingsButtons item={item}/>
+  else if (isSettingsButton(item)) return <SettingsButtons item={item} />;
   else return <></>;
 }
 

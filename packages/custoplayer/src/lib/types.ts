@@ -198,12 +198,13 @@ export interface FullscreenButtonItem {
 export interface SettingsButtonItem {
   id: 'settingsButton1' | 'settingsButton2';
   buttonColor?: string;
+  settingsMenuColor?: string;
   hideOnMobile?: boolean;
   options?: {
-    subtitles: boolean,
-    playbackSpeed: number[],
-    quality: boolean
-  }
+    subtitles: boolean;
+    playbackSpeed: number[];
+    quality: boolean;
+  };
 }
 
 export type CustoplayerItem =
@@ -215,5 +216,5 @@ export type CustoplayerItem =
   | SettingsButtonItem;
 
 export type videoQualitiesAtomType = {
-  [num: number]: null | string
-}
+  [num: number]: null | string;
+};

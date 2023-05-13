@@ -42,6 +42,7 @@ function App() {
           item6: {
             id: 'settingsButton1',
             buttonColor: '#a7c957',
+            settingsMenuColor: '#386641',
             options: {
               subtitles: true,
               playbackSpeed: [1],
