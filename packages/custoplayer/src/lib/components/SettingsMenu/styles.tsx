@@ -63,12 +63,6 @@ export const MenuHeaderButton = styled(MenuButton)`
   margin-right: 0.35rem;
 `;
 
-export const MenuHeaderRow = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  margin: 0.25rem 0 0.5rem;
-`;
-
 export const CheckIcon = () => {
   return (
     <MenuIcon

@@ -41,7 +41,7 @@ function VideoPlayerWrapper() {
       data-cy='videoPlayerWrapper'
       ref={videoContainerRef}
       onFocus={() => setIsControlsBarShowing(true)}
-      onBlur={() => setIsControlsBarShowing(false)}
+      // onBlur={() => setIsControlsBarShowing(false)}
       onMouseEnter={() => {
         setIsControlsBarShowing(true);
       }}

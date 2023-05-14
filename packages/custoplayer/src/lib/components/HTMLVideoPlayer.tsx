@@ -101,7 +101,7 @@ function HTMLVideoPlayer() {
     throttle(() => {
       controlsBarTimeout !== null && clearInterval(controlsBarTimeout);
       if (playState === PlayState.playing) {
-        setShowControlsBar(true);
+        setShowControlsBar;
         setControlsBarTimeout(() =>
           setTimeout(() => setShowControlsBar(false), 3000),
         );

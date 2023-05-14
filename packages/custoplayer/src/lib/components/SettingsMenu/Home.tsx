@@ -1,10 +1,6 @@
 import { SettingsButtonItem } from '@root/lib/types';
 import {
   MenuButton,
-  MenuHeader,
-  MenuHeaderButton,
-  MenuHeaderIcon,
-  MenuHeaderRow,
   MenuItem,
   MenuIcon,
 } from './styles';

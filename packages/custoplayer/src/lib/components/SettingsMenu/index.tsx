@@ -1,10 +1,5 @@
 import { SettingsButtonItem } from '@root/lib/types';
-import {
-  MenuHeader,
-  MenuHeaderButton,
-  MenuHeaderIcon,
-  MenuHeaderRow,
-} from './styles';
+import { MenuHeader, MenuHeaderButton, MenuHeaderIcon } from './styles';
 import { forwardRef, useState } from 'react';
 import styled from 'styled-components';
 import Home from './Home';
@@ -95,10 +90,12 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
 
           <MenuHeader layout>{getMenuTitle()}</MenuHeader>
         </MenuHeaderRow>
-        {currentPage === '/home' && (
-          <Home setCurrentPage={setCurrentPage} item={props.item} />
-        )}
-        {currentPage === '/quality' && <Quality item={props.item} />}
+        <MenuContent settingsMenuHeight={videoDimensions.height - 45 - 60}>
+          {currentPage === '/home' && (
+            <Home setCurrentPage={setCurrentPage} item={props.item} />
+          )}
+          {currentPage === '/quality' && <Quality item={props.item} />}
+        </MenuContent>
       </SettingsMenuContainer>
     </TranslateContainer>
   );
@@ -134,7 +131,20 @@ const SettingsMenuContainer = styled(motion.menu)<{
   margin: 0;
   padding: 0.35rem 0.45rem;
   overflow: hidden;
+  min-width: 6.5rem;
   box-shadow: 10px 10px 55px -8px rgba(0, 0, 0, 0.56);
+`;
+
+const MenuHeaderRow = styled(motion.section)`
+  display: flex;
+  align-items: center;
+  margin: 0.25rem 0 0.5rem;
+`;
+
+const MenuContent = styled.section<{ settingsMenuHeight: number }>`
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: ${(props) => props.settingsMenuHeight}px;
 `;
 
 export default SettingsMenu;
