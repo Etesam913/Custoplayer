@@ -77,6 +77,16 @@ function App() {
           type='video/mp4'
           id='custoplayer-720'
         />
+        <source
+          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
+          type='video/mp4'
+          id='custoplayer-480'
+        />
+        <source
+          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
+          type='video/mp4'
+          id='custoplayer-240'
+        />
         yolo swag
       </Custoplayer>
     </Wrapper>
