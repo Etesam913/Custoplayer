@@ -10,7 +10,6 @@ import {
   videoElemAtom,
 } from '../atoms';
 import { CustoplayerItem, PlayButtonItem } from '../types';
-import { handlePlayState } from '../utils';
 import { motion } from 'framer-motion';
 import PlayButton2 from './PlayButtons/PlayButton2';
 import PauseButton2 from './PlayButtons/PauseButton2';
@@ -90,6 +89,7 @@ const IndicatorContainer = styled(motion.button)<{
   padding: 0;
   border: 0;
   pointer-events: none;
+  will-change: transform;
 `;
 
 export default PlayIndicator;

@@ -1,7 +1,7 @@
 import { myScope, videoElemAtom, videoQualitiesAtom } from '@root/lib/atoms';
 import { useAtomValue } from 'jotai';
 import { objectKeys } from 'ts-extras';
-import { MenuButton, MenuItem } from './styles';
+import { CheckIcon, MenuButton, MenuItem } from './styles';
 import { SettingsButtonItem } from '@root/lib/types';
 
 interface QualityProps {
@@ -40,6 +40,7 @@ function Quality({ item }: QualityProps) {
             onClick={() => changeQuality(src)}
           >
             {quality + 'p'}
+            <CheckIcon />
           </MenuButton>
         </MenuItem>
       );

@@ -69,12 +69,8 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
   }
 
   return (
-    <div
-      style={{
-        transform: `translate(-3rem, -2rem)`,
-        display: 'flex',
-        flexDirection: 'column-reverse',
-      }}
+    <TranslateContainer
+      orientation={props.item.settingsMenuOrientation ?? 'middle'}
     >
       <SettingsMenuContainer
         layout
@@ -100,9 +96,29 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
         )}
         {currentPage === '/quality' && <Quality item={props.item} />}
       </SettingsMenuContainer>
-    </div>
+    </TranslateContainer>
   );
 });
+
+/* 
+  A separate container has to keep the translate value to
+  avoid interference with the child layout animation
+*/
+const TranslateContainer = styled.div<{
+  orientation: 'middle' | 'left' | 'right';
+}>`
+  transform: translate(
+    ${(props) =>
+      props.orientation === 'middle'
+        ? '-3rem'
+        : props.orientation === 'left'
+        ? '-5.25rem'
+        : '0rem'},
+    -2rem
+  );
+  display: flex;
+  flex-direction: column-reverse;
+`;
 
 const SettingsMenuContainer = styled(motion.menu)<{
   settingsMenuColor: string | undefined;

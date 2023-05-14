@@ -13,7 +13,7 @@ export const volumeBar2Animation = {
 };
 
 export const controlsBarOpacityAnimation = {
-  init: { opacity: 0 },
+  init: { opacity: 0.01 },
   anim: { opacity: 1, transition: { duration: 0.25 } },
   exit: { opacity: 0, transition: { duration: 0.25 } },
 };

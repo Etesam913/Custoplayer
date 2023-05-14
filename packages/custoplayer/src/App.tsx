@@ -44,7 +44,7 @@ function App() {
             id: 'settingsButton1',
             buttonColor: '#a7c957',
             settingsMenuColor: '#386641',
-            settingsMenuOrientation: 'middle',
+            settingsMenuOrientation: 'left',
             options: {
               subtitles: true,
               playbackSpeed: [1],
