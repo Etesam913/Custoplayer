@@ -1,8 +1,14 @@
-import { myScope, videoElemAtom, videoQualitiesAtom } from '@root/lib/atoms';
+import {
+  currentQualityAtom,
+  myScope,
+  videoElemAtom,
+  videoQualitiesAtom,
+} from '@root/lib/atoms';
 import { useAtomValue } from 'jotai';
 import { objectKeys } from 'ts-extras';
 import { CheckIcon, MenuButton, MenuItem } from './styles';
 import { SettingsButtonItem } from '@root/lib/types';
+
 
 interface QualityProps {
   item: SettingsButtonItem;
@@ -10,6 +16,7 @@ interface QualityProps {
 
 function Quality({ item }: QualityProps) {
   const videoQualities = useAtomValue(videoQualitiesAtom, myScope);
+  const currentQuality = useAtomValue(currentQualityAtom, myScope);
   const videoElem = useAtomValue(videoElemAtom, myScope);
   const qualities = objectKeys(videoQualities).map((keyStr) => Number(keyStr));
   // Reverse sort so it goes from 1440p -> 144p
@@ -40,7 +47,8 @@ function Quality({ item }: QualityProps) {
             onClick={() => changeQuality(src)}
           >
             {quality + 'p'}
-            <CheckIcon />
+
+            {currentQuality === quality && <CheckIcon />}
           </MenuButton>
         </MenuItem>
       );

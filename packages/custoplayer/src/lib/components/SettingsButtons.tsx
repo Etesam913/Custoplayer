@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useRef } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -14,13 +14,16 @@ function SettingsButtons({ item }: { item: SettingsButtonItem }) {
 
   return (
     <>
-      {isSettingsMenuOpen && (
-        <SettingsMenu
-          ref={settingsMenuRef}
-          item={item}
-          setIsSettingsMenuOpen={setIsSettingsMenuOpen}
-        />
-      )}
+      <AnimatePresence>
+        {isSettingsMenuOpen && (
+          <SettingsMenu
+            ref={settingsMenuRef}
+            item={item}
+            setIsSettingsMenuOpen={setIsSettingsMenuOpen}
+          />
+        )}
+      </AnimatePresence>
+
       <SettingsButtonContainer
         onClick={() => setIsSettingsMenuOpen((prev) => !prev)}
         data-cy={item.id}
@@ -60,46 +63,4 @@ const SettingsPath = styled.path`
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
-`;
-
-const MenuIcon = styled.svg`
-  height: 20px;
-  width: 20px;
-  stroke: currentColor;
-  stroke-width: 2px;
-  margin-right: 0.35rem;
-`;
-
-const MenuHeaderIcon = styled(MenuIcon)`
-  margin-right: 0;
-  height: 18px;
-  width: 18px;
-`;
-
-const MenuButton = styled.button<{ settingsMenuColor: string | undefined }>`
-  background-color: transparent;
-  border: 0;
-  color: white;
-  width: 100%;
-  height: 100%;
-  text-align: left;
-  font-size: 1em;
-  padding: 0.5rem;
-  cursor: pointer;
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    background-color: ${(props) =>
-      props.settingsMenuColor
-        ? '' + lightenColor(props.settingsMenuColor)
-        : 'currentColor'};
-  }
-  &:active {
-    background-color: ${(props) =>
-      props.settingsMenuColor
-        ? '' + darkenColor(props.settingsMenuColor)
-        : 'currentColor'};
-  }
 `;

@@ -8,7 +8,11 @@ import {
   VolumeItem,
 } from '@root/lib/types';
 import { SetStateAction, SyntheticEvent } from 'react';
-import { isVolumeDraggingType, previewTooltipWidth } from '@root/lib/atoms';
+import {
+  isVolumeDraggingType,
+  possibleQualities,
+  previewTooltipWidth,
+} from '@root/lib/atoms';
 import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
@@ -418,19 +422,46 @@ export function darkenColor(color: string | undefined) {
 }
 
 /*
-  Write a function that gets the current quality of the
+  A function that gets the current quality of the
   video element by looping through all the video <source>
   tags and checking if the id attribute contains, 1440, 1080, 720, 480, 360, 240, 144 etc...
 */
-
-function getCurrentQuality(
+export function getCurrentQuality(
   e: SyntheticEvent<HTMLVideoElement, Event>,
-  videoChildren: React.ReactNode,
-){
-    
-}
+  children: React.ReactNode,
+): number {
+  const videoSrc = (e.target as HTMLVideoElement).currentSrc;
 
-// export function getCurrentQuality(
-//   e: SyntheticEvent<HTMLVideoElement, Event>,
-//   videoChildren: React.ReactNode,
-// ) {
+  if (children instanceof Object) {
+    if ('props' in children && children.type === 'source') {
+      const quality = parseInt(children['props'].id.split('-')[1]);
+      if (possibleQualities.has(quality)) {
+        const qualitySrc = children['props'].src;
+        const hasSameSrc = qualitySrc === videoSrc;
+        if (hasSameSrc) return quality;
+      }
+    } else if (Array.isArray(children)) {
+      const qualityInfo = children
+        .filter((child) => child.type === 'source')
+        .map((elem) => elem.props)
+        .filter((val) => val !== undefined);
+
+      // Gets the matching quality based off of src values
+      const qualityData = qualityInfo
+        .map((obj) => {
+          const quality = parseInt(obj.id.split('-')[1]);
+
+          if (possibleQualities.has(quality)) {
+            const hasSameSrc = obj.src === videoSrc;
+            if (hasSameSrc) return quality;
+          }
+        })
+        .filter((val) => val !== undefined) as number[];
+
+      if (qualityData.length === 1) return qualityData[0];
+    }
+    // fallback quality value when no quality is found
+    return 1080;
+  }
+  return 1080;
+}

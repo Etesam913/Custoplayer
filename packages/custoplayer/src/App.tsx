@@ -6,6 +6,7 @@ function App() {
     <Wrapper>
       <Custoplayer
         width='min(95%, 60rem)'
+        poster='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-poster.png'
         playsInline={true}
         preload='auto'
         values={{
@@ -14,7 +15,7 @@ function App() {
           },
           controlsBar: {
             barColor: '#386641',
-            animate: 'opacity',
+            animate: 'movement',
           },
           item1: {
             id: 'playButton1',

@@ -61,7 +61,7 @@ const GoLeftIcon = () => {
 const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
   const [currentPage, setCurrentPage] = useState('/home');
   const videoDimensions = useAtomValue(videoDimensionsAtom, myScope);
-  // console.log(videoDimensions.height, ref.current.clientHeight + 45 + 20);
+
   function getMenuTitle() {
     if (currentPage === '/home') return 'Settings';
     else if (currentPage === '/quality') return 'Quality';
@@ -70,6 +70,10 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
 
   return (
     <TranslateContainer
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
       orientation={props.item.settingsMenuOrientation ?? 'middle'}
     >
       <SettingsMenuContainer
@@ -104,7 +108,7 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
   A separate container has to keep the translate value to
   avoid interference with the child layout animation
 */
-const TranslateContainer = styled.div<{
+const TranslateContainer = styled(motion.div)<{
   orientation: 'middle' | 'left' | 'right';
 }>`
   transform: translate(
@@ -130,6 +134,7 @@ const SettingsMenuContainer = styled(motion.menu)<{
   margin: 0;
   padding: 0.35rem 0.45rem;
   overflow: hidden;
+  box-shadow: 10px 10px 55px -8px rgba(0, 0, 0, 0.56);
 `;
 
 export default SettingsMenu;

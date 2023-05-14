@@ -80,6 +80,7 @@ export const CheckIcon = () => {
       <motion.path
         initial={{ pathLength: 0 }}
         animate={{ pathLength: 1 }}
+        transition={{ duration: 0.3, type: 'easeInOut' }}
         d='M4 16L8.0982 21.7375C8.52071 22.329 9.41304 22.288 9.80496 21.6758C12.1212 18.0575 17.15 11.8143 27 9'
         stroke='currentColor'
         strokeWidth='3'

@@ -2,6 +2,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import styled from 'styled-components';
 import {
   controlsBarTimeoutAtom,
+  currentQualityAtom,
   currentTimeAtom,
   draggableSymbol,
   durationAtom,
@@ -25,7 +26,7 @@ import {
 } from '@root/lib/atoms';
 
 import { SyntheticEvent, useCallback } from 'react';
-import { handlePlayState, throttle } from '../utils';
+import { getCurrentQuality, handlePlayState, throttle } from '../utils';
 
 import { useQualities } from '../hooks';
 
@@ -48,6 +49,8 @@ function HTMLVideoPlayer() {
   const setIsSeeking = useSetAtom(isSeekingAtom, myScope);
   const setCurrentTime = useSetAtom(currentTimeAtom, myScope);
   const setIsMuted = useSetAtom(isMutedAtom, myScope);
+  const setCurrentQuality = useSetAtom(currentQualityAtom, myScope);
+
   const [isSeekingTimeout, setIsSeekingTimeout] = useAtom(
     isSeekingTimeoutAtom,
     myScope,
@@ -185,6 +188,7 @@ function HTMLVideoPlayer() {
       }}
       onLoadedData={(e: SyntheticEvent<HTMLVideoElement, Event>) => {
         setVideoElem(e.target as HTMLVideoElement);
+        setCurrentQuality(getCurrentQuality(e, children));
         onLoadedData && onLoadedData(e);
       }}
       onLoadStart={(e: SyntheticEvent<HTMLVideoElement, Event>) => {

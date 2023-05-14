@@ -24,6 +24,9 @@ export const setVideoContainerAtom = atom(
   },
 );
 
+export const currentQualityAtom = atom(1080)
+export const possibleQualities = new Set([144, 240, 360, 480, 720, 1080, 1440, 2160])
+
 export const videoQualitiesAtom = atom<videoQualitiesAtomType>({
   2160: null,
   1440: null,
