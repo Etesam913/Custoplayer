@@ -7,7 +7,7 @@ import {
   TimeItem,
   VolumeItem,
 } from '@root/lib/types';
-import { SetStateAction } from 'react';
+import { SetStateAction, SyntheticEvent } from 'react';
 import { isVolumeDraggingType, previewTooltipWidth } from '@root/lib/atoms';
 import Color from 'color';
 
@@ -416,3 +416,21 @@ export function darkenColor(color: string | undefined) {
   const darkenedColor = Color(color).darken(0.175);
   return darkenedColor;
 }
+
+/*
+  Write a function that gets the current quality of the
+  video element by looping through all the video <source>
+  tags and checking if the id attribute contains, 1440, 1080, 720, 480, 360, 240, 144 etc...
+*/
+
+function getCurrentQuality(
+  e: SyntheticEvent<HTMLVideoElement, Event>,
+  videoChildren: React.ReactNode,
+){
+    
+}
+
+// export function getCurrentQuality(
+//   e: SyntheticEvent<HTMLVideoElement, Event>,
+//   videoChildren: React.ReactNode,
+// ) {

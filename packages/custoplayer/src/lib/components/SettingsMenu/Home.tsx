@@ -19,6 +19,7 @@ function Home({ item, setCurrentPage }: HomeProps) {
     <>
       <MenuItem>
         <MenuButton
+          layout='position'
           onClick={() => setCurrentPage('/quality')}
           settingsMenuColor={item.settingsMenuColor}
         >
@@ -45,6 +46,7 @@ function Home({ item, setCurrentPage }: HomeProps) {
       </MenuItem>
       <MenuItem>
         <MenuButton
+          layout='position'
           onClick={() => setCurrentPage('/subtitles')}
           settingsMenuColor={item.settingsMenuColor}
         >

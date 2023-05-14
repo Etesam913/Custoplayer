@@ -1,7 +1,8 @@
 import { darkenColor, lightenColor } from "@root/lib/utils";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const MenuButton = styled.button<{ settingsMenuColor: string | undefined }>`
+export const MenuButton = styled(motion.button)<{ settingsMenuColor: string | undefined }>`
   background-color: transparent;
   border: 0;
   color: white;
@@ -35,7 +36,7 @@ export const MenuItem = styled.li`
 
 `;
 
-export const MenuIcon = styled.svg`
+export const MenuIcon = styled(motion.svg)`
   height: 20px;
   width: 20px;
   stroke: currentColor;
@@ -43,7 +44,7 @@ export const MenuIcon = styled.svg`
   margin-right: 0.35rem;
 `;
 
-export const MenuHeader = styled.h3`
+export const MenuHeader = styled(motion.h3)`
   color: white;
   margin: 0;
   font-weight: normal;
@@ -61,7 +62,7 @@ export const MenuHeaderButton = styled(MenuButton)`
   margin-right: 0.35rem;
 `;
 
-export const MenuHeaderRow = styled.div`
+export const MenuHeaderRow = styled(motion.div)`
   display: flex;
   align-items: center;
   margin: 0.25rem 0 0.5rem;

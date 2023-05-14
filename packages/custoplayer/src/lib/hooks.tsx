@@ -105,13 +105,15 @@ export function useQualities(
         240: null,
         144: null,
       };
-      if ('props' in children) {
+      if ('props' in children && children.type === 'source') {
         const quality = parseInt(children['props'].id.split('-')[1]);
         if (quality in videoQualities) {
           videoQualities[quality] = children['props'].src;
         }
       } else if (Array.isArray(children)) {
+
         const qualityInfo = children
+          .filter((child) => child.type === 'source')
           .map((elem) => elem.props)
           .filter((val) => val !== undefined);
 

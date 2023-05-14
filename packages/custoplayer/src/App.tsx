@@ -5,6 +5,7 @@ function App() {
   return (
     <Wrapper>
       <Custoplayer
+        width='min(95%, 60rem)'
         playsInline={true}
         preload='auto'
         values={{
@@ -43,7 +44,7 @@ function App() {
             id: 'settingsButton1',
             buttonColor: '#a7c957',
             settingsMenuColor: '#386641',
-            settingsMenuOrientation: 'right',
+            settingsMenuOrientation: 'middle',
             options: {
               subtitles: true,
               playbackSpeed: [1],
@@ -92,6 +93,10 @@ function App() {
           type='video/mp4'
           id='custoplayer-144'
         />
+        <track
+          kind='captions'
+          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/sample.vtt'
+        ></track>
         yolo swag
       </Custoplayer>
     </Wrapper>
