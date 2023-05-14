@@ -111,7 +111,6 @@ export function useQualities(
           videoQualities[quality] = children['props'].src;
         }
       } else if (Array.isArray(children)) {
-
         const qualityInfo = children
           .filter((child) => child.type === 'source')
           .map((elem) => elem.props)
@@ -123,8 +122,8 @@ export function useQualities(
             videoQualities[quality] = obj.src;
           }
         });
-        setVideoQualities(videoQualities);
       }
+      setVideoQualities(videoQualities);
     }
   }, [children]);
 }
