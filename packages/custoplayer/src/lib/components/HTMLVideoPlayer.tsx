@@ -26,8 +26,7 @@ import {
 
 import { SyntheticEvent, useCallback } from 'react';
 import { handlePlayState, throttle } from '../utils';
-import { useEffect } from 'react';
-import { videoQualitiesAtomType } from '../types';
+
 import { useQualities } from '../hooks';
 
 function HTMLVideoPlayer() {
@@ -78,6 +77,7 @@ function HTMLVideoPlayer() {
     onDurationChange,
     onProgress,
     children,
+
     ...otherAttributes
   } = videoAttributes;
 
@@ -228,7 +228,9 @@ function HTMLVideoPlayer() {
   );
 }
 
-const HTMLPlayer = styled.video<{ isDragging: boolean | isVolumeDraggingType }>`
+const HTMLPlayer = styled.video<{
+  isDragging: boolean | isVolumeDraggingType;
+}>`
   width: 100%;
   height: 100%;
   background-color: black;

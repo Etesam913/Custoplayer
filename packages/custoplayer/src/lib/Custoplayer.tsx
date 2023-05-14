@@ -37,14 +37,7 @@ function Custoplayer({ values, rest }: CustoplayerProps) {
     setVideoAttributes(rest);
   }, [rest]);
 
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      {/* <div id='mobile-debug' style={{ marginBottom: '1rem' }}>
-          mobile debug
-        </div> */}
-      <VideoPlayerWrapper />
-    </div>
-  );
+  return <VideoPlayerWrapper />;
 }
 
 export default Custoplayer;

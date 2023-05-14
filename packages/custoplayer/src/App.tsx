@@ -68,24 +68,29 @@ function App() {
         onVolumeChange={(e) => console.log('muted')}
       >
         <source
-          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
+          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-1080.mp4'
           type='video/mp4'
           id='custoplayer-1080'
         />
         <source
-          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
+          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-720.mp4'
           type='video/mp4'
           id='custoplayer-720'
         />
         <source
-          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
+          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-480.mp4'
           type='video/mp4'
           id='custoplayer-480'
         />
         <source
-          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
+          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-240.mp4'
           type='video/mp4'
           id='custoplayer-240'
+        />
+        <source
+          src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-144.mp4'
+          type='video/mp4'
+          id='custoplayer-144'
         />
         yolo swag
       </Custoplayer>

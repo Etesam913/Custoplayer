@@ -5,6 +5,7 @@ import {
   isFullscreenAtom,
   myScope,
   showControlsBarAtom,
+  videoAttributesAtom,
   videoContainerAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
@@ -32,9 +33,11 @@ function VideoPlayerWrapper() {
   }, [videoContainerRef]);
 
   useFullscreenEvent(setIsFullscreen);
-
+  const { width, height } = useAtomValue(videoAttributesAtom, myScope);
   return (
     <PlayerWrapper
+      width={width}
+      height={height}
       data-cy='videoPlayerWrapper'
       ref={videoContainerRef}
       onFocus={() => setIsControlsBarShowing(true)}
@@ -62,7 +65,10 @@ function VideoPlayerWrapper() {
   );
 }
 
-const PlayerWrapper = styled.div`
+const PlayerWrapper = styled.div<{
+  width: string | number | undefined;
+  height: string | number | undefined;
+}>`
   position: relative;
   background: black;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -71,6 +77,8 @@ const PlayerWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
+  height: ${(props) => (props.height ? props.height : '100%')};
+  width: ${(props) => (props.width ? props.width : '100%')};
 `;
 
 const PlayerContainer = styled.div`
