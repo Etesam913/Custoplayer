@@ -411,3 +411,8 @@ export function lightenColor(color: string | undefined) {
   const lightenedColor = Color(color).lighten(0.3);
   return lightenedColor;
 }
+
+export function darkenColor(color: string | undefined) {
+  const darkenedColor = Color(color).darken(0.175);
+  return darkenedColor;
+}

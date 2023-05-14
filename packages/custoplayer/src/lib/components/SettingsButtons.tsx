@@ -4,7 +4,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useOnClickOutside } from '../hooks';
 import { SettingsButtonItem } from '../types';
-import { lightenColor } from '../utils';
+import { darkenColor, lightenColor } from '../utils';
+import SettingsMenu from './SettingsMenu';
 
 function SettingsButtons({ item }: { item: SettingsButtonItem }) {
   const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState(false);
@@ -16,20 +17,9 @@ function SettingsButtons({ item }: { item: SettingsButtonItem }) {
       {isSettingsMenuOpen && (
         <SettingsMenu
           ref={settingsMenuRef}
-          settingsMenuColor={item.settingsMenuColor}
-        >
-          <MenuHeader>Settings</MenuHeader>
-          <MenuItem>
-            <MenuButton settingsMenuColor={item.settingsMenuColor}>
-              Quality
-            </MenuButton>
-          </MenuItem>
-          <MenuItem>
-            <MenuButton settingsMenuColor={item.settingsMenuColor}>
-              Subtitles
-            </MenuButton>
-          </MenuItem>
-        </SettingsMenu>
+          item={item}
+          setIsSettingsMenuOpen={setIsSettingsMenuOpen}
+        />
       )}
       <SettingsButtonContainer
         onClick={() => setIsSettingsMenuOpen((prev) => !prev)}
@@ -72,33 +62,24 @@ const SettingsPath = styled.path`
   stroke-linecap: round;
 `;
 
-const SettingsMenu = styled.menu<{ settingsMenuColor: string | undefined }>`
-  border-radius: 0.5rem;
-  background-color: ${(props) =>
-    props.settingsMenuColor ? props.settingsMenuColor : 'currentColor'};
-  position: absolute;
-  margin: 0;
-  padding: 0.35rem;
-  bottom: 3.5rem;
+const MenuIcon = styled.svg`
+  height: 20px;
+  width: 20px;
+  stroke: currentColor;
+  stroke-width: 2px;
+  margin-right: 0.35rem;
 `;
 
-const MenuHeader = styled.h3`
-  color: white;
-  margin: 0;
-  padding: 0.5rem;
-  font-weight: normal;
-`;
-
-const MenuItem = styled.li`
-  list-style-type: none;
-  margin: 0;
+const MenuHeaderIcon = styled(MenuIcon)`
+  margin-right: 0;
+  height: 18px;
+  width: 18px;
 `;
 
 const MenuButton = styled.button<{ settingsMenuColor: string | undefined }>`
   background-color: transparent;
   border: 0;
   color: white;
-  padding: 0;
   width: 100%;
   height: 100%;
   text-align: left;
@@ -106,14 +87,19 @@ const MenuButton = styled.button<{ settingsMenuColor: string | undefined }>`
   padding: 0.5rem;
   cursor: pointer;
   border-radius: 0.5rem;
-  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+
   &:hover {
     background-color: ${(props) =>
       props.settingsMenuColor
         ? '' + lightenColor(props.settingsMenuColor)
         : 'currentColor'};
   }
-  &:last-child {
-    margin-bottom: 0;
+  &:active {
+    background-color: ${(props) =>
+      props.settingsMenuColor
+        ? '' + darkenColor(props.settingsMenuColor)
+        : 'currentColor'};
   }
 `;

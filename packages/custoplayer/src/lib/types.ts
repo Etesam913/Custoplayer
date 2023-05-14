@@ -199,6 +199,7 @@ export interface SettingsButtonItem {
   id: 'settingsButton1' | 'settingsButton2';
   buttonColor?: string;
   settingsMenuColor?: string;
+  settingsMenuOrientation?: 'left' | 'middle' | 'right';
   hideOnMobile?: boolean;
   options?: {
     subtitles: boolean;
