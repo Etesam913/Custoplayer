@@ -16,6 +16,7 @@ function Home({ item, setCurrentPage }: HomeProps) {
           settingsMenuColor={item.settingsMenuColor}
         >
           <MenuIcon
+            data-cy='settingsMenuQualityButton'
             viewBox='0 0 32 32'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
@@ -38,6 +39,7 @@ function Home({ item, setCurrentPage }: HomeProps) {
       </MenuItem>
       <MenuItem>
         <MenuButton
+          data-cy='settingsMenuSubtitlesButton'
           layout='position'
           onClick={() => setCurrentPage('/subtitles')}
           settingsMenuColor={item.settingsMenuColor}

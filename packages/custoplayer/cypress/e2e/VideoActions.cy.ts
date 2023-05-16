@@ -90,7 +90,44 @@ describe('Video Actions', () => {
     cy.dataCy('HTMLVideoPlayer').should('have.prop', 'currentTime').then((x) => expect(x).to.be.greaterThan(2))
     cy.dataCy('textPreviewTooltip').should('exist')
   })
+  it('changes quality of the video via settings button', () => {
+    cy.visit('/')
+    cy.dataCy('videoPlayerWrapper').should('exist')
+    cy.dataCy('videoPlayerWrapper').trigger('mouseover')
+    cy.dataCy('HTMLVideoPlayer').should('exist')
 
+    cy.dataCy('settingsButton1').trigger('click')
+    cy.dataCy('settingsMenu').should('exist')
+    cy.dataCy('settingsMenuQualityButton').trigger('click')
+    cy.dataCy('settingsMenuQualityButton1080p').should('exist')
+    cy.dataCy('settingsMenuQualityButton720p').should('exist')
+    cy.dataCy('settingsMenuQualityButton480p').should('exist')
+    cy.dataCy('settingsMenuQualityButton240p').should('exist')
+    cy.dataCy('settingsMenuQualityButton144p').should('exist')
+
+    cy.dataCy('settingsMenuQualityButton720p').trigger('click')
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'src', 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-720.mp4')
+
+    cy.dataCy('settingsMenuQualityButton480p').trigger('click')
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'src', 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-480.mp4')
+
+    cy.dataCy('settingsMenuQualityButton240p').trigger('click')
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'src', 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-240.mp4')
+
+    cy.dataCy('settingsMenuQualityButton144p').trigger('click')
+    cy.dataCy('HTMLVideoPlayer').should('have.prop', 'src', 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-144.mp4')
+
+
+    // Exiting Quality Menu
+    cy.dataCy("menuHeaderButton").trigger('click')
+    cy.dataCy('settingsMenuQualityButton1080p').should('not.exist')
+    cy.dataCy('settingsMenuQualityButton720p').should('not.exist')
+    cy.dataCy('settingsMenuQualityButton480p').should('not.exist')
+    cy.dataCy('settingsMenuQualityButton240p').should('not.exist')
+    cy.dataCy('settingsMenuQualityButton144p').should('not.exist')
+    cy.dataCy("menuHeaderButton").trigger('click')
+    cy.dataCy('settingsMenu').should('not.exist')
+  })
 })
 
 export { }

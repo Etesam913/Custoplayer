@@ -41,6 +41,7 @@ function Quality({ item }: QualityProps) {
       return (
         <MenuItem key={`quality-${quality}`}>
           <MenuButton
+            data-cy={`settingsMenuQualityButton${quality}p`}
             layout
             settingsMenuColor={item.settingsMenuColor}
             onClick={() => changeQuality(src)}
