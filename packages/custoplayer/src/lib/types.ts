@@ -196,11 +196,82 @@ export interface FullscreenButtonItem {
 }
 
 export interface SettingsButtonItem {
+  /** Accepts values of "settingsButton1" or "settingsButton2" */
   id: 'settingsButton1' | 'settingsButton2';
+  /** Changes the color of the settings button. Accepts any hex or rgb color code. */
   buttonColor?: string;
+  /** Changes the color of the settings menu. Accepts any hex or rgb color code. */
   settingsMenuColor?: string;
+  /** Changes the orientation of the settings menu. Accepts values of 'left', 'right', or 'middle'. 
+   * This property is used to prevent the settings menu from being cut off. 
+   * For example if your settings menu is in item position 6 or 7, you may want to set the settingsMenuOrientation to 'left' 
+  */
   settingsMenuOrientation?: 'left' | 'middle' | 'right';
+  /** Hides the settings button when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;
+  /** Used to specify the things that can be customized in the settings menu. 
+    @example
+    options: {
+      subtitles: true,
+      quality: true,
+      playbackSpeed: [0.5, 1, 1.5, 2]
+    } 
+
+    For subtitles to be extracted in the menu you have to have source tags defined as children of your video tag.
+    The id property has to be `custoplayer-${quality}` for it to be found in the menu. The supported quality values
+    are: [144, 240, 360, 480, 720, 1080, 1440, 2160]
+  
+    @example
+    <video>
+      <source
+        src='1080p.mp4'
+        type='video/mp4'
+        id='custoplayer-1080'
+      />
+      <source
+        src='720p.mp4'
+        type='video/mp4'
+        id='custoplayer-720'
+      />
+      <source
+        src='480p.mp4'
+        type='video/mp4'
+        id='custoplayer-480'
+      />
+      <source
+        src='240p.mp4'
+        type='video/mp4'
+        id='custoplayer-240'
+      />
+      <source
+        src='144p.mp4'
+        type='video/mp4'
+        id='custoplayer-144'
+      />
+    </video>
+
+
+    Subtitles can be extracted from the video by putting <track> tags as children to your video. Make sure to specify a label so that
+    the subtitle option is available in the settings menu. It is recommended to set kind='metadata'
+
+    @example
+    <video>
+      <track
+        label='English'
+        kind='metadata'
+        src='english.vtt'
+        default
+        srcLang='en'
+      />
+      <track
+        label='Spanish'
+        kind='metadata'
+        srcLang='es'
+        src='spanish.vtt'
+      />
+    </video>
+  */
+
   options?: {
     subtitles: boolean;
     playbackSpeed: number[];
