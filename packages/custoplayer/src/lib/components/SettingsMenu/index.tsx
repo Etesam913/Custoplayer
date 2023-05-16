@@ -6,8 +6,9 @@ import Home from './Home';
 import Quality from './Quality';
 import { useAtomValue } from 'jotai';
 import { myScope, videoDimensionsAtom } from '@root/lib/atoms';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Subtitles from './Subtitles';
+import PlaybackSpeed from './PlaybackSpeed';
 
 type Ref = HTMLMenuElement;
 
@@ -62,6 +63,7 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
     if (currentPage === '/home') return 'Settings';
     else if (currentPage === '/quality') return 'Quality';
     else if (currentPage === '/subtitles') return 'Subtitles';
+    else if (currentPage === '/playback-speed') return 'Speed';
   }
 
   return (
@@ -100,11 +102,16 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
           {currentPage === '/quality' && <Quality item={props.item} />}
 
           {currentPage === '/subtitles' && <Subtitles item={props.item} />}
+          {currentPage === '/playback-speed' && (
+            <PlaybackSpeed item={props.item} />
+          )}
         </MenuContent>
       </SettingsMenuContainer>
     </TranslateContainer>
   );
 });
+
+SettingsMenu.displayName = 'SettingsMenu';
 
 /* 
   A separate container has to keep the translate value to

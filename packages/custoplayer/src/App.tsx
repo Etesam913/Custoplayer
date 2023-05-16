@@ -50,7 +50,7 @@ function App() {
               settingsMenuOrientation: 'left',
               options: {
                 subtitles: true,
-                playbackSpeed: [1],
+                playbackSpeed: [0.25, 0.5, 1, 1.25, 1.5, 1.75, 2],
                 quality: true,
               },
             },

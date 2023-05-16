@@ -202,10 +202,10 @@ export interface SettingsButtonItem {
   buttonColor?: string;
   /** Changes the color of the settings menu. Accepts any hex or rgb color code. */
   settingsMenuColor?: string;
-  /** Changes the orientation of the settings menu. Accepts values of 'left', 'right', or 'middle'. 
-   * This property is used to prevent the settings menu from being cut off. 
-   * For example if your settings menu is in item position 6 or 7, you may want to set the settingsMenuOrientation to 'left' 
-  */
+  /** Changes the orientation of the settings menu. Accepts values of 'left', 'right', or 'middle'.
+   * This property is used to prevent the settings menu from being cut off.
+   * For example if your settings menu is in item position 6 or 7, you may want to set the settingsMenuOrientation to 'left'
+   */
   settingsMenuOrientation?: 'left' | 'middle' | 'right';
   /** Hides the settings button when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;

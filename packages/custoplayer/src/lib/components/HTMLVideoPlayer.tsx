@@ -15,6 +15,7 @@ import {
   isVolumeDraggingAtom,
   isVolumeDraggingType,
   myScope,
+  playbackSpeedAtom,
   PlayState,
   playStateAtom,
   progressAtom,
@@ -38,6 +39,7 @@ function HTMLVideoPlayer() {
   const [values, setValues] = useAtom(valuesAtom, myScope);
   const setPlayState = useSetAtom(playStateAtom, myScope);
   const playState = useAtomValue(playStateAtom, myScope);
+  const setPlaybackSpeed = useSetAtom(playbackSpeedAtom, myScope);
   const [controlsBarTimeout, setControlsBarTimeout] = useAtom(
     controlsBarTimeoutAtom,
     myScope,
@@ -85,6 +87,7 @@ function HTMLVideoPlayer() {
     tabIndex,
     onDurationChange,
     onProgress,
+    onRateChange,
     children,
     ...otherAttributes
   } = videoAttributes;
@@ -234,6 +237,10 @@ function HTMLVideoPlayer() {
       onDurationChange={(e) => {
         setDuration((e.target as HTMLVideoElement).duration);
         onDurationChange && onDurationChange(e);
+      }}
+      onRateChange={(e) => {
+        setPlaybackSpeed((e.target as HTMLVideoElement).playbackRate);
+        onRateChange && onRateChange(e);
       }}
       preload={preload ?? 'metadata'}
       tabIndex={tabIndex ?? -1}

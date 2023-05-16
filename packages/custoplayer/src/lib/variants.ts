@@ -67,16 +67,16 @@ export const playIndicatorAnimation = {
 export const subtitleAnimation = {
   init: (shouldShow: boolean) => ({
     opacity: 0,
-    bottom: shouldShow ? 55 : 10
+    bottom: shouldShow ? 55 : 10,
   }),
   anim: (shouldShow: boolean) => ({
     opacity: 1,
-    bottom: shouldShow ? 55 : 10
+    bottom: shouldShow ? 55 : 10,
   }),
   exit: {
-    opacity: 0
+    opacity: 0,
   },
-}
+};
 
 export const subtitleTransition = {
   opacity: { duration: 0.1 },
@@ -86,4 +86,4 @@ export const subtitleTransition = {
     mass: 0.75,
     stiffness: 160,
   },
-}
+};

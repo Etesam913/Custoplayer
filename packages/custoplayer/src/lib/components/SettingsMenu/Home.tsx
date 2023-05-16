@@ -75,6 +75,14 @@ function Home({ item, setCurrentPage }: HomeProps) {
           </MenuIcon>
           Subtitles
         </MenuButton>
+        <MenuButton
+          data-cy='settingsMenuSpeedButton'
+          layout='position'
+          onClick={() => setCurrentPage('/playback-speed')}
+          settingsMenuColor={item.settingsMenuColor}
+        >
+          Speed
+        </MenuButton>
       </MenuItem>
     </>
   );
