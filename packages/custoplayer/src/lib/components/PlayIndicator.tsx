@@ -2,20 +2,25 @@ import PlayButton1 from '../components/PlayButtons/PlayButton1';
 import { useAtomValue } from 'jotai';
 import styled from 'styled-components';
 import {
+  currentSubtitleAtom,
   isSeekingAtom,
   itemsAtom,
   myScope,
   PlayState,
   playStateAtom,
+  showControlsBarAtom,
   videoElemAtom,
 } from '../atoms';
 import { CustoplayerItem, PlayButtonItem } from '../types';
-import { handlePlayState } from '../utils';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import PlayButton2 from './PlayButtons/PlayButton2';
 import PauseButton2 from './PlayButtons/PauseButton2';
 import PauseButton1 from './PlayButtons/PauseButton1';
-import { playIndicatorAnimation } from '../variants';
+import {
+  playIndicatorAnimation,
+  subtitleAnimation,
+  subtitleTransition,
+} from '../variants';
 import Loader from './Loader';
 
 function findPlayButton(items: (CustoplayerItem | undefined)[]) {
@@ -34,6 +39,8 @@ function PlayIndicator() {
   const isSeeking = useAtomValue(isSeekingAtom, myScope);
   const items = useAtomValue(itemsAtom, myScope);
   const videoElem = useAtomValue(videoElemAtom, myScope);
+  const currentSubtitle = useAtomValue(currentSubtitleAtom, myScope);
+  const isControlsShowing = useAtomValue(showControlsBarAtom, myScope);
   const playButtonItem: PlayButtonItem | undefined = findPlayButton(items);
 
   function renderPlayButton() {
@@ -66,6 +73,21 @@ function PlayIndicator() {
       >
         {renderPlayButton()}
       </IndicatorContainer>
+      <AnimatePresence>
+        {currentSubtitle && (
+          <SubtitleContainer
+            data-cy='currentSubtitle'
+            custom={isControlsShowing}
+            initial='init'
+            animate='anim'
+            exit='exit'
+            variants={subtitleAnimation}
+            transition={subtitleTransition}
+          >
+            {currentSubtitle.text}
+          </SubtitleContainer>
+        )}
+      </AnimatePresence>
     </Container>
   );
 }
@@ -79,6 +101,7 @@ const Container = styled.div`
   align-items: center;
   cursor: pointer;
   pointer-events: none;
+  flex-direction: column;
 `;
 
 const IndicatorContainer = styled(motion.button)<{
@@ -90,6 +113,17 @@ const IndicatorContainer = styled(motion.button)<{
   padding: 0;
   border: 0;
   pointer-events: none;
+  will-change: transform;
+`;
+
+const SubtitleContainer = styled(motion.div)`
+  position: absolute;
+  pointer-events: none;
+  text-align: center;
+  padding: 0.5rem;
+  background-color: black;
+  margin: 1rem;
+  opacity: 0.75;
 `;
 
 export default PlayIndicator;

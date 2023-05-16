@@ -10,6 +10,8 @@ node_modules/
 dist/
 build/
 
+subtitles/
+
 packages/custoplayer/coverage
 packages/custoplayer/.nyc_output/
 
@@ -73,3 +75,5 @@ npm-debug.log*
 .vscode/
 
 packages/custoplayer/coverage/
+
+sites/custoplayer-build-test

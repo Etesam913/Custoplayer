@@ -34,7 +34,6 @@ function PlayButtons({ item }: PlayButtonsProps) {
       onKeyUp={(e) => e.preventDefault()}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
-      whileFocus={{ scale: 1.15 }}
       data-cy={item.id}
     >
       {item.id === 'playButton1' && (

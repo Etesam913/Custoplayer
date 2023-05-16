@@ -13,7 +13,7 @@ export const volumeBar2Animation = {
 };
 
 export const controlsBarOpacityAnimation = {
-  init: { opacity: 0 },
+  init: { opacity: 0.01 },
   anim: { opacity: 1, transition: { duration: 0.25 } },
   exit: { opacity: 0, transition: { duration: 0.25 } },
 };
@@ -62,4 +62,28 @@ export const playIndicatorAnimation = {
       },
     },
   }),
+};
+
+export const subtitleAnimation = {
+  init: (shouldShow: boolean) => ({
+    opacity: 0,
+    bottom: shouldShow ? 55 : 10,
+  }),
+  anim: (shouldShow: boolean) => ({
+    opacity: 1,
+    bottom: shouldShow ? 55 : 10,
+  }),
+  exit: {
+    opacity: 0,
+  },
+};
+
+export const subtitleTransition = {
+  opacity: { duration: 0.1 },
+  bottom: {
+    type: 'spring',
+    damping: 10,
+    mass: 0.75,
+    stiffness: 160,
+  },
 };

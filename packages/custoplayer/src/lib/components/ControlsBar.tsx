@@ -20,6 +20,7 @@ import {
   isFullscreenButton,
   isPlayButton,
   isProgressBar,
+  isSettingsButton,
   isVolumeComponent,
 } from '@root/lib/utils';
 import {
@@ -32,7 +33,8 @@ function extractColor(curItem: CustoplayerItem) {
   if (
     isPlayButton(curItem) ||
     isVolumeComponent(curItem) ||
-    isFullscreenButton(curItem)
+    isFullscreenButton(curItem) ||
+    isSettingsButton(curItem)
   )
     return curItem.buttonColor;
   else if (isDuration(curItem) || isCurrentTime(curItem))

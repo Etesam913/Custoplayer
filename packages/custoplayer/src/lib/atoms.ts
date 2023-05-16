@@ -1,4 +1,8 @@
-import { CustoplayerItem, CustoplayerValues } from '@root/lib/types';
+import {
+  CustoplayerItem,
+  CustoplayerValues,
+  videoQualitiesAtomType,
+} from '@root/lib/types';
 import { atom } from 'jotai';
 import { formatTime } from './utils';
 import { ComponentPropsWithoutRef } from 'react';
@@ -8,6 +12,7 @@ import { ComponentPropsWithoutRef } from 'react';
   from sharing the same atoms
 */
 export const myScope = Symbol();
+
 export const draggableSymbol = Symbol('draggable');
 export const videoElemAtom = atom<HTMLVideoElement | null>(null);
 
@@ -18,6 +23,23 @@ export const setVideoContainerAtom = atom(
     set(videoContainerAtom, update);
   },
 );
+
+// Video Quality
+export const currentQualityAtom = atom(1080);
+export const possibleQualities = new Set([
+  144, 240, 360, 480, 720, 1080, 1440, 2160,
+]);
+
+export const videoQualitiesAtom = atom<videoQualitiesAtomType>({
+  2160: null,
+  1440: null,
+  1080: null,
+  720: null,
+  480: null,
+  360: null,
+  240: null,
+  144: null,
+});
 
 export const videoAttributesAtom = atom<ComponentPropsWithoutRef<'video'>>({});
 
@@ -40,6 +62,14 @@ export const durationAtom = atom(0);
 export const formattedDurationAtom = atom((get) => {
   return formatTime(get(durationAtom));
 });
+
+// Playback Speed
+export const playbackSpeedAtom = atom(1);
+
+// Subtitles
+export const currentSubtitleAtom = atom<VTTCue | null>(null);
+export const subtitlesAtom = atom<Array<TextTrack> | null>(null);
+export const currentTextTrackAtom = atom<TextTrack | null>(null);
 
 // Controls Bar
 export const showControlsBarAtom = atom(false);

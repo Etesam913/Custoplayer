@@ -48,7 +48,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "screenfull": "^6.0.2",
-    "styled-components": "5.3.5"
+    "styled-components": "5.3.5",
+    "ts-extras": "^0.11.0"
   },
   "peerDependencies": {
     "react": "17.x || 18.x",
@@ -81,7 +82,7 @@
     "eslint-plugin-sonarjs": "^0.18.0",
     "json": "11.0.0",
     "nyc": "^15.1.0",
-    "prettier": "^2.8.4",
+    "prettier": "2.8.8",
     "prettier-eslint": "^15.0.1",
     "storybook-builder-vite": "0.1.21",
     "typescript": "^4.9.4",

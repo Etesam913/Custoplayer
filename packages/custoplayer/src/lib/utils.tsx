@@ -1,13 +1,18 @@
 import {
   CustoplayerItem,
-  FullscreenItem,
+  FullscreenButtonItem,
   PlayButtonItem,
   ProgressBarItem,
+  SettingsButtonItem,
   TimeItem,
   VolumeItem,
 } from '@root/lib/types';
-import { SetStateAction } from 'react';
-import { isVolumeDraggingType, previewTooltipWidth } from '@root/lib/atoms';
+import { SetStateAction, SyntheticEvent } from 'react';
+import {
+  isVolumeDraggingType,
+  possibleQualities,
+  previewTooltipWidth,
+} from '@root/lib/atoms';
 import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
@@ -53,6 +58,12 @@ export function isPlayButton(
   return (curItem as PlayButtonItem).id.startsWith('playButton');
 }
 
+export function isSettingsButton(
+  curItem: CustoplayerItem,
+): curItem is SettingsButtonItem {
+  return (curItem as SettingsButtonItem).id.startsWith('settingsButton');
+}
+
 export function isProgressBar(
   curItem: CustoplayerItem,
 ): curItem is ProgressBarItem {
@@ -75,8 +86,8 @@ export function isDuration(curItem: CustoplayerItem): curItem is TimeItem {
 
 export function isFullscreenButton(
   curItem: CustoplayerItem,
-): curItem is FullscreenItem {
-  return (curItem as FullscreenItem).id.startsWith('fullscreenButton');
+): curItem is FullscreenButtonItem {
+  return (curItem as FullscreenButtonItem).id.startsWith('fullscreenButton');
 }
 
 /**
@@ -403,4 +414,77 @@ export function isTouchscreen() {
 export function lightenColor(color: string | undefined) {
   const lightenedColor = Color(color).lighten(0.3);
   return lightenedColor;
+}
+
+export function darkenColor(color: string | undefined) {
+  const darkenedColor = Color(color).darken(0.175);
+  return darkenedColor;
+}
+
+/*
+  A function that gets the current quality of the
+  video element by looping through all the video <source>
+  tags and checking if the id attribute contains, 1440, 1080, 720, 480, 360, 240, 144 etc...
+*/
+export function getCurrentQuality(
+  e: SyntheticEvent<HTMLVideoElement, Event>,
+  children: React.ReactNode,
+): number {
+  const videoSrc = (e.target as HTMLVideoElement).currentSrc;
+
+  if (children instanceof Object) {
+    if ('props' in children && children.type === 'source') {
+      const quality = parseInt(children['props'].id.split('-')[1]);
+      if (possibleQualities.has(quality)) {
+        const qualitySrc = children['props'].src;
+        const hasSameSrc = qualitySrc === videoSrc;
+        if (hasSameSrc) return quality;
+      }
+    } else if (Array.isArray(children)) {
+      const qualityInfo = children
+        .filter((child) => child.type === 'source')
+        .map((elem) => elem.props)
+        .filter((val) => val !== undefined);
+
+      // Gets the matching quality based off of src values
+      const qualityData = qualityInfo
+        .map((obj) => {
+          const quality = parseInt(obj.id.split('-')[1]);
+
+          if (possibleQualities.has(quality)) {
+            const hasSameSrc = obj.src === videoSrc;
+            if (hasSameSrc) return quality;
+          }
+        })
+        .filter((val) => val !== undefined) as number[];
+
+      if (qualityData.length === 1) return qualityData[0];
+    }
+    // fallback quality value when no quality is found
+    return 1080;
+  }
+  return 1080;
+}
+
+export function resolveCues(tracks: TextTrack) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(tracks.cues);
+    }, 500);
+  });
+}
+
+// Configures the cues for the selected subtitle text trac
+export function selectSubtitleTrack(
+  setSubtitles: (update: SetStateAction<TextTrack[] | null>) => void,
+  selectedIndex: number,
+) {
+  setSubtitles((prev) => {
+    if (prev === null) return null;
+    prev.forEach((track) => {
+      track.mode = 'hidden';
+    });
+    prev[selectedIndex].mode = 'showing';
+    return prev;
+  });
 }

@@ -4,6 +4,7 @@ import {
   isFullscreenButton,
   isPlayButton,
   isProgressBar,
+  isSettingsButton,
   isVolumeComponent,
 } from '../utils';
 import { CustoplayerItem } from '../types';
@@ -15,6 +16,7 @@ import Duration from './Duration';
 import FullscreenButtons from './FullscreenButtons';
 import { useAtomValue } from 'jotai';
 import { isFullscreenAtom, myScope } from '../atoms';
+import SettingsButtons from './SettingsButtons';
 
 function ItemRenderer({ item }: { item: CustoplayerItem }) {
   const isFullscreen = useAtomValue(isFullscreenAtom, myScope);
@@ -26,6 +28,7 @@ function ItemRenderer({ item }: { item: CustoplayerItem }) {
   else if (isDuration(item)) return <Duration />;
   else if (isFullscreenButton(item))
     return <FullscreenButtons item={item} isFullscreen={isFullscreen} />;
+  else if (isSettingsButton(item)) return <SettingsButtons item={item} />;
   else return <></>;
 }
 

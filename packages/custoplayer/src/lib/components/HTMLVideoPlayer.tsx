@@ -2,6 +2,9 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import styled from 'styled-components';
 import {
   controlsBarTimeoutAtom,
+  currentQualityAtom,
+  currentSubtitleAtom,
+  currentTextTrackAtom,
   currentTimeAtom,
   draggableSymbol,
   durationAtom,
@@ -12,25 +15,31 @@ import {
   isVolumeDraggingAtom,
   isVolumeDraggingType,
   myScope,
+  playbackSpeedAtom,
   PlayState,
   playStateAtom,
   progressAtom,
   progressBufferPercentAtom,
   showControlsBarAtom,
+  subtitlesAtom,
   valuesAtom,
   videoAttributesAtom,
   videoElemAtom,
+  videoQualitiesAtom,
   volumeAtom,
 } from '@root/lib/atoms';
 
 import { SyntheticEvent, useCallback } from 'react';
-import { handlePlayState, throttle } from '../utils';
+import { getCurrentQuality, handlePlayState, throttle } from '../utils';
+
+import { useQualities, useSubtitles } from '../hooks';
 
 function HTMLVideoPlayer() {
   const [videoElem, setVideoElem] = useAtom(videoElemAtom, myScope);
   const [values, setValues] = useAtom(valuesAtom, myScope);
   const setPlayState = useSetAtom(playStateAtom, myScope);
   const playState = useAtomValue(playStateAtom, myScope);
+  const setPlaybackSpeed = useSetAtom(playbackSpeedAtom, myScope);
   const [controlsBarTimeout, setControlsBarTimeout] = useAtom(
     controlsBarTimeoutAtom,
     myScope,
@@ -45,6 +54,8 @@ function HTMLVideoPlayer() {
   const setIsSeeking = useSetAtom(isSeekingAtom, myScope);
   const setCurrentTime = useSetAtom(currentTimeAtom, myScope);
   const setIsMuted = useSetAtom(isMutedAtom, myScope);
+  const setCurrentQuality = useSetAtom(currentQualityAtom, myScope);
+
   const [isSeekingTimeout, setIsSeekingTimeout] = useAtom(
     isSeekingTimeoutAtom,
     myScope,
@@ -53,6 +64,10 @@ function HTMLVideoPlayer() {
     progressBufferPercentAtom,
     myScope,
   );
+  const setSubtitles = useSetAtom(subtitlesAtom, myScope);
+  const setCurrentSubtitle = useSetAtom(currentSubtitleAtom, myScope);
+  const setCurrentTextTrack = useSetAtom(currentTextTrackAtom, myScope);
+  const setVideoQualities = useSetAtom(videoQualitiesAtom, myScope);
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
   const videoAttributes = useAtomValue(videoAttributesAtom, myScope);
@@ -72,9 +87,19 @@ function HTMLVideoPlayer() {
     tabIndex,
     onDurationChange,
     onProgress,
+    onRateChange,
     children,
     ...otherAttributes
   } = videoAttributes;
+
+  useQualities(children, setVideoQualities);
+  useSubtitles(
+    children,
+    videoElem,
+    setSubtitles,
+    setCurrentSubtitle,
+    setCurrentTextTrack,
+  );
 
   const handlePlay = () => {
     setPlayState(PlayState.playing);
@@ -91,7 +116,7 @@ function HTMLVideoPlayer() {
     throttle(() => {
       controlsBarTimeout !== null && clearInterval(controlsBarTimeout);
       if (playState === PlayState.playing) {
-        setShowControlsBar(true);
+        setShowControlsBar;
         setControlsBarTimeout(() =>
           setTimeout(() => setShowControlsBar(false), 3000),
         );
@@ -170,6 +195,7 @@ function HTMLVideoPlayer() {
       }}
       onPlay={(e) => {
         handlePlay();
+        console.log((e.target as HTMLVideoElement).textTracks);
         onPlay && onPlay(e);
       }}
       onEnded={(e) => {
@@ -178,6 +204,7 @@ function HTMLVideoPlayer() {
       }}
       onLoadedData={(e: SyntheticEvent<HTMLVideoElement, Event>) => {
         setVideoElem(e.target as HTMLVideoElement);
+        setCurrentQuality(getCurrentQuality(e, children));
         onLoadedData && onLoadedData(e);
       }}
       onLoadStart={(e: SyntheticEvent<HTMLVideoElement, Event>) => {
@@ -211,6 +238,10 @@ function HTMLVideoPlayer() {
         setDuration((e.target as HTMLVideoElement).duration);
         onDurationChange && onDurationChange(e);
       }}
+      onRateChange={(e) => {
+        setPlaybackSpeed((e.target as HTMLVideoElement).playbackRate);
+        onRateChange && onRateChange(e);
+      }}
       preload={preload ?? 'metadata'}
       tabIndex={tabIndex ?? -1}
       data-cy='HTMLVideoPlayer'
@@ -221,10 +252,19 @@ function HTMLVideoPlayer() {
   );
 }
 
-const HTMLPlayer = styled.video<{ isDragging: boolean | isVolumeDraggingType }>`
+const HTMLPlayer = styled.video<{
+  isDragging: boolean | isVolumeDraggingType;
+}>`
   width: 100%;
   height: 100%;
   background-color: black;
+  ::cue {
+    visibility: hidden;
+    background-color: transparent;
+    display: none;
+    opacity: 0;
+    text-shadow: 0;
+  }
   cursor: ${(props) =>
     props.isDragging
       ? props.isDragging === 'vertical'
