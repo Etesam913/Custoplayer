@@ -217,7 +217,7 @@ export interface SettingsButtonItem {
       playbackSpeed: [0.5, 1, 1.5, 2]
     } 
 
-    For subtitles to be extracted in the menu you have to have source tags defined as children of your video tag.
+    For quality to be extracted in the menu you have to have source tags defined as children of your video tag.
     The id property has to be `custoplayer-${quality}` for it to be found in the menu. The supported quality values
     are: [144, 240, 360, 480, 720, 1080, 1440, 2160]
   
