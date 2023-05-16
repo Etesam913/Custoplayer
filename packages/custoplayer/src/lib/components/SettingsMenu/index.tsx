@@ -80,7 +80,7 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
       >
         <MenuHeaderRow layout>
           <MenuHeaderButton
-            data-cy='menuHeaderButton'
+            data-cy='settingsMenuHeaderButton'
             settingsMenuColor={props.item.settingsMenuColor}
             onClick={() =>
               currentPage === '/home'

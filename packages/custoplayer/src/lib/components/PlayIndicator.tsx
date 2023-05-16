@@ -16,7 +16,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import PlayButton2 from './PlayButtons/PlayButton2';
 import PauseButton2 from './PlayButtons/PauseButton2';
 import PauseButton1 from './PlayButtons/PauseButton1';
-import { playIndicatorAnimation } from '../variants';
+import {
+  playIndicatorAnimation,
+  subtitleAnimation,
+  subtitleTransition,
+} from '../variants';
 import Loader from './Loader';
 
 function findPlayButton(items: (CustoplayerItem | undefined)[]) {
@@ -72,24 +76,13 @@ function PlayIndicator() {
       <AnimatePresence>
         {currentSubtitle && (
           <SubtitleContainer
-            initial={{
-              bottom: isControlsShowing ? 55 : 10,
-              opacity: 0,
-            }}
-            animate={{
-              bottom: isControlsShowing ? 55 : 10,
-              opacity: 1,
-            }}
-            exit={{ opacity: 0 }}
-            transition={{
-              opacity: { duration: 0.1 },
-              bottom: {
-                type: 'spring',
-                damping: 10,
-                mass: 0.75,
-                stiffness: 160,
-              },
-            }}
+            data-cy='currentSubtitle'
+            custom={isControlsShowing}
+            initial='init'
+            animate='anim'
+            exit='exit'
+            variants={subtitleAnimation}
+            transition={subtitleTransition}
           >
             {currentSubtitle.text}
           </SubtitleContainer>

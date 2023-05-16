@@ -16,6 +16,7 @@ function Subtitles({ item }: SubtitlesProps) {
     const subtitleElements = subtitles.map((textTrack: TextTrack, i) => (
       <MenuItem key={`subtitle-${i}`}>
         <MenuButton
+          data-cy={`settingsMenuSubtitleButton${textTrack.label}`}
           layout
           settingsMenuColor={item.settingsMenuColor}
           onClick={() => selectSubtitleTrack(setSubtitles, i)}

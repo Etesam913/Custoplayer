@@ -9,6 +9,7 @@ function App() {
           width='min(95%, 60rem)'
           poster='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-poster.png'
           playsInline={true}
+          crossOrigin='anonymous'
           preload='auto'
           values={{
             previewTooltip: {
@@ -98,15 +99,16 @@ function App() {
           <track
             label='English'
             kind='metadata'
-            src={'./subtitles/subtitles.vtt'}
+            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/english.vtt'
             default
             srcLang='en'
           />
-          {/* <track
+          <track
             label='Spanish'
-            kind='captions'
-            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-subtitles.vtt'
-          /> */}
+            kind='metadata'
+            srcLang='es'
+            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/spanish.vtt'
+          />
           yolo swag
         </Custoplayer>
       </Wrapper>

@@ -119,15 +119,55 @@ describe('Video Actions', () => {
 
 
     // Exiting Quality Menu
-    cy.dataCy("menuHeaderButton").trigger('click')
+    cy.dataCy("settingsMenuHeaderButton").trigger('click')
     cy.dataCy('settingsMenuQualityButton1080p').should('not.exist')
     cy.dataCy('settingsMenuQualityButton720p').should('not.exist')
     cy.dataCy('settingsMenuQualityButton480p').should('not.exist')
     cy.dataCy('settingsMenuQualityButton240p').should('not.exist')
     cy.dataCy('settingsMenuQualityButton144p').should('not.exist')
-    cy.dataCy("menuHeaderButton").trigger('click')
+    cy.dataCy("settingsMenuHeaderButton").trigger('click')
     cy.dataCy('settingsMenu').should('not.exist')
   })
+
+  it("sees if english subtitles show by default", () => {
+    const firstVTTLine = "- Hello, this is Etesam"
+    const secondVTTLine = "- This is a second cue"
+    cy.visit('/')
+    cy.dataCy('videoPlayerWrapper').should('exist')
+    cy.dataCy('HTMLVideoPlayer').should('exist')
+    cy.dataCy('videoPlayerWrapper').trigger('click')
+    cy.dataCy('currentSubtitle').should('exist').should('have.text', firstVTTLine)
+    cy.wait(1000)
+    cy.dataCy('currentSubtitle').should('exist').should('have.text', secondVTTLine)
+    cy.wait(2000)
+    cy.dataCy('currentSubtitle').should('not.exist')
+  })
+
+
+  it("selects spanish subtitles and see if they show", () => {
+    const firstVTTLine = "- Hola, soy Etesam"
+    const secondVTTLine = "- Esta es una segunda señal"
+    cy.visit('/')
+    cy.dataCy('videoPlayerWrapper').should('exist')
+    cy.dataCy('HTMLVideoPlayer').should('exist')
+    cy.dataCy('videoPlayerWrapper').trigger('mouseover')
+    cy.dataCy('settingsButton1').trigger('click')
+    cy.dataCy('settingsMenu').should('exist')
+    cy.dataCy('settingsMenuSubtitlesButton').trigger('click')
+    cy.dataCy('settingsMenuSubtitleButtonSpanish').should('exist').trigger('click')
+
+    cy.dataCy('settingsMenuHeaderButton').trigger('click')
+    cy.dataCy('settingsMenuHeaderButton').trigger('click')
+    cy.dataCy('settingsMenu').should('not.exist')
+
+    cy.dataCy('videoPlayerWrapper').trigger('click')
+    cy.dataCy('currentSubtitle').should('exist').should('have.text', firstVTTLine)
+    cy.wait(1000)
+    cy.dataCy('currentSubtitle').should('exist').should('have.text', secondVTTLine)
+    cy.wait(2000)
+    cy.dataCy('currentSubtitle').should('not.exist')
+  })
+
 })
 
 export { }
