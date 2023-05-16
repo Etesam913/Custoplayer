@@ -91,6 +91,7 @@ function HTMLVideoPlayer() {
 
   useQualities(children, setVideoQualities);
   useSubtitles(
+    children,
     videoElem,
     setSubtitles,
     setCurrentSubtitle,
@@ -252,6 +253,10 @@ const HTMLPlayer = styled.video<{
   background-color: black;
   ::cue {
     visibility: hidden;
+    background-color: transparent;
+    display: none;
+    opacity: 0;
+    text-shadow: 0;
   }
   cursor: ${(props) =>
     props.isDragging

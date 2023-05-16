@@ -97,7 +97,7 @@ function App() {
           />
           <track
             label='English'
-            kind='subtitles'
+            kind='metadata'
             src={'./subtitles/subtitles.vtt'}
             default
             srcLang='en'

@@ -75,10 +75,12 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
       <SettingsMenuContainer
         layout
         ref={ref}
+        data-cy='settingsMenu'
         settingsMenuColor={props.item.settingsMenuColor}
       >
         <MenuHeaderRow layout>
           <MenuHeaderButton
+            data-cy='menuHeaderButton'
             settingsMenuColor={props.item.settingsMenuColor}
             onClick={() =>
               currentPage === '/home'

@@ -89,6 +89,7 @@ export function useFullscreenEvent(
 }
 
 export async function useSubtitles(
+  children: ReactNode,
   video: HTMLVideoElement | null,
   setSubtitles: (update: SetStateAction<Array<TextTrack> | null>) => void,
   setCurrentSubtitle: (update: SetStateAction<VTTCue | null>) => void,
@@ -97,6 +98,22 @@ export async function useSubtitles(
   useEffect(() => {
     if (video !== null) {
       const tracks = video.textTracks;
+
+      if (children instanceof Object) {
+        if ('props' in children && children.type === 'track') {
+        } else if (Array.isArray(children)) {
+          const trackChildren = children.filter(
+            (child) => child.type === 'track',
+          );
+          const defaultIndex = trackChildren.findIndex(
+            (v) => v.props.default === true,
+          );
+          if (defaultIndex !== -1) {
+            tracks[defaultIndex].mode = 'showing';
+          }
+        }
+      }
+
       tracks.onchange = (event) => {
         const textTracks = Array.from(event.target as TextTrackList);
         setCurrentTextTrack(
@@ -107,6 +124,7 @@ export async function useSubtitles(
       for (let i = 0; i < tracks.length; i++) {
         trackList.push(tracks[i]);
       }
+
       trackList.forEach((track) => {
         track.oncuechange = (event) => {
           const eventTarget = event.target as TextTrack;
