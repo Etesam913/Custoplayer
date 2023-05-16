@@ -60,8 +60,15 @@ export const formattedDurationAtom = atom((get) => {
   return formatTime(get(durationAtom));
 });
 
+// Subtitles
+export const currentSubtitleAtom = atom<VTTCue | null>(null);
+export const subtitlesAtom = atom<Array<TextTrack> | null>(null);
+export const currentTextTrackAtom = atom<TextTrack | null>(null);
+
+
 // Controls Bar
 export const showControlsBarAtom = atom(false);
+
 
 // Video Dimensions
 export const videoDimensionsObserverAtom = atom<ResizeObserver | null>(null);

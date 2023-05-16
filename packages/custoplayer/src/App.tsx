@@ -96,9 +96,17 @@ function App() {
             id='custoplayer-144'
           />
           <track
+            label='English'
+            kind='subtitles'
+            src={'./subtitles/subtitles.vtt'}
+            default
+            srcLang='en'
+          />
+          {/* <track
+            label='Spanish'
             kind='captions'
-            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/sample.vtt'
-          ></track>
+            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-subtitles.vtt'
+          /> */}
           yolo swag
         </Custoplayer>
       </Wrapper>

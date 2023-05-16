@@ -9,7 +9,6 @@ import { objectKeys } from 'ts-extras';
 import { CheckIcon, MenuButton, MenuItem } from './styles';
 import { SettingsButtonItem } from '@root/lib/types';
 
-
 interface QualityProps {
   item: SettingsButtonItem;
 }

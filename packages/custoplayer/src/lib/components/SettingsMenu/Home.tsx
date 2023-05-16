@@ -1,9 +1,5 @@
 import { SettingsButtonItem } from '@root/lib/types';
-import {
-  MenuButton,
-  MenuItem,
-  MenuIcon,
-} from './styles';
+import { MenuButton, MenuItem, MenuIcon } from './styles';
 
 interface HomeProps {
   item: SettingsButtonItem;

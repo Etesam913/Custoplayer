@@ -465,3 +465,26 @@ export function getCurrentQuality(
   }
   return 1080;
 }
+
+export function resolveCues(tracks: TextTrack) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(tracks.cues);
+    }, 500);
+  });
+}
+
+// Configures the cues for the selected subtitle text trac
+export function selectSubtitleTrack(
+  setSubtitles: (update: SetStateAction<TextTrack[] | null>) => void,
+  selectedIndex: number,
+) {
+  setSubtitles((prev) => {
+    if (prev === null) return null;
+    prev.forEach((track) => {
+      track.mode = 'hidden';
+    });
+    prev[selectedIndex].mode = 'showing';
+    return prev;
+  });
+}

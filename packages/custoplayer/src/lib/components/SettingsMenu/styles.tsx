@@ -32,7 +32,7 @@ export const MenuButton = styled(motion.button)<{
   }
 `;
 
-export const MenuItem = styled.li`
+export const MenuItem = styled(motion.li)`
   list-style-type: none;
   margin: 0;
 `;
@@ -40,6 +40,8 @@ export const MenuItem = styled.li`
 export const MenuIcon = styled(motion.svg)<{ margin?: string }>`
   height: 20px;
   width: 20px;
+  min-height: 20px;
+  min-width: 20px;
   stroke: currentColor;
   stroke-width: 2px;
   margin: ${(props) => (props.margin ? props.margin : '0 0.35rem 0 0')};

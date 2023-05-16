@@ -6,7 +6,8 @@ import Home from './Home';
 import Quality from './Quality';
 import { useAtomValue } from 'jotai';
 import { myScope, videoDimensionsAtom } from '@root/lib/atoms';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import Subtitles from './Subtitles';
 
 type Ref = HTMLMenuElement;
 
@@ -88,13 +89,15 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
             {currentPage === '/home' ? <CloseMenuIcon /> : <GoLeftIcon />}
           </MenuHeaderButton>
 
-          <MenuHeader layout>{getMenuTitle()}</MenuHeader>
+          <MenuHeader layout='position'>{getMenuTitle()}</MenuHeader>
         </MenuHeaderRow>
         <MenuContent settingsMenuHeight={videoDimensions.height - 45 - 60}>
           {currentPage === '/home' && (
             <Home setCurrentPage={setCurrentPage} item={props.item} />
           )}
           {currentPage === '/quality' && <Quality item={props.item} />}
+
+          {currentPage === '/subtitles' && <Subtitles item={props.item} />}
         </MenuContent>
       </SettingsMenuContainer>
     </TranslateContainer>
@@ -142,7 +145,7 @@ const MenuHeaderRow = styled(motion.section)`
 `;
 
 const MenuContent = styled.section<{ settingsMenuHeight: number }>`
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
   max-height: ${(props) => props.settingsMenuHeight}px;
 `;

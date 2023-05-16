@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import {
   controlsBarTimeoutAtom,
   currentQualityAtom,
+  currentSubtitleAtom,
+  currentTextTrackAtom,
   currentTimeAtom,
   draggableSymbol,
   durationAtom,
@@ -18,6 +20,7 @@ import {
   progressAtom,
   progressBufferPercentAtom,
   showControlsBarAtom,
+  subtitlesAtom,
   valuesAtom,
   videoAttributesAtom,
   videoElemAtom,
@@ -28,7 +31,7 @@ import {
 import { SyntheticEvent, useCallback } from 'react';
 import { getCurrentQuality, handlePlayState, throttle } from '../utils';
 
-import { useQualities } from '../hooks';
+import { useQualities, useSubtitles } from '../hooks';
 
 function HTMLVideoPlayer() {
   const [videoElem, setVideoElem] = useAtom(videoElemAtom, myScope);
@@ -59,6 +62,9 @@ function HTMLVideoPlayer() {
     progressBufferPercentAtom,
     myScope,
   );
+  const setSubtitles = useSetAtom(subtitlesAtom, myScope);
+  const setCurrentSubtitle = useSetAtom(currentSubtitleAtom, myScope);
+  const setCurrentTextTrack = useSetAtom(currentTextTrackAtom, myScope);
   const setVideoQualities = useSetAtom(videoQualitiesAtom, myScope);
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
@@ -80,11 +86,16 @@ function HTMLVideoPlayer() {
     onDurationChange,
     onProgress,
     children,
-
     ...otherAttributes
   } = videoAttributes;
 
   useQualities(children, setVideoQualities);
+  useSubtitles(
+    videoElem,
+    setSubtitles,
+    setCurrentSubtitle,
+    setCurrentTextTrack,
+  );
 
   const handlePlay = () => {
     setPlayState(PlayState.playing);
@@ -180,6 +191,7 @@ function HTMLVideoPlayer() {
       }}
       onPlay={(e) => {
         handlePlay();
+        console.log((e.target as HTMLVideoElement).textTracks);
         onPlay && onPlay(e);
       }}
       onEnded={(e) => {
@@ -238,6 +250,9 @@ const HTMLPlayer = styled.video<{
   width: 100%;
   height: 100%;
   background-color: black;
+  ::cue {
+    visibility: hidden;
+  }
   cursor: ${(props) =>
     props.isDragging
       ? props.isDragging === 'vertical'

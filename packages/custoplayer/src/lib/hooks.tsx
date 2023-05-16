@@ -88,6 +88,46 @@ export function useFullscreenEvent(
   }, [setIsFullscreen]);
 }
 
+export async function useSubtitles(
+  video: HTMLVideoElement | null,
+  setSubtitles: (update: SetStateAction<Array<TextTrack> | null>) => void,
+  setCurrentSubtitle: (update: SetStateAction<VTTCue | null>) => void,
+  setCurrentTextTrack: (update: SetStateAction<TextTrack | null>) => void,
+) {
+  useEffect(() => {
+    if (video !== null) {
+      const tracks = video.textTracks;
+      tracks.onchange = (event) => {
+        const textTracks = Array.from(event.target as TextTrackList);
+        setCurrentTextTrack(
+          textTracks.find((v) => v.mode === 'showing') ?? null,
+        );
+      };
+      const trackList: TextTrack[] = [];
+      for (let i = 0; i < tracks.length; i++) {
+        trackList.push(tracks[i]);
+      }
+      trackList.forEach((track) => {
+        track.oncuechange = (event) => {
+          const eventTarget = event.target as TextTrack;
+          if (eventTarget.mode === 'showing') {
+            const cue = eventTarget.activeCues
+              ? (eventTarget.activeCues[0] as VTTCue)
+              : null;
+            setCurrentSubtitle(cue);
+          }
+        };
+      });
+
+      setSubtitles(trackList);
+      // let subtitleIndex = trackList.findIndex((v) => v.mode === 'showing');
+      // const selectedCues = trackList[subtitleIndex].cues;
+      // console.log(selectedCues);
+      // configureCues(selectedCues, setCurrentSubtitle);
+    }
+  }, [video]);
+}
+
 /** Initializes videoQualities whenever video children changes */
 export function useQualities(
   children: ReactNode,
