@@ -4,7 +4,7 @@
 */
 import { EntryPointProps } from './types';
 import { Provider } from 'jotai';
-import { myScope } from '@root/lib/atoms';
+import { myScope } from './atoms';
 import Custoplayer from './Custoplayer';
 
 function EntryPoint({ values, ...rest }: EntryPointProps) {

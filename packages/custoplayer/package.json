@@ -25,9 +25,9 @@
   ],
   "main": "./dist/custoplayer.umd.js",
   "module": "./dist/custoplayer.es.js",
-  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/custoplayer.es.js",
       "require": "./dist/custoplayer.umd.js"
     }
