@@ -24,23 +24,6 @@ export const setVideoContainerAtom = atom(
   },
 );
 
-// Video Quality
-export const currentQualityAtom = atom(1080);
-export const possibleQualities = new Set([
-  144, 240, 360, 480, 720, 1080, 1440, 2160,
-]);
-
-export const videoQualitiesAtom = atom<videoQualitiesAtomType>({
-  2160: null,
-  1440: null,
-  1080: null,
-  720: null,
-  480: null,
-  360: null,
-  240: null,
-  144: null,
-});
-
 export const videoAttributesAtom = atom<ComponentPropsWithoutRef<'video'>>({});
 
 // Video Play State
@@ -66,13 +49,35 @@ export const formattedDurationAtom = atom((get) => {
 // Playback Speed
 export const playbackSpeedAtom = atom(1);
 
+// Preview Tooltips
+
+
 // Subtitles
 export const currentSubtitleAtom = atom<VTTCue | null>(null);
 export const subtitlesAtom = atom<Array<TextTrack> | null>(null);
 export const currentTextTrackAtom = atom<TextTrack | null>(null);
 
+// Video Quality
+export const currentQualityAtom = atom(1080);
+export const possibleQualities = new Set([
+  144, 240, 360, 480, 720, 1080, 1440, 2160,
+]);
+
+export const videoQualitiesAtom = atom<videoQualitiesAtomType>({
+  2160: null,
+  1440: null,
+  1080: null,
+  720: null,
+  480: null,
+  360: null,
+  240: null,
+  144: null,
+});
+
 // Controls Bar
 export const showControlsBarAtom = atom(false);
+
+
 
 // Video Dimensions
 export const videoDimensionsObserverAtom = atom<ResizeObserver | null>(null);
@@ -96,10 +101,13 @@ export const isProgressDraggingAtom = atom(false);
 export const progressBufferPercentAtom = atom(0);
 
 // Preview Tooltips
-export const previewTooltipWidth = 60;
-
-export const previewTooltipStrAtom = atom('00:00');
+export const previewTooltipHoveredTimeAtom = atom(0)
+export const previewTooltipStrAtom = atom((get) => {
+  return formatTime(get(previewTooltipHoveredTimeAtom));
+});
 export const previewTooltipPositionAtom = atom(0);
+export const previewTooltipThumbnailsAtom = atom<TextTrackCueList | null>(null);
+
 
 // Volume Bar
 export const volumeAtom = atom(1);

@@ -13,7 +13,9 @@ function App() {
           preload='auto'
           values={{
             previewTooltip: {
-              id: 'text',
+              id: 'thumbnail',
+              atlasImage:
+                'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.jpg',
             },
             controlsBar: {
               barColor: '#386641',
@@ -100,14 +102,20 @@ function App() {
             label='English'
             kind='metadata'
             src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/english.vtt'
-            default
             srcLang='en'
+            default
           />
           <track
             label='Spanish'
             kind='metadata'
             srcLang='es'
             src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/spanish.vtt'
+          />
+          <track
+            label='bob'
+            kind='metadata'
+            id='custoplayer-thumbnails'
+            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.vtt'
           />
           yolo swag
         </Custoplayer>

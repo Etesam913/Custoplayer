@@ -8,11 +8,7 @@ import {
   VolumeItem,
 } from '@root/lib/types';
 import { SetStateAction, SyntheticEvent } from 'react';
-import {
-  isVolumeDraggingType,
-  possibleQualities,
-  previewTooltipWidth,
-} from '@root/lib/atoms';
+import { isVolumeDraggingType, possibleQualities } from '@root/lib/atoms';
 import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
@@ -213,9 +209,10 @@ export function handleProgressBarMouseMove(
   progressBarRef: React.MutableRefObject<HTMLDivElement | null>,
   videoContainer: HTMLDivElement | null,
   videoElem: HTMLVideoElement | null,
+  previewTooltipWidth: number,
   setProgress: (update: SetStateAction<number>) => void,
   setIsProgressDragging: (update: SetStateAction<boolean>) => void,
-  setTooltipStr: (update: SetStateAction<string>) => void,
+  setPreviewTooltipHoveredTime: (update: SetStateAction<number>) => void,
   setPreviewTooltipPosition: (update: SetStateAction<number>) => void,
 ) {
   setIsProgressDragging(true);
@@ -235,7 +232,8 @@ export function handleProgressBarMouseMove(
       progressBarRef,
       videoContainer,
       videoElem,
-      setTooltipStr,
+      previewTooltipWidth,
+      setPreviewTooltipHoveredTime,
       setPreviewTooltipPosition,
     );
     const adjustedMousePos = updatedMousePos - distLeftOfProgressBar;
@@ -249,7 +247,7 @@ export function handleProgressBarMouseMove(
     if (videoElem && videoElem.duration) {
       const currentTime = videoElem.duration * ratio;
       videoElem.currentTime = currentTime;
-      setTooltipStr(formatTime(currentTime));
+      setPreviewTooltipHoveredTime(currentTime);
     }
 
     setProgress(ratio);
@@ -265,7 +263,8 @@ export function showPreviewThumbnail(
   progressBarRef: React.MutableRefObject<HTMLDivElement | null>,
   videoContainer: HTMLDivElement | null,
   videoElem: HTMLVideoElement | null,
-  setTooltipStr: (update: SetStateAction<string>) => void,
+  previewTooltipWidth: number,
+  setPreviewTooltipHoveredTime: (update: SetStateAction<number>) => void,
   setPreviewTooltipPosition: (update: SetStateAction<number>) => void,
 ) {
   if (
@@ -309,7 +308,7 @@ export function showPreviewThumbnail(
   if (videoElem && videoElem.duration) {
     const ratio = clamp(timePos / progressBarRef.current.clientWidth, 0, 1);
     const currentTime = videoElem.duration * ratio;
-    setTooltipStr(formatTime(currentTime));
+    setPreviewTooltipHoveredTime(currentTime);
   }
 }
 
@@ -487,4 +486,20 @@ export function selectSubtitleTrack(
     prev[selectedIndex].mode = 'showing';
     return prev;
   });
+}
+
+export function getHoveredThumbnail(
+  previewTooltipHoveredTime: number,
+  previewTooltipThumbnails: TextTrackCueList | null,
+) {
+  if (previewTooltipThumbnails === null) return null;
+  const previewTooltipThumbnailsArray = Array.from(
+    previewTooltipThumbnails,
+  ) as VTTCue[];
+  const hoveredThumbnail = previewTooltipThumbnailsArray.find(
+    (cue) =>
+      previewTooltipHoveredTime > cue.startTime &&
+      previewTooltipHoveredTime < cue.endTime,
+  );
+  return hoveredThumbnail ?? null;
 }

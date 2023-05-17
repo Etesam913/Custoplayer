@@ -88,7 +88,33 @@ export function useFullscreenEvent(
   }, [setIsFullscreen]);
 }
 
-export async function useSubtitles(
+// Loads the thumbnail track and sets a state
+export function usePreviewThumbnails(
+  video: HTMLVideoElement | null,
+  setPreviewTooltipThumbnails: (
+    update: SetStateAction<TextTrackCueList | null>,
+  ) => void,
+) {
+  useEffect(() => {
+    if (video !== null) {
+      const tracks = video.textTracks;
+      let thumbnailTrack: TextTrack | null = null;
+      for (let i = 0; i < tracks.length; i++) {
+        if (tracks[i].id === 'custoplayer-thumbnails') {
+          thumbnailTrack = tracks[i];
+        }
+      }
+
+      if (thumbnailTrack !== null) {
+        thumbnailTrack.mode = 'hidden';
+        const cues = thumbnailTrack.cues;
+        if (cues) setPreviewTooltipThumbnails(thumbnailTrack.cues);
+      }
+    }
+  }, [video]);
+}
+
+export function useSubtitles(
   children: ReactNode,
   video: HTMLVideoElement | null,
   setSubtitles: (update: SetStateAction<Array<TextTrack> | null>) => void,
@@ -98,7 +124,6 @@ export async function useSubtitles(
   useEffect(() => {
     if (video !== null) {
       const tracks = video.textTracks;
-
       if (children instanceof Object) {
         if ('props' in children && children.type === 'track') {
         } else if (Array.isArray(children)) {
@@ -114,15 +139,20 @@ export async function useSubtitles(
         }
       }
 
+      // When a new text track is selected, update the current text track
       tracks.onchange = (event) => {
         const textTracks = Array.from(event.target as TextTrackList);
         setCurrentTextTrack(
           textTracks.find((v) => v.mode === 'showing') ?? null,
         );
       };
+
       const trackList: TextTrack[] = [];
       for (let i = 0; i < tracks.length; i++) {
-        trackList.push(tracks[i]);
+        // custoplayer-thumbnails are not subtitles
+        if (tracks[i].id !== 'custoplayer-thumbnails') {
+          trackList.push(tracks[i]);
+        }
       }
 
       trackList.forEach((track) => {
