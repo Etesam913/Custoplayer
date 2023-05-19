@@ -103,7 +103,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const IndicatorContainer = styled(motion.button) <{
+const IndicatorContainer = styled(motion.button)<{
   playButtonColor: string | undefined;
 }>`
   color: ${(props) => props.playButtonColor};
