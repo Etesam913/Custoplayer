@@ -1,8 +1,9 @@
 import { VolumeItem } from '@root/lib/types';
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
+  focusedItemAtom,
   isMutedAtom,
   isVolumeDraggingAtom,
   isVolumeDraggingType,
@@ -36,6 +37,8 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
   const volumeBarRef = useRef<HTMLDivElement | null>(null);
   const videoElem = useAtomValue(videoElemAtom, myScope);
   const volume = useAtomValue(volumeAtom, myScope);
+
+  const setFocusedItem = useSetAtom(focusedItemAtom, myScope);
 
   function handleProgressMouse(e: BarMouseEvent, videoContainerRect: DOMRect) {
     if (volumeBarRef && volumeBarRef.current) {
@@ -98,6 +101,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
       onMouseLeave={() => setIsVolumeHovered(isTouchscreen() ? true : false)}
     >
       <ButtonContainer
+        onFocus={() => setIsVolumeHovered(true)}
         data-cy={item.id}
         whileHover={{ scale: 1.075 }}
         whileTap={{ scale: 0.925 }}
@@ -158,6 +162,9 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
         <AnimatePresence>
           {(isVolumeHovered || isVolumeDragging) && (
             <VolumeBarContainer
+              tabIndex={0}
+              onFocus={() => setFocusedItem(item.barId ?? null)}
+              onBlur={() => setFocusedItem('progressBar')}
               variants={
                 item.barId === 'volumeBar1'
                   ? volumeBar1Animation
@@ -231,6 +238,12 @@ const VolumeBarContainer = styled(motion.div)`
   display: flex;
   align-items: center;
   cursor: pointer;
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
+  }
 `;
 
 const VolumeButtonPath = styled(motion.path)`

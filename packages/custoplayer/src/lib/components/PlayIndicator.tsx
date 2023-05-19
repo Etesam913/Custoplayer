@@ -113,8 +113,9 @@ const IndicatorContainer = styled(motion.button)<{
   border: 0;
   pointer-events: none;
   will-change: transform;
+
   :focus-visible {
-    outline: 2.5px dashed ${(props) => props.theme.focusColor};
+    outline: 3.25px dashed ${(props) => props.theme.focusColor};
   }
 `;
 

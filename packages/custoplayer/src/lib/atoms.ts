@@ -49,7 +49,8 @@ export const formattedDurationAtom = atom((get) => {
 // Playback Speed
 export const playbackSpeedAtom = atom(1);
 
-// Preview Tooltips
+// Keyboard Navigation
+export const focusedItemAtom = atom<'volumeBar1' | 'volumeBar2' | 'progressBar' | null>(null);
 
 // Subtitles
 export const currentSubtitleAtom = atom<VTTCue | null>(null);
