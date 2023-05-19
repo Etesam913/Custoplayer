@@ -40,6 +40,9 @@
   "resolutions": {
     "minimist": "^1.2.5"
   },
+  "solutions": {
+    "got": "^12.1.0"
+  },
   "dependencies": {
     "color": "^4.2.3",
     "framer-motion": "^8.5.0",
