@@ -38,9 +38,8 @@
     ]
   },
   "resolutions": {
-    "minimist": "^1.2.5"
-  },
-  "solutions": {
+    "minimist": "^1.2.5",
+    "**/trim": "^1.0.0",
     "got": "^12.1.0"
   },
   "dependencies": {
