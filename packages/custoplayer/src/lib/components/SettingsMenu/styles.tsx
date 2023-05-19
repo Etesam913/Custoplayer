@@ -2,7 +2,7 @@ import { darkenColor, lightenColor } from '@root/lib/utils';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const MenuButton = styled(motion.button)<{
+export const StyledMenuButton = styled(motion.button)<{
   settingsMenuColor: string | undefined;
 }>`
   background-color: transparent;
@@ -17,6 +17,13 @@ export const MenuButton = styled(motion.button)<{
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
+
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed white;
+  }
 
   &:hover {
     background-color: ${(props) =>
@@ -59,10 +66,16 @@ export const MenuHeaderIcon = styled(MenuIcon)`
   width: 18px;
 `;
 
-export const MenuHeaderButton = styled(MenuButton)`
+export const MenuHeaderButton = styled(StyledMenuButton)`
   padding: 0.25rem;
   width: auto;
   margin-right: 0.35rem;
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed white;
+  }
 `;
 
 export const CheckIcon = () => {

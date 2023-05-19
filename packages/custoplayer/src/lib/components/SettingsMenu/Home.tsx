@@ -1,5 +1,6 @@
 import { SettingsButtonItem } from '@root/lib/types';
-import { MenuButton, MenuItem, MenuIcon } from './styles';
+import { MenuItem, MenuIcon } from './styles';
+import MenuButton from './MenuButton';
 
 interface HomeProps {
   item: SettingsButtonItem;
@@ -11,12 +12,11 @@ function Home({ item, setCurrentPage }: HomeProps) {
     <>
       <MenuItem>
         <MenuButton
-          layout='position'
+          dataCy='settingsMenuQualityButton'
           onClick={() => setCurrentPage('/quality')}
           settingsMenuColor={item.settingsMenuColor}
         >
           <MenuIcon
-            data-cy='settingsMenuQualityButton'
             viewBox='0 0 32 32'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
@@ -39,8 +39,7 @@ function Home({ item, setCurrentPage }: HomeProps) {
       </MenuItem>
       <MenuItem>
         <MenuButton
-          data-cy='settingsMenuSubtitlesButton'
-          layout='position'
+          dataCy='settingsMenuSubtitlesButton'
           onClick={() => setCurrentPage('/subtitles')}
           settingsMenuColor={item.settingsMenuColor}
         >
@@ -75,9 +74,10 @@ function Home({ item, setCurrentPage }: HomeProps) {
           </MenuIcon>
           Subtitles
         </MenuButton>
+      </MenuItem>
+      <MenuItem>
         <MenuButton
-          data-cy='settingsMenuSpeedButton'
-          layout='position'
+          dataCy='settingsMenuSpeedButton'
           onClick={() => setCurrentPage('/playback-speed')}
           settingsMenuColor={item.settingsMenuColor}
         >

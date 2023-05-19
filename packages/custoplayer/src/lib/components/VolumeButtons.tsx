@@ -248,6 +248,12 @@ const ButtonContainer = styled(motion.button)`
   padding: 0;
   cursor: pointer;
   color: inherit;
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed white;
+  }
 `;
 
 export default VolumeButtons;

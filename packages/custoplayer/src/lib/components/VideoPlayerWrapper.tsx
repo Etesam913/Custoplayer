@@ -95,8 +95,11 @@ const PlayerContainer = styled.div`
   user-select: none;
   height: 100%;
   width: 100%;
-  &:focus {
+  :focus {
     outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed white;
   }
 `;
 

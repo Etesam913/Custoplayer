@@ -1,6 +1,6 @@
 import { SettingsButtonItem } from '@root/lib/types';
 import { MenuHeader, MenuHeaderButton, MenuHeaderIcon } from './styles';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, useEffect, MutableRefObject } from 'react';
 import styled from 'styled-components';
 import Home from './Home';
 import Quality from './Quality';
@@ -59,6 +59,14 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
   const [currentPage, setCurrentPage] = useState('/home');
   const videoDimensions = useAtomValue(videoDimensionsAtom, myScope);
 
+  useEffect(() => {
+    if (ref) {
+      const menuContainer = (ref as MutableRefObject<Ref>).current.lastChild;
+      const firstMenuButton = menuContainer?.firstChild?.firstChild;
+      if (firstMenuButton) (firstMenuButton as HTMLButtonElement).focus();
+    }
+  }, [ref, currentPage]);
+
   function getMenuTitle() {
     if (currentPage === '/home') return 'Settings';
     else if (currentPage === '/quality') return 'Quality';
@@ -95,7 +103,12 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
 
           <MenuHeader layout='position'>{getMenuTitle()}</MenuHeader>
         </MenuHeaderRow>
-        <MenuContent settingsMenuHeight={videoDimensions.height - 45 - 60}>
+        <MenuContent
+          settingsMenuHeight={videoDimensions.height - 45 - 60}
+          onKeyDown={(e) =>
+            e.key === 'Escape' && props.setIsSettingsMenuOpen(false)
+          }
+        >
           {currentPage === '/home' && (
             <Home setCurrentPage={setCurrentPage} item={props.item} />
           )}
@@ -113,7 +126,7 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
 
 SettingsMenu.displayName = 'SettingsMenu';
 
-/* 
+/*
   A separate container has to keep the translate value to
   avoid interference with the child layout animation
 */
@@ -154,8 +167,6 @@ const MenuHeaderRow = styled(motion.section)`
 `;
 
 const MenuContent = styled.section<{ settingsMenuHeight: number }>`
-  overflow-y: hidden;
-  overflow-x: hidden;
   max-height: ${(props) => props.settingsMenuHeight}px;
 `;
 

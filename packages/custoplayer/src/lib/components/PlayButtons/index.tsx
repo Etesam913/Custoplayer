@@ -61,5 +61,11 @@ const PlayButtonContainer = styled(motion.button)`
   display: flex;
   justify-content: center;
   align-items: center;
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed white;
+  }
 `;
 export default PlayButtons;
