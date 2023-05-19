@@ -79,13 +79,13 @@ function PreviewTooltips({
           {previewTooltipStr}
         </TextTooltip>
       )}
-      {data.id === 'thumbnail' && (
+      {(data.id === 'thumbnail' || data.id === "textAndThumbnail") && (
         <ImageThumbnailContainer
           data-cy='imageThumbnailContainer'
           backgroundColor={videoValues.controlsBar?.barColor}
           isVisible={(isHovered || isProgressDragging) && videoDuration > 0}
           style={{
-            transform: `translate(${previewTooltipPosition}px, -120px)`,
+            transform: `translate(${previewTooltipPosition}px, ${data.id === "thumbnail" ? "-120px" : "-135px"})`,
           }}
         >
           <ImageThumbnail
@@ -96,8 +96,11 @@ function PreviewTooltips({
             width={previewTooltipThumbnailData.w}
             backgroundImage={data.atlasImage ?? ''}
           />
+          {data.id === "textAndThumbnail" && <TimeContainer>{previewTooltipStr}</TimeContainer>}
         </ImageThumbnailContainer>
       )}
+
+
     </>
   );
 }
@@ -117,12 +120,16 @@ const TextTooltip = styled.span<{
   box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.25);
 `;
 
-const ImageThumbnailContainer = styled(TextTooltip)<{
+const ImageThumbnailContainer = styled(TextTooltip) <{
   isVisible: boolean;
   backgroundColor: string | undefined;
 }>`
   padding: 0.5rem;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ImageThumbnail = styled.div<{
@@ -137,6 +144,11 @@ const ImageThumbnail = styled.div<{
   background-position: ${(props) => props.backgroundPositionX}px
     ${(props) => props.backgroundPositionY}px;
   background-image: url(${(props) => props.backgroundImage});
+`;
+
+const TimeContainer = styled.div`
+  padding: 0.25rem;
+
 `;
 
 export default PreviewTooltips;

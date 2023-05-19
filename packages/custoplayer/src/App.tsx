@@ -3,7 +3,7 @@ import Custoplayer from './lib/EntryPoint';
 import { useState } from 'react';
 
 function App() {
-  const [previewTooltipId, setPreviewTooltipId] = useState('text');
+  const [previewTooltipId, setPreviewTooltipId] = useState<'text' | 'thumbnail' | 'textAndThumbnail'>('text');
 
   return (
     <MainContainer>
@@ -128,6 +128,7 @@ function App() {
         >
           Change previewTooltip to thumbnail
         </button>
+
       </Wrapper>
     </MainContainer>
   );
