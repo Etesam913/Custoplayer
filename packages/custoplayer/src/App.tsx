@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import Custoplayer from './lib/EntryPoint';
+import { useState } from 'react';
 
 function App() {
+  const [previewTooltipId, setPreviewTooltipId] = useState('text');
+
   return (
     <MainContainer>
       <Wrapper>
@@ -13,7 +16,7 @@ function App() {
           preload='auto'
           values={{
             previewTooltip: {
-              id: 'thumbnail',
+              id: previewTooltipId,
               atlasImage:
                 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.jpg',
             },
@@ -112,13 +115,19 @@ function App() {
             src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/spanish.vtt'
           />
           <track
-            label='bob'
             kind='metadata'
             id='custoplayer-thumbnails'
             src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.vtt'
           />
           yolo swag
         </Custoplayer>
+        <h2>Options:</h2>
+        <button
+          data-cy='changePreviewTooltipIdButton'
+          onClick={() => setPreviewTooltipId('thumbnail')}
+        >
+          Change previewTooltip to thumbnail
+        </button>
       </Wrapper>
     </MainContainer>
   );
@@ -128,6 +137,7 @@ const MainContainer = styled.main`
   background-color: #1d1d1dff;
   height: 100vh;
   width: 100vw;
+  color: white;
 `;
 
 const Wrapper = styled.div`

@@ -81,6 +81,7 @@ function PreviewTooltips({
       )}
       {data.id === 'thumbnail' && (
         <ImageThumbnailContainer
+          data-cy='imageThumbnailContainer'
           backgroundColor={videoValues.controlsBar?.barColor}
           isVisible={(isHovered || isProgressDragging) && videoDuration > 0}
           style={{
@@ -88,6 +89,7 @@ function PreviewTooltips({
           }}
         >
           <ImageThumbnail
+            data-cy='imageThumbnail'
             backgroundPositionX={-1 * previewTooltipThumbnailData.x}
             backgroundPositionY={-1 * previewTooltipThumbnailData.y}
             height={previewTooltipThumbnailData.h}
@@ -130,8 +132,8 @@ const ImageThumbnail = styled.div<{
   height: number;
   width: number;
 }>`
-  height: ${(props) => props.height}px;
-  width: ${(props) => props.width}px;
+  height: ${(props) => (props.height ? props.height : '70')}px;
+  width: ${(props) => (props.width ? props.width : '125')}px;
   background-position: ${(props) => props.backgroundPositionX}px
     ${(props) => props.backgroundPositionY}px;
   background-image: url(${(props) => props.backgroundImage});

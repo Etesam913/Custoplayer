@@ -51,7 +51,6 @@ export const playbackSpeedAtom = atom(1);
 
 // Preview Tooltips
 
-
 // Subtitles
 export const currentSubtitleAtom = atom<VTTCue | null>(null);
 export const subtitlesAtom = atom<Array<TextTrack> | null>(null);
@@ -77,8 +76,6 @@ export const videoQualitiesAtom = atom<videoQualitiesAtomType>({
 // Controls Bar
 export const showControlsBarAtom = atom(false);
 
-
-
 // Video Dimensions
 export const videoDimensionsObserverAtom = atom<ResizeObserver | null>(null);
 export const videoDimensionsAtom = atom<{ height: number; width: number }>({
@@ -101,13 +98,12 @@ export const isProgressDraggingAtom = atom(false);
 export const progressBufferPercentAtom = atom(0);
 
 // Preview Tooltips
-export const previewTooltipHoveredTimeAtom = atom(0)
+export const previewTooltipHoveredTimeAtom = atom(0);
 export const previewTooltipStrAtom = atom((get) => {
   return formatTime(get(previewTooltipHoveredTimeAtom));
 });
 export const previewTooltipPositionAtom = atom(0);
 export const previewTooltipThumbnailsAtom = atom<TextTrackCueList | null>(null);
-
 
 // Volume Bar
 export const volumeAtom = atom(1);

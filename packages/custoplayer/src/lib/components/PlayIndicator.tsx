@@ -38,7 +38,6 @@ function PlayIndicator() {
   const playState = useAtomValue(playStateAtom, myScope);
   const isSeeking = useAtomValue(isSeekingAtom, myScope);
   const items = useAtomValue(itemsAtom, myScope);
-  const videoElem = useAtomValue(videoElemAtom, myScope);
   const currentSubtitle = useAtomValue(currentSubtitleAtom, myScope);
   const isControlsShowing = useAtomValue(showControlsBarAtom, myScope);
   const playButtonItem: PlayButtonItem | undefined = findPlayButton(items);
@@ -104,7 +103,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const IndicatorContainer = styled(motion.button)<{
+const IndicatorContainer = styled(motion.button) <{
   playButtonColor: string | undefined;
 }>`
   color: ${(props) => props.playButtonColor};
@@ -124,6 +123,7 @@ const SubtitleContainer = styled(motion.div)`
   background-color: black;
   margin: 1rem;
   opacity: 0.75;
+  font-size: 1.1em;
 `;
 
 export default PlayIndicator;

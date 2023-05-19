@@ -112,8 +112,23 @@ describe('Video Actions', () => {
     cy.dataCy('HTMLVideoPlayer')
       .should('have.prop', 'currentTime')
       .then((x) => expect(x).to.be.greaterThan(2));
-    cy.dataCy('textPreviewTooltip').should('exist');
+    cy.dataCy('textPreviewTooltip').should('be.visible');
   });
+
+  it('changes current time of video to test previewTooltipThumbnail', () => {
+    cy.visit('/')
+    cy.dataCy("changePreviewTooltipIdButton").trigger("click")
+    cy.dataCy('videoPlayerWrapper').should('exist');
+    cy.dataCy('videoPlayerWrapper').trigger('mouseover');
+    cy.dataCy('progressBar1')
+      .trigger('mousedown')
+      .trigger('mousemove', { x: 20 });
+    cy.dataCy('imageThumbnailContainer').should('be.visible');
+    cy.dataCy('imageThumbnail').should('have.css', 'background-image', 'url("https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.jpg")');
+    // The background position should have changed
+    cy.dataCy('imageThumbnail').should('have.css', 'background-position', "-875px -210px");
+  })
+
   it('changes quality of the video via settings button', () => {
     cy.visit('/');
     cy.dataCy('videoPlayerWrapper').should('exist');
