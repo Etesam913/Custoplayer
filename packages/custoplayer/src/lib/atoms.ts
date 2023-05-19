@@ -50,7 +50,9 @@ export const formattedDurationAtom = atom((get) => {
 export const playbackSpeedAtom = atom(1);
 
 // Keyboard Navigation
-export const focusedItemAtom = atom<'volumeBar1' | 'volumeBar2' | 'progressBar' | null>(null);
+export const focusedItemAtom = atom<
+  'volumeBar1' | 'volumeBar2' | 'progressBar' | null
+>(null);
 
 // Subtitles
 export const currentSubtitleAtom = atom<VTTCue | null>(null);
