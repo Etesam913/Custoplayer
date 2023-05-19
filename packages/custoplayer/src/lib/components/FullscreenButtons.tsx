@@ -220,6 +220,12 @@ const FullscreenButtonContainer = styled.button`
   cursor: pointer;
   height: 32px;
   width: 32px;
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
+  }
 `;
 
 const FullscreenPath = styled(motion.path)`

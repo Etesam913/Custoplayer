@@ -86,6 +86,55 @@ export function isFullscreenButton(
   return (curItem as FullscreenButtonItem).id.startsWith('fullscreenButton');
 }
 
+export function handleKeyPress(
+  e: React.KeyboardEvent<HTMLDivElement>,
+  video: HTMLVideoElement | null,
+  focusedItem: 'volumeBar1' | 'volumeBar2' | 'progressBar' | null,
+) {
+  if (e.key === ' ' || e.key === 'k') {
+    e.preventDefault();
+    if (video !== null) handlePlayState(video);
+  } else if (
+    e.key === 'ArrowLeft' ||
+    e.key === 'ArrowRight' ||
+    e.key === 'ArrowUp' ||
+    e.key === 'ArrowDown'
+  ) {
+    e.preventDefault();
+    if (video !== null && focusedItem !== null) {
+      if (focusedItem.startsWith('volumeBar')) {
+        let newVolume = video.volume;
+        // Horizontal Volume Bar
+        if (focusedItem === 'volumeBar1') {
+          if (e.key === 'ArrowLeft') {
+            newVolume -= 0.05;
+          } else if (e.key === 'ArrowRight') {
+            newVolume += 0.05;
+          }
+        }
+        // Vertical Volume Bar
+        else if (focusedItem === 'volumeBar2') {
+          if (e.key === 'ArrowDown') {
+            newVolume -= 0.05;
+          } else if (e.key === 'ArrowUp') {
+            newVolume += 0.05;
+          }
+        }
+
+        video.volume = clamp(newVolume, 0, 1);
+      } else {
+        let newTime = video.currentTime;
+        if (e.key === 'ArrowLeft') {
+          newTime -= 5;
+        } else if (e.key === 'ArrowRight') {
+          newTime += 5;
+        }
+        video.currentTime = clamp(newTime, 0, video.duration);
+      }
+    }
+  }
+}
+
 /**
   Changes the play state of the video.
   This is ran when the user clicks the video
@@ -104,27 +153,6 @@ export function handlePlayState(video: HTMLVideoElement | null) {
   } else if (video.ended) {
     //if (mobileDebug) mobileDebug.innerText = 'playing';
     video.play();
-  }
-}
-
-export function handleKeyPress(
-  e: React.KeyboardEvent<HTMLDivElement>,
-  video: HTMLVideoElement | null,
-) {
-  if (e.key === ' ' || e.key === 'k') {
-    e.preventDefault();
-    if (video !== null) handlePlayState(video);
-  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-    e.preventDefault();
-    if (video !== null) {
-      let newTime = video.currentTime;
-      if (e.key === 'ArrowLeft') {
-        newTime -= 5;
-      } else {
-        newTime += 5;
-      }
-      video.currentTime = clamp(newTime, 0, video.duration);
-    }
   }
 }
 

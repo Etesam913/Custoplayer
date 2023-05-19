@@ -1,4 +1,5 @@
 import {
+  focusedItemAtom,
   isProgressDraggingAtom,
   myScope,
   playStateAtom,
@@ -40,6 +41,8 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
   const setProgress = useSetAtom(progressAtom, myScope);
   const playState = useAtomValue(playStateAtom, myScope);
   const values = useAtomValue(valuesAtom, myScope);
+  const setFocusedItem = useSetAtom(focusedItemAtom, myScope);
+
   // Needed for remembering what play state to set after progress dragging is complete
   const [tempVideoPauseState, setTempVideoPauseState] = useState(-1);
   const [isProgressDragging, setIsProgressDragging] = useAtom(
@@ -96,6 +99,8 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
 
   return (
     <ProgressBarContainer
+      tabIndex={0}
+      onFocus={() => setFocusedItem('progressBar')}
       onTop={onTop}
       data-cy={item.id}
       isDragging={isProgressDragging}
@@ -181,6 +186,12 @@ const ProgressBarContainer = styled.div<{
   display: flex;
   align-items: ${(props) => (props.onTop ? 'flex-end' : 'center')};
   cursor: ${(props) => (props.isDragging ? 'col-resize' : 'pointer')};
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
+  }
 `;
 
 export default ProgressBars;

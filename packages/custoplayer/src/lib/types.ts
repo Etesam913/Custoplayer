@@ -117,6 +117,8 @@ export interface CustoplayerValues {
     textColor: 'rgb(137, 178, 245)'
   } */
   item7?: CustoplayerItem;
+  /** Changes the color of the dashed outline that appears when you use the tab key to focus an item. Accepts any hex or rgb color code. */
+  focusColor?: string;
 }
 
 export interface ControlsBarItem {

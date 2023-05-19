@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import HTMLVideoPlayer from '@root/lib/components/HTMLVideoPlayer';
 import { useAtomValue, useSetAtom } from 'jotai';
 import {
+  focusedItemAtom,
   isFullscreenAtom,
   myScope,
   showControlsBarAtom,
@@ -14,7 +15,6 @@ import { motion } from 'framer-motion';
 import { useDimensions, useFullscreenEvent } from '../hooks';
 
 import { handleKeyPress } from '../utils';
-//import PlayIndicator from './Indicator/PlayIndicator';
 import { useEffect, useRef } from 'react';
 import PlayIndicator from './PlayIndicator';
 
@@ -34,6 +34,8 @@ function VideoPlayerWrapper() {
 
   useFullscreenEvent(setIsFullscreen);
   const { width, height } = useAtomValue(videoAttributesAtom, myScope);
+  const focusedItem = useAtomValue(focusedItemAtom, myScope);
+
   return (
     <PlayerWrapper
       width={width}
@@ -50,7 +52,7 @@ function VideoPlayerWrapper() {
       }}
       tabIndex={0}
       onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) =>
-        handleKeyPress(e, videoElem)
+        handleKeyPress(e, videoElem, focusedItem)
       }
     >
       <PlayerContainer
@@ -79,6 +81,9 @@ const PlayerWrapper = styled.div<{
   overflow: hidden;
   height: ${(props) => (props.height ? props.height : '100%')};
   width: ${(props) => (props.width ? props.width : '100%')};
+  :focus-visible {
+    outline: 3.5px dashed ${(props) => props.theme.focusColor};
+  }
 `;
 
 const PlayerContainer = styled.div`
@@ -95,8 +100,11 @@ const PlayerContainer = styled.div`
   user-select: none;
   height: 100%;
   width: 100%;
-  &:focus {
+  :focus {
     outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
   }
 `;
 

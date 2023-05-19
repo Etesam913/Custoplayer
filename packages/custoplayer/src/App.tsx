@@ -1,11 +1,24 @@
 import styled from 'styled-components';
 import Custoplayer from './lib/EntryPoint';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
   const [previewTooltipId, setPreviewTooltipId] = useState<
     'text' | 'thumbnail' | 'textAndThumbnail'
   >('text');
+
+  useEffect(() => {
+    const handleFocus = () => {
+      console.log(document.activeElement);
+    };
+
+    window.addEventListener('focus', handleFocus, true); // the last parameter "true" is to capture the event in the capturing phase
+
+    // Cleanup on unmount
+    return () => {
+      window.removeEventListener('focus', handleFocus, true);
+    };
+  }, []); // Empty dependency array means this effect runs once on mount and cleanup on unmount
 
   return (
     <MainContainer>
@@ -65,6 +78,7 @@ function App() {
               id: 'fullscreenButton1',
               buttonColor: '#a7c957',
             },
+            focusColor: '#a7c957',
           }}
           /* The below handlers are for the cypress tests. They do not change any styles */
           onClick={() => console.log('video clicked')}

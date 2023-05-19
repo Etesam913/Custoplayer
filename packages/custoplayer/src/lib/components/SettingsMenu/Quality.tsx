@@ -6,7 +6,8 @@ import {
 } from '@root/lib/atoms';
 import { useAtomValue } from 'jotai';
 import { objectKeys } from 'ts-extras';
-import { CheckIcon, MenuButton, MenuItem } from './styles';
+import { CheckIcon, MenuItem } from './styles';
+import MenuButton from './MenuButton';
 import { SettingsButtonItem } from '@root/lib/types';
 
 interface QualityProps {
@@ -41,8 +42,7 @@ function Quality({ item }: QualityProps) {
       return (
         <MenuItem key={`quality-${quality}`}>
           <MenuButton
-            data-cy={`settingsMenuQualityButton${quality}p`}
-            layout
+            dataCy={`settingsMenuQualityButton${quality}p`}
             settingsMenuColor={item.settingsMenuColor}
             onClick={() => changeQuality(src)}
           >

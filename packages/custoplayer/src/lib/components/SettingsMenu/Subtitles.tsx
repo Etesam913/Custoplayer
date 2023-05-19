@@ -1,8 +1,9 @@
 import { myScope, subtitlesAtom, currentTextTrackAtom } from '@root/lib/atoms';
 import { selectSubtitleTrack } from '@root/lib/utils';
 import { useAtom, useAtomValue } from 'jotai';
-import { CheckIcon, MenuButton, MenuItem } from './styles';
+import { CheckIcon, MenuItem } from './styles';
 import { SettingsButtonItem } from '@root/lib/types';
+import MenuButton from './MenuButton';
 
 interface SubtitlesProps {
   item: SettingsButtonItem;
@@ -16,8 +17,7 @@ function Subtitles({ item }: SubtitlesProps) {
     const subtitleElements = subtitles.map((textTrack: TextTrack, i) => (
       <MenuItem key={`subtitle-${i}`}>
         <MenuButton
-          data-cy={`settingsMenuSubtitleButton${textTrack.label}`}
-          layout
+          dataCy={`settingsMenuSubtitleButton${textTrack.label}`}
           settingsMenuColor={item.settingsMenuColor}
           onClick={() => selectSubtitleTrack(setSubtitles, i)}
         >

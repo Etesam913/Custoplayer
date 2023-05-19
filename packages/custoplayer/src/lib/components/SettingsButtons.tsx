@@ -11,6 +11,10 @@ function SettingsButtons({ item }: { item: SettingsButtonItem }) {
   const settingsMenuRef = useRef<HTMLMenuElement>(null);
   useOnClickOutside(settingsMenuRef, () => setIsSettingsMenuOpen(false));
 
+  function handleSettingsButtonClick() {
+    setIsSettingsMenuOpen((prev) => !prev);
+  }
+
   return (
     <>
       <AnimatePresence>
@@ -24,7 +28,7 @@ function SettingsButtons({ item }: { item: SettingsButtonItem }) {
       </AnimatePresence>
 
       <SettingsButtonContainer
-        onClick={() => setIsSettingsMenuOpen((prev) => !prev)}
+        onClick={handleSettingsButtonClick}
         data-cy={item.id}
         whileHover={{ scale: 1.1, rotateZ: 45 }}
         whileTap={{ scale: 0.95, rotateZ: 0 }}
@@ -56,6 +60,12 @@ const SettingsButtonContainer = styled(motion.button)`
   cursor: pointer;
   height: 32px;
   width: 32px;
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
+  }
 `;
 
 const SettingsPath = styled.path`

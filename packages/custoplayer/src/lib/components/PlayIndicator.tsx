@@ -113,6 +113,10 @@ const IndicatorContainer = styled(motion.button)<{
   border: 0;
   pointer-events: none;
   will-change: transform;
+
+  :focus-visible {
+    outline: 3.25px dashed ${(props) => props.theme.focusColor};
+  }
 `;
 
 const SubtitleContainer = styled(motion.div)`

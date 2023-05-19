@@ -1,6 +1,7 @@
 import { myScope, playbackSpeedAtom, videoElemAtom } from '@root/lib/atoms';
 import { useAtomValue } from 'jotai';
-import { CheckIcon, MenuButton, MenuItem } from './styles';
+import { CheckIcon, MenuItem } from './styles';
+import MenuButton from './MenuButton';
 import { SettingsButtonItem } from '@root/lib/types';
 
 interface PlaybackSpeedProps {
@@ -15,10 +16,9 @@ function PlaybackSpeed({ item }: PlaybackSpeedProps) {
     (speed: number, i: number) => (
       <MenuItem key={`settingsMenuSpeedButton-${i}`}>
         <MenuButton
-          data-cy={`settingsMenuSpeedButton-${speed + ''}x`}
+          dataCy={`settingsMenuSpeedButton-${speed + ''}x`}
           onClick={() => (videoElem ? (videoElem.playbackRate = speed) : null)}
           settingsMenuColor={item.settingsMenuColor}
-          layout
         >
           {speed} {playbackSpeed === speed && <CheckIcon />}
         </MenuButton>
