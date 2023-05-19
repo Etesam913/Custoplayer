@@ -79,6 +79,9 @@ const PlayerWrapper = styled.div<{
   overflow: hidden;
   height: ${(props) => (props.height ? props.height : '100%')};
   width: ${(props) => (props.width ? props.width : '100%')};
+  :focus-visible {
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
+  }
 `;
 
 const PlayerContainer = styled.div`
@@ -99,7 +102,7 @@ const PlayerContainer = styled.div`
     outline: none;
   }
   :focus-visible {
-    outline: 2.5px dashed white;
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
   }
 `;
 

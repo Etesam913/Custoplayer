@@ -65,7 +65,7 @@ const PlayButtonContainer = styled(motion.button)`
     outline: none;
   }
   :focus-visible {
-    outline: 2.5px dashed white;
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
   }
 `;
 export default PlayButtons;

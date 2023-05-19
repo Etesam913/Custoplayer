@@ -117,6 +117,7 @@ export interface CustoplayerValues {
     textColor: 'rgb(137, 178, 245)'
   } */
   item7?: CustoplayerItem;
+  focusColor?: string;
 }
 
 export interface ControlsBarItem {

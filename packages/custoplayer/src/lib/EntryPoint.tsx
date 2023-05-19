@@ -6,11 +6,15 @@ import { EntryPointProps } from './types';
 import { Provider } from 'jotai';
 import { myScope } from './atoms';
 import Custoplayer from './Custoplayer';
+import { ThemeProvider } from 'styled-components';
 
 function EntryPoint({ values, ...rest }: EntryPointProps) {
+  console.log(values.focusColor ?? 'white');
   return (
     <Provider scope={myScope}>
-      <Custoplayer values={values} rest={rest} />
+      <ThemeProvider theme={{ focusColor: values.focusColor ?? 'white' }}>
+        <Custoplayer values={values} rest={rest} />
+      </ThemeProvider>
     </Provider>
   );
 }

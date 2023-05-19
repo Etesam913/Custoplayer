@@ -78,6 +78,7 @@ function App() {
               id: 'fullscreenButton1',
               buttonColor: '#a7c957',
             },
+            focusColor: '#a7c957',
           }}
           /* The below handlers are for the cypress tests. They do not change any styles */
           onClick={() => console.log('video clicked')}

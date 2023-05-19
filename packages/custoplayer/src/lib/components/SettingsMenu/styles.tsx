@@ -22,7 +22,7 @@ export const StyledMenuButton = styled(motion.button)<{
     outline: none;
   }
   :focus-visible {
-    outline: 2.5px dashed white;
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
   }
 
   &:hover {
@@ -74,7 +74,7 @@ export const MenuHeaderButton = styled(StyledMenuButton)`
     outline: none;
   }
   :focus-visible {
-    outline: 2.5px dashed white;
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
   }
 `;
 
