@@ -18,6 +18,7 @@ import {
   playbackSpeedAtom,
   PlayState,
   playStateAtom,
+  previewTooltipThumbnailsAtom,
   progressAtom,
   progressBufferPercentAtom,
   showControlsBarAtom,
@@ -31,8 +32,7 @@ import {
 
 import { SyntheticEvent, useCallback } from 'react';
 import { getCurrentQuality, handlePlayState, throttle } from '../utils';
-
-import { useQualities, useSubtitles } from '../hooks';
+import { usePreviewThumbnails, useQualities, useSubtitles } from '../hooks';
 
 function HTMLVideoPlayer() {
   const [videoElem, setVideoElem] = useAtom(videoElemAtom, myScope);
@@ -68,6 +68,10 @@ function HTMLVideoPlayer() {
   const setCurrentSubtitle = useSetAtom(currentSubtitleAtom, myScope);
   const setCurrentTextTrack = useSetAtom(currentTextTrackAtom, myScope);
   const setVideoQualities = useSetAtom(videoQualitiesAtom, myScope);
+  const setPreviewTooltipThumbnails = useSetAtom(
+    previewTooltipThumbnailsAtom,
+    myScope,
+  );
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
   const videoAttributes = useAtomValue(videoAttributesAtom, myScope);
@@ -100,6 +104,7 @@ function HTMLVideoPlayer() {
     setCurrentSubtitle,
     setCurrentTextTrack,
   );
+  usePreviewThumbnails(videoElem, setPreviewTooltipThumbnails);
 
   const handlePlay = () => {
     setPlayState(PlayState.playing);

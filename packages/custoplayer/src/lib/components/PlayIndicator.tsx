@@ -38,7 +38,6 @@ function PlayIndicator() {
   const playState = useAtomValue(playStateAtom, myScope);
   const isSeeking = useAtomValue(isSeekingAtom, myScope);
   const items = useAtomValue(itemsAtom, myScope);
-  const videoElem = useAtomValue(videoElemAtom, myScope);
   const currentSubtitle = useAtomValue(currentSubtitleAtom, myScope);
   const isControlsShowing = useAtomValue(showControlsBarAtom, myScope);
   const playButtonItem: PlayButtonItem | undefined = findPlayButton(items);
@@ -124,6 +123,7 @@ const SubtitleContainer = styled(motion.div)`
   background-color: black;
   margin: 1rem;
   opacity: 0.75;
+  font-size: 1.1em;
 `;
 
 export default PlayIndicator;

@@ -2,9 +2,10 @@ import {
   isProgressDraggingAtom,
   myScope,
   playStateAtom,
+  previewTooltipHoveredTimeAtom,
   previewTooltipPositionAtom,
-  previewTooltipStrAtom,
   progressAtom,
+  valuesAtom,
   videoContainerAtom,
   videoElemAtom,
 } from '@root/lib/atoms';
@@ -28,6 +29,9 @@ interface ProgressBarsProps {
   onTop?: boolean;
 }
 
+const previewTooltip2Height = 150;
+const previewTooltip1Height = 60;
+
 function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -35,7 +39,7 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
   const setProgress = useSetAtom(progressAtom, myScope);
   const playState = useAtomValue(playStateAtom, myScope);
-
+  const values = useAtomValue(valuesAtom, myScope);
   // Needed for remembering what play state to set after progress dragging is complete
   const [tempVideoPauseState, setTempVideoPauseState] = useState(-1);
   const [isProgressDragging, setIsProgressDragging] = useAtom(
@@ -46,8 +50,10 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
     previewTooltipPositionAtom,
     myScope,
   );
-  const setTooltipStr = useSetAtom(previewTooltipStrAtom, myScope);
-
+  const setPreviewTooltipHoveredTime = useSetAtom(
+    previewTooltipHoveredTimeAtom,
+    myScope,
+  );
   /**
   A wrapper function for handleProgressBarMouseMove that passes in the
   video container's bounding rect. It is the callback function for
@@ -64,9 +70,12 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
       progressBarRef,
       videoContainer,
       videoElem,
+      values.previewTooltip?.id === 'text'
+        ? previewTooltip1Height
+        : previewTooltip2Height,
       setProgress,
       setIsProgressDragging,
-      setTooltipStr,
+      setPreviewTooltipHoveredTime,
       setPreviewTooltipPosition,
     );
   }
@@ -109,7 +118,10 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
           progressBarRef,
           videoContainer,
           videoElem,
-          setTooltipStr,
+          values.previewTooltip?.id === 'text'
+            ? previewTooltip1Height
+            : previewTooltip2Height,
+          setPreviewTooltipHoveredTime,
           setPreviewTooltipPosition,
         )
       }

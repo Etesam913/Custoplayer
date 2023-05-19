@@ -129,6 +129,8 @@ export interface ControlsBarItem {
 export interface PreviewTooltipItem {
   /** Accepts value of "text" */
   id: 'text' | 'thumbnail' | 'textAndThumbnail';
+  /** Accepts a string to the url of the image of the video */
+  atlasImage?: string;
 }
 
 export interface VolumeItem {

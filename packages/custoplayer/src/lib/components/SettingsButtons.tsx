@@ -4,7 +4,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useOnClickOutside } from '../hooks';
 import { SettingsButtonItem } from '../types';
-import { darkenColor, lightenColor } from '../utils';
 import SettingsMenu from './SettingsMenu';
 
 function SettingsButtons({ item }: { item: SettingsButtonItem }) {
