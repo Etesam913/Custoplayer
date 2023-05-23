@@ -86,7 +86,9 @@ function PreviewTooltips({
           isVisible={(isHovered || isProgressDragging) && videoDuration > 0}
           style={{
             transform: `translate(${previewTooltipPosition}px, ${
-              data.id === 'thumbnail' ? '-120px' : '-135px'
+              data.id === 'thumbnail'
+                ? `${-1 * previewTooltipThumbnailData.h - 50}px`
+                : `${-1 * previewTooltipThumbnailData.h - 72}px`
             })`,
           }}
         >

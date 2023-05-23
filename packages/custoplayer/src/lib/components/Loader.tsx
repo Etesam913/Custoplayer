@@ -1,7 +1,11 @@
 import styled, { keyframes } from 'styled-components';
 
 function Loader() {
-  return <Spinner />;
+  return (
+    <SpinnerContainer>
+      <Spinner />
+    </SpinnerContainer>
+  );
 }
 
 const rotationAnimation = keyframes`
@@ -13,9 +17,17 @@ const rotationAnimation = keyframes`
   }
 `;
 
+const SpinnerContainer = styled.div`
+  width: 128px;
+  height: 128px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Spinner = styled.span`
-  width: 86px;
   height: 86px;
+  width: 86px;
   border: 9px solid currentColor;
   border-bottom-color: transparent;
   border-radius: 50%;
