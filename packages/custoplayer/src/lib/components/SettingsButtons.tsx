@@ -17,15 +17,17 @@ function SettingsButtons({ item }: { item: SettingsButtonItem }) {
 
   return (
     <>
-      <AnimatePresence>
-        {isSettingsMenuOpen && (
-          <SettingsMenu
-            ref={settingsMenuRef}
-            item={item}
-            setIsSettingsMenuOpen={setIsSettingsMenuOpen}
-          />
-        )}
-      </AnimatePresence>
+      {item.options && (
+        <AnimatePresence>
+          {isSettingsMenuOpen && (
+            <SettingsMenu
+              ref={settingsMenuRef}
+              item={item}
+              setIsSettingsMenuOpen={setIsSettingsMenuOpen}
+            />
+          )}
+        </AnimatePresence>
+      )}
 
       <SettingsButtonContainer
         onClick={handleSettingsButtonClick}

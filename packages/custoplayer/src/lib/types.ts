@@ -213,18 +213,18 @@ export interface SettingsButtonItem {
   settingsMenuOrientation?: 'left' | 'middle' | 'right';
   /** Hides the settings button when the video's width is less than 768px. Accepts values of true or false*/
   hideOnMobile?: boolean;
-  /** Used to specify the things that can be customized in the settings menu. 
+  /** Used to specify the things that can be customized in the settings menu.
     @example
     options: {
       subtitles: true,
       quality: true,
       playbackSpeed: [0.5, 1, 1.5, 2]
-    } 
+    }
 
     For quality to be extracted in the menu you have to have source tags defined as children of your video tag.
     The id property has to be `custoplayer-${quality}` for it to be found in the menu. The supported quality values
     are: [144, 240, 360, 480, 720, 1080, 1440, 2160]
-  
+
     @example
     <video>
       <source
@@ -277,9 +277,9 @@ export interface SettingsButtonItem {
   */
 
   options?: {
-    subtitles: boolean;
-    playbackSpeed: number[];
-    quality: boolean;
+    subtitles?: boolean;
+    playbackSpeed?: number[];
+    quality?: boolean;
   };
 }
 
