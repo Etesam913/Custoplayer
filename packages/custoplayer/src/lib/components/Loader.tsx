@@ -28,7 +28,7 @@ const SpinnerContainer = styled.div`
 const Spinner = styled.span`
   height: 86px;
   width: 86px;
-  border: 9px solid currentColor;
+  border: 10px solid currentColor;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;

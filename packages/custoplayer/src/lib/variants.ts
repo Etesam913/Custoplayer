@@ -1,5 +1,3 @@
-import { PlayState } from './atoms';
-
 export const volumeBar1Animation = {
   init: { opacity: 0, width: 0 },
   anim: { opacity: 1, width: 56 },
