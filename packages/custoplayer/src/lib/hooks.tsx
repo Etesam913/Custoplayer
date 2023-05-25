@@ -251,35 +251,37 @@ export function useOnClickOutside(
   );
 }
 
-export function useMouseMovementTimer(element: HTMLElement): () => void {
+export function useMouseMovementTimer(
+  element: HTMLElement | null,
+  isFullscreen: boolean,
+  movementCallback: () => void,
+  noMovementCallback: () => void,
+) {
   let timer: ReturnType<typeof setTimeout>;
-  let hasMouseMoved = false;
 
   function resetMouseMovement() {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      hasMouseMoved = false;
-    }, 3000);
+      noMovementCallback();
+    }, 2500);
   }
 
   const handleMouseMove = () => {
-    hasMouseMoved = true;
+    console.log('mouse moved');
+    movementCallback();
     resetMouseMovement();
   };
 
   useEffect(() => {
-    element.addEventListener('mousemove', handleMouseMove);
+    if (isFullscreen && element) {
+      element.addEventListener('mousemove', handleMouseMove);
 
-    return () => {
-      element.removeEventListener('mousemove', handleMouseMove);
-      clearTimeout(timer);
-    };
-  }, [element]);
-
-  return () => {
-    element.removeEventListener('mousemove', handleMouseMove);
-    clearTimeout(timer);
-  };
+      return () => {
+        element.removeEventListener('mousemove', handleMouseMove);
+        clearTimeout(timer);
+      };
+    }
+  }, [element, isFullscreen]);
 }
 
 /**

@@ -7,6 +7,7 @@ import {
   currentTimeAtom,
   draggableSymbol,
   durationAtom,
+  isFullscreenAtom,
   isMutedAtom,
   isProgressDraggingAtom,
   isSeekingAtom,
@@ -32,6 +33,7 @@ import {
 import { SyntheticEvent, useRef } from 'react';
 import { getCurrentQuality, handlePlayState } from '../utils';
 import {
+  useMouseMovementTimer,
   usePreventFullscreen,
   usePreviewThumbnails,
   useQualities,
@@ -55,6 +57,7 @@ function HTMLVideoPlayer() {
     progressBufferPercentAtom,
     myScope,
   );
+  const setShowControlsBar = useSetAtom(showControlsBarAtom, myScope);
   const setSubtitles = useSetAtom(subtitlesAtom, myScope);
   const setCurrentSubtitle = useSetAtom(currentSubtitleAtom, myScope);
   const setCurrentTextTrack = useSetAtom(currentTextTrackAtom, myScope);
@@ -65,6 +68,7 @@ function HTMLVideoPlayer() {
   );
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
+  const isFullscreen = useAtomValue(isFullscreenAtom, myScope);
   const videoAttributes = useAtomValue(videoAttributesAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
   const {
@@ -98,6 +102,12 @@ function HTMLVideoPlayer() {
   );
   usePreviewThumbnails(videoElem, setPreviewTooltipThumbnails);
   usePreventFullscreen(videoElem, videoContainer);
+  useMouseMovementTimer(
+    videoElem,
+    isFullscreen,
+    () => setShowControlsBar(true),
+    () => setShowControlsBar(false),
+  );
 
   const handlePlay = () => {
     setPlayState(PlayState.playing);
