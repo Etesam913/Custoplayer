@@ -250,3 +250,59 @@ export function useOnClickOutside(
     [ref, handler],
   );
 }
+
+export function useMouseMovementTimer(element: HTMLElement): () => void {
+  let timer: ReturnType<typeof setTimeout>;
+  let hasMouseMoved = false;
+
+  function resetMouseMovement() {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      hasMouseMoved = false;
+    }, 3000);
+  }
+
+  const handleMouseMove = () => {
+    hasMouseMoved = true;
+    resetMouseMovement();
+  };
+
+  useEffect(() => {
+    element.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      element.removeEventListener('mousemove', handleMouseMove);
+      clearTimeout(timer);
+    };
+  }, [element]);
+
+  return () => {
+    element.removeEventListener('mousemove', handleMouseMove);
+    clearTimeout(timer);
+  };
+}
+
+
+export function usePreventFullscreen(videoRef: React.RefObject<HTMLVideoElement>) {
+  useEffect(() => {
+
+    function handleFullscreenChange(event: Event) {
+      const videoElement = event.target as HTMLVideoElement;
+      const isFullscreen = document.fullscreenElement === videoElement;
+
+      if (isFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+
+    if (videoRef.current) {
+      videoRef.current.addEventListener("fullscreenchange", handleFullscreenChange);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.removeEventListener("fullscreenchange", handleFullscreenChange);
+      }
+    };
+  }, [videoRef]);
+}
