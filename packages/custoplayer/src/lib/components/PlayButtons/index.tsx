@@ -34,8 +34,14 @@ function PlayButtons({ item }: PlayButtonsProps) {
       onMouseMove={(e) => e.preventDefault}
       onClick={() => handlePlayState(videoElem)}
       onKeyUp={(e) => e.preventDefault()}
-      whileHover={{ scale: 1.1, rotate: playState === PlayState.ended ? -30 : 0 }}
-      whileTap={{ scale: 0.95, rotate: playState === PlayState.ended ? -55 : 0 }}
+      whileHover={{
+        scale: 1.1,
+        rotate: playState === PlayState.ended ? -30 : 0,
+      }}
+      whileTap={{
+        scale: 0.95,
+        rotate: playState === PlayState.ended ? -55 : 0,
+      }}
       data-cy={item.id}
     >
       {item.id === 'playButton1' && (

@@ -23,24 +23,27 @@ import {
   subtitlesAtom,
   valuesAtom,
   videoAttributesAtom,
+  videoContainerAtom,
   videoElemAtom,
   videoQualitiesAtom,
   volumeAtom,
 } from '@root/lib/atoms';
 
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useRef } from 'react';
 import { getCurrentQuality, handlePlayState } from '../utils';
-import { usePreviewThumbnails, useQualities, useSubtitles } from '../hooks';
+import {
+  usePreventFullscreen,
+  usePreviewThumbnails,
+  useQualities,
+  useSubtitles,
+} from '../hooks';
 
 function HTMLVideoPlayer() {
   const [videoElem, setVideoElem] = useAtom(videoElemAtom, myScope);
   const [values, setValues] = useAtom(valuesAtom, myScope);
   const setPlayState = useSetAtom(playStateAtom, myScope);
   const setPlaybackSpeed = useSetAtom(playbackSpeedAtom, myScope);
-  const showControlsBar = useAtomValue(
-    showControlsBarAtom,
-    myScope,
-  );
+  const showControlsBar = useAtomValue(showControlsBarAtom, myScope);
   const setProgress = useSetAtom(progressAtom, myScope);
   const setVolume = useSetAtom(volumeAtom, myScope);
   const setDuration = useSetAtom(durationAtom, myScope);
@@ -63,6 +66,7 @@ function HTMLVideoPlayer() {
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
   const videoAttributes = useAtomValue(videoAttributesAtom, myScope);
+  const videoContainer = useAtomValue(videoContainerAtom, myScope);
   const {
     playsInline,
     onClick,
@@ -93,6 +97,7 @@ function HTMLVideoPlayer() {
     setCurrentTextTrack,
   );
   usePreviewThumbnails(videoElem, setPreviewTooltipThumbnails);
+  usePreventFullscreen(videoElem, videoContainer);
 
   const handlePlay = () => {
     setPlayState(PlayState.playing);
@@ -147,7 +152,6 @@ function HTMLVideoPlayer() {
         handlePlayState(videoElem);
         onClick && onClick(e);
       }}
-
       onPause={(e) => {
         handlePause();
         onPause && onPause(e);

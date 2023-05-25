@@ -282,27 +282,36 @@ export function useMouseMovementTimer(element: HTMLElement): () => void {
   };
 }
 
-
-export function usePreventFullscreen(videoRef: React.RefObject<HTMLVideoElement>) {
+/**
+If fullscreen mode is entered via context menu
+The fullscreen mode is applied to the video container
+instead. This is done so that the controls bar can be
+shown in fullscreen mode.
+*/
+export function usePreventFullscreen(
+  video: HTMLVideoElement | null,
+  videoContainer: HTMLDivElement | null,
+) {
   useEffect(() => {
-
     function handleFullscreenChange(event: Event) {
       const videoElement = event.target as HTMLVideoElement;
       const isFullscreen = document.fullscreenElement === videoElement;
 
-      if (isFullscreen) {
-        document.exitFullscreen();
+      if (isFullscreen && videoContainer) {
+        document.exitFullscreen().then(() => {
+          videoContainer.requestFullscreen();
+        });
       }
     }
 
-    if (videoRef.current) {
-      videoRef.current.addEventListener("fullscreenchange", handleFullscreenChange);
+    if (video) {
+      video.addEventListener('fullscreenchange', handleFullscreenChange);
     }
 
     return () => {
-      if (videoRef.current) {
-        videoRef.current.removeEventListener("fullscreenchange", handleFullscreenChange);
+      if (video) {
+        video.removeEventListener('fullscreenchange', handleFullscreenChange);
       }
     };
-  }, [videoRef]);
+  }, [video]);
 }

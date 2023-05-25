@@ -52,18 +52,16 @@ function PlayIndicator() {
         return <PauseButton2 isIndicator />;
       } else if (playState === PlayState.paused) {
         return <PlayButton2 isIndicator />;
-      }
-      else if (playState === PlayState.ended) {
-        return <RestartButton2 isIndicator />
+      } else if (playState === PlayState.ended) {
+        return <RestartButton2 isIndicator />;
       }
     } else {
       if (playState === PlayState.playing) {
         return <PauseButton1 isIndicator />;
       } else if (playState === PlayState.paused) {
         return <PlayButton1 isIndicator />;
-      }
-      else if (playState === PlayState.ended) {
-        return <RestartButton1 isIndicator />
+      } else if (playState === PlayState.ended) {
+        return <RestartButton1 isIndicator />;
       }
     }
   }
@@ -76,7 +74,11 @@ function PlayIndicator() {
         variants={playIndicatorAnimation}
         whileHover={{ scale: 1.1 }}
         animate='anim'
-        custom={isSeeking || playState === PlayState.paused || playState === PlayState.ended}
+        custom={
+          isSeeking ||
+          playState === PlayState.paused ||
+          playState === PlayState.ended
+        }
       >
         {renderPlayButton()}
       </IndicatorContainer>
@@ -111,7 +113,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const IndicatorContainer = styled(motion.button) <{
+const IndicatorContainer = styled(motion.button)<{
   playButtonColor: string | undefined;
 }>`
   color: ${(props) => props.playButtonColor};
