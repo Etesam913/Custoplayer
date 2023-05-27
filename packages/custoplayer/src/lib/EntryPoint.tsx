@@ -19,7 +19,7 @@ function EntryPoint({ values, ...rest }: EntryPointProps) {
         </ThemeProvider>
       ) : (
         <>
-          <div style={{ color: 'red' }}>
+          <div data-cy='errorMessage' style={{ color: 'red' }}>
             You need to define the values attribute on your custoplayer tag. For
             the time being you can set it to be an empty object. <br />
             example:
