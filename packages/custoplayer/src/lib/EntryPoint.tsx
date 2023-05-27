@@ -9,7 +9,7 @@ import Custoplayer from './Custoplayer';
 import { ThemeProvider } from 'styled-components';
 
 function EntryPoint({ values, ...rest }: EntryPointProps) {
-  console.log(values.focusColor ?? 'white');
+
   return (
     <Provider scope={myScope}>
       <ThemeProvider theme={{ focusColor: values.focusColor ?? 'white' }}>

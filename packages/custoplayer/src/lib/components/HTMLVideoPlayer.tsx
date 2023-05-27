@@ -168,7 +168,6 @@ function HTMLVideoPlayer() {
       }}
       onPlay={(e) => {
         handlePlay();
-        console.log((e.target as HTMLVideoElement).textTracks);
         onPlay && onPlay(e);
       }}
       onEnded={(e) => {

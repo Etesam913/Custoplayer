@@ -13,7 +13,7 @@ import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
-  return function (this: any, ...args: any[]) {
+  return function(this: any, ...args: any[]) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
@@ -35,7 +35,7 @@ export const throttle = (fn: (...args: any[]) => void, ms = 300) => {
 
     isThrottled = true;
 
-    setTimeout(function () {
+    setTimeout(function() {
       isThrottled = false;
       if (savedArgs) {
         wrapper.apply(savedThis, savedArgs);
@@ -530,4 +530,39 @@ export function getHoveredThumbnail(
       previewTooltipHoveredTime < cue.endTime,
   );
   return hoveredThumbnail ?? null;
+}
+
+/** Gets a readable color from a background color */
+export function getReadableTextColor(color: string): string {
+  let r, g, b;
+
+  // If the color is already an RGB color, extract the red, green, and blue components
+  const isRgb = /^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i.exec(color);
+  if (isRgb) {
+    r = parseInt(isRgb[1], 10);
+    g = parseInt(isRgb[2], 10);
+    b = parseInt(isRgb[3], 10);
+  } else {
+    // If the color is a named color, get its RGB value
+    const namedColor = document.createElement('div');
+    namedColor.style.color = color;
+    document.body.appendChild(namedColor);
+    const computedColor = getComputedStyle(namedColor).color;
+    document.body.removeChild(namedColor);
+    const match = /^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i.exec(computedColor);
+    if (match) {
+      r = parseInt(match[1], 10);
+      g = parseInt(match[2], 10);
+      b = parseInt(match[3], 10);
+    } else {
+      // If the color is a hex color, convert it to RGB
+      r = parseInt(color.slice(1, 3), 16);
+      g = parseInt(color.slice(3, 5), 16);
+      b = parseInt(color.slice(5, 7), 16);
+    }
+  }
+
+  // Calculate the luminance of the color and return a readable text color
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.5 ? '#000000' : '#FFFFFF';
 }

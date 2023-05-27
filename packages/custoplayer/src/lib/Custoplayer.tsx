@@ -19,8 +19,10 @@ function Custoplayer({ values, rest }: CustoplayerProps) {
   const setItems = useSetAtom(itemsAtom, myScope);
   const setVideoAttributes = useSetAtom(videoAttributesAtom, myScope);
 
-  /* TODO: These values to not update because they are in the file that is being exported */
+  // TODO: Convert this to a hook
   useEffect(() => {
+    // Setting default controlsBar color
+    if (values?.controlsBar && !values?.controlsBar?.barColor) values.controlsBar.barColor = 'rgba(28, 28, 28, 0.7)';
     setValues(values);
     setItems([
       values.item1,

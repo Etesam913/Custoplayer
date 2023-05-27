@@ -1,6 +1,7 @@
 import {
   currentQualityAtom,
   myScope,
+  valuesAtom,
   videoElemAtom,
   videoQualitiesAtom,
 } from '@root/lib/atoms';
@@ -21,6 +22,10 @@ function Quality({ item }: QualityProps) {
   const qualities = objectKeys(videoQualities).map((keyStr) => Number(keyStr));
   // Reverse sort so it goes from 1440p -> 144p
   qualities.sort((a, b) => b - a);
+
+  const videoValues = useAtomValue(valuesAtom, myScope);
+  const settingsMenuColor =
+    item.settingsMenuColor ?? videoValues?.controlsBar?.barColor;
 
   function changeQuality(qualitySrc: string) {
     if (videoElem) {
@@ -43,7 +48,7 @@ function Quality({ item }: QualityProps) {
         <MenuItem key={`quality-${quality}`}>
           <MenuButton
             dataCy={`settingsMenuQualityButton${quality}p`}
-            settingsMenuColor={item.settingsMenuColor}
+            settingsMenuColor={settingsMenuColor}
             onClick={() => changeQuality(src)}
           >
             {quality + 'p'}

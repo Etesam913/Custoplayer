@@ -1,4 +1,9 @@
-import { myScope, subtitlesAtom, currentTextTrackAtom } from '@root/lib/atoms';
+import {
+  myScope,
+  subtitlesAtom,
+  currentTextTrackAtom,
+  valuesAtom,
+} from '@root/lib/atoms';
 import { selectSubtitleTrack } from '@root/lib/utils';
 import { useAtom, useAtomValue } from 'jotai';
 import { CheckIcon, MenuItem } from './styles';
@@ -10,6 +15,9 @@ interface SubtitlesProps {
 }
 
 function Subtitles({ item }: SubtitlesProps) {
+  const videoValues = useAtomValue(valuesAtom, myScope);
+  const settingsMenuColor =
+    item.settingsMenuColor ?? videoValues?.controlsBar?.barColor;
   const [subtitles, setSubtitles] = useAtom(subtitlesAtom, myScope);
   const currentTextTrack = useAtomValue(currentTextTrackAtom, myScope);
 
@@ -18,7 +26,7 @@ function Subtitles({ item }: SubtitlesProps) {
       <MenuItem key={`subtitle-${i}`}>
         <MenuButton
           dataCy={`settingsMenuSubtitleButton${textTrack.label}`}
-          settingsMenuColor={item.settingsMenuColor}
+          settingsMenuColor={settingsMenuColor}
           onClick={() => selectSubtitleTrack(setSubtitles, i)}
         >
           {textTrack.label}

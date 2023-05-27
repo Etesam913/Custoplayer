@@ -15,6 +15,7 @@ import {
   videoDimensionsAtom,
 } from '@root/lib/atoms';
 import {
+  getReadableTextColor,
   isCurrentTime,
   isDuration,
   isFullscreenButton,
@@ -39,7 +40,6 @@ function extractColor(curItem: CustoplayerItem) {
     return curItem.buttonColor;
   else if (isDuration(curItem) || isCurrentTime(curItem))
     return curItem.textColor;
-
   return undefined;
 }
 
@@ -62,7 +62,10 @@ function ControlsBar() {
       <ItemContainer
         onClick={(e) => e.stopPropagation()}
         isProgressBar={isProgressBar(curItem)}
-        color={extractColor(curItem)}
+        color={
+          extractColor(curItem) ??
+          getReadableTextColor(videoValues.controlsBar?.barColor ?? '')
+        }
       >
         <ItemRenderer item={curItem} />
       </ItemContainer>
@@ -71,7 +74,7 @@ function ControlsBar() {
 
   return (
     <AnimatePresence>
-      {(isProgressDragging || isVolumeDragging || isControlsBarShowing) && (
+      {(true || isVolumeDragging || isControlsBarShowing) && (
         <ControlsContainer
           className={draggableSymbol.toString()}
           variants={
@@ -118,8 +121,7 @@ const Controls = styled.div<{
   backgroundColor: string | undefined;
 }>`
   height: ${(props) => props.height};
-  background-color: ${(props) =>
-    props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
+  background-color: ${(props) => props.backgroundColor};
   width: 100%;
   display: flex;
   align-items: center;
@@ -130,7 +132,7 @@ const Controls = styled.div<{
 export const ItemContainer = styled.div<{ isProgressBar: boolean }>`
   height: 100%;
   width: auto;
-  color: ${(props) => (props.color ? props.color : 'white')};
+  color: ${(props) => props.color};
   flex: ${(props) => (props.isProgressBar ? '1' : '0')};
   display: flex;
   align-items: center;

@@ -267,7 +267,6 @@ export function useMouseMovementTimer(
   }
 
   const handleMouseMove = () => {
-    console.log('mouse moved');
     movementCallback();
     resetMouseMovement();
   };

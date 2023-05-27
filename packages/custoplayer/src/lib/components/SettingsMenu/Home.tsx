@@ -1,6 +1,8 @@
 import { SettingsButtonItem } from '@root/lib/types';
 import { MenuItem, MenuIcon } from './styles';
 import MenuButton from './MenuButton';
+import { myScope, valuesAtom } from '@root/lib/atoms';
+import { useAtomValue } from 'jotai';
 
 interface HomeProps {
   item: SettingsButtonItem;
@@ -8,6 +10,10 @@ interface HomeProps {
 }
 
 function Home({ item, setCurrentPage }: HomeProps) {
+  const videoValues = useAtomValue(valuesAtom, myScope);
+  const settingsMenuColor =
+    item.settingsMenuColor ?? videoValues?.controlsBar?.barColor;
+
   return (
     <>
       <MenuItem>
@@ -15,7 +21,7 @@ function Home({ item, setCurrentPage }: HomeProps) {
           <MenuButton
             dataCy='settingsMenuQualityButton'
             onClick={() => setCurrentPage('/quality')}
-            settingsMenuColor={item.settingsMenuColor}
+            settingsMenuColor={settingsMenuColor}
           >
             <MenuIcon
               viewBox='0 0 32 32'
@@ -44,7 +50,7 @@ function Home({ item, setCurrentPage }: HomeProps) {
           <MenuButton
             dataCy='settingsMenuSubtitlesButton'
             onClick={() => setCurrentPage('/subtitles')}
-            settingsMenuColor={item.settingsMenuColor}
+            settingsMenuColor={settingsMenuColor}
           >
             <MenuIcon
               width='32'
@@ -84,7 +90,7 @@ function Home({ item, setCurrentPage }: HomeProps) {
           <MenuButton
             dataCy='settingsMenuSpeedButton'
             onClick={() => setCurrentPage('/playback-speed')}
-            settingsMenuColor={item.settingsMenuColor}
+            settingsMenuColor={settingsMenuColor}
           >
             Speed
           </MenuButton>

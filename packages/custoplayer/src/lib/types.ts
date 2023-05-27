@@ -123,7 +123,7 @@ export interface CustoplayerValues {
 
 export interface ControlsBarItem {
   /** Changes the color of the controlsBar. This also changes the default backgroundColor for the previewToolip. Accepts any hex or rgb color code. */
-  barColor: string;
+  barColor?: string;
   /** Changes how the controlsBar animates. Accepts values of "opacity" and "movement". Setting animate to "opacity" will do a simple fade in animation. Setting animate to "movement" will animate the controls bar from bottom -> up*/
   animate?: 'opacity' | 'movement';
 }
