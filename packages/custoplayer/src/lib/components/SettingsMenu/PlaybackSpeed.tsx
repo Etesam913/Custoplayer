@@ -20,8 +20,9 @@ function PlaybackSpeed({ item }: PlaybackSpeedProps) {
   const settingsMenuColor =
     item.settingsMenuColor ?? videoValues?.controlsBar?.barColor;
 
-  const subtitleElements = item.options?.playbackSpeed.map(
-    (speed: number, i: number) => (
+  const subtitleElements =
+    item.options?.playbackSpeed &&
+    item.options?.playbackSpeed.map((speed: number, i: number) => (
       <MenuItem key={`settingsMenuSpeedButton-${i}`}>
         <MenuButton
           dataCy={`settingsMenuSpeedButton-${speed + ''}x`}
@@ -31,8 +32,7 @@ function PlaybackSpeed({ item }: PlaybackSpeedProps) {
           {speed} {playbackSpeed === speed && <CheckIcon />}
         </MenuButton>
       </MenuItem>
-    ),
-  );
+    ));
   return <>{subtitleElements}</>;
 }
 

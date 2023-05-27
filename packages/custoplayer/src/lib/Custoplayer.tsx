@@ -22,7 +22,8 @@ function Custoplayer({ values, rest }: CustoplayerProps) {
   // TODO: Convert this to a hook
   useEffect(() => {
     // Setting default controlsBar color
-    if (values?.controlsBar && !values?.controlsBar?.barColor) values.controlsBar.barColor = 'rgba(28, 28, 28, 0.7)';
+    if (values?.controlsBar && !values?.controlsBar?.barColor)
+      values.controlsBar.barColor = 'rgba(28, 28, 28, 0.7)';
     setValues(values);
     setItems([
       values.item1,

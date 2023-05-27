@@ -13,7 +13,7 @@ import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
   let timeoutId: ReturnType<typeof setTimeout>;
-  return function(this: any, ...args: any[]) {
+  return function (this: any, ...args: any[]) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn.apply(this, args), ms);
   };
@@ -35,7 +35,7 @@ export const throttle = (fn: (...args: any[]) => void, ms = 300) => {
 
     isThrottled = true;
 
-    setTimeout(function() {
+    setTimeout(function () {
       isThrottled = false;
       if (savedArgs) {
         wrapper.apply(savedThis, savedArgs);
@@ -549,7 +549,9 @@ export function getReadableTextColor(color: string): string {
     document.body.appendChild(namedColor);
     const computedColor = getComputedStyle(namedColor).color;
     document.body.removeChild(namedColor);
-    const match = /^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i.exec(computedColor);
+    const match = /^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i.exec(
+      computedColor,
+    );
     if (match) {
       r = parseInt(match[1], 10);
       g = parseInt(match[2], 10);
