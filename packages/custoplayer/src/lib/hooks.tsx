@@ -1,5 +1,10 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { SetStateAction, useEffect, ReactNode } from 'react';
+import {
+  SetStateAction,
+  useEffect,
+  ReactNode,
+  ComponentPropsWithoutRef,
+} from 'react';
 import {
   myScope,
   videoDimensionsObserverAtom,
@@ -8,7 +13,11 @@ import {
   PlayState,
 } from '@root/lib/atoms';
 import screenfull from 'screenfull';
-import { videoQualitiesAtomType } from './types';
+import {
+  CustoplayerItem,
+  CustoplayerValues,
+  videoQualitiesAtomType,
+} from './types';
 
 // Gets dimensions of the video player
 export function useDimensions() {
@@ -316,3 +325,44 @@ export function usePreventFullscreen(
     };
   }, [video]);
 }
+
+/** Updates videoValues and videoItems whenever they change */
+export const useListenForChanges = (
+  setValues: (update: SetStateAction<CustoplayerValues>) => void,
+  setItems: (update: SetStateAction<(CustoplayerItem | undefined)[]>) => void,
+  setVideoAttributes: (
+    update: SetStateAction<
+      Omit<
+        React.DetailedHTMLProps<
+          React.VideoHTMLAttributes<HTMLVideoElement>,
+          HTMLVideoElement
+        >,
+        'ref'
+      >
+    >,
+  ) => void,
+  rest: ComponentPropsWithoutRef<'video'>,
+  values: CustoplayerValues,
+) => {
+  useEffect(() => {
+    // Setting default controlsBar color
+    if (values?.controlsBar && !values?.controlsBar?.barColor)
+      values.controlsBar.barColor = 'rgba(28, 28, 28, 0.7)';
+    setValues(values);
+    setItems([
+      values.item1,
+      values.item2,
+      values.item3,
+      values.item4,
+      values.item5,
+      values.item6,
+      values.item7,
+    ]);
+  }, [values]);
+
+  useEffect(() => {
+    setVideoAttributes(rest);
+  }, [rest]);
+};
+
+export default useVideoHook;

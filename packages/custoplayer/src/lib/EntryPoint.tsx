@@ -9,8 +9,6 @@ import Custoplayer from './Custoplayer';
 import { ThemeProvider } from 'styled-components';
 
 function EntryPoint({ values, ...rest }: EntryPointProps) {
-  if (!values)
-    console.error('You need to pass values to the Custoplayer component');
   return (
     <Provider scope={myScope}>
       {values ? (
