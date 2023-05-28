@@ -364,5 +364,3 @@ export const useListenForChanges = (
     setVideoAttributes(rest);
   }, [rest]);
 };
-
-export default useVideoHook;
