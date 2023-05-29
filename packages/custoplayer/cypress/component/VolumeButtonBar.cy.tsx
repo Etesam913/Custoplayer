@@ -19,7 +19,14 @@ describe('VolumeButtonBar.cy.tsx', () => {
     const buttonColor = 'rgb(197, 130, 130)';
     const id = 'volumeButton1';
     cy.mount(
-      <ItemContainer isProgressBar={false} color={buttonColor}>
+      <ItemContainer
+        isProgressBar={false}
+        color={buttonColor}
+        marginLeft={undefined}
+        marginRight={undefined}
+        isProgressBarNextItem={false}
+        isProgressBarPreviousItem={false}
+      >
         <VolumeButtons
           item={{
             id: id,
@@ -35,8 +42,8 @@ describe('VolumeButtonBar.cy.tsx', () => {
   it('renders volumeBar1 & volumeBar2 bar color', () => {
     const volumeBarColor1 = 'rgb(211, 215, 22)';
     const volumeBarColor2 = 'rgb(218, 36, 157)';
-    const buttonBarContainer1 = 'volumeButtonBarContainer-volumeButton1'
-    const buttonBarContainer2 = 'volumeButtonBarContainer-volumeButton2'
+    const buttonBarContainer1 = 'volumeButtonBarContainer-volumeButton1';
+    const buttonBarContainer2 = 'volumeButtonBarContainer-volumeButton2';
     const id1 = 'volumeButton1';
     const id2 = 'volumeButton2';
     const barId1 = 'volumeBar1';
@@ -60,17 +67,17 @@ describe('VolumeButtonBar.cy.tsx', () => {
         />
       </div>,
     );
-    cy.dataCy(buttonBarContainer1).trigger('mouseover')
+    cy.dataCy(buttonBarContainer1).trigger('mouseover');
     cy.dataCy(barId1).should('have.css', 'background-color', volumeBarColor1);
-    cy.dataCy(buttonBarContainer2).trigger('mouseover')
+    cy.dataCy(buttonBarContainer2).trigger('mouseover');
     cy.dataCy(barId2).should('have.css', 'background-color', volumeBarColor2);
   });
 
   it('renders volumeBar1 & volumeBar2 volume color', () => {
     const volumeColor1 = 'rgb(111, 126, 224)';
     const volumeColor2 = 'rgb(36, 218, 130)';
-    const buttonBarContainer1 = 'volumeButtonBarContainer-volumeButton1'
-    const buttonBarContainer2 = 'volumeButtonBarContainer-volumeButton2'
+    const buttonBarContainer1 = 'volumeButtonBarContainer-volumeButton1';
+    const buttonBarContainer2 = 'volumeButtonBarContainer-volumeButton2';
     const id1 = 'volumeButton1';
     const id2 = 'volumeButton2';
     const barId1 = 'volumeBar1';
@@ -94,12 +101,12 @@ describe('VolumeButtonBar.cy.tsx', () => {
         />
       </div>,
     );
-    cy.dataCy(buttonBarContainer1).trigger('mouseover')
+    cy.dataCy(buttonBarContainer1).trigger('mouseover');
     cy.dataCy(barId1)
       .children()
       .first()
       .should('have.css', 'background-color', volumeColor1);
-    cy.dataCy(buttonBarContainer2).trigger('mouseover')
+    cy.dataCy(buttonBarContainer2).trigger('mouseover');
     cy.dataCy(barId2)
       .children()
       .first()
@@ -109,8 +116,8 @@ describe('VolumeButtonBar.cy.tsx', () => {
   it('renders volumeBar1 & volumeBar2 bar color', () => {
     const volumeBarColor1 = 'rgb(211, 215, 22)';
     const volumeBarColor2 = 'rgb(218, 36, 157)';
-    const buttonBarContainer1 = 'volumeButtonBarContainer-volumeButton1'
-    const buttonBarContainer2 = 'volumeButtonBarContainer-volumeButton2'
+    const buttonBarContainer1 = 'volumeButtonBarContainer-volumeButton1';
+    const buttonBarContainer2 = 'volumeButtonBarContainer-volumeButton2';
     const id1 = 'volumeButton1';
     const id2 = 'volumeButton2';
     const barId1 = 'volumeBar1';
@@ -134,9 +141,9 @@ describe('VolumeButtonBar.cy.tsx', () => {
         />
       </div>,
     );
-    cy.dataCy(buttonBarContainer1).trigger('mouseover')
+    cy.dataCy(buttonBarContainer1).trigger('mouseover');
     cy.dataCy(barId1).should('have.css', 'background-color', volumeBarColor1);
-    cy.dataCy(buttonBarContainer2).trigger('mouseover')
+    cy.dataCy(buttonBarContainer2).trigger('mouseover');
     cy.dataCy(barId2).should('have.css', 'background-color', volumeBarColor2);
   });
 
@@ -147,8 +154,8 @@ describe('VolumeButtonBar.cy.tsx', () => {
     const scrubberBorderColor1 = 'rgb(36, 218, 130)';
     const scrubberBorderColor2 = 'rgb(111, 126, 224)';
 
-    const buttonBarContainer1 = 'volumeButtonBarContainer-volumeButton1'
-    const buttonBarContainer2 = 'volumeButtonBarContainer-volumeButton2'
+    const buttonBarContainer1 = 'volumeButtonBarContainer-volumeButton1';
+    const buttonBarContainer2 = 'volumeButtonBarContainer-volumeButton2';
     const id1 = 'volumeButton1';
     const id2 = 'volumeButton2';
     const barId1 = 'volumeBar1';
@@ -161,7 +168,7 @@ describe('VolumeButtonBar.cy.tsx', () => {
             id: id1,
             barId: barId1,
             scrubberColor: scrubberColor1,
-            scrubberBorderColor: scrubberBorderColor1
+            scrubberBorderColor: scrubberBorderColor1,
           }}
         />
         <VolumeButtons
@@ -169,18 +176,32 @@ describe('VolumeButtonBar.cy.tsx', () => {
             id: id2,
             barId: barId2,
             scrubberColor: scrubberColor2,
-            scrubberBorderColor: scrubberBorderColor2
+            scrubberBorderColor: scrubberBorderColor2,
           }}
         />
       </div>,
     );
-    cy.dataCy(buttonBarContainer1).trigger('mouseover')
-    cy.dataCy('volumeScrubber1').should('have.css', 'background-color', scrubberColor1);
-    cy.dataCy('volumeScrubber1').should('have.css', 'border', '2px solid ' + scrubberBorderColor1);
-    cy.dataCy(buttonBarContainer2).trigger('mouseover')
-    cy.dataCy('volumeScrubber2').should('have.css', 'background-color', scrubberColor2);
-    cy.dataCy('volumeScrubber2').should('have.css', 'border', '2px solid ' + scrubberBorderColor2);
+    cy.dataCy(buttonBarContainer1).trigger('mouseover');
+    cy.dataCy('volumeScrubber1').should(
+      'have.css',
+      'background-color',
+      scrubberColor1,
+    );
+    cy.dataCy('volumeScrubber1').should(
+      'have.css',
+      'border',
+      '2px solid ' + scrubberBorderColor1,
+    );
+    cy.dataCy(buttonBarContainer2).trigger('mouseover');
+    cy.dataCy('volumeScrubber2').should(
+      'have.css',
+      'background-color',
+      scrubberColor2,
+    );
+    cy.dataCy('volumeScrubber2').should(
+      'have.css',
+      'border',
+      '2px solid ' + scrubberBorderColor2,
+    );
   });
-
-
 });

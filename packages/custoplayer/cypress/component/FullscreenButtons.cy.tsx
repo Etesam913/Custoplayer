@@ -66,13 +66,28 @@ describe('FullscreenButtons.cy.tsx', () => {
     const buttonColor = 'rgb(77, 153, 0)';
     cy.mount(
       <div>
-        <ItemContainer color={buttonColor} isProgressBar={false}>
+        <ItemContainer
+          isProgressBar={false}
+          color={buttonColor}
+          marginLeft={undefined}
+          marginRight={undefined}
+          isProgressBarNextItem={true}
+          isProgressBarPreviousItem={true}
+          data-cy='margin-test'
+        >
           <FullscreenButtons
             item={{ id: 'fullscreenButton1' }}
             isFullscreen={false}
           />
         </ItemContainer>
-        <ItemContainer color={buttonColor} isProgressBar={false}>
+        <ItemContainer
+          isProgressBar={false}
+          color={buttonColor}
+          marginLeft={undefined}
+          marginRight={undefined}
+          isProgressBarNextItem={false}
+          isProgressBarPreviousItem={false}
+        >
           <FullscreenButtons
             item={{ id: 'fullscreenButton2' }}
             isFullscreen={false}
@@ -82,6 +97,7 @@ describe('FullscreenButtons.cy.tsx', () => {
     );
     cy.dataCy('fullscreenButton1').should('have.css', 'color', buttonColor);
     cy.dataCy('fullscreenButton2').should('have.css', 'color', buttonColor);
+    cy.dataCy('margin-test').should('have.css', 'marginLeft', '13.6px');
   });
 });
 

@@ -146,8 +146,6 @@ export interface VolumeItem {
   barColor?: string;
   /** Changes the color of the volume button icon. Accepts any hex or rgb color code. */
   buttonColor?: string;
-  /** Hides the volumeButton and the volumeBar when the video's width is less than 768px. Accepts values of true or false*/
-  hideOnMobile?: boolean;
   /** Changes the color of the volume bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
   scrubberColor?: string;
   /** Changes the border color of the volume bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
@@ -159,8 +157,6 @@ export interface PlayButtonItem {
   id: 'playButton1' | 'playButton2';
   /** Changes the color of the playButton. Accepts any hex or rgb color code. */
   buttonColor?: string;
-  /** Hides the playButton when the video's width is less than 768px. Accepts values of true or false*/
-  hideOnMobile?: boolean;
 }
 
 export interface ProgressBarItem {
@@ -172,8 +168,6 @@ export interface ProgressBarItem {
   barBorderColor?: string;
   /** Changes the color of the progress of the progress bar. Accepts any hex or rgb color code. */
   progressColor?: string;
-  /** Hides the progress bar when the video's width is less than 768px. Accepts values of true or false*/
-  hideOnMobile?: boolean;
   /** Changes the color of the progress bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
   scrubberColor?: string;
   /** Changes the border color of the progress bar scrubber. Accepts any hex or rgb color code. Set both scrubberColor and scrubberBorderColor properties to "transparent" to disable the scrubber. */
@@ -186,8 +180,6 @@ export interface TimeItem {
   id: 'currentTime' | 'duration';
   /** Changes the color of the time text. Accepts any hex or rgb color code. */
   textColor?: string;
-  /** Hides the currentTime text or duration text when the video's width is less than 768px. Accepts values of true or false*/
-  hideOnMobile?: boolean;
 }
 
 export interface FullscreenButtonItem {
@@ -195,8 +187,6 @@ export interface FullscreenButtonItem {
   id: 'fullscreenButton1' | 'fullscreenButton2';
   /** Changes the color of the fullscreen button. Accepts any hex or rgb color code. */
   buttonColor?: string;
-  /** Hides the fullscreen button when the video's width is less than 768px. Accepts values of true or false*/
-  hideOnMobile?: boolean;
 }
 
 export interface SettingsButtonItem {
@@ -211,8 +201,6 @@ export interface SettingsButtonItem {
    * For example if your settings menu is in item position 6 or 7, you may want to set the settingsMenuOrientation to 'left'
    */
   settingsMenuOrientation?: 'left' | 'middle' | 'right';
-  /** Hides the settings button when the video's width is less than 768px. Accepts values of true or false*/
-  hideOnMobile?: boolean;
   /** Used to specify the things that can be customized in the settings menu.
     @example
     options: {
@@ -283,13 +271,19 @@ export interface SettingsButtonItem {
   };
 }
 
-export type CustoplayerItem =
+export type CustoplayerItem = (
   | ProgressBarItem
   | PlayButtonItem
   | VolumeItem
   | TimeItem
   | FullscreenButtonItem
-  | SettingsButtonItem;
+  | SettingsButtonItem
+) & {
+  /** Hides the item when the video's width is less than 768px. Accepts values of true or false */
+  hideOnMobile?: boolean;
+  marginLeft?: string;
+  marginRight?: string;
+};
 
 export type videoQualitiesAtomType = {
   [num: number]: null | string;
