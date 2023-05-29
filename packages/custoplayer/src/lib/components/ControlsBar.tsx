@@ -59,10 +59,10 @@ function ControlsBar() {
       return <></>;
     }
 
-    const firstItemToRight = items
+    let firstItemToRight = items
       .slice(i + 1)
       .find((item) => item !== undefined);
-    const firstItemToLeft = items
+    let firstItemToLeft = items
       .slice(0, i)
       .findLast((item) => item !== undefined);
 

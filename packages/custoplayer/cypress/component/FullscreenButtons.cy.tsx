@@ -66,13 +66,27 @@ describe('FullscreenButtons.cy.tsx', () => {
     const buttonColor = 'rgb(77, 153, 0)';
     cy.mount(
       <div>
-        <ItemContainer color={buttonColor} isProgressBar={false}>
+        <ItemContainer
+          isProgressBar={false}
+          color={buttonColor}
+          marginLeft={undefined}
+          marginRight={undefined}
+          isProgressBarNextItem={false}
+          isProgressBarPreviousItem={false}
+        >
           <FullscreenButtons
             item={{ id: 'fullscreenButton1' }}
             isFullscreen={false}
           />
         </ItemContainer>
-        <ItemContainer color={buttonColor} isProgressBar={false}>
+        <ItemContainer
+          isProgressBar={false}
+          color={buttonColor}
+          marginLeft={undefined}
+          marginRight={undefined}
+          isProgressBarNextItem={false}
+          isProgressBarPreviousItem={false}
+        >
           <FullscreenButtons
             item={{ id: 'fullscreenButton2' }}
             isFullscreen={false}
