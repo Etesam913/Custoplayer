@@ -61,12 +61,22 @@ function ControlsBar() {
 
     const firstItemToRight = items
       .slice(i + 1)
-      .find((item: CustoplayerItem | undefined) => item !== undefined);
+      .find(
+        (item: CustoplayerItem | undefined) =>
+          item !== undefined &&
+          (!item.hideOnMobile ||
+            (item.hideOnMobile && videoDimensions.width >= 768)),
+      );
 
     // findLast does not seem to be supported by ts so I have to do this instead
     let firstItemToLeft = undefined;
     for (let j = i - 1; j > -1; j--) {
-      if (items[j] !== undefined) {
+      const curItem = items[j];
+      if (
+        curItem !== undefined &&
+        (!curItem.hideOnMobile ||
+          (curItem.hideOnMobile && videoDimensions.width >= 768))
+      ) {
         firstItemToLeft = items[j];
         break;
       }
