@@ -10,7 +10,7 @@ import {
   previewTooltipThumbnailsAtom,
   valuesAtom,
 } from '../atoms';
-import { getHoveredThumbnail } from '../utils';
+import { getHoveredThumbnail, getReadableTextColor } from '../utils';
 import { useEffect, useState } from 'react';
 
 interface PreviewTooltipProps {
@@ -70,6 +70,11 @@ function PreviewTooltips({
       {data.id === 'text' && (
         <TextTooltip
           backgroundColor={videoValues.controlsBar?.barColor}
+          textColor={
+            videoValues.controlsBar?.barColor
+              ? getReadableTextColor(videoValues.controlsBar?.barColor)
+              : 'white'
+          }
           data-cy='textPreviewTooltip'
           isVisible={(isHovered || isProgressDragging) && videoDuration > 0}
           style={{
@@ -83,6 +88,11 @@ function PreviewTooltips({
         <ImageThumbnailContainer
           data-cy='imageThumbnailContainer'
           backgroundColor={videoValues.controlsBar?.barColor}
+          textColor={
+            videoValues.controlsBar?.barColor
+              ? getReadableTextColor(videoValues.controlsBar?.barColor)
+              : 'white'
+          }
           isVisible={(isHovered || isProgressDragging) && videoDuration > 0}
           style={{
             transform: `translate(${previewTooltipPosition}px, ${
@@ -112,10 +122,12 @@ function PreviewTooltips({
 const TextTooltip = styled.span<{
   isVisible: boolean;
   backgroundColor: string | undefined;
+  textColor: string;
 }>`
   position: absolute;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  color: ${(props) => props.textColor};
   background-color: ${(props) =>
     props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
   pointer-events: none;
