@@ -57,7 +57,6 @@ function App() {
             item4: {
               id: 'progressBar1',
               progressColor: '#6a994e',
-              barColor: 'white',
             },
             item5: {
               id: 'duration',

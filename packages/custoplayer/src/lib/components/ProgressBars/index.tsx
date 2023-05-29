@@ -93,9 +93,12 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
   );
 
   const shouldAnimate = isHovered || isProgressDragging;
-  const hasScrubber =
-    item.scrubberColor !== 'transparent' &&
-    item.scrubberBorderColor !== 'transparent';
+  const hasScrubber = !(
+    item.scrubberColor === 'transparent' &&
+    (item.scrubberBorderColor === 'transparent' ||
+      item.scrubberBorderColor === 'none' ||
+      item.scrubberBorderColor === undefined)
+  );
 
   return (
     <ProgressBarContainer
