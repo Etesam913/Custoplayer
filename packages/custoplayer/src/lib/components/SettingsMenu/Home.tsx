@@ -124,42 +124,42 @@ const SpeedIcon = () => {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_143_2)'>
+      <g clipPath='url(#clip0_143_2)'>
         <path
           d='M26.25 27.25C31.6348 21.8652 31.6348 13.1348 26.25 7.74999C20.8652 2.36522 12.1348 2.36522 6.75 7.74999C1.36523 13.1348 1.36523 21.8652 6.75 27.25'
           stroke='currentColor'
-          stroke-width='2.5'
-          stroke-linecap='round'
+          strokeWidth='2.5'
+          strokeLinecap='round'
         />
         <path
           d='M6.84175 27.3492L9.72126 25.8602'
           stroke='currentColor'
-          stroke-width='2.5'
-          stroke-linecap='round'
+          strokeWidth='2.5'
+          strokeLinecap='round'
         />
         <path
           d='M4.38938 13.744L7.53268 14.5368'
           stroke='currentColor'
-          stroke-width='2.5'
-          stroke-linecap='round'
+          strokeWidth='2.5'
+          strokeLinecap='round'
         />
         <path
           d='M25.6726 14.5795L28.7945 13.7014'
           stroke='currentColor'
-          stroke-width='2.5'
-          stroke-linecap='round'
+          strokeWidth='2.5'
+          strokeLinecap='round'
         />
         <path
           d='M16.7426 7.50893L16.6949 4.26755'
           stroke='currentColor'
-          stroke-width='2.5'
-          stroke-linecap='round'
+          strokeWidth='2.5'
+          strokeLinecap='round'
         />
         <path
           d='M26.1818 27.4507L23.3237 25.921'
           stroke='currentColor'
-          stroke-width='2.5'
-          stroke-linecap='round'
+          strokeWidth='2.5'
+          strokeLinecap='round'
         />
         <circle
           cx='16.5'
@@ -170,7 +170,7 @@ const SpeedIcon = () => {
         />
         <path
           d='M23.6935 17.5L16.75 19.0419V15.9581L23.6935 17.5Z'
-          stroke-width='2.5'
+          strokeWidth='2.5'
           fill='currentColor'
           stroke='currentColor'
         />
