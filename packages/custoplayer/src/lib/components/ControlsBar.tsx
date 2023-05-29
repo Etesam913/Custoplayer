@@ -61,10 +61,16 @@ function ControlsBar() {
 
     const firstItemToRight = items
       .slice(i + 1)
-      .find((item) => item !== undefined);
-    const firstItemToLeft = items
-      .slice(0, i)
-      .findLast((item) => item !== undefined);
+      .find((item: CustoplayerItem | undefined) => item !== undefined);
+
+    // findLast does not seem to be supported by ts so I have to do this instead
+    let firstItemToLeft = undefined;
+    for (let j = i - 1; j > -1; j--) {
+      if (items[j] !== undefined) {
+        firstItemToLeft = items[j];
+        break;
+      }
+    }
 
     return (
       <ItemContainer
