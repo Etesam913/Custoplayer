@@ -34,6 +34,7 @@ const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   return (
     <Bar1
       ref={ref}
+      barBorderColor={props.item.barBorderColor}
       barColor={props.item.barColor}
       role='progressbar'
       animate={{
@@ -76,9 +77,14 @@ const ProgressBar1 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   );
 });
 
-const Bar1 = styled(motion.div)<{ barColor: string | undefined }>`
+const Bar1 = styled(motion.div)<{
+  barColor: string | undefined;
+  barBorderColor: string | undefined;
+}>`
   display: flex;
   background-color: ${(props) => (props.barColor ? props.barColor : '#f2f2f2')};
+  border: 2.25px solid
+    ${(props) => (props.barBorderColor ? props.barBorderColor : 'none')};
   width: 100%;
   border-radius: 0.7rem;
   justify-content: flex-start;

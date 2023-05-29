@@ -59,7 +59,7 @@ const Bar2 = styled(motion.div)<{ barColor: string | undefined }>`
   display: flex;
   background-color: ${(props) => (props.barColor ? props.barColor : '#f2f2f2')};
   width: 100%;
-  height: 1.25rem;
+  height: 1.4rem;
   justify-content: flex-start;
   position: relative;
 `;
