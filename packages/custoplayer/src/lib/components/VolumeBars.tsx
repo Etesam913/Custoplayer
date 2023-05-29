@@ -120,6 +120,7 @@ const VolumeBar2Shade = styled.div<{ backgroundColor: string | undefined }>`
   transform: translate(-30px, -68px);
   border-radius: 0.45rem 0.45rem 0 0;
   position: absolute;
+  z-index: 2;
 `;
 
 const VolumeBar2 = styled.div<{ barColor: string | undefined }>`

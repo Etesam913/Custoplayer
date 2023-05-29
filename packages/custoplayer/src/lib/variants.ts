@@ -5,9 +5,9 @@ export const volumeBar1Animation = {
 };
 
 export const volumeBar2Animation = {
-  init: { opacity: 0 },
-  anim: { opacity: 1 },
-  exit: { opacity: 0 },
+  init: { opacity: 0, zIndex: 2 },
+  anim: { opacity: 1, zIndex: 2 },
+  exit: { opacity: 0, zIndex: 2 },
 };
 
 export const controlsBarOpacityAnimation = {
