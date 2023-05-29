@@ -281,6 +281,8 @@ export type CustoplayerItem = (
 ) & {
   /** Hides the item when the video's width is less than 768px. Accepts values of true or false */
   hideOnMobile?: boolean;
+  marginLeft?: string;
+  marginRight?: string;
 };
 
 export type videoQualitiesAtomType = {

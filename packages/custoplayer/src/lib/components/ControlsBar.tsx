@@ -51,15 +51,31 @@ function ControlsBar() {
   const videoDimensions = useAtomValue(videoDimensionsAtom, myScope);
   const videoValues = useAtomValue(valuesAtom, myScope);
 
-  function renderItem(curItem: CustoplayerItem | undefined) {
+  function renderItem(curItem: CustoplayerItem | undefined, i: number) {
     if (
       curItem === undefined ||
       (curItem.hideOnMobile && videoDimensions.width < 768)
     ) {
       return <></>;
     }
+
+    const firstItemToRight = items
+      .slice(i + 1)
+      .find((item) => item !== undefined);
+    const firstItemToLeft = items
+      .slice(0, i)
+      .findLast((item) => item !== undefined);
+
     return (
       <ItemContainer
+        marginLeft={curItem.marginLeft}
+        marginRight={curItem.marginRight}
+        isProgressBarNextItem={
+          firstItemToRight ? isProgressBar(firstItemToRight) : false
+        }
+        isProgressBarPreviousItem={
+          firstItemToLeft ? isProgressBar(firstItemToLeft) : false
+        }
         onClick={(e) => e.stopPropagation()}
         isProgressBar={isProgressBar(curItem)}
         color={
@@ -99,7 +115,9 @@ function ControlsBar() {
           >
             {items.map((curItem, idx) => {
               return (
-                <Fragment key={`item-${idx}`}>{renderItem(curItem)}</Fragment>
+                <Fragment key={`item-${idx}`}>
+                  {renderItem(curItem, idx)}
+                </Fragment>
               );
             })}
           </Controls>
@@ -129,7 +147,14 @@ const Controls = styled.div<{
   box-sizing: border-box;
 `;
 
-export const ItemContainer = styled.div<{ isProgressBar: boolean }>`
+export const ItemContainer = styled.div<{
+  isProgressBar: boolean;
+  color: string;
+  marginRight: string | undefined;
+  marginLeft: string | undefined;
+  isProgressBarNextItem: boolean;
+  isProgressBarPreviousItem: boolean;
+}>`
   height: 100%;
   width: auto;
   color: ${(props) => props.color};
@@ -137,10 +162,29 @@ export const ItemContainer = styled.div<{ isProgressBar: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.35rem;
+  /*
+  Progress bars don't have margin by default
+  If the next item is a progress bar the margin is increased (the scrubber takes up space)
+  Otherwise use the default margin of 0.35rem
+  */
+  margin-right: ${(props) =>
+    props.marginRight
+      ? props.marginRight
+      : props.isProgressBarNextItem
+      ? '0.85rem'
+      : props.isProgressBar
+      ? '0'
+      : '0.35rem'};
+
+  margin-left: ${(props) =>
+    props.marginLeft
+      ? props.marginLeft
+      : props.isProgressBarPreviousItem
+      ? '0.85rem'
+      : '0'};
 
   :last-child {
-    margin-right: 0;
+    margin-right: ${(props) => (props.marginRight ? props.marginRight : '0')};
   }
 `;
 
