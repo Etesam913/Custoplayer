@@ -160,10 +160,10 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
       </ButtonContainer>
       {(
         <AnimatePresence>
-          {(isVolumeHovered || isVolumeDragging) && (
+          {(isVolumeHovered || isVolumeDragging) && item.barId && (
             <VolumeBarContainer
               tabIndex={0}
-              onFocus={() => setFocusedItem(item.barId ?? null)}
+              onFocus={() => setFocusedItem(item.barId ?? 'volumeBar1')}
               onBlur={() => setFocusedItem('progressBar')}
               variants={
                 item.barId === 'volumeBar1'

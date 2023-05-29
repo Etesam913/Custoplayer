@@ -1,5 +1,3 @@
-import { PlayState } from './atoms';
-
 export const volumeBar1Animation = {
   init: { opacity: 0, width: 0 },
   anim: { opacity: 1, width: 56 },
@@ -25,18 +23,18 @@ export const controlsBarMovementAnimation = {
 };
 
 export const progressBar1ScrubberAnimation = {
-  init: { height: '0.85rem', width: '0.85rem' },
+  init: { height: '0.95rem', width: '0.95rem' },
   anim: (shouldAnimate: boolean) => ({
-    height: shouldAnimate ? '1rem' : '0.85rem',
-    width: shouldAnimate ? '1rem' : '0.85rem',
+    height: shouldAnimate ? '1.15rem' : '0.95rem',
+    width: shouldAnimate ? '1.15rem' : '0.95rem',
   }),
 };
 
 export const volumeBar1ScrubberAnimation = {
-  init: { height: '0.75rem', width: '0.75rem' },
+  init: { height: '0.875rem', width: '0.875rem' },
   anim: (shouldAnimate: boolean) => ({
-    height: shouldAnimate ? '0.85rem' : '0.75rem',
-    width: shouldAnimate ? '0.85rem' : '0.75rem',
+    height: shouldAnimate ? '1rem' : '0.875rem',
+    width: shouldAnimate ? '1rem' : '0.875rem',
   }),
 };
 

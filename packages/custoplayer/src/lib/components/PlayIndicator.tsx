@@ -22,6 +22,9 @@ import {
   subtitleTransition,
 } from '../variants';
 import Loader from './Loader';
+import RestartButton1 from './PlayButtons/RestartButton1';
+import RestartButton2 from './PlayButtons/RestartButton2';
+import { handlePlayState } from '../utils';
 
 function findPlayButton(items: (CustoplayerItem | undefined)[]) {
   if (items === undefined) return undefined;
@@ -41,6 +44,7 @@ function PlayIndicator() {
   const currentSubtitle = useAtomValue(currentSubtitleAtom, myScope);
   const isControlsShowing = useAtomValue(showControlsBarAtom, myScope);
   const playButtonItem: PlayButtonItem | undefined = findPlayButton(items);
+  const videoElem = useAtomValue(videoElemAtom, myScope);
 
   function renderPlayButton() {
     if (isSeeking) {
@@ -51,24 +55,36 @@ function PlayIndicator() {
         return <PauseButton2 isIndicator />;
       } else if (playState === PlayState.paused) {
         return <PlayButton2 isIndicator />;
+      } else if (playState === PlayState.ended) {
+        return <RestartButton2 isIndicator />;
       }
     } else {
       if (playState === PlayState.playing) {
         return <PauseButton1 isIndicator />;
       } else if (playState === PlayState.paused) {
         return <PlayButton1 isIndicator />;
+      } else if (playState === PlayState.ended) {
+        return <RestartButton1 isIndicator />;
       }
     }
   }
+
+  const showPlayIndicator =
+    isSeeking ||
+    playState === PlayState.paused ||
+    playState === PlayState.ended;
 
   return (
     <Container>
       <IndicatorContainer
         data-cy='playIndicator'
+        tabIndex={showPlayIndicator ? 0 : -1}
         playButtonColor={playButtonItem?.buttonColor ?? 'white'}
         variants={playIndicatorAnimation}
+        whileHover={{ scale: 1.1 }}
         animate='anim'
-        custom={isSeeking || playState === PlayState.paused}
+        custom={showPlayIndicator}
+        onKeyDown={(e) => e.key === 'Enter' && handlePlayState(videoElem)}
       >
         {renderPlayButton()}
       </IndicatorContainer>
@@ -113,7 +129,6 @@ const IndicatorContainer = styled(motion.button)<{
   border: 0;
   pointer-events: none;
   will-change: transform;
-
   :focus-visible {
     outline: 3.25px dashed ${(props) => props.theme.focusColor};
   }

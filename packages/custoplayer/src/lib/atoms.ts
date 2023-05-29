@@ -51,8 +51,8 @@ export const playbackSpeedAtom = atom(1);
 
 // Keyboard Navigation
 export const focusedItemAtom = atom<
-  'volumeBar1' | 'volumeBar2' | 'progressBar' | null
->(null);
+  'volumeBar1' | 'volumeBar2' | 'progressBar'
+>('progressBar');
 
 // Subtitles
 export const currentSubtitleAtom = atom<VTTCue | null>(null);

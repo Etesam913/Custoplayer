@@ -5,10 +5,11 @@ import styled from 'styled-components';
 import Home from './Home';
 import Quality from './Quality';
 import { useAtomValue } from 'jotai';
-import { myScope, videoDimensionsAtom } from '@root/lib/atoms';
+import { myScope, videoDimensionsAtom, valuesAtom } from '@root/lib/atoms';
 import { motion } from 'framer-motion';
 import Subtitles from './Subtitles';
 import PlaybackSpeed from './PlaybackSpeed';
+import { getReadableTextColor } from '@root/lib/utils';
 
 type Ref = HTMLMenuElement;
 
@@ -58,7 +59,7 @@ const GoLeftIcon = () => {
 const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
   const [currentPage, setCurrentPage] = useState('/home');
   const videoDimensions = useAtomValue(videoDimensionsAtom, myScope);
-
+  const videoValues = useAtomValue(valuesAtom, myScope);
   useEffect(() => {
     if (ref) {
       const menuContainer = (ref as MutableRefObject<Ref>).current.lastChild;
@@ -73,6 +74,8 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
     else if (currentPage === '/subtitles') return 'Subtitles';
     else if (currentPage === '/playback-speed') return 'Speed';
   }
+  const settingsMenuColor =
+    props.item.settingsMenuColor ?? videoValues?.controlsBar?.barColor;
 
   return (
     <TranslateContainer
@@ -86,12 +89,13 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
         layout
         ref={ref}
         data-cy='settingsMenu'
-        settingsMenuColor={props.item.settingsMenuColor}
+        settingsMenuColor={settingsMenuColor}
+        textColor={getReadableTextColor(settingsMenuColor ?? '')}
       >
         <MenuHeaderRow layout>
           <MenuHeaderButton
             data-cy='settingsMenuHeaderButton'
-            settingsMenuColor={props.item.settingsMenuColor}
+            settingsMenuColor={settingsMenuColor}
             onClick={() =>
               currentPage === '/home'
                 ? props.setIsSettingsMenuOpen(false)
@@ -148,6 +152,7 @@ const TranslateContainer = styled(motion.div)<{
 
 const SettingsMenuContainer = styled(motion.menu)<{
   settingsMenuColor: string | undefined;
+  textColor: string;
 }>`
   border-radius: 0.5rem;
   background-color: ${(props) =>
@@ -158,16 +163,19 @@ const SettingsMenuContainer = styled(motion.menu)<{
   overflow: hidden;
   min-width: 6.5rem;
   box-shadow: 10px 10px 55px -8px rgba(0, 0, 0, 0.56);
+  color: ${(props) => props.textColor};
 `;
 
 const MenuHeaderRow = styled(motion.section)`
   display: flex;
   align-items: center;
   margin: 0.25rem 0 0.5rem;
+  color: inherit;
 `;
 
 const MenuContent = styled.section<{ settingsMenuHeight: number }>`
   max-height: ${(props) => props.settingsMenuHeight}px;
+  color: inherit;
 `;
 
 export default SettingsMenu;

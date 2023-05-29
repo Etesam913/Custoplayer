@@ -1,5 +1,10 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
-import { SetStateAction, useEffect, ReactNode } from 'react';
+import {
+  SetStateAction,
+  useEffect,
+  ReactNode,
+  ComponentPropsWithoutRef,
+} from 'react';
 import {
   myScope,
   videoDimensionsObserverAtom,
@@ -8,7 +13,11 @@ import {
   PlayState,
 } from '@root/lib/atoms';
 import screenfull from 'screenfull';
-import { videoQualitiesAtomType } from './types';
+import {
+  CustoplayerItem,
+  CustoplayerValues,
+  videoQualitiesAtomType,
+} from './types';
 
 // Gets dimensions of the video player
 export function useDimensions() {
@@ -250,3 +259,108 @@ export function useOnClickOutside(
     [ref, handler],
   );
 }
+
+export function useMouseMovementTimer(
+  element: HTMLElement | null,
+  isFullscreen: boolean,
+  movementCallback: () => void,
+  noMovementCallback: () => void,
+) {
+  let timer: ReturnType<typeof setTimeout>;
+
+  function resetMouseMovement() {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      noMovementCallback();
+    }, 2500);
+  }
+
+  const handleMouseMove = () => {
+    movementCallback();
+    resetMouseMovement();
+  };
+
+  useEffect(() => {
+    if (isFullscreen && element) {
+      element.addEventListener('mousemove', handleMouseMove);
+
+      return () => {
+        element.removeEventListener('mousemove', handleMouseMove);
+        clearTimeout(timer);
+      };
+    }
+  }, [element, isFullscreen]);
+}
+
+/**
+If fullscreen mode is entered via context menu
+The fullscreen mode is applied to the video container
+instead. This is done so that the controls bar can be
+shown in fullscreen mode.
+*/
+export function usePreventFullscreen(
+  video: HTMLVideoElement | null,
+  videoContainer: HTMLDivElement | null,
+) {
+  useEffect(() => {
+    function handleFullscreenChange(event: Event) {
+      const videoElement = event.target as HTMLVideoElement;
+      const isFullscreen = document.fullscreenElement === videoElement;
+
+      if (isFullscreen && videoContainer) {
+        document.exitFullscreen().then(() => {
+          videoContainer.requestFullscreen();
+        });
+      }
+    }
+
+    if (video) {
+      video.addEventListener('fullscreenchange', handleFullscreenChange);
+    }
+
+    return () => {
+      if (video) {
+        video.removeEventListener('fullscreenchange', handleFullscreenChange);
+      }
+    };
+  }, [video]);
+}
+
+/** Updates videoValues and videoItems whenever they change */
+export const useListenForChanges = (
+  setValues: (update: SetStateAction<CustoplayerValues>) => void,
+  setItems: (update: SetStateAction<(CustoplayerItem | undefined)[]>) => void,
+  setVideoAttributes: (
+    update: SetStateAction<
+      Omit<
+        React.DetailedHTMLProps<
+          React.VideoHTMLAttributes<HTMLVideoElement>,
+          HTMLVideoElement
+        >,
+        'ref'
+      >
+    >,
+  ) => void,
+  rest: ComponentPropsWithoutRef<'video'>,
+  values: CustoplayerValues,
+) => {
+  useEffect(() => {
+    // Setting default controlsBar color
+    if (values?.controlsBar && !values?.controlsBar?.barColor)
+      values.controlsBar.barColor = 'rgba(28, 28, 28, 0.7)';
+    setValues(values);
+    setItems([
+      values.item1,
+      values.item2,
+      values.item3,
+      values.item4,
+      values.item5,
+      values.item6,
+      values.item7,
+    ]);
+  }, [values]);
+
+  useEffect(() => {
+    setVideoAttributes(rest);
+  }, [rest]);
+};

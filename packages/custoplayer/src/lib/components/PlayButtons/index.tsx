@@ -13,6 +13,8 @@ import PauseButton2 from './PauseButton2';
 import PlayButton2 from './PlayButton2';
 import PlayButton1 from './PlayButton1';
 import PauseButton1 from './PauseButton1';
+import RestartButton1 from './RestartButton1';
+import RestartButton2 from './RestartButton2';
 
 interface PlayButtonsProps {
   item: PlayButtonItem;
@@ -32,20 +34,28 @@ function PlayButtons({ item }: PlayButtonsProps) {
       onMouseMove={(e) => e.preventDefault}
       onClick={() => handlePlayState(videoElem)}
       onKeyUp={(e) => e.preventDefault()}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{
+        scale: 1.1,
+        rotate: playState === PlayState.ended ? -30 : 0,
+      }}
+      whileTap={{
+        scale: 0.95,
+        rotate: playState === PlayState.ended ? -55 : 0,
+      }}
       data-cy={item.id}
     >
       {item.id === 'playButton1' && (
         <>
           {playState === PlayState.paused && <PlayButton1 />}
           {playState === PlayState.playing && <PauseButton1 />}
+          {playState === PlayState.ended && <RestartButton1 />}
         </>
       )}
       {item.id === 'playButton2' && (
         <>
           {playState === PlayState.paused && <PlayButton2 />}
           {playState === PlayState.playing && <PauseButton2 />}
+          {playState === PlayState.ended && <RestartButton2 />}
         </>
       )}
     </PlayButtonContainer>

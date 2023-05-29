@@ -7,7 +7,7 @@ export const StyledMenuButton = styled(motion.button)<{
 }>`
   background-color: transparent;
   border: 0;
-  color: white;
+  color: inherit;
   width: 100%;
   height: 100%;
   text-align: left;
@@ -42,6 +42,7 @@ export const StyledMenuButton = styled(motion.button)<{
 export const MenuItem = styled(motion.li)`
   list-style-type: none;
   margin: 0;
+  color: inherit;
 `;
 
 export const MenuIcon = styled(motion.svg)<{ margin?: string }>`
@@ -55,7 +56,7 @@ export const MenuIcon = styled(motion.svg)<{ margin?: string }>`
 `;
 
 export const MenuHeader = styled(motion.h3)`
-  color: white;
+  color: inherit;
   margin: 0;
   font-weight: normal;
 `;

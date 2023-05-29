@@ -8,6 +8,7 @@ import {
 } from '@root/lib/atoms';
 import { CustoplayerValues } from './types';
 import { ComponentPropsWithoutRef, useEffect } from 'react';
+import { useListenForChanges } from './hooks';
 
 interface CustoplayerProps {
   values: CustoplayerValues;
@@ -19,23 +20,7 @@ function Custoplayer({ values, rest }: CustoplayerProps) {
   const setItems = useSetAtom(itemsAtom, myScope);
   const setVideoAttributes = useSetAtom(videoAttributesAtom, myScope);
 
-  /* TODO: These values to not update because they are in the file that is being exported */
-  useEffect(() => {
-    setValues(values);
-    setItems([
-      values.item1,
-      values.item2,
-      values.item3,
-      values.item4,
-      values.item5,
-      values.item6,
-      values.item7,
-    ]);
-  }, [values]);
-
-  useEffect(() => {
-    setVideoAttributes(rest);
-  }, [rest]);
+  useListenForChanges(setValues, setItems, setVideoAttributes, rest, values);
 
   return <VideoPlayerWrapper />;
 }

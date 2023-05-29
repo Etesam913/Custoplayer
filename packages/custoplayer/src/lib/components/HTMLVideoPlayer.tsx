@@ -1,17 +1,16 @@
 import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import styled from 'styled-components';
 import {
-  controlsBarTimeoutAtom,
   currentQualityAtom,
   currentSubtitleAtom,
   currentTextTrackAtom,
   currentTimeAtom,
   draggableSymbol,
   durationAtom,
+  isFullscreenAtom,
   isMutedAtom,
   isProgressDraggingAtom,
   isSeekingAtom,
-  isSeekingTimeoutAtom,
   isVolumeDraggingAtom,
   isVolumeDraggingType,
   myScope,
@@ -25,29 +24,28 @@ import {
   subtitlesAtom,
   valuesAtom,
   videoAttributesAtom,
+  videoContainerAtom,
   videoElemAtom,
   videoQualitiesAtom,
   volumeAtom,
 } from '@root/lib/atoms';
 
-import { SyntheticEvent, useCallback } from 'react';
-import { getCurrentQuality, handlePlayState, throttle } from '../utils';
-import { usePreviewThumbnails, useQualities, useSubtitles } from '../hooks';
+import { SyntheticEvent, useRef } from 'react';
+import { getCurrentQuality, handlePlayState } from '../utils';
+import {
+  useMouseMovementTimer,
+  usePreventFullscreen,
+  usePreviewThumbnails,
+  useQualities,
+  useSubtitles,
+} from '../hooks';
 
 function HTMLVideoPlayer() {
   const [videoElem, setVideoElem] = useAtom(videoElemAtom, myScope);
   const [values, setValues] = useAtom(valuesAtom, myScope);
   const setPlayState = useSetAtom(playStateAtom, myScope);
-  const playState = useAtomValue(playStateAtom, myScope);
   const setPlaybackSpeed = useSetAtom(playbackSpeedAtom, myScope);
-  const [controlsBarTimeout, setControlsBarTimeout] = useAtom(
-    controlsBarTimeoutAtom,
-    myScope,
-  );
-  const [showControlsBar, setShowControlsBar] = useAtom(
-    showControlsBarAtom,
-    myScope,
-  );
+  const showControlsBar = useAtomValue(showControlsBarAtom, myScope);
   const setProgress = useSetAtom(progressAtom, myScope);
   const setVolume = useSetAtom(volumeAtom, myScope);
   const setDuration = useSetAtom(durationAtom, myScope);
@@ -55,15 +53,11 @@ function HTMLVideoPlayer() {
   const setCurrentTime = useSetAtom(currentTimeAtom, myScope);
   const setIsMuted = useSetAtom(isMutedAtom, myScope);
   const setCurrentQuality = useSetAtom(currentQualityAtom, myScope);
-
-  const [isSeekingTimeout, setIsSeekingTimeout] = useAtom(
-    isSeekingTimeoutAtom,
-    myScope,
-  );
   const setProgressBufferPercent = useSetAtom(
     progressBufferPercentAtom,
     myScope,
   );
+  const setShowControlsBar = useSetAtom(showControlsBarAtom, myScope);
   const setSubtitles = useSetAtom(subtitlesAtom, myScope);
   const setCurrentSubtitle = useSetAtom(currentSubtitleAtom, myScope);
   const setCurrentTextTrack = useSetAtom(currentTextTrackAtom, myScope);
@@ -74,7 +68,9 @@ function HTMLVideoPlayer() {
   );
   const isProgressDragging = useAtomValue(isProgressDraggingAtom, myScope);
   const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
+  const isFullscreen = useAtomValue(isFullscreenAtom, myScope);
   const videoAttributes = useAtomValue(videoAttributesAtom, myScope);
+  const videoContainer = useAtomValue(videoContainerAtom, myScope);
   const {
     playsInline,
     onClick,
@@ -105,6 +101,13 @@ function HTMLVideoPlayer() {
     setCurrentTextTrack,
   );
   usePreviewThumbnails(videoElem, setPreviewTooltipThumbnails);
+  usePreventFullscreen(videoElem, videoContainer);
+  useMouseMovementTimer(
+    videoElem,
+    isFullscreen,
+    () => setShowControlsBar(true),
+    () => setShowControlsBar(false),
+  );
 
   const handlePlay = () => {
     setPlayState(PlayState.playing);
@@ -116,19 +119,6 @@ function HTMLVideoPlayer() {
   const handleEnded = () => {
     setPlayState(PlayState.ended);
   };
-
-  const handleMouseMove = useCallback(
-    throttle(() => {
-      controlsBarTimeout !== null && clearInterval(controlsBarTimeout);
-      if (playState === PlayState.playing) {
-        setShowControlsBar;
-        setControlsBarTimeout(() =>
-          setTimeout(() => setShowControlsBar(false), 3000),
-        );
-      }
-    }, 200),
-    [controlsBarTimeout, playState],
-  );
 
   function handleProgress(e: SyntheticEvent<HTMLVideoElement, Event>) {
     /*
@@ -156,32 +146,10 @@ function HTMLVideoPlayer() {
   }
 
   function handleOnSeeking() {
-    // if (isSeekingTimeout !== null) {
-    //   clearTimeout(isSeekingTimeout);
-    //   setIsSeekingTimeout(null);
-    // }
-    // if (isSeekingTimeout !== null) {
-    //   clearTimeout(isSeekingTimeout);
-    // }
-    // setIsSeekingTimeout(
-    //   setTimeout(() => {
-    //     console.log('true');
-    //     setIsSeeking(true);
-    //   }, 2000),
-    // );
     setIsSeeking(true);
   }
 
   function handleOnSeeked() {
-    // console.log('end');
-    // if (isSeekingTimeout !== null) {
-    //   window.clearTimeout(isSeekingTimeout);
-    // }
-    // setIsSeekingTimeout(null);
-    // if (isSeekingTimeout !== null) {
-    //   clearTimeout(isSeekingTimeout);
-    // }
-    // setIsSeekingTimeout(null);
     setIsSeeking(false);
   }
 
@@ -200,7 +168,6 @@ function HTMLVideoPlayer() {
       }}
       onPlay={(e) => {
         handlePlay();
-        console.log((e.target as HTMLVideoElement).textTracks);
         onPlay && onPlay(e);
       }}
       onEnded={(e) => {
