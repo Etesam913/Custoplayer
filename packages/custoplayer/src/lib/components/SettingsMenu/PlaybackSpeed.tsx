@@ -20,12 +20,12 @@ function PlaybackSpeed({ item }: PlaybackSpeedProps) {
   const settingsMenuColor =
     item.settingsMenuColor ?? videoValues?.controlsBar?.barColor;
 
-  const subtitleElements =
+  const speedElements =
     item.options?.playbackSpeed &&
     item.options?.playbackSpeed.map((speed: number, i: number) => (
       <MenuItem key={`settingsMenuSpeedButton-${i}`}>
         <MenuButton
-          dataCy={`settingsMenuSpeedButton-${speed + ''}x`}
+          dataCy={`settingsMenuSpeedButton-${i}`}
           onClick={() => (videoElem ? (videoElem.playbackRate = speed) : null)}
           settingsMenuColor={settingsMenuColor}
         >
@@ -33,7 +33,7 @@ function PlaybackSpeed({ item }: PlaybackSpeedProps) {
         </MenuButton>
       </MenuItem>
     ));
-  return <>{subtitleElements}</>;
+  return <>{speedElements}</>;
 }
 
 export default PlaybackSpeed;

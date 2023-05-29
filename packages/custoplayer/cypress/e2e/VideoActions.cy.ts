@@ -116,18 +116,26 @@ describe('Video Actions', () => {
   });
 
   it('changes current time of video to test previewTooltipThumbnail', () => {
-    cy.visit('/')
-    cy.dataCy("changePreviewTooltipIdButton").trigger("click")
+    cy.visit('/');
+    cy.dataCy('changePreviewTooltipIdButton').trigger('click');
     cy.dataCy('videoPlayerWrapper').should('exist');
     cy.dataCy('videoPlayerWrapper').trigger('mouseover');
     cy.dataCy('progressBar1')
       .trigger('mousedown')
       .trigger('mousemove', { x: 20 });
     cy.dataCy('imageThumbnailContainer').should('be.visible');
-    cy.dataCy('imageThumbnail').should('have.css', 'background-image', 'url("https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.jpg")');
+    cy.dataCy('imageThumbnail').should(
+      'have.css',
+      'background-image',
+      'url("https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.jpg")',
+    );
     // The background position should have changed
-    cy.dataCy('imageThumbnail').should('have.css', 'background-position', "-875px -210px");
-  })
+    cy.dataCy('imageThumbnail').should(
+      'have.css',
+      'background-position',
+      '-875px -210px',
+    );
+  });
 
   it('changes quality of the video via settings button', () => {
     cy.visit('/');
@@ -231,50 +239,66 @@ describe('Video Actions', () => {
     cy.dataCy('currentSubtitle').should('not.exist');
   });
 
-  // it('selects different video speeds', () => {
-  //   cy.visit('/');
-  //   cy.dataCy('videoPlayerWrapper').should('exist');
-  //   cy.dataCy('HTMLVideoPlayer').should('exist');
-  //   cy.dataCy('videoPlayerWrapper').trigger('mouseover');
-  //   cy.dataCy('settingsButton1').trigger('click');
-  //   cy.dataCy('settingsMenu').should('exist');
-  //   cy.dataCy('settingsMenuSpeedButton').trigger('click');
+  it('selects different video speeds', () => {
+    cy.visit('/');
+    cy.dataCy('videoPlayerWrapper').should('exist');
+    cy.dataCy('HTMLVideoPlayer').should('exist');
+    cy.dataCy('videoPlayerWrapper').trigger('mouseover');
+    cy.dataCy('settingsButton1').trigger('click');
+    cy.dataCy('settingsMenu').should('exist');
+    cy.dataCy('settingsMenuSpeedButton').trigger('click');
 
-  //   cy.dataCy('settingsMenuSpeedButton-0.25x').should('be.visible');
-  //   cy.dataCy('settingsMenuSpeedButton-0.5x').should('exist');
-  //   cy.dataCy('settingsMenuSpeedButton-1x').should('exist');
-  //   cy.dataCy('settingsMenuSpeedButton-1.25x').should('exist');
-  //   cy.dataCy('settingsMenuSpeedButton-1.5x').should('exist');
-  //   cy.dataCy('settingsMenuSpeedButton-1.75x').should('exist');
-  //   cy.dataCy('settingsMenuSpeedButton-2x').should('exist');
+    cy.dataCy('settingsMenuSpeedButton-0').should('be.visible');
+    cy.dataCy('settingsMenuSpeedButton-1').should('exist');
+    cy.dataCy('settingsMenuSpeedButton-2').should('exist');
+    cy.dataCy('settingsMenuSpeedButton-3').should('exist');
+    cy.dataCy('settingsMenuSpeedButton-4').should('exist');
+    cy.dataCy('settingsMenuSpeedButton-5').should('exist');
+    cy.dataCy('settingsMenuSpeedButton-6').should('exist');
 
-  //   cy.dataCy('HTMLVideoPlayer').should('have.property', 'playbackRate', 1);
+    cy.dataCy('HTMLVideoPlayer')
+      .should('have.prop', 'playbackRate')
+      .then((x) => expect(x).to.eq(1));
 
-  //   cy.dataCy('settingsMenuSpeedButton0.25x').trigger('click');
-  //   cy.dataCy('HTMLVideoPlayer').should('have.property', 'playbackRate', 0.25);
+    cy.dataCy('settingsMenuSpeedButton-0').trigger('click');
+    cy.dataCy('HTMLVideoPlayer')
+      .should('have.prop', 'playbackRate')
+      .then((x) => expect(x).to.eq(0.25));
 
-  //   cy.dataCy('settingsMenuSpeedButton0.5x').trigger('click');
-  //   cy.dataCy('HTMLVideoPlayer').should('have.property', 'playbackRate', 0.5);
+    cy.dataCy('settingsMenuSpeedButton-1').trigger('click');
+    cy.dataCy('HTMLVideoPlayer')
+      .should('have.prop', 'playbackRate')
+      .then((x) => expect(x).to.eq(0.5));
 
-  //   cy.dataCy('settingsMenuSpeedButton1x').trigger('click');
-  //   cy.dataCy('HTMLVideoPlayer').should('have.property', 'playbackRate', 1);
+    cy.dataCy('settingsMenuSpeedButton-2').trigger('click');
+    cy.dataCy('HTMLVideoPlayer')
+      .should('have.prop', 'playbackRate')
+      .then((x) => expect(x).to.eq(1));
 
-  //   cy.dataCy('settingsMenuSpeedButton1.25x').trigger('click');
-  //   cy.dataCy('HTMLVideoPlayer').should('have.property', 'playbackRate', 1.25);
+    cy.dataCy('settingsMenuSpeedButton-3').trigger('click');
+    cy.dataCy('HTMLVideoPlayer')
+      .should('have.prop', 'playbackRate')
+      .then((x) => expect(x).to.eq(1.25));
 
-  //   cy.dataCy('settingsMenuSpeedButton1.5x').trigger('click');
-  //   cy.dataCy('HTMLVideoPlayer').should('have.property', 'playbackRate', 1.5);
+    cy.dataCy('settingsMenuSpeedButton-4').trigger('click');
+    cy.dataCy('HTMLVideoPlayer')
+      .should('have.prop', 'playbackRate')
+      .then((x) => expect(x).to.eq(1.5));
 
-  //   cy.dataCy('settingsMenuSpeedButton1.75x').trigger('click');
-  //   cy.dataCy('HTMLVideoPlayer').should('have.property', 'playbackRate', 1.75);
+    cy.dataCy('settingsMenuSpeedButton-5').trigger('click');
+    cy.dataCy('HTMLVideoPlayer')
+      .should('have.prop', 'playbackRate')
+      .then((x) => expect(x).to.eq(1.75));
 
-  //   cy.dataCy('settingsMenuSpeedButton2x').trigger('click');
-  //   cy.dataCy('HTMLVideoPlayer').should('have.property', 'playbackRate', 2);
+    cy.dataCy('settingsMenuSpeedButton-6').trigger('click');
+    cy.dataCy('HTMLVideoPlayer')
+      .should('have.prop', 'playbackRate')
+      .then((x) => expect(x).to.eq(2));
 
-  //   cy.dataCy('settingsMenuHeaderButton').trigger('click');
-  //   cy.dataCy('settingsMenuHeaderButton').trigger('click');
-  //   cy.dataCy('settingsMenu').should('not.exist');
-  // });
+    cy.dataCy('settingsMenuHeaderButton').trigger('click');
+    cy.dataCy('settingsMenuHeaderButton').trigger('click');
+    cy.dataCy('settingsMenu').should('not.exist');
+  });
 });
 
-export { };
+export {};
