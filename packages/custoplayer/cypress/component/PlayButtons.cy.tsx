@@ -14,24 +14,28 @@ describe('PlayButtons.cy.tsx', () => {
     cy.dataCy('playButton1').should('not.exist');
   });
 
-  it('renders playButton1 color', () => {
+  it('renders playButton1 color (and custom margin)', () => {
     const colorVal = 'rgb(248, 219, 94)';
     cy.mount(
       <ItemContainer
         isProgressBar={false}
         color={colorVal}
-        marginLeft={undefined}
-        marginRight={undefined}
+        marginLeft={'0.5rem'}
+        marginRight={'0.5rem'}
         isProgressBarNextItem={false}
         isProgressBarPreviousItem={false}
+        data-cy='item-container'
       >
         <PlayButtons item={{ id: 'playButton1' }} />
       </ItemContainer>,
     );
+    // Doing .parent() twice gets me to the ItemContainer container
     cy.dataCy('playButton1').should('have.css', 'color', colorVal);
+    cy.dataCy('item-container').should('have.css', 'marginLeft', '8px');
+    cy.dataCy('item-container').should('have.css', 'marginRight', '8px');
   });
 
-  it('renders playButton2 color', () => {
+  it('renders playButton2 color (and default margin)', () => {
     const colorVal = 'rgb(39, 113, 239)';
     cy.mount(
       <ItemContainer
@@ -41,10 +45,13 @@ describe('PlayButtons.cy.tsx', () => {
         marginRight={undefined}
         isProgressBarNextItem={false}
         isProgressBarPreviousItem={false}
+        data-cy='item-container'
       >
         <PlayButtons item={{ id: 'playButton2', buttonColor: colorVal }} />
       </ItemContainer>,
     );
     cy.dataCy('playButton2').should('have.css', 'color', colorVal);
+    cy.dataCy('item-container').should('have.css', 'marginLeft', '0px');
+    cy.dataCy('item-container').should('have.css', 'marginRight', '0px');
   });
 });
