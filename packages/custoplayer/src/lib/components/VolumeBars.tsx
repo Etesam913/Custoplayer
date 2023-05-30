@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useAtomValue } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { forwardRef } from 'react';
 import styled, { css } from 'styled-components';
 import {
@@ -7,21 +7,20 @@ import {
   isVolumeDraggingType,
   volumeStrAtom,
   valuesAtom,
+  focusedItemAtom,
 } from '@root/lib/atoms';
 import { lightenColor } from '@root/lib/utils';
 import {
   volumeBar1ScrubberAnimation,
   volumeBar2ScrubberAnimation,
 } from '@root/lib/variants';
+import { VolumeItem } from '../types';
 
 interface VolumeBarsProps {
-  barId?: 'volumeBar1' | 'volumeBar2';
-  volumeColor?: string;
-  barColor?: string;
-  scrubberColor?: string;
-  scrubberBorderColor?: string;
+  item: VolumeItem;
   isBarHovered: boolean;
   isVolumeDragging: isVolumeDraggingType;
+  setIsVolumeHovered: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const volumeBar1Width = 56;
 const volumeBar2Height = 76;
@@ -32,15 +31,29 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
   const shouldAnimate = props.isBarHovered || props.isVolumeDragging;
   const videoValues = useAtomValue(valuesAtom, myScope);
   const volumeStr = useAtomValue(volumeStrAtom, myScope);
-  const hasScrubber =
-    props.scrubberColor !== 'transparent' &&
-    props.scrubberBorderColor !== 'transparent';
+  const setFocusedItem = useSetAtom(focusedItemAtom, myScope);
 
-  if (props.barId === 'volumeBar1') {
+  const hasScrubber =
+    props.item.scrubberColor !== 'transparent' &&
+    props.item.scrubberBorderColor !== 'transparent';
+
+  const handleFocus = (name: 'volumeBar1' | 'volumeBar2') => {
+    setFocusedItem(name);
+  };
+
+  const handleBlur = () => {
+    setFocusedItem('progressBar');
+    props.setIsVolumeHovered(false);
+  };
+
+  if (props.item.barId === 'volumeBar1') {
     return (
       <VolumeBar1
-        barColor={props.barColor}
-        data-cy={props.barId}
+        tabIndex={0}
+        onFocus={() => handleFocus('volumeBar1')}
+        onBlur={handleBlur}
+        barColor={props.item.barColor}
+        data-cy={props.item.barId}
         ref={ref}
         animate={{
           height: shouldAnimate ? '0.5rem' : '0.35rem',
@@ -51,14 +64,14 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
           style={{
             width: hasScrubber ? `calc(${volumeStr} + 5px)` : volumeStr,
           }}
-          volumeColor={props.volumeColor}
+          volumeColor={props.item.volumeColor}
           volumeBar2={false}
           hasScrubber={hasScrubber}
         >
           <Scrubber
             data-cy='volumeScrubber1'
-            scrubberBorderColor={props.scrubberBorderColor}
-            scrubberColor={props.scrubberColor ?? props.volumeColor}
+            scrubberBorderColor={props.item.scrubberBorderColor}
+            scrubberColor={props.item.scrubberColor ?? props.item.volumeColor}
             variants={volumeBar1ScrubberAnimation}
             custom={shouldAnimate}
             initial='init'
@@ -67,23 +80,32 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
         </Progress>
       </VolumeBar1>
     );
-  } else if (props.barId === 'volumeBar2') {
+  } else if (props.item.barId === 'volumeBar2') {
     return (
-      <VolumeBar2Shade backgroundColor={videoValues.controlsBar?.barColor}>
-        <VolumeBar2 barColor={props.barColor} data-cy={props.barId} ref={ref}>
+      <VolumeBar2Shade
+        onFocus={() => handleFocus('volumeBar2')}
+        onBlur={handleBlur}
+        tabIndex={0}
+        backgroundColor={videoValues.controlsBar?.barColor}
+      >
+        <VolumeBar2
+          barColor={props.item.barColor}
+          data-cy={props.item.barId}
+          ref={ref}
+        >
           <Progress
             volumeBar2
             style={{ height: volumeStr }}
-            volumeColor={props.volumeColor}
+            volumeColor={props.item.volumeColor}
             hasScrubber={
-              props.scrubberColor !== 'transparent' &&
-              props.scrubberBorderColor !== 'transparent'
+              props.item.scrubberColor !== 'transparent' &&
+              props.item.scrubberBorderColor !== 'transparent'
             }
           >
             <Scrubber
               data-cy='volumeScrubber2'
-              scrubberBorderColor={props.scrubberBorderColor}
-              scrubberColor={props.scrubberColor ?? props.volumeColor}
+              scrubberBorderColor={props.item.scrubberBorderColor}
+              scrubberColor={props.item.scrubberColor ?? props.item.volumeColor}
               variants={volumeBar2ScrubberAnimation}
               custom={shouldAnimate}
               initial='init'
@@ -107,6 +129,12 @@ const VolumeBar1 = styled(motion.div)<{ barColor: string | undefined }>`
   border-radius: 0.35rem;
   margin-left: 0.35rem;
   display: flex;
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
+  }
 `;
 
 const VolumeBar2Shade = styled.div<{ backgroundColor: string | undefined }>`
@@ -121,6 +149,12 @@ const VolumeBar2Shade = styled.div<{ backgroundColor: string | undefined }>`
   border-radius: 0.45rem 0.45rem 0 0;
   position: absolute;
   z-index: 2;
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 2.5px dashed ${(props) => props.theme.focusColor};
+  }
 `;
 
 const VolumeBar2 = styled.div<{ barColor: string | undefined }>`
