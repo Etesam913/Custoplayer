@@ -35,20 +35,23 @@ const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
       barBorderColor={props.item.barBorderColor}
       barColor={props.item.barColor}
     >
-      <ProgressBuffer
-        data-cy='progressBuffer3'
-        width={`${progressBufferPercent}%`}
-        bufferedColor={props.item.bufferedColor}
-      />
+      <ProgressContainer>
+        <ProgressBuffer
+          data-cy='progressBuffer3'
+          style={{
+            width: `clamp(0%, ${progressBufferPercent}%, 100%)`,
+          }}
+          bufferedColor={props.item.bufferedColor}
+        />
 
-      <Progress
-        data-cy='progress3'
-        hasScrubber={props.hasScrubber}
-        style={{
-          width: props.hasScrubber ? `${progressStr}px` : progressStr,
-        }}
-        progressColor={props.item.progressColor}
-      />
+        <Progress
+          data-cy='progress3'
+          style={{
+            width: `clamp(0%, ${progressStr}, 100%)`,
+          }}
+          progressColor={props.item.progressColor}
+        />
+      </ProgressContainer>
 
       {values.previewTooltip && (
         <PreviewTooltips
@@ -74,18 +77,16 @@ const Bar3 = styled(motion.div)<{
   border-radius: 1rem;
   align-items: center;
   border: 3px solid ${(props) => props.barBorderColor};
-  padding: 0 0.5rem;
+
   position: relative;
 `;
 
 const ProgressBuffer = styled.div<{
-  width: string;
   bufferedColor: string | undefined;
 }>`
   position: absolute;
   pointer-events: none;
   height: 100%;
-  width: ${(props) => props.width};
   background-color: ${(props) =>
     props.bufferedColor ? props.bufferedColor : 'rgba(0,0,0,0.4)'};
   z-index: 1;
@@ -95,18 +96,24 @@ const ProgressBuffer = styled.div<{
 
 const Progress = styled.div<{
   progressColor: string | undefined;
-  hasScrubber: boolean;
 }>`
   height: 35%;
   pointer-events: none;
-  display: flex;
   position: absolute;
   z-index: 2;
-  justify-content: flex-end;
   border-radius: 0.4rem;
-  align-items: center;
   background-color: ${(props) =>
     props.progressColor ? props.progressColor : '#4ab860'};
+`;
+
+const ProgressContainer = styled.div`
+  border: 8px solid transparent;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 ProgressBar3.displayName = 'ProgressBar3';
