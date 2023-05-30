@@ -64,7 +64,7 @@ function PreviewTooltips({
       }
     }
   }, [previewTooltipHoveredTime]);
-
+  const isVisible = (isHovered || isProgressDragging) && videoDuration > 0;
   return (
     <>
       {data.id === 'text' && (
@@ -76,7 +76,7 @@ function PreviewTooltips({
               : 'white'
           }
           data-cy='textPreviewTooltip'
-          isVisible={(isHovered || isProgressDragging) && videoDuration > 0}
+          isVisible={isVisible}
           style={{
             transform: `translate(${previewTooltipPosition}px, -60px)`,
           }}
@@ -93,7 +93,7 @@ function PreviewTooltips({
               ? getReadableTextColor(videoValues.controlsBar?.barColor)
               : 'white'
           }
-          isVisible={(isHovered || isProgressDragging) && videoDuration > 0}
+          isVisible={isVisible}
           style={{
             transform: `translate(${previewTooltipPosition}px, ${
               data.id === 'thumbnail'
