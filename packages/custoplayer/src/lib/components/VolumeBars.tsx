@@ -33,10 +33,6 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
   const volumeStr = useAtomValue(volumeStrAtom, myScope);
   const setFocusedItem = useSetAtom(focusedItemAtom, myScope);
 
-  const hasScrubber =
-    props.item.scrubberColor !== 'transparent' &&
-    props.item.scrubberBorderColor !== 'transparent';
-
   const handleFocus = (name: 'volumeBar1' | 'volumeBar2') => {
     setFocusedItem(name);
   };
@@ -45,6 +41,13 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
     setFocusedItem('progressBar');
     props.setIsVolumeHovered(false);
   };
+
+  const hasScrubber = !(
+    props.item.scrubberColor === 'transparent' &&
+    (props.item.scrubberBorderColor === 'transparent' ||
+      props.item.scrubberBorderColor === 'none' ||
+      props.item.scrubberBorderColor === undefined)
+  );
 
   if (props.item.barId === 'volumeBar1') {
     return (
@@ -97,10 +100,7 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
             volumeBar2
             style={{ height: volumeStr }}
             volumeColor={props.item.volumeColor}
-            hasScrubber={
-              props.item.scrubberColor !== 'transparent' &&
-              props.item.scrubberBorderColor !== 'transparent'
-            }
+            hasScrubber={hasScrubber}
           >
             <Scrubber
               data-cy='volumeScrubber2'
@@ -183,7 +183,7 @@ const Progress = styled.div<{
       align-items: center;
       ${props.hasScrubber &&
       css`
-        min-width: 12.8px;
+        min-width: 12px;
         max-width: ${volumeBar1Width - 5.5}px;
       `}
     `}
