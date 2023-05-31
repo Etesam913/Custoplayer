@@ -104,8 +104,11 @@ function PreviewTooltips({
         >
           <ImageThumbnail
             data-cy='imageThumbnail'
-            backgroundPositionX={-1 * previewTooltipThumbnailData.x}
-            backgroundPositionY={-1 * previewTooltipThumbnailData.y}
+            style={{
+              backgroundPosition: `${-1 * previewTooltipThumbnailData.x}px ${
+                -1 * previewTooltipThumbnailData.y
+              }px`,
+            }}
             height={previewTooltipThumbnailData.h}
             width={previewTooltipThumbnailData.w}
             backgroundImage={data.atlasImage ?? ''}
@@ -149,16 +152,13 @@ const ImageThumbnailContainer = styled(TextTooltip)<{
 `;
 
 const ImageThumbnail = styled.div<{
-  backgroundPositionX: number;
-  backgroundPositionY: number;
   backgroundImage: string;
   height: number;
   width: number;
 }>`
   height: ${(props) => (props.height ? props.height : '70')}px;
   width: ${(props) => (props.width ? props.width : '125')}px;
-  background-position: ${(props) => props.backgroundPositionX}px
-    ${(props) => props.backgroundPositionY}px;
+
   background-image: url(${(props) => props.backgroundImage});
 `;
 
