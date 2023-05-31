@@ -141,7 +141,7 @@ const Scrubber = styled(motion.div)<{
       ? '2px solid ' + props.scrubberBorderColor
       : props.scrubberColor !== undefined
       ? '2px solid ' + lightenColor(props.scrubberColor)
-      : 'none'};
+      : '2px solid white'};
 `;
 ProgressBar1.displayName = 'ProgressBar1';
 export default ProgressBar1;

@@ -127,3 +127,78 @@ export const milkyWhite: CustoplayerValues = {
   },
   focusColor: '#353535',
 };
+
+export const grassyGreen: CustoplayerValues = {
+  previewTooltip: {
+    id: 'text',
+  },
+  controlsBar: {
+    animate: 'movement',
+    barColor: '#2c6e49d4',
+  },
+  item1: {
+    id: 'playButton2',
+    buttonColor: '#EEE5E5',
+  },
+  item2: {
+    id: 'volumeButton1',
+    barId: 'volumeBar1',
+    volumeColor: '#67ba8b',
+    scrubberColor: 'transparent',
+    scrubberBorderColor: '#67ba8b',
+    barColor: '#EEE5E5',
+  },
+  item3: {
+    id: 'fullscreenButton2',
+    buttonColor: '#EEE5E5',
+  },
+  item4: {
+    id: 'progressBar3',
+    progressColor: '#67ba8b',
+  },
+
+  focusColor: '#EEE5E5',
+};
+
+export const mint: CustoplayerValues = {
+  previewTooltip: {
+    id: 'text',
+  },
+  controlsBar: {
+    animate: 'movement',
+    barColor: '#a9e5bbd3',
+  },
+  topProgressBar: {
+    id: 'progressBar1',
+    scrubberColor: 'transparent',
+    barColor: '#a9e5bbd3',
+    progressColor: '#26352a',
+    bufferedColor: '#46464695',
+  },
+  item2: {
+    id: 'currentTime',
+  },
+  item1: {
+    id: 'volumeButton1',
+    barId: 'volumeBar2',
+    scrubberColor: 'transparent',
+    barColor: '#a9e5bbd3',
+    volumeColor: '#26352a',
+  },
+  item4: {
+    id: 'playButton1',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  item6: {
+    id: 'settingsButton1',
+    settingsMenuColor: '#a9e5bbec',
+    settingsMenuOrientation: 'left',
+    options: {
+      playbackSpeed: [0.25, 0.5, 1, 1.25, 1.5, 2],
+    },
+  },
+  item7: {
+    id: 'fullscreenButton1',
+  },
+};
