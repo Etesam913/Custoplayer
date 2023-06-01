@@ -32,14 +32,6 @@ function App() {
           preload='auto'
           values={{
             ...testing,
-            item6: {
-              id: 'settingsButton1',
-              options: {
-                playbackSpeed: [1, 1.5, 2],
-                subtitles: true,
-                quality: true,
-              },
-            },
             previewTooltip: {
               id: previewTooltipId,
               atlasImage:
