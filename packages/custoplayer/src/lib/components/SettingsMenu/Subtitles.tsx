@@ -6,7 +6,7 @@ import {
   currentSubtitleAtom,
 } from '@root/lib/atoms';
 import { hideAllSubtitleTracks, selectSubtitleTrack } from '@root/lib/utils';
-import { useAtom, useAtomValue } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 import { CheckIcon, MenuItem } from './styles';
 import { SettingsButtonItem } from '@root/lib/types';
 import MenuButton from './MenuButton';
@@ -24,10 +24,7 @@ function Subtitles({ item }: SubtitlesProps) {
     currentTextTrackAtom,
     myScope,
   );
-  const [currentSubtitle, setCurrentSubtitle] = useAtom(
-    currentSubtitleAtom,
-    myScope,
-  );
+  const setCurrentSubtitle = useSetAtom(currentSubtitleAtom, myScope);
 
   if (subtitles !== null) {
     const subtitleElements = subtitles.map((textTrack: TextTrack, i) => (
