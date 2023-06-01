@@ -62,9 +62,27 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
   const videoValues = useAtomValue(valuesAtom, myScope);
   useEffect(() => {
     if (ref) {
-      const menuContainer = (ref as MutableRefObject<Ref>).current.lastChild;
-      const firstMenuButton = menuContainer?.firstChild?.firstChild;
-      if (firstMenuButton) (firstMenuButton as HTMLButtonElement).focus();
+      const buttonList = (ref as MutableRefObject<Ref>).current.lastChild;
+      let firstListItemWithButton = buttonList?.firstChild;
+      /* 
+        Gets the first List item with children
+        There is a framer-motion bug that creates a first
+        list item with no children
+      */
+      while (firstListItemWithButton !== null) {
+        if (
+          firstListItemWithButton?.nodeType === Node.ELEMENT_NODE &&
+          firstListItemWithButton.hasChildNodes()
+        )
+          break;
+        else {
+          firstListItemWithButton = firstListItemWithButton?.nextSibling;
+          if (!firstListItemWithButton) break;
+        }
+      }
+      // Auto-focuses on the first button
+      const firstButton = firstListItemWithButton?.firstChild;
+      if (firstButton) (firstButton as HTMLButtonElement).focus();
     }
   }, [ref, currentPage]);
 
@@ -173,9 +191,11 @@ const MenuHeaderRow = styled(motion.section)`
   color: inherit;
 `;
 
-const MenuContent = styled.section<{ settingsMenuHeight: number }>`
+const MenuContent = styled.ul<{ settingsMenuHeight: number }>`
   max-height: ${(props) => props.settingsMenuHeight}px;
   color: inherit;
+  padding: 0;
+  margin: 0;
 `;
 
 export default SettingsMenu;
