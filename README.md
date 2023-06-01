@@ -9,8 +9,11 @@
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/linting.yml/badge.svg"/>
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/tests.yml/badge.svg"/>
   <img src="https://img.shields.io/npm/v/custoplayer"/>
-
 </span>
+
+<h2>Demo Video</h2>
+
+https://github.com/Etesam913/Custoplayer/assets/55665282/fedcb5a5-ec94-4fe0-b554-2bf78cf62c6a
 
 <h2><a href="https://etesam913.github.io/Custoplayer/">Documentation Page</a> </h2>
 
