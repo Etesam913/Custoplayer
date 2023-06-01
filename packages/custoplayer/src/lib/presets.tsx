@@ -202,3 +202,54 @@ export const mint: CustoplayerValues = {
     id: 'fullscreenButton1',
   },
 };
+
+export const testing: CustoplayerValues = {
+  previewTooltip: {
+    id: 'thumbnail',
+    atlasImage:
+      'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.jpg',
+  },
+  controlsBar: {
+    barColor: '#386641',
+    animate: 'movement',
+  },
+  item1: {
+    id: 'playButton1',
+    buttonColor: '#a7c957',
+  },
+  item2: {
+    id: 'volumeButton1',
+    barId: 'volumeBar1',
+    buttonColor: '#a7c957',
+    volumeColor: '#6a994e',
+    hideOnMobile: true,
+  },
+  item3: {
+    id: 'currentTime',
+    hideOnMobile: true,
+  },
+  item4: {
+    id: 'progressBar1',
+    progressColor: '#6a994e',
+  },
+  item5: {
+    id: 'duration',
+    hideOnMobile: true,
+  },
+  item6: {
+    id: 'settingsButton1',
+    buttonColor: '#a7c957',
+    settingsMenuColor: '#386641',
+    settingsMenuOrientation: 'left',
+    options: {
+      subtitles: true,
+      playbackSpeed: [0.25, 0.5, 1, 1.25, 1.5, 1.75, 2],
+      quality: true,
+    },
+  },
+  item7: {
+    id: 'fullscreenButton1',
+    buttonColor: '#a7c957',
+  },
+  focusColor: '#a7c957',
+};
