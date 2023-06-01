@@ -100,12 +100,6 @@ const PlayerContainer = styled.div`
   user-select: none;
   height: 100%;
   width: 100%;
-  :focus {
-    outline: none;
-  }
-  :focus-visible {
-    outline: 2.5px dashed ${(props) => props.theme.focusColor};
-  }
 `;
 
 export const ControlsContainer = styled(motion.div)`

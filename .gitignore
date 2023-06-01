@@ -9,7 +9,7 @@
 node_modules/
 dist/
 build/
-
+test-video/
 subtitles/
 
 packages/custoplayer/coverage

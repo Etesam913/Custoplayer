@@ -10,7 +10,7 @@ import {
   previewTooltipThumbnailsAtom,
   valuesAtom,
 } from '../atoms';
-import { getHoveredThumbnail } from '../utils';
+import { getHoveredThumbnail, getReadableTextColor } from '../utils';
 import { useEffect, useState } from 'react';
 
 interface PreviewTooltipProps {
@@ -64,14 +64,19 @@ function PreviewTooltips({
       }
     }
   }, [previewTooltipHoveredTime]);
-
+  const isVisible = (isHovered || isProgressDragging) && videoDuration > 0;
   return (
     <>
       {data.id === 'text' && (
         <TextTooltip
           backgroundColor={videoValues.controlsBar?.barColor}
+          textColor={
+            videoValues.controlsBar?.barColor
+              ? getReadableTextColor(videoValues.controlsBar?.barColor)
+              : 'white'
+          }
           data-cy='textPreviewTooltip'
-          isVisible={(isHovered || isProgressDragging) && videoDuration > 0}
+          isVisible={isVisible}
           style={{
             transform: `translate(${previewTooltipPosition}px, -60px)`,
           }}
@@ -83,7 +88,12 @@ function PreviewTooltips({
         <ImageThumbnailContainer
           data-cy='imageThumbnailContainer'
           backgroundColor={videoValues.controlsBar?.barColor}
-          isVisible={(isHovered || isProgressDragging) && videoDuration > 0}
+          textColor={
+            videoValues.controlsBar?.barColor
+              ? getReadableTextColor(videoValues.controlsBar?.barColor)
+              : 'white'
+          }
+          isVisible={isVisible}
           style={{
             transform: `translate(${previewTooltipPosition}px, ${
               data.id === 'thumbnail'
@@ -94,8 +104,11 @@ function PreviewTooltips({
         >
           <ImageThumbnail
             data-cy='imageThumbnail'
-            backgroundPositionX={-1 * previewTooltipThumbnailData.x}
-            backgroundPositionY={-1 * previewTooltipThumbnailData.y}
+            style={{
+              backgroundPosition: `${-1 * previewTooltipThumbnailData.x}px ${
+                -1 * previewTooltipThumbnailData.y
+              }px`,
+            }}
             height={previewTooltipThumbnailData.h}
             width={previewTooltipThumbnailData.w}
             backgroundImage={data.atlasImage ?? ''}
@@ -112,10 +125,12 @@ function PreviewTooltips({
 const TextTooltip = styled.span<{
   isVisible: boolean;
   backgroundColor: string | undefined;
+  textColor: string;
 }>`
   position: absolute;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  color: ${(props) => props.textColor};
   background-color: ${(props) =>
     props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
   pointer-events: none;
@@ -137,16 +152,13 @@ const ImageThumbnailContainer = styled(TextTooltip)<{
 `;
 
 const ImageThumbnail = styled.div<{
-  backgroundPositionX: number;
-  backgroundPositionY: number;
   backgroundImage: string;
   height: number;
   width: number;
 }>`
   height: ${(props) => (props.height ? props.height : '70')}px;
   width: ${(props) => (props.width ? props.width : '125')}px;
-  background-position: ${(props) => props.backgroundPositionX}px
-    ${(props) => props.backgroundPositionY}px;
+
   background-image: url(${(props) => props.backgroundImage});
 `;
 

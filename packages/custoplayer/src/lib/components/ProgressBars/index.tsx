@@ -1,6 +1,7 @@
 import {
   focusedItemAtom,
   isProgressDraggingAtom,
+  isVolumeDraggingAtom,
   myScope,
   playStateAtom,
   previewTooltipHoveredTimeAtom,
@@ -57,6 +58,7 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
     previewTooltipHoveredTimeAtom,
     myScope,
   );
+  const isVolumeDragging = useAtomValue(isVolumeDraggingAtom, myScope);
   /**
   A wrapper function for handleProgressBarMouseMove that passes in the
   video container's bounding rect. It is the callback function for
@@ -92,7 +94,7 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
     playState,
   );
 
-  const shouldAnimate = isHovered || isProgressDragging;
+  const shouldAnimate = (isHovered || isProgressDragging) && !isVolumeDragging;
   const hasScrubber = !(
     item.scrubberColor === 'transparent' &&
     (item.scrubberBorderColor === 'transparent' ||
@@ -150,7 +152,7 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
           shouldAnimate={shouldAnimate}
           item={item}
           isProgressDragging={isProgressDragging}
-          isHovered={isHovered}
+          isHovered={isHovered && !isVolumeDragging}
           ref={progressBarRef}
         />
       )}
@@ -161,7 +163,7 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
           shouldAnimate={shouldAnimate}
           item={item}
           isProgressDragging={isProgressDragging}
-          isHovered={isHovered}
+          isHovered={isHovered && !isVolumeDragging}
           ref={progressBarRef}
         />
       )}
@@ -172,7 +174,7 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
           shouldAnimate={shouldAnimate}
           item={item}
           isProgressDragging={isProgressDragging}
-          isHovered={isHovered}
+          isHovered={isHovered && !isVolumeDragging}
           ref={progressBarRef}
         />
       )}

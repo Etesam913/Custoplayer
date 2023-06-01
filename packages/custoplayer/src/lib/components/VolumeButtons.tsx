@@ -38,8 +38,6 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
   const videoElem = useAtomValue(videoElemAtom, myScope);
   const volume = useAtomValue(volumeAtom, myScope);
 
-  const setFocusedItem = useSetAtom(focusedItemAtom, myScope);
-
   function handleProgressMouse(e: BarMouseEvent, videoContainerRect: DOMRect) {
     if (volumeBarRef && volumeBarRef.current) {
       let mousePos = 0;
@@ -162,9 +160,6 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
         <AnimatePresence>
           {(isVolumeHovered || isVolumeDragging) && item.barId && (
             <VolumeBarContainer
-              tabIndex={0}
-              onFocus={() => setFocusedItem(item.barId ?? 'volumeBar1')}
-              onBlur={() => setFocusedItem('progressBar')}
               variants={
                 item.barId === 'volumeBar1'
                   ? volumeBar1Animation
@@ -198,14 +193,11 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
               onTouchEnd={() => setIsBarHovered(false)}
             >
               <VolumeBars
-                barId={item.barId}
+                item={item}
                 isBarHovered={isBarHovered}
                 isVolumeDragging={isVolumeDragging}
-                barColor={item.barColor}
-                volumeColor={item.volumeColor}
-                scrubberColor={item.scrubberColor}
-                scrubberBorderColor={item.scrubberBorderColor}
                 ref={volumeBarRef}
+                setIsVolumeHovered={setIsVolumeHovered}
               />
             </VolumeBarContainer>
           )}
