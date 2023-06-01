@@ -3,8 +3,9 @@ import {
   subtitlesAtom,
   currentTextTrackAtom,
   valuesAtom,
+  currentSubtitleAtom,
 } from '@root/lib/atoms';
-import { selectSubtitleTrack } from '@root/lib/utils';
+import { hideAllSubtitleTracks, selectSubtitleTrack } from '@root/lib/utils';
 import { useAtom, useAtomValue } from 'jotai';
 import { CheckIcon, MenuItem } from './styles';
 import { SettingsButtonItem } from '@root/lib/types';
@@ -19,7 +20,14 @@ function Subtitles({ item }: SubtitlesProps) {
   const settingsMenuColor =
     item.settingsMenuColor ?? videoValues?.controlsBar?.barColor;
   const [subtitles, setSubtitles] = useAtom(subtitlesAtom, myScope);
-  const currentTextTrack = useAtomValue(currentTextTrackAtom, myScope);
+  const [currentTextTrack, setCurrentTextTrack] = useAtom(
+    currentTextTrackAtom,
+    myScope,
+  );
+  const [currentSubtitle, setCurrentSubtitle] = useAtom(
+    currentSubtitleAtom,
+    myScope,
+  );
 
   if (subtitles !== null) {
     const subtitleElements = subtitles.map((textTrack: TextTrack, i) => (
@@ -34,7 +42,27 @@ function Subtitles({ item }: SubtitlesProps) {
         </MenuButton>
       </MenuItem>
     ));
-    return <>{subtitleElements}</>;
+    return (
+      <>
+        <MenuItem>
+          <MenuButton
+            dataCy={`settingsMenuSubtitleButtonNone`}
+            settingsMenuColor={settingsMenuColor}
+            onClick={() =>
+              hideAllSubtitleTracks(
+                setSubtitles,
+                setCurrentSubtitle,
+                setCurrentTextTrack,
+              )
+            }
+          >
+            None
+            {currentTextTrack === null && <CheckIcon />}
+          </MenuButton>
+        </MenuItem>
+        {subtitleElements}
+      </>
+    );
   }
   return <></>;
 }

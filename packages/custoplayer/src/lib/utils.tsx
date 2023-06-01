@@ -516,6 +516,22 @@ export function selectSubtitleTrack(
   });
 }
 
+export function hideAllSubtitleTracks(
+  setSubtitles: (update: SetStateAction<TextTrack[] | null>) => void,
+  setCurrentSubtitle: (update: SetStateAction<VTTCue | null>) => void,
+  setCurrentTextTrack: (update: SetStateAction<TextTrack | null>) => void,
+) {
+  setSubtitles((prev) => {
+    if (prev === null) return null;
+    prev.forEach((track) => {
+      track.mode = 'hidden';
+    });
+    return prev;
+  });
+  setCurrentSubtitle(null);
+  setCurrentTextTrack(null);
+}
+
 export function getHoveredThumbnail(
   previewTooltipHoveredTime: number,
   previewTooltipThumbnails: TextTrackCueList | null,

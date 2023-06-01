@@ -177,10 +177,6 @@ export function useSubtitles(
       });
 
       setSubtitles(trackList);
-      // let subtitleIndex = trackList.findIndex((v) => v.mode === 'showing');
-      // const selectedCues = trackList[subtitleIndex].cues;
-      // console.log(selectedCues);
-      // configureCues(selectedCues, setCurrentSubtitle);
     }
   }, [video]);
 }
