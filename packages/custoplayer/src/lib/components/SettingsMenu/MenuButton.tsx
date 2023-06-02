@@ -8,14 +8,14 @@ function traverseListUsingKeys(e: React.KeyboardEvent<HTMLButtonElement>) {
     if (previousListItem) {
       const previousButton =
         previousListItem.firstElementChild as HTMLButtonElement;
-      previousButton.focus();
+      if (previousButton) previousButton.focus();
     }
     // Reached top of list
     else {
       const lastListItem = listItem?.parentElement?.lastElementChild;
       if (lastListItem) {
         const lastButton = lastListItem.firstElementChild as HTMLButtonElement;
-        lastButton.focus();
+        if (lastButton) lastButton.focus();
       }
     }
   } else if (e.key === 'ArrowDown') {
@@ -23,7 +23,7 @@ function traverseListUsingKeys(e: React.KeyboardEvent<HTMLButtonElement>) {
     const nextListItem = listItem?.nextElementSibling as HTMLElement;
     if (nextListItem) {
       const nextButton = nextListItem.firstElementChild as HTMLButtonElement;
-      nextButton.focus();
+      if (nextButton) nextButton.focus();
     }
     // Reached bottom of list
     else {
@@ -31,7 +31,7 @@ function traverseListUsingKeys(e: React.KeyboardEvent<HTMLButtonElement>) {
       if (firstListItem) {
         const firstButton =
           firstListItem.firstElementChild as HTMLButtonElement;
-        firstButton.focus();
+        if (firstButton) firstButton.focus();
       }
     }
   }
