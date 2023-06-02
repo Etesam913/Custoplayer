@@ -101,6 +101,7 @@ export function handleKeyPress(
     e.key === 'ArrowDown'
   ) {
     e.preventDefault();
+
     if (video !== null && focusedItem !== null) {
       if (focusedItem.startsWith('volumeBar')) {
         let newVolume = video.volume;
@@ -124,12 +125,14 @@ export function handleKeyPress(
         video.volume = clamp(newVolume, 0, 1);
       } else {
         let newTime = video.currentTime;
-        if (e.key === 'ArrowLeft') {
-          newTime -= 5;
-        } else if (e.key === 'ArrowRight') {
-          newTime += 5;
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+          if (e.key === 'ArrowLeft') {
+            newTime -= 5;
+          } else if (e.key === 'ArrowRight') {
+            newTime += 5;
+          }
+          video.currentTime = clamp(newTime, 0, video.duration);
         }
-        video.currentTime = clamp(newTime, 0, video.duration);
       }
     }
   }

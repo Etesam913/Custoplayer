@@ -1,0 +1,107 @@
+# Settings Button
+
+There is currently one settingsButton
+
+1. `"settingsButton1"`
+
+## Usage
+
+```jsx
+item1: {
+  id: 'settingsButton1',
+  buttonColor: '#a7c957',
+  settingsMenuColor: '#386641',
+  settingsMenuOrientation:"left",
+  options: {
+    playbackSpeed: [0.25, 0.5, 1, 1.25, 1.5, 2],
+  }
+},
+```
+
+## Properties
+
+| Property Name           | Required                                                          | Accepted Values                                                                                                                                      | Description                                                                   | Default                                       |
+| ----------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | --------------------------------------------- |
+| id                      | Yes                                                               | `"settingsButton1"`                                                                                                                                  | Used to render a settingsButton.                                              | N/A                                           |
+| options                 | No (Yes if you want to see a menu show up on click of the button) | <img alt="accepted values for options property" src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/settings-button/options-values.png' /> | See Below                                                                     | None                                          |
+| buttonColor             | No                                                                | Any hex or rgb color code                                                                                                                            | Changes the color of the settingsButton.                                      | Calculated from controlsBar barColor property |
+| settingsMenuColor       | No                                                                | Any hex or rgb color code                                                                                                                            | Changes the backgroundColor of the settingsMenu.                              | Calculated from controlsBar barColor property |
+| settingsMenuOrientation | No                                                                | `"left"`, `"middle"`, or `"right"`                                                                                                                   | Changes the position of the settingsMenu relative to the settingsButton       | `"middle"`                                    |
+| hideOnMobile            | No                                                                | `true` or `false`                                                                                                                                    | Hides the settings button component when the video's width is less than 768px | `false`                                       |
+| marginLeft              | No                                                                | A string css value for the marginLeft property, ex: '10px', '10rem'                                                                                  | Changes the left margin of the settings button                                | `"0"`                                         |
+| marginRight             | No                                                                | A string css value for the marginRight property, ex: '10px', '10rem'                                                                                 | Changes the left margin of the settings button                                | `"0"`                                         |
+
+## Options Property
+
+While this property is not required for the settings button to show, **clicking on it will do nothing** unless the options property is defined.
+
+The property accepts an object that has three available key names, `subtitles`, `quality`, and `playbackSpeed`.
+
+### Subtitles
+
+Setting subtitles to true:
+
+```jsx
+options: {
+  subtitles: true,
+}
+```
+
+The code above will automatically show the `subtitles` option if the video is configured with a vtt file.
+
+For more information on how to do this check out this page
+
+<img
+  alt='Image of the subtitles button'
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/settings-button/subtitles-button.png'
+/>
+
+### Quality
+
+```jsx
+options: {
+  quality: true,
+}
+```
+
+the code above will automatically show the `quality` option if the video is configured with `<source>` tags.
+
+For more information on how to do this check out this page
+
+<img
+  alt='Image of the subtitles button'
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/settings-button/quality-button.png'
+/>
+
+### Playback Speed
+
+```jsx
+options: {
+  playbackSpeed: [0.25, 0.5, 1, 1.25, 1.5, 2],
+}
+```
+
+This will automatically show the `playbackSpeed` option if configured as above.
+
+<img
+  alt='Image of the subtitles button'
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/settings-button/speed-button.png'
+/>
+
+## settingsMenuOrientation Example
+
+- `settingsMenuOrientation:"left"`
+  - <img
+      alt='Image of the setttings menu with a left orientation'
+      src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/settings-button/settings-orientation-left.png'
+    />
+- `settingsMenuOrientation:"middle"`
+  - <img
+      alt='Image of the setttings menu with a middle orientation'
+      src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/settings-button/settings-orientation-middle.png'
+    />
+- `settingsMenuOrientation:"right"`
+  - <img
+      alt='Image of the setttings menu with a  orientation'
+      src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/settings-button/settings-orientation-right.png'
+    />

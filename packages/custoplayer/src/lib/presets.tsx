@@ -232,11 +232,11 @@ export const testing: CustoplayerValues = {
     id: 'progressBar1',
     progressColor: '#6a994e',
   },
-  item5: {
+  item6: {
     id: 'duration',
     hideOnMobile: true,
   },
-  item6: {
+  item5: {
     id: 'settingsButton1',
     buttonColor: '#a7c957',
     settingsMenuColor: '#386641',

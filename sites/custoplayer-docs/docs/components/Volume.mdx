@@ -3,33 +3,60 @@
 To add volume controls to your video you need a volumeButton and a volumeBar.
 
 There is one volumeButton component
+
 1. `"volumeButton1"`
 
 ## Volume Button 1
-<svg width="48" height="48" viewBox="0 0 32 32" fill="none" stroke='currentColor' xmlns="http://www.w3.org/2000/svg">
-<path d="M4 13C4 12.4477 4.44772 12 5 12H9V20H5C4.44772 20 4 19.5523 4 19V13Z" stroke="currentColor" stroke-width="2"/>
-<path d="M9 13L15 7" stroke-width="2"/>
-<path d="M15 7V26" stroke-width="2" stroke-linecap="round"/>
-<path d="M9 20L15 26" stroke-width="2"/>
-<path d="M24 9.5C27.0185 11.7059 31.2444 17.7941 24 24.5" stroke="currentColor" stroke-width="2"/>
-<path d="M19.5 13.5C21 14.6667 23.1 17.7 19.5 20.5" stroke-width="2"/>
+
+<svg
+  width='48'
+  height='48'
+  viewBox='0 0 32 32'
+  fill='none'
+  stroke='currentColor'
+  xmlns='http://www.w3.org/2000/svg'
+>
+  <path
+    d='M4 13C4 12.4477 4.44772 12 5 12H9V20H5C4.44772 20 4 19.5523 4 19V13Z'
+    stroke='currentColor'
+    stroke-width='2'
+  />
+  <path d='M9 13L15 7' stroke-width='2' />
+  <path d='M15 7V26' stroke-width='2' stroke-linecap='round' />
+  <path d='M9 20L15 26' stroke-width='2' />
+  <path
+    d='M24 9.5C27.0185 11.7059 31.2444 17.7941 24 24.5'
+    stroke='currentColor'
+    stroke-width='2'
+  />
+  <path d='M19.5 13.5C21 14.6667 23.1 17.7 19.5 20.5' stroke-width='2' />
 </svg>
 
-
 There are two volumeBar components
+
 1. `"volumeBar1"`
 2. `"volumeBar2"`
 
 ## Volume Bar 1
 
-<video width="min(10rem, 100%)" autoPlay={true} loop={true} src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fvolume%2FvolumeBar1-demo.mp4"/>
-
+<video
+  width='min(10rem, 100%)'
+  autoPlay={true}
+  loop={true}
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fvolume%2FvolumeBar1-demo.mp4'
+/>
 
 ## Volume Bar 2
 
-<video width="min(10rem, 100%)" autoPlay={true} loop={true} src="https://custoplayer.nyc3.digitaloceanspaces.com/docs%2Fvolume%2FvolumeBar2-demo.mp4"/>
+<video
+  width='min(10rem, 100%)'
+  autoPlay={true}
+  loop={true}
+  src='https://custoplayer.nyc3.digitaloceanspaces.com/docs%2Fvolume%2FvolumeBar2-demo.mp4'
+/>
 
 ## Usage
+
 ```jsx
 item1: {
   id: 'volumeButton1',
@@ -42,23 +69,25 @@ item1: {
 },
 ```
 
-* The `barId` property accepts values of "volumeBar1" or "volumeBar2".
-  * volumeBar1 is horizontal and volumeBar2 is vertical.
-* The `volumeColor` property changes the color of the volume progress in the bar.
-  * Accepts any hex or rgb color code.
-* The `barColor` property changes the volume background color of the bar.
-  * Accepts any hex or rgb color code.
-* The `buttonColor` property changes the color of the volume button icon.
-  * Accepts any hex or rgb color code.
+- The `barId` property accepts values of "volumeBar1" or "volumeBar2".
+  - volumeBar1 is horizontal and volumeBar2 is vertical.
+- The `volumeColor` property changes the color of the volume progress in the bar.
+  - Accepts any hex or rgb color code.
+- The `barColor` property changes the volume background color of the bar.
+  - Accepts any hex or rgb color code.
+- The `buttonColor` property changes the color of the volume button icon.
 
-* The `scrubberColor` property changes the color of the scrubber (the circle at the end of the progress).
-  * Accepts any hex or rgb color code
-  * If no `scrubberColor` is defined, the `scrubberColor` is defaulted to the same as the `progressColor`
+  - Accepts any hex or rgb color code.
 
+- The `scrubberColor` property changes the color of the scrubber (the circle at the end of the progress).
 
-* The `scrubberBorder` property changes the border color of the scrubber (the circle at the end of the volume progress).
-  * Accepts any hex or rgb color code
-  * If no `scrubberBorderColor` is defined, the `scrubberBorderColor` is defaulted to a lightened version of the `scrubberColor`
+  - Accepts any hex or rgb color code
+  - If no `scrubberColor` is defined, the `scrubberColor` is defaulted to the same as the `progressColor`
 
-* The `hideOnMobile` property hides the volumeButton & volumeBar component when the video's width is less than 768px.
-  * Accepts values of `true` or `false`
+- The `scrubberBorder` property changes the border color of the scrubber (the circle at the end of the volume progress).
+
+  - Accepts any hex or rgb color code
+  - If no `scrubberBorderColor` is defined, the `scrubberBorderColor` is defaulted to a lightened version of the `scrubberColor`
+
+- The `hideOnMobile` property hides the volumeButton & volumeBar component when the video's width is less than 768px.
+  - Accepts values of `true` or `false`
