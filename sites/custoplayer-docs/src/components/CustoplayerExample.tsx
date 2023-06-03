@@ -1,5 +1,5 @@
-import React from "react";
-import { Custoplayer } from 'custoplayer'
+import React from 'react';
+import { Custoplayer } from 'custoplayer';
 
 function CustoplayerExample() {
   return (
@@ -11,7 +11,7 @@ function CustoplayerExample() {
         },
         controlsBar: {
           animate: 'movement',
-          barColor: "rgba(28, 28, 28, 0.7)"
+          barColor: 'rgba(28, 28, 28, 0.7)',
         },
         item1: {
           id: 'playButton1',
@@ -21,7 +21,7 @@ function CustoplayerExample() {
           id: 'volumeButton1',
           barId: 'volumeBar2',
           volumeColor: '#a4c3f5',
-          buttonColor: "#a4c3f5"
+          buttonColor: '#a4c3f5',
         },
         item3: {
           id: 'currentTime',
@@ -44,4 +44,4 @@ function CustoplayerExample() {
   );
 }
 
-export default CustoplayerExample
+export default CustoplayerExample;

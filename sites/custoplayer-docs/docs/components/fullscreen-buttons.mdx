@@ -49,7 +49,12 @@ item1: {
 },
 ```
 
-- The `buttonColor` property changes the color of the fullscreen button.
-  - Accepts any hex or rgb color code.
-- The `hideOnMobile` property hides the fullscreen button when the video's width is less than 768px.
-  - Accepts values of true or false
+## Properties
+
+| Property Name | Required | Accepted Values                                                      | Description                                                                    | Default                                       |
+| ------------- | -------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
+| id            | Yes      | `"fullscreenButton1"` or `"fullscreenButton2"`                       | Used to render a fullscreenButton.                                             | `undefined`                                   |
+| buttonColor   | No       | Any hex or rgb color code                                            | Changes the color of the fullscreenButton.                                     | Calculated from controlsBar barColor property |
+| hideOnMobile  | No       | `true` or `false`                                                    | Hides the fullscreenButton component when the video's width is less than 768px | `false`                                       |
+| marginLeft    | No       | A string css value for the marginLeft property, ex: '10px', '10rem'  | Changes the left margin of the fullscreenButton                                | `"0"`                                         |
+| marginRight   | No       | A string css value for the marginRight property, ex: '10px', '10rem' | Changes the left margin of the fullscreenButton                                | `"0"`                                         |

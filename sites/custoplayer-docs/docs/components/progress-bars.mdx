@@ -8,18 +8,33 @@ There are currently three progress bar components
 
 ## Demo of `progressBar1`
 
-<video width="100%" autoPlay={true} loop={true} src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fprogress-bars%2FprogressBar1.mp4"/>
+<video
+  width='100%'
+  autoPlay={true}
+  loop={true}
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fprogress-bars%2FprogressBar1.mp4'
+/>
 
 ## Demo of `progressBar2`
 
-<video width="100%" autoPlay={true} loop={true} src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fprogress-bars%2FprogressBar2.mp4"/>
+<video
+  width='100%'
+  autoPlay={true}
+  loop={true}
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fprogress-bars%2FprogressBar2.mp4'
+/>
 
 ## Demo of `progressBar3`
 
-<video width="100%" autoPlay={true} loop={true} src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fprogress-bars%2FprogressBar3.mp4"/>
-
+<video
+  width='100%'
+  autoPlay={true}
+  loop={true}
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Fprogress-bars%2FprogressBar3.mp4'
+/>
 
 ## Usage
+
 ```jsx
 item1: {
   id: 'progressBar1',
@@ -29,33 +44,36 @@ item1: {
   bufferedColor: "#B7B7B7"
 }
 ```
-* The `"progressColor"` property changes the color of the progress in the progress bar
-  * Accepts any hex or rgb color code
 
-* The `scrubberColor` property changes the color of the scrubber (the circle at the end of the progress).
-  * Accepts any hex or rgb color code
-  * If no `scrubberColor` is defined, the `scrubberColor` is defaulted to the
-  same as the `progressColor`
+## Progress Bar Properties
 
-* The `scrubberBorderColor` property changes the border color of the scrubber (the circle at the end of the progress).
-  * Accepts any hex or rgb color code
-  * If no `scrubberBorderColor` is defined, the `scrubberBorderColor` is defaulted to a lightened version of the `scrubberColor`
-
-* The `bufferedColor` property changes the color of the buffered part of the progress bar (the content that is already loaded).
-    * Accepts any hex or rgb color code
-
-* The `hideOnMobile` property hides the progressBar component when the video's width is less than 768px.
-  * Accepts values of `true` or `false`
-
+| Property Name       | Required | Accepted Values                                                      | Description                                                                                     | Default                                             |
+| ------------------- | -------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| id                  | Yes      | `"progressBar1"`, `"progressBar2"`, `"progressBar3"`                 | Used to render a progressBar.                                                                   | `undefined`                                         |
+| barColor            | No       | Any hex or rgb color code                                            | Changes the background color of the progressBar.                                                | `"white"`                                           |
+| progressColor       | No       | Any hex or rgb color code                                            | Changes the color of the progress in the progressBar                                            | `"#4ab860"`                                         |
+| scrubberColor       | No       | Any hex or rgb color code                                            | Changes the color of the progressBar scrubber (the circle at the end of the progress).          | Same as the `progressColor` if defined or `"white"` |
+| scrubberBorderColor | No       | Any hex or rgb color code                                            | Changes the border color of the progressBar scrubber.                                           | A lightened version of the `scrubberColor`          |
+| bufferedColor       | No       | Any hex or rgb color code                                            | Changes the color of the buffered part of the progressBar (the content that is already loaded). | `"rgba(0,0,0,0.4)"`                                 |
+| hideOnMobile        | No       | `true` or `false`                                                    | Hides the progressBar component when the video's width is less than 768px                       | `false`                                             |
+| marginLeft          | No       | A string css value for the marginLeft property, ex: '10px', '10rem'  | Changes the left margin of the progressBar                                                      | `"0"`                                               |
+| marginRight         | No       | A string css value for the marginRight property, ex: '10px', '10rem' | Changes the left margin of the progressBar                                                      | `"0"`                                               |
 
 # Top Progress Bar
 
 Instead of putting the progress bar in the controls bar, it can be put above the controls bar. This is a good way of saving space in the controls bar.
 
 ## Demo of `topProgressBar`
-<video width="100%" autoPlay={true} loop={true} src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/progress-bars/topProgressBar.mp4"/>
+
+<video
+  width='100%'
+  autoPlay={true}
+  loop={true}
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/progress-bars/topProgressBar.mp4'
+/>
 
 ## Usage
+
 ```jsx
 topProgressBar: {
   id: 'progressBar1',
@@ -65,3 +83,5 @@ topProgressBar: {
   bufferedColor: "#B7B7B7"
 }
 ```
+
+The topProgressBar has the same properties as seen in the table above.

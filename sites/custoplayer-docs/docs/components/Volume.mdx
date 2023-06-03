@@ -69,25 +69,17 @@ item1: {
 },
 ```
 
-- The `barId` property accepts values of "volumeBar1" or "volumeBar2".
-  - volumeBar1 is horizontal and volumeBar2 is vertical.
-- The `volumeColor` property changes the color of the volume progress in the bar.
-  - Accepts any hex or rgb color code.
-- The `barColor` property changes the volume background color of the bar.
-  - Accepts any hex or rgb color code.
-- The `buttonColor` property changes the color of the volume button icon.
+## Properties
 
-  - Accepts any hex or rgb color code.
-
-- The `scrubberColor` property changes the color of the scrubber (the circle at the end of the progress).
-
-  - Accepts any hex or rgb color code
-  - If no `scrubberColor` is defined, the `scrubberColor` is defaulted to the same as the `progressColor`
-
-- The `scrubberBorder` property changes the border color of the scrubber (the circle at the end of the volume progress).
-
-  - Accepts any hex or rgb color code
-  - If no `scrubberBorderColor` is defined, the `scrubberBorderColor` is defaulted to a lightened version of the `scrubberColor`
-
-- The `hideOnMobile` property hides the volumeButton & volumeBar component when the video's width is less than 768px.
-  - Accepts values of `true` or `false`
+| Property Name       | Required                                             | Accepted Values                                                      | Description                                                                                 | Default                                           |
+| ------------------- | ---------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| id                  | Yes                                                  | `"volumeButton1"`                                                    | Used to render a volumeButton.                                                              | `undefined`                                       |
+| buttonColor         | No                                                   | Any hex or rgb color code                                            | Changes the color of the volumeButton.                                                      | Calculated from controlsBar barColor property     |
+| barId               | No (No volumeBar will be shown if this is undefined) | `"volumeBar1"` or `"volumeBar2"`                                     | volumeBar1 is horizontal and volumeBar2 is vertical.                                        | `undefined`                                       |
+| barColor            | No                                                   | Any hex or rgb color code                                            | Changes the background color of the volumeBar.                                              | `"white"`                                         |
+| volumeColor         | No                                                   | Any hex or rgb color code                                            | Changes the color of the volumeBar volume progress.                                         | `"#4ab860"`                                       |
+| scrubberColor       | No                                                   | Any hex or rgb color code                                            | Changes the color of the volumeBar scrubber (the circle at the end of the volume progress). | Same as the `volumeColor` if defined or `"white"` |
+| scrubberBorderColor | No                                                   | Any hex or rgb color code                                            | Changes the border color of the volumeBar scrubber.                                         | A lightened version of the `scrubberColor`        |
+| hideOnMobile        | No                                                   | `true` or `false`                                                    | Hides the volumeButton component when the video's width is less than 768px                  | `false`                                           |
+| marginLeft          | No                                                   | A string css value for the marginLeft property, ex: '10px', '10rem'  | Changes the left margin of the volumeButton                                                 | `"0"`                                             |
+| marginRight         | No                                                   | A string css value for the marginRight property, ex: '10px', '10rem' | Changes the left margin of the volumeButton                                                 | `"0"`                                             |

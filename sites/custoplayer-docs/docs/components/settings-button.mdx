@@ -18,11 +18,29 @@ item1: {
 },
 ```
 
+## Settings Button 1
+
+<svg
+  width='48'
+  height='48'
+  viewBox='0 0 32 32'
+  fill='none'
+  xmlns='http://www.w3.org/2000/svg'
+>
+    <circle cx='16' cy='16' r='3' stroke='currentColor' stroke-width='2' />
+    <path
+      d='M15.5226 5.56327C15.6719 5.09948 16.3281 5.09949 16.4774 5.56327C17.1265 7.58014 19.6045 8.30774 21.2409 6.96198C21.6173 6.65252 22.1693 7.00729 22.0441 7.47815C21.4998 9.52578 23.191 11.4776 25.2953 11.2302C25.7792 11.1733 26.0518 11.7702 25.6919 12.0986C24.1269 13.5269 24.4945 16.0833 26.3984 17.0128C26.8363 17.2265 26.7429 17.8761 26.2626 17.9578C24.1739 18.3133 23.101 20.6625 24.2002 22.4738C24.4529 22.8904 24.0232 23.3863 23.5749 23.1954C21.6256 22.3652 19.453 23.7614 19.3984 25.8795C19.3858 26.3665 18.7562 26.5514 18.4823 26.1485C17.2913 24.3962 14.7087 24.3962 13.5177 26.1485C13.2438 26.5514 12.6142 26.3665 12.6016 25.8795C12.547 23.7614 10.3744 22.3652 8.42505 23.1954C7.9768 23.3863 7.54708 22.8904 7.79984 22.4738C8.89901 20.6625 7.82615 18.3133 5.73744 17.9578C5.25713 17.8761 5.16374 17.2265 5.60157 17.0128C7.50552 16.0833 7.87307 13.5269 6.30811 12.0986C5.94825 11.7702 6.22084 11.1733 6.70472 11.2302C8.80898 11.4776 10.5002 9.52578 9.9559 7.47815C9.83073 7.00728 10.3827 6.65252 10.7591 6.96198C12.3955 8.30774 14.8735 7.58014 15.5226 5.56327Z'
+      stroke='currentColor'
+      stroke-width='2.5'
+    />
+
+</svg>
+
 ## Properties
 
 | Property Name           | Required                                                          | Accepted Values                                                                                                                                      | Description                                                                  | Default                                       |
 | ----------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------- |
-| id                      | Yes                                                               | `"settingsButton1"`                                                                                                                                  | Used to render a settingsButton.                                             | N/A                                           |
+| id                      | Yes                                                               | `"settingsButton1"`                                                                                                                                  | Used to render a settingsButton.                                             | `undefined`                                   |
 | options                 | No (Yes if you want to see a menu show up on click of the button) | <img alt="accepted values for options property" src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/settings-button/options-values.png' /> | See Below                                                                    | None                                          |
 | buttonColor             | No                                                                | Any hex or rgb color code                                                                                                                            | Changes the color of the settingsButton.                                     | Calculated from controlsBar barColor property |
 | settingsMenuColor       | No                                                                | Any hex or rgb color code                                                                                                                            | Changes the backgroundColor of the settingsMenu.                             | Calculated from controlsBar barColor property |
