@@ -117,4 +117,5 @@ const PresetDropdown = styled.select`
   margin: 0.5rem;
   font-size: 1.1em;
   padding: 0.35rem;
+  cursor: pointer;
 `;

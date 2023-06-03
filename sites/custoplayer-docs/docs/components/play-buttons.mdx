@@ -5,6 +5,128 @@ There are currently two playButtons
 1. `"playButton1"`
 2. `"playButton2"`
 
+## Play Button 1
+
+<div>
+
+<svg
+  width='48'
+  height='48'
+  viewBox='0 0 32 32'
+  fill='none'
+  xmlns='http://www.w3.org/2000/svg'
+>
+  <path
+    d='M22.2468 14.3355C23.435 15.1271 23.435 16.8729 22.2468 17.6645L11.8588 24.5847C10.5297 25.4701 8.75 24.5173 8.75 22.9202L8.75 9.0798C8.75 7.48272 10.5297 6.52988 11.8588 7.41533L22.2468 14.3355Z'
+    stroke='currentColor'
+    stroke-width='2.5'
+  />
+</svg>
+
+<svg
+  width='48'
+  height='48'
+  viewBox='0 0 32 32'
+  fill='none'
+  xmlns='http://www.w3.org/2000/svg'
+>
+  <rect
+    x='7.1'
+    y='7.1'
+    width='5.8'
+    height='17.8'
+    rx='2.9'
+    stroke='currentColor'
+    stroke-width='2.2'
+  />
+  <rect
+    x='19.1'
+    y='7.1'
+    width='5.8'
+    height='17.8'
+    rx='2.9'
+    stroke='currentColor'
+    stroke-width='2.2'
+  />
+</svg>
+
+<svg
+  width='48'
+  height='48'
+  viewBox='0 0 33 32'
+  fill='none'
+  xmlns='http://www.w3.org/2000/svg'
+>
+  <path
+    d='M7 17.415C7 22.7087 11.2533 27 16.5 27C21.7467 27 26 22.7087 26 17.415C26 14.701 24.9777 11.973 22.8333 10.1122C21.906 9.30744 20.7061 8.71157 18.7619 8.28647C17.8755 8.09265 17 8 15.5 8.28647C14.4569 8.48568 14.0652 8.65987 13.5 9C12.1363 9.82063 12 10 11.5 10.5'
+    stroke='currentColor'
+    stroke-width='2.5'
+    stroke-linecap='round'
+  />
+  <path
+    d='M11.5485 5L10.8221 10.4396C10.7611 10.8965 11.0203 11.3359 11.4497 11.5035L15.8118 13.2063'
+    stroke='currentColor'
+    stroke-width='2.5'
+    stroke-linecap='round'
+  />
+</svg>
+
+</div>
+
+## Play Button 2
+
+<div>
+  <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M10 25.5V6L26 16.2632L10 25.5Z" stroke="currentColor" stroke-width="2.5"/>
+  </svg>
+
+<svg
+  width='48'
+  height='48'
+  viewBox='0 0 32 32'
+  fill='none'
+  xmlns='http://www.w3.org/2000/svg'
+>
+  <rect
+    x='7.1'
+    y='7.1'
+    width='5.8'
+    height='17.8'
+    stroke='currentColor'
+    stroke-width='2.2'
+  />
+  <rect
+    x='19.1'
+    y='7.1'
+    width='5.8'
+    height='17.8'
+    stroke='currentColor'
+    stroke-width='2.2'
+  />
+</svg>
+
+  <svg
+    width='48'
+    height='48'
+    viewBox='0 0 33 32'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      d='M7 17.415C7 22.7087 11.2533 27 16.5 27C21.7467 27 26 22.7087 26 17.415C26 14.701 24.9777 11.973 22.8333 10.1122C21.906 9.30744 20.7061 8.71157 18.7619 8.28647C17.8755 8.09265 17 8 15.5 8.28647C14.4569 8.48568 14.0652 8.65987 13.5 9C12.1363 9.82063 12 10 11.5 10.5'
+      stroke='currentColor'
+      stroke-width='2.5'
+      stroke-linecap='square'
+    />
+    <path
+      d='M11.5484 4.99999L10.3231 11.5799L15.6147 13.3869'
+      stroke='currentColor'
+      stroke-width='2.5'
+      stroke-linecap='square'
+    />
+  </svg>
+</div>
+
 ## Usage
 
 ```jsx
@@ -14,9 +136,10 @@ item1: {
 },
 ```
 
-- The `buttonColor` property changes the color of the playButton.
-
-  - Accepts any hex or rgb color code.
-
-- The `hideOnMobile` property hides the playButton component when the video's width is less than 768px.
-  - Accepts values of `true` or `false`
+| Property Name | Required | Accepted Values                                                      | Description                                                              | Default                                       |
+| ------------- | -------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------- |
+| id            | Yes      | `"playButton1"` or `"playButton2"`                                   | Used to render a playButton.                                             | N/A                                           |
+| buttonColor   | No       | Any hex or rgb color code                                            | Changes the color of the playButton.                                     | Calculated from controlsBar barColor property |
+| hideOnMobile  | No       | `true` or `false`                                                    | Hides the playButton component when the video's width is less than 768px | `false`                                       |
+| marginLeft    | No       | A string css value for the marginLeft property, ex: '10px', '10rem'  | Changes the left margin of the playButton                                | `"0"`                                         |
+| marginRight   | No       | A string css value for the marginRight property, ex: '10px', '10rem' | Changes the left margin of the playButton                                | `"0"`                                         |
