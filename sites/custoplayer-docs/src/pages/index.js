@@ -99,9 +99,11 @@ const VideoContainer = styled.div`
   margin: 0 auto;
 `;
 
-const HeroTagline = styled.p`
+const HeroTagline = styled.h2`
   font-weight: 600;
   font-size: 1.75em;
+  margin: 1.5rem 0;
+  text-wrap: balance;
   @media screen and (max-width: 768px) {
     font-size: 1.25em;
   }
