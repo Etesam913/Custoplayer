@@ -12,7 +12,10 @@ import { ComponentPropsWithoutRef } from 'react';
   from sharing the same atoms
 */
 export const myScope = Symbol();
-
+interface playingPromiseInterface {
+  promise: null | Promise<void>;
+}
+export const playingPromise: playingPromiseInterface = { promise: null };
 export const draggableSymbol = Symbol('draggable');
 export const videoElemAtom = atom<HTMLVideoElement | null>(null);
 
