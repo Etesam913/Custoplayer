@@ -8,7 +8,11 @@ import {
   VolumeItem,
 } from '@root/lib/types';
 import { SetStateAction, SyntheticEvent } from 'react';
-import { isVolumeDraggingType, possibleQualities } from '@root/lib/atoms';
+import {
+  isVolumeDraggingType,
+  playingPromise,
+  possibleQualities,
+} from '@root/lib/atoms';
 import Color from 'color';
 
 export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
@@ -149,13 +153,12 @@ export function handlePlayState(video: HTMLVideoElement | null) {
 
   if (isPlaying) {
     //if (mobileDebug) mobileDebug.innerText = 'paused';
+    playingPromise.promise &&
+      playingPromise.promise.then(() => {}).catch(() => {});
     video.pause();
-  } else if (video.paused) {
+  } else if (video.paused || video.ended) {
     //if (mobileDebug) mobileDebug.innerText = 'playing';
-    video.play();
-  } else if (video.ended) {
-    //if (mobileDebug) mobileDebug.innerText = 'playing';
-    video.play();
+    playingPromise.promise = video.play();
   }
 }
 

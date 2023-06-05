@@ -11,6 +11,7 @@ import {
   videoDimensionsAtom,
   videoElemAtom,
   PlayState,
+  playingPromise,
 } from '@root/lib/atoms';
 import screenfull from 'screenfull';
 import {
@@ -64,13 +65,17 @@ export function useProgressDragging(
       tempVideoPauseState === PlayState.paused ||
       tempVideoPauseState === PlayState.ended
     ) {
+      playingPromise.promise &&
+        playingPromise.promise.then(() => {}).catch(() => {});
       videoElem?.pause();
     } else if (tempVideoPauseState === PlayState.playing) {
-      videoElem?.play();
+      playingPromise.promise = videoElem?.play() ?? null;
     }
   }
   useEffect(() => {
     if (isProgressDragging) {
+      playingPromise.promise &&
+        playingPromise.promise.then(() => {}).catch(() => {});
       setTempVideoPauseState(playState);
       videoElem?.pause();
     } else {
