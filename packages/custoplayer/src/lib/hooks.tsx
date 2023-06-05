@@ -66,7 +66,7 @@ export function useProgressDragging(
       tempVideoPauseState === PlayState.ended
     ) {
       playingPromise.promise &&
-        playingPromise.promise.then(() => {}).catch(() => {});
+        playingPromise.promise.then(() => undefined).catch(() => undefined);
       videoElem?.pause();
     } else if (tempVideoPauseState === PlayState.playing) {
       playingPromise.promise = videoElem?.play() ?? null;
@@ -75,7 +75,7 @@ export function useProgressDragging(
   useEffect(() => {
     if (isProgressDragging) {
       playingPromise.promise &&
-        playingPromise.promise.then(() => {}).catch(() => {});
+        playingPromise.promise.then(() => undefined).catch(() => undefined);
       setTempVideoPauseState(playState);
       videoElem?.pause();
     } else {

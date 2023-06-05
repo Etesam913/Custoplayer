@@ -154,7 +154,7 @@ export function handlePlayState(video: HTMLVideoElement | null) {
   if (isPlaying) {
     //if (mobileDebug) mobileDebug.innerText = 'paused';
     playingPromise.promise &&
-      playingPromise.promise.then(() => {}).catch(() => {});
+      playingPromise.promise.then(() => undefined).catch(() => undefined);
     video.pause();
   } else if (video.paused || video.ended) {
     //if (mobileDebug) mobileDebug.innerText = 'playing';

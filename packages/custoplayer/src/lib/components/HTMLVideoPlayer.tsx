@@ -131,8 +131,8 @@ function HTMLVideoPlayer() {
     // Video Ready States: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/readyState
     if (video.readyState === 4) {
       const numOfBuffers = video.buffered.length;
-      const bufferIndex = numOfBuffers - 1
-      if(numOfBuffers <= 0) return 
+      const bufferIndex = numOfBuffers - 1;
+      if (numOfBuffers <= 0) return;
       const bufferedProgress = video.buffered.end(bufferIndex);
       const normalizedBufferedProgress =
         (bufferedProgress / video.duration) * 100;
