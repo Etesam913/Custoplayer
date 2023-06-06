@@ -9,13 +9,90 @@
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/linting.yml/badge.svg"/>
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/tests.yml/badge.svg"/>
   <img src="https://img.shields.io/npm/v/custoplayer"/>
+  
 </span>
+<img src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2FWritten-By-Human-Not-By-AI-Badge-white.svg"/>
 
 <h2>Demo Video</h2>
 
 https://github.com/Etesam913/Custoplayer/assets/55665282/fedcb5a5-ec94-4fe0-b554-2bf78cf62c6a
 
-<h2><a href="https://etesam913.github.io/Custoplayer/">Documentation Page</a> </h2>
+<h2><a href="https://etesam913.github.io/Custoplayer/docs/quick-start">Documentation Page</a> </h2>
+
+<h2>📦 Installation</h2>
+<h3>npm</h3>
+
+```
+npm install custoplayer
+```
+
+<h3>yarn</h3>
+
+```
+yarn add custoplayer
+```
+
+<h2>💻 Example Usage</h2>
+
+```jsx
+import React from 'react';
+import { Custoplayer } from 'custoplayer';
+
+function CustoplayerExample() {
+  return (
+    <Custoplayer
+      poster='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/custoplayer-demo-poster.png'
+      src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/compressed-custoplayer-demo.mp4'
+      values={{
+        previewTooltip: {
+          id: 'text',
+        },
+        controlsBar: {
+          animate: 'movement',
+          barColor: 'rgba(28, 28, 28, 0.85)',
+        },
+        item1: {
+          id: 'playButton1',
+          buttonColor: '#b7cef4',
+        },
+        item2: {
+          id: 'volumeButton1',
+          barId: 'volumeBar2',
+          volumeColor: '#a4c3f5',
+          buttonColor: '#a4c3f5',
+        },
+        item3: {
+          id: 'currentTime',
+          textColor: '#b7cef4',
+        },
+        item4: {
+          id: 'progressBar1',
+          progressColor: '#a4c3f5',
+        },
+        item5: {
+          id: 'duration',
+          textColor: '#b7cef4',
+        },
+        item6: {
+          id: 'settingsButton1',
+          buttonColor: '#a4c3f5',
+          settingsMenuColor: '#a4c3f5',
+          settingsMenuOrientation: 'left',
+          options: {
+            playbackSpeed: [0.25, 0.5, 1, 1.5, 2],
+          },
+        },
+        item7: {
+          id: 'fullscreenButton1',
+          buttonColor: '#b7cef4',
+        },
+      }}
+    />
+  );
+}
+
+export default CustoplayerExample;
+```
 
 <h2>Overview</h2>
 <h3>Things you can customize:</h3>
@@ -40,54 +117,4 @@ https://github.com/Etesam913/Custoplayer/assets/55665282/fedcb5a5-ec94-4fe0-b554
   <li>In addition, there are different variants of a component. </li>
 </ul>
 
-<img src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2FWritten-By-Human-Not-By-AI-Badge-white.svg"/>
-
-<h2>📦 Installation</h2>
-<h3>npm</h3>
-
-```
-npm install custoplayer
-```
-
-<h3>yarn</h3>
-
-```
-yarn add custoplayer
-```
-
-<h2>💻 Example Usage</h2>
-
-```jsx
-<Custoplayer
-  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/brownlee.mp4'
-  playsInline={true}
-  preload='metadata'
-  values={{
-    item1: {
-      id: 'playButton1',
-    },
-    item2: {
-      id: 'volumeButton1',
-      barId: 'volumeBar1',
-      buttonColor: 'rgb(137, 178, 245)',
-      volumeColor: 'rgb(137, 178, 245)',
-    },
-    item3: {
-      id: 'currentTime',
-    },
-    item4: {
-      id: 'progressBar1',
-    },
-    item5: {
-      id: 'duration',
-      hideOnMobile: true,
-    },
-    item6: {
-      id: 'fullscreenButton2',
-      buttonColor: 'rgb(137, 178, 245)',
-    },
-  }}
-/>
-```
-
-<h2> See More at the <a href="https://etesam913.github.io/Custoplayer/">Documentation Page</a> </h2>
+<h2> See More at the <a href="https://etesam913.github.io/Custoplayer/docs/quick-start">Documentation Page</a> </h2>
