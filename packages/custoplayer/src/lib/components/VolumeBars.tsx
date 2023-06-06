@@ -208,8 +208,9 @@ const Scrubber = styled(motion.div)<{
   scrubberColor: string | undefined;
   scrubberBorderColor: string | undefined;
 }>`
-  height: 0.75rem;
-  width: 0.75rem;
+  height: 0.9rem;
+  width: 0.9rem;
+  box-sizing: border-box;
   background-color: ${(props) => props.scrubberColor ?? 'white'};
   position: absolute;
   border-radius: 50rem;

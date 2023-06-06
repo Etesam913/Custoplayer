@@ -131,11 +131,12 @@ const Scrubber = styled(motion.div)<{
   scrubberColor: string | undefined;
   scrubberBorderColor: string | undefined;
 }>`
-  height: 0.75rem;
-  width: 0.75rem;
+  height: 1rem;
+  width: 1rem;
   background-color: ${(props) => props.scrubberColor ?? 'white'};
   position: absolute;
   border-radius: 50rem;
+  box-sizing: border-box;
   border: ${(props) =>
     props.scrubberBorderColor !== undefined
       ? '2px solid ' + props.scrubberBorderColor
