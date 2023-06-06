@@ -103,8 +103,9 @@ function ControlsBar() {
       </ItemContainer>
     );
   }
-  const shouldShowControlsBar =
-    isProgressDragging || isVolumeDragging || isControlsBarShowing;
+  const shouldShowControlsBar = videoValues.controlsBar?.alyawsVisible
+    ? videoValues.controlsBar?.alyawsVisible
+    : isProgressDragging || isVolumeDragging || isControlsBarShowing;
 
   return (
     <AnimatePresence>
