@@ -32,8 +32,9 @@ function App() {
           preload='auto'
           values={{
             ...testing,
+
             previewTooltip: {
-              id: 'textAndThumbnail',
+              id: previewTooltipId,
               atlasImage:
                 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.jpg',
             },
