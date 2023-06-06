@@ -138,6 +138,7 @@ export function useSubtitles(
   useEffect(() => {
     if (video !== null) {
       const tracks = video.textTracks;
+
       if (children instanceof Object) {
         if ('props' in children && children.type === 'track') {
         } else if (Array.isArray(children)) {
@@ -149,6 +150,7 @@ export function useSubtitles(
           );
           if (defaultIndex !== -1) {
             tracks[defaultIndex].mode = 'showing';
+            setCurrentTextTrack(tracks[defaultIndex]);
           }
         }
       }

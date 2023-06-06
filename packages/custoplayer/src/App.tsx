@@ -32,6 +32,7 @@ function App() {
           preload='auto'
           values={{
             ...testing,
+
             previewTooltip: {
               id: previewTooltipId,
               atlasImage:
@@ -109,7 +110,7 @@ function App() {
 
 const MainContainer = styled.main`
   background-color: #1d1d1dff;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   color: white;
 `;
