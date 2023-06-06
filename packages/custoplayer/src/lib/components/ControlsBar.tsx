@@ -103,8 +103,8 @@ function ControlsBar() {
       </ItemContainer>
     );
   }
-  const shouldShowControlsBar = videoValues.controlsBar?.alyawsVisible
-    ? videoValues.controlsBar?.alyawsVisible
+  const shouldShowControlsBar = videoValues.controlsBar?.alwaysVisible
+    ? videoValues.controlsBar?.alwaysVisible
     : isProgressDragging || isVolumeDragging || isControlsBarShowing;
 
   return (

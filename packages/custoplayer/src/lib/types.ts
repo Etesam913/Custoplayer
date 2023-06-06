@@ -126,7 +126,7 @@ export interface ControlsBarItem {
   barColor?: string;
   /** Changes how the controlsBar animates. Accepts values of "opacity" and "movement". Setting animate to "opacity" will do a simple fade in animation. Setting animate to "movement" will animate the controls bar from bottom -> up*/
   animate?: 'opacity' | 'movement';
-  alyawsVisible?: boolean;
+  alwaysVisible?: boolean;
 }
 
 export interface PreviewTooltipItem {
