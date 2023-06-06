@@ -4,14 +4,15 @@ import { Custoplayer } from 'custoplayer';
 function CustoplayerExample() {
   return (
     <Custoplayer
-      src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4'
+      poster='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/custoplayer-demo-poster.png'
+      src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/compressed-custoplayer-demo.mp4'
       values={{
         previewTooltip: {
           id: 'text',
         },
         controlsBar: {
           animate: 'movement',
-          barColor: 'rgba(28, 28, 28, 0.7)',
+          barColor: 'rgba(28, 28, 28, 0.85)',
         },
         item1: {
           id: 'playButton1',
@@ -36,6 +37,15 @@ function CustoplayerExample() {
           textColor: '#b7cef4',
         },
         item6: {
+          id: 'settingsButton1',
+          buttonColor: '#a4c3f5',
+          settingsMenuColor: '#a4c3f5',
+          settingsMenuOrientation: 'left',
+          options: {
+            playbackSpeed: [0.25, 0.5, 1, 1.5, 2],
+          },
+        },
+        item7: {
           id: 'fullscreenButton1',
           buttonColor: '#b7cef4',
         },
