@@ -4555,6 +4555,11 @@ csstype@^3.0.2:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.2.tgz#1d4bf9d572f11c14031f0436e1c10bc1f571f50b"
   integrity sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==
 
+custoplayer@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/custoplayer/-/custoplayer-0.4.2.tgz#ed0d66a457e71d22b5f4817b94076f81ae365407"
+  integrity sha512-bu+cR3te7JHy+IwVaIBVZqpuufRnfOCL0tgrOjtBlbo0yHWk/+YziUR+X2+3/Q3ELg+YOSy3qe/DZJ3mi2ckDA==
+
 cypress@^12.7.0:
   version "12.12.0"
   resolved "https://registry.yarnpkg.com/cypress/-/cypress-12.12.0.tgz#0da622a34c970d8699ca6562d8e905ed7ce33c77"
@@ -5798,6 +5803,11 @@ file-loader@^6.2.0:
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
+
+file-saver@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
+  integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
 
 filesize@^8.0.6:
   version "8.0.7"
@@ -10768,6 +10778,11 @@ vite@^4.3.2:
     rollup "^3.21.0"
   optionalDependencies:
     fsevents "~2.3.2"
+
+vtt-creator@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vtt-creator/-/vtt-creator-1.1.1.tgz#a87f6b6375234b1e2a55d2d25ee9219e1d21355a"
+  integrity sha512-gG5zMT/lB9gsdLzfXAGcY7xZLD4DBtTWWpWYO3SagkuOEWVUmLONp9LyoUVseAEhPVdLAdMlukleRQb51kZHZQ==
 
 vue-eslint-parser@^8.0.1:
   version "8.3.0"

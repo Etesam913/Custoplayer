@@ -33,7 +33,7 @@ function App() {
           values={{
             ...testing,
             previewTooltip: {
-              id: previewTooltipId,
+              id: 'textAndThumbnail',
               atlasImage:
                 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.jpg',
             },
