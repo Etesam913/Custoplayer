@@ -32,7 +32,6 @@ function App() {
           preload='auto'
           values={{
             ...testing,
-
             previewTooltip: {
               id: previewTooltipId,
               atlasImage:
