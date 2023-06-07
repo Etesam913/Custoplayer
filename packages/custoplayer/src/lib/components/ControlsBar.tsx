@@ -158,7 +158,8 @@ const Controls = styled.div<{
   backgroundColor: string | undefined;
 }>`
   height: ${(props) => props.height};
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${(props) =>
+    props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
   width: 100%;
   display: flex;
   align-items: center;

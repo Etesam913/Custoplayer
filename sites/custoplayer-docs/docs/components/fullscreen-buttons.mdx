@@ -1,40 +1,60 @@
 # Fullscreen Buttons
 
 There are 2 fullscreen components
+
 1. `"fullscreenButton1"`
 2. `"fullscreenButton2"`
 
 ## Fullscreen Button 1
 
-<svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-    <path d="M18 14L26 6" stroke-width="2" stroke-linecap="round"/>
-    <path d="M26 6H22" stroke-width="2" stroke-linecap="round"/>
-    <path d="M26 6V10" stroke-width="2" stroke-linecap="round"/>
-    <path d="M14 18L6 26" stroke-width="2" stroke-linecap="round"/>
-    <path d="M6 26H10" stroke-width="2" stroke-linecap="round"/>
-    <path d="M6 26V22" stroke-width="2" stroke-linecap="round"/>
+<svg
+  width='48'
+  height='48'
+  viewBox='0 0 32 32'
+  fill='none'
+  xmlns='http://www.w3.org/2000/svg'
+  stroke='currentColor'
+>
+  <path d='M18 14L26 6' stroke-width='2' stroke-linecap='round' />
+  <path d='M26 6H22' stroke-width='2' stroke-linecap='round' />
+  <path d='M26 6V10' stroke-width='2' stroke-linecap='round' />
+  <path d='M14 18L6 26' stroke-width='2' stroke-linecap='round' />
+  <path d='M6 26H10' stroke-width='2' stroke-linecap='round' />
+  <path d='M6 26V22' stroke-width='2' stroke-linecap='round' />
 </svg>
-
 
 ## Fullscreen Button 2
 
-<svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-<rect x="1" y="16" width="14" height="15" stroke-width="2"/>
-<path d="M26 5L18 13" stroke-width="2" stroke-linecap="round"/>
-<path d="M18 13H22" stroke-width="2" stroke-linecap="round"/>
-<path d="M18 13V9" stroke-width="2" stroke-linecap="round"/>
-<rect x="1" y="1" width="30" height="30" stroke-width="2"/>
+<svg
+  width='48'
+  height='48'
+  viewBox='0 0 32 32'
+  fill='none'
+  xmlns='http://www.w3.org/2000/svg'
+  stroke='currentColor'
+>
+  <rect x='1' y='16' width='14' height='15' stroke-width='2' />
+  <path d='M26 5L18 13' stroke-width='2' stroke-linecap='round' />
+  <path d='M18 13H22' stroke-width='2' stroke-linecap='round' />
+  <path d='M18 13V9' stroke-width='2' stroke-linecap='round' />
+  <rect x='1' y='1' width='30' height='30' stroke-width='2' />
 </svg>
 
-
 ## Usage
+
 ```js
 item1: {
   id: 'fullscreenButton1',
   buttonColor: '#b7cef4',
 },
 ```
-* The `buttonColor` property changes the color of the fullscreen button.
-  * Accepts any hex or rgb color code.
-* The `hideOnMobile` property hides the fullscreen button when the video's width is less than 768px.
-  * Accepts values of true or false
+
+## Properties
+
+| Property Name | Required | Accepted Values                                                      | Description                                                                    | Default                                       |
+| ------------- | -------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
+| id            | Yes      | `"fullscreenButton1"` or `"fullscreenButton2"`                       | Used to render a fullscreenButton.                                             | `undefined`                                   |
+| buttonColor   | No       | Any hex or rgb color code                                            | Changes the color of the fullscreenButton.                                     | Calculated from controlsBar barColor property |
+| hideOnMobile  | No       | `true` or `false`                                                    | Hides the fullscreenButton component when the video's width is less than 768px | `false`                                       |
+| marginLeft    | No       | A string css value for the marginLeft property, ex: '10px', '10rem'  | Changes the left margin of the fullscreenButton                                | `"0"`                                         |
+| marginRight   | No       | A string css value for the marginRight property, ex: '10px', '10rem' | Changes the left margin of the fullscreenButton                                | `"0"`                                         |

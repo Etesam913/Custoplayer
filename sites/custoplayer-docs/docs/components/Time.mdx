@@ -1,13 +1,16 @@
 # Time
 
 There are 2 time components
+
 1. `"currentTime"`
 2. `"duration"`
 
 ## ⌛️ Current Time
-The currentTime component shows the current time of the video.
+
+The `currentTime` component shows the current time of the video.
 
 ### Usage
+
 ```js
 values={{
   item1: {
@@ -17,16 +20,22 @@ values={{
 }}
 ```
 
-* The `textColor` property changes the color of the time text.
-  * Accepts any hex or rgb color code.
-* The `hideOnMobile` property hides the currentTime component when the video's width is less than 768px.
-  * Accepts values of true or false
+## Current Time Properties
 
+| Property Name | Required | Accepted Values                                                      | Description                                                               | Default                                       |
+| ------------- | -------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------- | --------------------------------------------- |
+| id            | Yes      | `"currentTime"`                                                      | Used to render the currentTime.                                           | `undefined`                                   |
+| textColor     | No       | Any hex or rgb color code                                            | Changes the text color of currentTime.                                    | Calculated from controlsBar barColor property |
+| hideOnMobile  | No       | `true` or `false`                                                    | Hides the currentTime component when the video's width is less than 768px | `false`                                       |
+| marginLeft    | No       | A string css value for the marginLeft property, ex: '10px', '10rem'  | Changes the left margin of the currentTime                                | `"0"`                                         |
+| marginRight   | No       | A string css value for the marginRight property, ex: '10px', '10rem' | Changes the left margin of the currentTime                                | `"0"`                                         |
 
 ## ⏳ Duration
-The duration component shows the duration of the video.
+
+The `duration` component shows the duration of the video.
 
 ### Usage
+
 ```js
 values={{
   item1: {
@@ -36,7 +45,12 @@ values={{
 }}
 ```
 
-* The `textColor` property changes the color of the time text.
-  * Accepts any hex or rgb color code
-* The `hideOnMobile` property hides the duration component when the video's width is less than 768px.
-  * Accepts values of true or false
+## Duration Properties
+
+| Property Name | Required | Accepted Values                                                      | Description                                                            | Default                                       |
+| ------------- | -------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------- |
+| id            | Yes      | `"duration"`                                                         | Used to render the duration.                                           | `undefined`                                   |
+| textColor     | No       | Any hex or rgb color code                                            | Changes the text color of duration.                                    | Calculated from controlsBar barColor property |
+| hideOnMobile  | No       | `true` or `false`                                                    | Hides the duration component when the video's width is less than 768px | `false`                                       |
+| marginLeft    | No       | A string css value for the marginLeft property, ex: '10px', '10rem'  | Changes the left margin of the duration                                | `"0"`                                         |
+| marginRight   | No       | A string css value for the marginRight property, ex: '10px', '10rem' | Changes the left margin of the duration                                | `"0"`                                         |

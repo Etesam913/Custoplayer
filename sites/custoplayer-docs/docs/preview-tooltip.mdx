@@ -1,0 +1,195 @@
+---
+sidebar_position: 5
+---
+
+import ThumbnailGenerator from '../src/components/ThumbnailGenerator';
+import ThumbnailExample from '../src/components/ThumbnailExample';
+
+# Preview Tooltip
+
+The preview tooltip is the tooltip that shows up when hovering
+over the progress bar.
+
+## Usage
+
+```jsx
+previewTooltip: {
+  id: 'text'
+},
+```
+
+## Properties
+
+| Property Name | Required | Accepted Values                                  | Description                                          | Default     |
+| ------------- | -------- | ------------------------------------------------ | ---------------------------------------------------- | ----------- |
+| id            | Yes      | `"text"`, `"thumbnail"`, or `"textAndThumbnail"` | Used to render a previewTooltip.                     | `undefined` |
+| atlasImage    | No       | A url to an image                                | The image that stores all of the preview thumbnails. | `undefined` |
+
+## Different Id Values
+
+### Text
+
+Setting `id: "text"` will render a tooltip with the text of the current time when the progress bar is hovered or dragged. The `atlasImage` property is not needed to make this work.
+
+#### Demo of `id: "text"`
+
+<video
+  width='100%'
+  autoPlay={true}
+  loop={true}
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/preview-tooltip/text_preview_tooltip.mp4'
+/>
+
+### Thumbnail
+
+Setting `id: "thumbnail"` will render a tooltip with the preview thumbnail of the current time when the progress bar is hovered or dragged. The `atlasImage` property is needed to make this work.
+
+Two files are required to configure the thumbnail preview tooltip:
+
+1. The `atlasImage` jpg file
+2. The thumbnail VTT file
+
+#### What is an `atlasImage`?
+
+The image atlas is a single image that contains all of the preview thumbnails in a grid. Below is an example of how an image atlas looks like.
+
+<img
+  alt='A sample image atlas file'
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.jpg'
+/>
+
+You can see that the image atlas jpg file contains thumbnails of the video at different times.
+
+#### What is a thumbnail VTT file?
+
+The thumbnail vtt file contains the time and position of each thumbnail in the image atlas. Below is an example of how a thumbnail vtt file looks like where the image atlas is called `thumbs.jpg`. In the below example the `thumbs.jpg` atlas only has 10 images.
+
+```vtt
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:04.685
+thumbs.jpg#xywh=0,0,125,70
+
+2
+00:00:04.685 --> 00:00:09.370
+thumbs.jpg#xywh=125,0,125,70
+
+3
+00:00:09.370 --> 00:00:14.056
+thumbs.jpg#xywh=250,0,125,70
+
+4
+00:00:14.056 --> 00:00:18.741
+thumbs.jpg#xywh=375,0,125,70
+
+5
+00:00:18.741 --> 00:00:23.426
+thumbs.jpg#xywh=500,0,125,70
+
+6
+00:00:23.426 --> 00:00:28.111
+thumbs.jpg#xywh=625,0,125,70
+
+7
+00:00:28.111 --> 00:00:32.796
+thumbs.jpg#xywh=750,0,125,70
+
+8
+00:00:32.796 --> 00:00:37.481
+thumbs.jpg#xywh=875,0,125,70
+
+9
+00:00:37.481 --> 00:00:42.167
+thumbs.jpg#xywh=1000,0,125,70
+
+10
+00:00:42.167 --> 00:00:46.852
+thumbs.jpg#xywh=1125,0,125,70
+```
+
+#### How to generate an image atlas and thumbnail VTT file?
+
+Luckily these files can be automatically generated. All you have to do is:
+
+1. Upload your video in the Generate Preview Thumbnail Files section.
+2. Click the "Generate Thumbnails" button
+3. Click the "Download Thumbnail VTT" button and the "Download Thumbnail Atlas" button.
+
+Clicking these buttons should download the jpg file and vtt file for your video.
+
+#### Demo of `id: "thumbnail"`
+
+<video
+  width='100%'
+  autoPlay={true}
+  loop={true}
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/preview-tooltip/thumbnail_preview_tooltip.mp4'
+/>
+
+#### Demo of `id: "textAndThumbnail"`
+
+<video
+  width='100%'
+  autoPlay={true}
+  loop={true}
+  src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/preview-tooltip/text_and_thumbnail_preview_tooltip.mp4'
+/>
+
+## Generate Preview Thumbnail Files
+
+<ThumbnailGenerator />
+
+## Configuring The Files
+
+There are two steps required to configure the thumbnail preview tooltip:
+
+1. Set the `atlasImage` property to the thumbs.jpg file that you downloaded.
+2. Add a track tag as a child to the Custoplayer tag.
+   - It should have attributes of:
+     - `kind="metadata"`
+     - `id="custoplayer-thumbnails"`.
+     - `src="Url that hosts thumbnail vtt file"`
+       - You won't be able to import a vtt file directly into the Custoplayer tag.
+       - You will have to host the vtt file somewhere and then set the src attribute to the url of the vtt file.
+       - You will also have to set the `crossOrigin="anonymous"` to avoid CORS issues.
+       - A quick free way to host the vtt file is to make a GitHub gist and then use the raw url of the gist as the src attribute.
+         - [Here is a tutorial](https://maestra.ai/blogs/how-to-generate-url-for-srt-vtt-files)
+
+## Example
+
+```jsx
+import React from 'react';
+import { Custoplayer } from 'custoplayer';
+
+export default function ThumbnailExample() {
+  return (
+    <Custoplayer
+      src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/custoplayer-demo.mp4'
+      crossOrigin='anonymous'
+      values={{
+        previewTooltip: {
+          id: 'thumbnail',
+          atlasImage:
+            'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/thumbs.jpg',
+        },
+        controlsBar: {
+          barColor: '#78a8ecd3',
+        },
+        item1: {
+          id: 'progressBar1',
+          progressColor: 'orange',
+        },
+      }}
+    >
+      <track
+        kind='metadata'
+        id='custoplayer-thumbnails'
+        src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/thumbs.vtt'
+      />
+    </Custoplayer>
+  );
+}
+```
+
+<ThumbnailExample />
