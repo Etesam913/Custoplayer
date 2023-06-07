@@ -24,6 +24,37 @@ yarn add custoplayer
 
 ## 🧑‍💻 Usage
 
+### Using a preset
+
+All the different preset names
+
+- midnightBlue
+- fieryRed
+- milkyWhite
+- grassyGreen
+- mint
+
+The specific values for each preset can be found [here](https://github.com/Etesam913/Custoplayer/blob/main/packages/custoplayer/src/lib/presets.tsx)
+
+```jsx
+import React from 'react';
+import { Custoplayer, midnightBlue } from 'custoplayer';
+
+function CustoplayerExample() {
+  return (
+    <Custoplayer
+      poster='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/custoplayer-demo-poster.png'
+      src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/compressed-custoplayer-demo.mp4'
+      values={midnightBlue}
+    />
+  );
+}
+
+export default CustoplayerExample;
+```
+
+### A fully custom configuration
+
 ```jsx
 import React from 'react';
 import { Custoplayer } from 'custoplayer';
@@ -66,7 +97,7 @@ function CustoplayerExample() {
         item6: {
           id: 'settingsButton1',
           buttonColor: '#a4c3f5',
-          settingsMenuColor: '#a4c3f5',
+          settingsMenuColor: '#a4c3f5c8',
           settingsMenuOrientation: 'left',
           options: {
             playbackSpeed: [0.25, 0.5, 1, 1.5, 2],

@@ -39,7 +39,7 @@ function CustoplayerExample() {
         item6: {
           id: 'settingsButton1',
           buttonColor: '#a4c3f5',
-          settingsMenuColor: '#a4c3f5',
+          settingsMenuColor: '#a4c3f5c8',
           settingsMenuOrientation: 'left',
           options: {
             playbackSpeed: [0.25, 0.5, 1, 1.5, 2],

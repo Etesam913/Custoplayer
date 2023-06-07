@@ -1,0 +1,32 @@
+---
+sidebar_position: 6
+---
+
+# Other Properties
+
+## focusColor
+
+The `focusColor` property is used to set the color of the focus square that appears when the user tabs on a clickable field.
+
+### Usage
+
+```jsx
+import React from 'react';
+import { Custoplayer } from 'custoplayer';
+
+function CustoplayerExample() {
+  return (
+    <Custoplayer
+      src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/compressed-custoplayer-demo.mp4'
+      values={{
+        item1: {
+          id: "playButton1"
+        },
+        focusColor='#77a4ed'
+      }}
+    />
+  );
+}
+
+export default CustoplayerExample;
+```
