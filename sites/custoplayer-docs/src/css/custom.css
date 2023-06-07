@@ -89,3 +89,54 @@ nav {
 .menu {
   padding: 0.5rem !important;
 }
+
+header {
+  text-align: center;
+  padding: 2.5rem;
+}
+
+.hero-title {
+  font-weight: bold;
+  font-size: 2.65em !important;
+}
+.tagline {
+  font-weight: 600;
+  font-size: 1.8em;
+  line-height: 2.25rem;
+  margin: 1.35rem 0;
+}
+
+.home-main {
+  padding: 0.25rem 0 1.5rem 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-container {
+  width: min(90vw, 50rem);
+  margin: 0 auto;
+}
+
+label {
+  font-size: 1.5em;
+  margin: 1rem 0.75rem 0.75rem;
+  font-weight: bold;
+}
+
+select {
+  margin: 0.5rem;
+  font-size: 1.1em;
+  padding: 0.35rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .hero-title {
+    font-size: 2em;
+  }
+  .tagline {
+    font-size: 1.45em;
+  }
+}

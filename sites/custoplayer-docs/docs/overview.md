@@ -19,7 +19,7 @@ The controls bar is the bar that contains all the Item Properties as shown with 
 ```js
 values={{
   controlsBar: {
-    barColor: "rgba(28, 28, 28, 0.7)",
+    barColor: "rgba(28, 28, 28, 0.85)",
     animate: 'movement'
   },
 }}
