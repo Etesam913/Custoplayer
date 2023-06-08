@@ -127,7 +127,7 @@ describe('Video Actions', () => {
     cy.dataCy('imageThumbnail').should(
       'have.css',
       'background-image',
-      'url("https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.jpg")',
+      'url("https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/thumbs.jpg")',
     );
     // The background position should have changed
     cy.dataCy('imageThumbnail').should(
@@ -156,28 +156,28 @@ describe('Video Actions', () => {
     cy.dataCy('HTMLVideoPlayer').should(
       'have.prop',
       'src',
-      'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-720.mp4',
+      'https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-720.mp4',
     );
 
     cy.dataCy('settingsMenuQualityButton480p').trigger('click');
     cy.dataCy('HTMLVideoPlayer').should(
       'have.prop',
       'src',
-      'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-480.mp4',
+      'https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-480.mp4',
     );
 
     cy.dataCy('settingsMenuQualityButton240p').trigger('click');
     cy.dataCy('HTMLVideoPlayer').should(
       'have.prop',
       'src',
-      'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-240.mp4',
+      'https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-240.mp4',
     );
 
     cy.dataCy('settingsMenuQualityButton144p').trigger('click');
     cy.dataCy('HTMLVideoPlayer').should(
       'have.prop',
       'src',
-      'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-144.mp4',
+      'https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-144.mp4',
     );
 
     // Exiting Quality Menu
