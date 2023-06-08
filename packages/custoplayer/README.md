@@ -17,7 +17,7 @@
 
 https://github.com/Etesam913/Custoplayer/assets/55665282/fedcb5a5-ec94-4fe0-b554-2bf78cf62c6a
 
-<h2><a href="https://etesam913.github.io/Custoplayer/docs/quick-start">Documentation Page</a> </h2>
+<h2><a href="https://etesam913.github.io/Custoplayer/quick-start">Documentation Page</a> </h2>
 
 <h2>📦 Installation</h2>
 <h3>npm</h3>
@@ -117,4 +117,4 @@ export default CustoplayerExample;
   <li>In addition, there are different variants of a component. </li>
 </ul>
 
-<h2> See More at the <a href="https://etesam913.github.io/Custoplayer/docs/quick-start">Documentation Page</a> </h2>
+<h2> See More at the <a href="https://etesam913.github.io/Custoplayer/quick-start">Documentation Page</a> </h2>
