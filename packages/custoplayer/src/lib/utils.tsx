@@ -467,11 +467,14 @@ export function getCurrentQuality(
 
   if (children instanceof Object) {
     if ('props' in children && children.type === 'source') {
-      const quality = parseInt(children['props'].id.split('-')[1]);
-      if (possibleQualities.has(quality)) {
-        const qualitySrc = children['props'].src;
-        const hasSameSrc = qualitySrc === videoSrc;
-        if (hasSameSrc) return quality;
+      const id = children['props'].id;
+      if (id) {
+        const quality = parseInt(id.split('-')[1]);
+        if (possibleQualities.has(quality)) {
+          const qualitySrc = children['props'].src;
+          const hasSameSrc = qualitySrc === videoSrc;
+          if (hasSameSrc) return quality;
+        }
       }
     } else if (Array.isArray(children)) {
       const qualityInfo = children
@@ -482,11 +485,14 @@ export function getCurrentQuality(
       // Gets the matching quality based off of src values
       const qualityData = qualityInfo
         .map((obj) => {
-          const quality = parseInt(obj.id.split('-')[1]);
+          const id = obj.id;
+          if (id) {
+            const quality = parseInt(obj.id.split('-')[1]);
 
-          if (possibleQualities.has(quality)) {
-            const hasSameSrc = obj.src === videoSrc;
-            if (hasSameSrc) return quality;
+            if (possibleQualities.has(quality)) {
+              const hasSameSrc = obj.src === videoSrc;
+              if (hasSameSrc) return quality;
+            }
           }
         })
         .filter((val) => val !== undefined) as number[];
