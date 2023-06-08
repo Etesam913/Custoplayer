@@ -196,6 +196,12 @@ const MenuContent = styled.ul<{ settingsMenuHeight: number }>`
   color: inherit;
   padding: 0;
   margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+  scrollbar-width: none;
 `;
 
 export default SettingsMenu;

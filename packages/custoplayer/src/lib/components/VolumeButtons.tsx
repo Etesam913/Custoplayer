@@ -29,9 +29,7 @@ interface VolumeButtonsProps {
 }
 
 function VolumeButtons({ item }: VolumeButtonsProps) {
-  const [isVolumeHovered, setIsVolumeHovered] = useState(
-    isTouchscreen() ? true : false,
-  );
+  const [isVolumeHovered, setIsVolumeHovered] = useState(false);
   const [isBarHovered, setIsBarHovered] = useState(false);
   const isMuted = useAtomValue(isMutedAtom, myScope);
   const volumeBarRef = useRef<HTMLDivElement | null>(null);
@@ -95,11 +93,11 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
     <VolumeButtonBarContainer
       data-cy={`volumeButtonBarContainer-${item.id}`}
       isDragging={isVolumeDragging}
-      onMouseEnter={() => setIsVolumeHovered(true)}
-      onMouseLeave={() => setIsVolumeHovered(isTouchscreen() ? true : false)}
+      onMouseEnter={() => !isTouchscreen() && setIsVolumeHovered(true)}
+      onMouseLeave={() => !isTouchscreen() && setIsVolumeHovered(false)}
     >
       <ButtonContainer
-        onFocus={() => setIsVolumeHovered(true)}
+        onFocus={() => !isTouchscreen() && setIsVolumeHovered(true)}
         data-cy={item.id}
         whileHover={{ scale: 1.075 }}
         whileTap={{ scale: 0.925 }}
