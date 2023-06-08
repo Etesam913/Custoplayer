@@ -39,9 +39,8 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
         },
 
         theme: {
@@ -63,12 +62,6 @@ const config = {
           src: 'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Ficon.svg',
         },
         items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Quick Start',
-          },
           // { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/Etesam913/Custoplayer',
@@ -85,7 +78,7 @@ const config = {
             items: [
               {
                 label: 'Quick Start',
-                to: '/docs/quick-start',
+                to: '/quick-start',
               },
               {
                 label: 'GitHub',

@@ -89,3 +89,31 @@ nav {
 .menu {
   padding: 0.5rem !important;
 }
+
+.video-container {
+  width: 100%;
+  margin: 1rem auto 0.5rem;
+}
+
+label {
+  font-size: 1.5em;
+  margin: 1rem 0.75rem 0.75rem;
+  font-weight: bold;
+}
+
+select {
+  margin: 0.5rem;
+  font-size: 1.1em;
+  padding: 0.35rem;
+  cursor: pointer;
+}
+
+.homepage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  padding: 1.25rem 1.5rem;
+}

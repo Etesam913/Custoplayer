@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 # Overview
@@ -19,7 +19,7 @@ The controls bar is the bar that contains all the Item Properties as shown with 
 ```js
 values={{
   controlsBar: {
-    barColor: "rgba(28, 28, 28, 0.7)",
+    barColor: "rgba(28, 28, 28, 0.85)",
     animate: 'movement'
   },
 }}
@@ -54,35 +54,6 @@ The are many components that can be put in a item container. Some of them are `"
 
 If a component name is suffixed with a number like 1 or 2, that means that the component has numerous types. For example, there are two fullscreenButton components, `"fullscreenButton1"` & `"fullscreenButton2"`.
 
-You can go to the bottom of the [quick start page](/docs/quick-start#-usage) to see the above example in action with its code.
+You can go to the bottom of the [quick start page](/quick-start#-usage) to see the above example in action with its code.
 
-To learn more about components you can go to the [components page](/docs/category/components)
-
-<!-- Besides the item properties, there are other properties that can be customized in the `values` object.
-
-1. `controlsBar`
-2. `previewTooltip`
-
-These properties do not have to be defined as they have defaults.
-
-### Controls Bar
-
-### Preview Tooltip
-
-The preview tooltip is the tooltip that shows up when hovering
-over the progress bar. It shows the currentTime of the video at the hovered progress bar position. The preview tooltip is the component in the green rectangle in the image below:
-
-<img alt="The preview tooltip inside a green rectangle." src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2Foverview%2Fpreview-tooltip.jpg' />
-
-#### Example Code
-
-```js
-values={{
-  previewTooltip: {
-    id: 'text',
-  },
-}}
-```
-
-- The `id` property makes the preview tooltip that shows the hovered time appear on progress bar hover.
-  - Accepts value of `"text"` -->
+To learn more about components you can go to the [components page](/category/components)

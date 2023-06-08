@@ -26,7 +26,7 @@ function App() {
       <Wrapper>
         <Custoplayer
           width='min(95%, 60rem)'
-          poster='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-poster.png'
+          poster='https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-poster.png'
           playsInline={true}
           crossOrigin='anonymous'
           preload='auto'
@@ -35,7 +35,7 @@ function App() {
             previewTooltip: {
               id: previewTooltipId,
               atlasImage:
-                'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.jpg',
+                'https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/thumbs.jpg',
             },
           }}
           /* The below handlers are for the cypress tests. They do not change any styles */
@@ -51,34 +51,34 @@ function App() {
           onVolumeChange={(e) => console.log('muted')}
         >
           <source
-            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-1080.mp4'
+            src='https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-1080.mp4'
             type='video/mp4'
             id='custoplayer-1080'
           />
           <source
-            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-720.mp4'
+            src='https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-720.mp4'
             type='video/mp4'
             id='custoplayer-720'
           />
           <source
-            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-480.mp4'
+            src='https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-480.mp4'
             type='video/mp4'
             id='custoplayer-480'
           />
           <source
-            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-240.mp4'
+            src='https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-240.mp4'
             type='video/mp4'
             id='custoplayer-240'
           />
           <source
-            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/grain-video-144.mp4'
+            src='https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-144.mp4'
             type='video/mp4'
             id='custoplayer-144'
           />
           <track
             label='English'
             kind='metadata'
-            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/english.vtt'
+            src='https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/english.vtt'
             srcLang='en'
             default
           />
@@ -86,12 +86,12 @@ function App() {
             label='Spanish'
             kind='metadata'
             srcLang='es'
-            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/spanish.vtt'
+            src='https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/spanish.vtt'
           />
           <track
             kind='metadata'
             id='custoplayer-thumbnails'
-            src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/testing/thumbs.vtt'
+            src='https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/thumbs.vtt'
           />
           yolo swag
         </Custoplayer>
