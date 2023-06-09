@@ -206,9 +206,12 @@ export function useQualities(
         144: null,
       };
       if ('props' in children && children.type === 'source') {
-        const quality = parseInt(children['props'].id.split('-')[1]);
-        if (quality in videoQualities) {
-          videoQualities[quality] = children['props'].src;
+        const id = children['props'].id;
+        if (id) {
+          const quality = parseInt(id.split('-')[1]);
+          if (quality in videoQualities) {
+            videoQualities[quality] = children['props'].src;
+          }
         }
       } else if (Array.isArray(children)) {
         const qualityInfo = children
@@ -217,9 +220,12 @@ export function useQualities(
           .filter((val) => val !== undefined);
 
         qualityInfo.forEach((obj) => {
-          const quality = parseInt(obj.id.split('-')[1]);
-          if (quality in videoQualities) {
-            videoQualities[quality] = obj.src;
+          const id = obj.id;
+          if (id) {
+            const quality = parseInt(id.split('-')[1]);
+            if (quality in videoQualities) {
+              videoQualities[quality] = obj.src;
+            }
           }
         });
       }

@@ -48,6 +48,10 @@ function App() {
           onDurationChange={() => console.log('video duration changed')}
           onSeeked={() => console.log('video seeked')}
           onSeeking={() => console.log('video seeking')}
+          onSuspend={() => console.log('video suspend')}
+          onWaiting={() => console.log('video waiting')}
+          onError={() => console.log('video error')}
+          onStalled={() => console.log('video stalled')}
           onVolumeChange={(e) => console.log('muted')}
         >
           <source
