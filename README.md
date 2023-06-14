@@ -9,7 +9,7 @@
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/linting.yml/badge.svg"/>
   <img src="https://github.com/Etesam913/Custoplayer/actions/workflows/tests.yml/badge.svg"/>
   <img src="https://img.shields.io/npm/v/custoplayer"/>
-  
+
 </span>
 <img src="https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs%2FWritten-By-Human-Not-By-AI-Badge-white.svg"/>
 
@@ -17,7 +17,7 @@
 
 https://github.com/Etesam913/Custoplayer/assets/55665282/fedcb5a5-ec94-4fe0-b554-2bf78cf62c6a
 
-<h2><a href="https://etesam913.github.io/Custoplayer/docs/quick-start">Documentation Page</a> </h2>
+<h2><a href="https://etesam913.github.io/Custoplayer/quick-start">Documentation Page</a> </h2>
 
 <h2>📦 Installation</h2>
 <h3>npm</h3>
