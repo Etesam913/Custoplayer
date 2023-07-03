@@ -28,13 +28,13 @@ import ProgressBar3 from './ProgressBar3';
 
 interface ProgressBarsProps {
   item: ProgressBarItem;
-  onTop?: boolean;
+  isOnTop?: boolean;
 }
 
 const previewTooltip2Height = 150;
 const previewTooltip1Height = 60;
 
-function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
+function ProgressBars({ item, isOnTop = false }: ProgressBarsProps) {
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const videoElem = useAtomValue(videoElemAtom, myScope);
@@ -106,7 +106,7 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
     <ProgressBarContainer
       tabIndex={0}
       onFocus={() => setFocusedItem('progressBar')}
-      onTop={onTop}
+      isOnTop={isOnTop}
       data-cy={item.id}
       isDragging={isProgressDragging}
       onTouchStart={(e) => {
@@ -184,12 +184,12 @@ function ProgressBars({ item, onTop = false }: ProgressBarsProps) {
 
 const ProgressBarContainer = styled.div<{
   isDragging: boolean;
-  onTop: boolean;
+  isOnTop: boolean;
 }>`
   height: 100%;
   width: 100%;
   display: flex;
-  align-items: ${(props) => (props.onTop ? 'flex-end' : 'center')};
+  align-items: ${(props) => (props.isOnTop ? 'flex-end' : 'center')};
   cursor: ${(props) => (props.isDragging ? 'col-resize' : 'pointer')};
   :focus {
     outline: none;

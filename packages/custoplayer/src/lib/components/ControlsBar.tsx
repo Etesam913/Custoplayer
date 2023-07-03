@@ -124,7 +124,7 @@ function ControlsBar() {
         >
           {videoValues.topProgressBar && (
             <TopProgressBarContainer>
-              <ProgressBars onTop={true} item={videoValues.topProgressBar} />
+              <ProgressBars isOnTop={true} item={videoValues.topProgressBar} />
             </TopProgressBarContainer>
           )}
 

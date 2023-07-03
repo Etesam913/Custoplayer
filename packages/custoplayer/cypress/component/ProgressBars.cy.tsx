@@ -12,15 +12,15 @@ describe('ProgressBars.cy.tsx', () => {
   });
 
   it('renders topProgressBars', () => {
-    cy.mount(<ProgressBars onTop item={{ id: 'progressBar1' }} />);
+    cy.mount(<ProgressBars isOnTop item={{ id: 'progressBar1' }} />);
     cy.dataCy('progressBar1')
       .should('exist')
       .should('have.css', 'align-items', 'flex-end');
-    cy.mount(<ProgressBars onTop item={{ id: 'progressBar2' }} />);
+    cy.mount(<ProgressBars isOnTop item={{ id: 'progressBar2' }} />);
     cy.dataCy('progressBar2')
       .should('exist')
       .should('have.css', 'align-items', 'flex-end');
-    cy.mount(<ProgressBars onTop item={{ id: 'progressBar3' }} />);
+    cy.mount(<ProgressBars isOnTop item={{ id: 'progressBar3' }} />);
     cy.dataCy('progressBar3')
       .should('exist')
       .should('have.css', 'align-items', 'flex-end');
