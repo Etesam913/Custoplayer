@@ -35,7 +35,6 @@ function VideoPlayerWrapper() {
   useFullscreenEvent(setIsFullscreen);
   const { width, height } = useAtomValue(videoAttributesAtom, myScope);
   const focusedItem = useAtomValue(focusedItemAtom, myScope);
-
   return (
     <PlayerWrapper
       $width={width}
