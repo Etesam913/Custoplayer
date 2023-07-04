@@ -37,6 +37,7 @@ export default defineConfig({
       name: 'MyLib',
       formats: ['es', 'umd'],
       fileName: (format) => `custoplayer.${format}.js`,
+      
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'styled-components'],
