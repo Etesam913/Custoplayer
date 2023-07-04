@@ -55,7 +55,7 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
         tabIndex={0}
         onFocus={() => handleFocus('volumeBar1')}
         onBlur={handleBlur}
-        barColor={props.item.barColor}
+        $barColor={props.item.barColor}
         data-cy={props.item.barId}
         ref={ref}
         animate={{
@@ -67,14 +67,14 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
           style={{
             width: hasScrubber ? `calc(${volumeStr} + 5px)` : volumeStr,
           }}
-          volumeColor={props.item.volumeColor}
-          volumeBar2={false}
-          hasScrubber={hasScrubber}
+          $volumeColor={props.item.volumeColor}
+          $volumeBar2={false}
+          $hasScrubber={hasScrubber}
         >
           <Scrubber
             data-cy='volumeScrubber1'
-            scrubberBorderColor={props.item.scrubberBorderColor}
-            scrubberColor={props.item.scrubberColor ?? props.item.volumeColor}
+            $scrubberBorderColor={props.item.scrubberBorderColor}
+            $scrubberColor={props.item.scrubberColor ?? props.item.volumeColor}
             variants={volumeBar1ScrubberAnimation}
             custom={shouldAnimate}
             initial='init'
@@ -89,23 +89,25 @@ const VolumeBars = forwardRef<Ref, VolumeBarsProps>((props, ref) => {
         onFocus={() => handleFocus('volumeBar2')}
         onBlur={handleBlur}
         tabIndex={0}
-        backgroundColor={videoValues.controlsBar?.barColor}
+        $backgroundColor={videoValues.controlsBar?.barColor}
       >
         <VolumeBar2
-          barColor={props.item.barColor}
+          $barColor={props.item.barColor}
           data-cy={props.item.barId}
           ref={ref}
         >
           <Progress
-            volumeBar2
+            $volumeBar2
             style={{ height: volumeStr }}
-            volumeColor={props.item.volumeColor}
-            hasScrubber={hasScrubber}
+            $volumeColor={props.item.volumeColor}
+            $hasScrubber={hasScrubber}
           >
             <Scrubber
               data-cy='volumeScrubber2'
-              scrubberBorderColor={props.item.scrubberBorderColor}
-              scrubberColor={props.item.scrubberColor ?? props.item.volumeColor}
+              $scrubberBorderColor={props.item.scrubberBorderColor}
+              $scrubberColor={
+                props.item.scrubberColor ?? props.item.volumeColor
+              }
               variants={volumeBar2ScrubberAnimation}
               custom={shouldAnimate}
               initial='init'
@@ -122,9 +124,9 @@ VolumeBars.displayName = 'VolumeBars';
 
 export default VolumeBars;
 
-const VolumeBar1 = styled(motion.div)<{ barColor: string | undefined }>`
+const VolumeBar1 = styled(motion.div)<{ $barColor: string | undefined }>`
   height: 0.35rem;
-  background-color: ${(props) => (props.barColor ? props.barColor : 'white')};
+  background-color: ${(props) => (props.$barColor ? props.$barColor : 'white')};
   width: 3.5rem;
   border-radius: 0.35rem;
   margin-left: 0.35rem;
@@ -137,11 +139,11 @@ const VolumeBar1 = styled(motion.div)<{ barColor: string | undefined }>`
   }
 `;
 
-const VolumeBar2Shade = styled.div<{ backgroundColor: string | undefined }>`
+const VolumeBar2Shade = styled.div<{ $backgroundColor: string | undefined }>`
   height: 5.9rem;
   width: 2rem;
   background-color: ${(props) =>
-    props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
+    props.$backgroundColor ? props.$backgroundColor : 'rgba(28, 28, 28, 0.7)'};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -157,31 +159,31 @@ const VolumeBar2Shade = styled.div<{ backgroundColor: string | undefined }>`
   }
 `;
 
-const VolumeBar2 = styled.div<{ barColor: string | undefined }>`
+const VolumeBar2 = styled.div<{ $barColor: string | undefined }>`
   height: 4.75rem;
   width: 0.5rem;
   display: flex;
   flex-direction: column-reverse;
   border-radius: 0.35rem;
-  background-color: ${(props) => (props.barColor ? props.barColor : 'white')};
+  background-color: ${(props) => (props.$barColor ? props.$barColor : 'white')};
 `;
 
 const Progress = styled.div<{
-  volumeColor: string | undefined;
-  volumeBar2: boolean;
-  hasScrubber: boolean;
+  $volumeColor: string | undefined;
+  $volumeBar2: boolean;
+  $hasScrubber: boolean;
 }>`
   background-color: ${(props) =>
-    props.volumeColor ? props.volumeColor : '#4ab860'};
+    props.$volumeColor ? props.$volumeColor : '#4ab860'};
   border-radius: 0.35rem;
   display: flex;
   ${(props) =>
-    !props.volumeBar2 &&
+    !props.$volumeBar2 &&
     css`
       height: 100%;
       justify-content: flex-end;
       align-items: center;
-      ${props.hasScrubber &&
+      ${props.$hasScrubber &&
       css`
         min-width: 12px;
         max-width: ${volumeBar1Width - 5.5}px;
@@ -189,14 +191,14 @@ const Progress = styled.div<{
     `}
 
   ${(props) =>
-    props.volumeBar2 &&
+    props.$volumeBar2 &&
     css`
       width: 100%;
       display: flex;
       flex-direction: column-reverse;
       justify-content: flex-end;
       align-items: center;
-      ${props.hasScrubber &&
+      ${props.$hasScrubber &&
       css`
         min-height: 12.8px;
         max-height: ${volumeBar2Height}px;
@@ -205,19 +207,19 @@ const Progress = styled.div<{
 `;
 
 const Scrubber = styled(motion.div)<{
-  scrubberColor: string | undefined;
-  scrubberBorderColor: string | undefined;
+  $scrubberColor: string | undefined;
+  $scrubberBorderColor: string | undefined;
 }>`
   height: 0.9rem;
   width: 0.9rem;
   box-sizing: border-box;
-  background-color: ${(props) => props.scrubberColor ?? 'white'};
+  background-color: ${(props) => props.$scrubberColor ?? 'white'};
   position: absolute;
   border-radius: 50rem;
   border: ${(props) =>
-    props.scrubberBorderColor !== undefined
-      ? '2px solid ' + props.scrubberBorderColor
-      : props.scrubberColor !== undefined
-      ? '2px solid ' + lightenColor(props.scrubberColor)
+    props.$scrubberBorderColor !== undefined
+      ? '2px solid ' + props.$scrubberBorderColor
+      : props.$scrubberColor !== undefined
+      ? '2px solid ' + lightenColor(props.$scrubberColor)
       : 'none'};
 `;

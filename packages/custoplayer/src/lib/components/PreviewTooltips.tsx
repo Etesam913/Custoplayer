@@ -69,14 +69,14 @@ function PreviewTooltips({
     <>
       {data.id === 'text' && (
         <TextTooltip
-          backgroundColor={videoValues.controlsBar?.barColor}
-          textColor={
+          $backgroundColor={videoValues.controlsBar?.barColor}
+          $textColor={
             videoValues.controlsBar?.barColor
               ? getReadableTextColor(videoValues.controlsBar?.barColor)
               : 'white'
           }
           data-cy='textPreviewTooltip'
-          isVisible={isVisible}
+          $isVisible={isVisible}
           style={{
             transform: `translate(${previewTooltipPosition}px, -60px)`,
           }}
@@ -87,13 +87,13 @@ function PreviewTooltips({
       {(data.id === 'thumbnail' || data.id === 'textAndThumbnail') && (
         <ImageThumbnailContainer
           data-cy='imageThumbnailContainer'
-          backgroundColor={videoValues.controlsBar?.barColor}
-          textColor={
+          $backgroundColor={videoValues.controlsBar?.barColor}
+          $textColor={
             videoValues.controlsBar?.barColor
               ? getReadableTextColor(videoValues.controlsBar?.barColor)
               : 'white'
           }
-          isVisible={isVisible}
+          $isVisible={isVisible}
           style={{
             transform: `translate(${previewTooltipPosition}px, ${
               data.id === 'thumbnail'
@@ -109,9 +109,9 @@ function PreviewTooltips({
                 -1 * previewTooltipThumbnailData.y
               }px`,
             }}
-            height={previewTooltipThumbnailData.h}
-            width={previewTooltipThumbnailData.w}
-            backgroundImage={data.atlasImage ?? ''}
+            $height={previewTooltipThumbnailData.h}
+            $width={previewTooltipThumbnailData.w}
+            $backgroundImage={data.atlasImage ?? ''}
           />
           {data.id === 'textAndThumbnail' && (
             <TimeContainer>{previewTooltipStr}</TimeContainer>
@@ -123,26 +123,23 @@ function PreviewTooltips({
 }
 
 const TextTooltip = styled.span<{
-  isVisible: boolean;
-  backgroundColor: string | undefined;
-  textColor: string;
+  $isVisible: boolean;
+  $backgroundColor: string | undefined;
+  $textColor: string;
 }>`
   position: absolute;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  color: ${(props) => props.textColor};
+  color: ${(props) => props.$textColor};
   background-color: ${(props) =>
-    props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
+    props.$backgroundColor ? props.$backgroundColor : 'rgba(28, 28, 28, 0.7)'};
   pointer-events: none;
-  opacity: ${(props) => (props.isVisible ? 1 : 0)};
+  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
   transition: opacity 300ms;
   box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.25);
 `;
 
-const ImageThumbnailContainer = styled(TextTooltip)<{
-  isVisible: boolean;
-  backgroundColor: string | undefined;
-}>`
+const ImageThumbnailContainer = styled(TextTooltip)`
   padding: 0.5rem;
   box-sizing: border-box;
   display: flex;
@@ -152,14 +149,14 @@ const ImageThumbnailContainer = styled(TextTooltip)<{
 `;
 
 const ImageThumbnail = styled.div<{
-  backgroundImage: string;
-  height: number;
-  width: number;
+  $backgroundImage: string;
+  $height: number;
+  $width: number;
 }>`
-  height: ${(props) => (props.height ? props.height : '70')}px;
-  width: ${(props) => (props.width ? props.width : '125')}px;
+  height: ${(props) => (props.$height ? props.$height : '70')}px;
+  width: ${(props) => (props.$width ? props.$width : '125')}px;
 
-  background-image: url(${(props) => props.backgroundImage});
+  background-image: url(${(props) => props.$backgroundImage});
 `;
 
 const TimeContainer = styled.div`

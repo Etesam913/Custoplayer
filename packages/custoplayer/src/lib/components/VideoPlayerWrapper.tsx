@@ -38,8 +38,8 @@ function VideoPlayerWrapper() {
 
   return (
     <PlayerWrapper
-      width={width}
-      height={height}
+      $width={width}
+      $height={height}
       data-cy='videoPlayerWrapper'
       ref={videoContainerRef}
       onFocus={() => setIsControlsBarShowing(true)}
@@ -55,10 +55,7 @@ function VideoPlayerWrapper() {
         handleKeyPress(e, videoElem, focusedItem)
       }
     >
-      <PlayerContainer
-        data-cy='playerContainer'
-        //tabIndex={-1}
-      >
+      <PlayerContainer data-cy='playerContainer'>
         <PlayIndicator />
         <HTMLVideoPlayer />
         {videoElem && <ControlsBar />}
@@ -68,8 +65,8 @@ function VideoPlayerWrapper() {
 }
 
 const PlayerWrapper = styled.div<{
-  width: string | number | undefined;
-  height: string | number | undefined;
+  $width: string | number | undefined;
+  $height: string | number | undefined;
 }>`
   position: relative;
   background: black;
@@ -79,8 +76,8 @@ const PlayerWrapper = styled.div<{
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  height: ${(props) => (props.height ? props.height : '100%')};
-  width: ${(props) => (props.width ? props.width : '100%')};
+  height: ${(props) => (props.$height ? props.$height : '100%')};
+  width: ${(props) => (props.$width ? props.$width : '100%')};
   :focus-visible {
     outline: 3.5px dashed ${(props) => props.theme.focusColor};
   }

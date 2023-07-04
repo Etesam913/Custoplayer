@@ -19,12 +19,12 @@ describe('TimeText.cy.tsx', () => {
     const colorVal = 'rgb(111, 219, 190)';
     cy.mount(
       <ItemContainer
-        isProgressBar={false}
-        color={colorVal}
-        marginLeft={undefined}
-        marginRight={undefined}
-        isProgressBarNextItem={false}
-        isProgressBarPreviousItem={false}
+        $isProgressBar={false}
+        $color={colorVal}
+        $marginLeft={undefined}
+        $marginRight={undefined}
+        $isProgressBarNextItem={false}
+        $isProgressBarPreviousItem={false}
       >
         <CurrentTime />
       </ItemContainer>,
@@ -36,12 +36,12 @@ describe('TimeText.cy.tsx', () => {
     const colorVal = 'rgb(129, 150, 25)';
     cy.mount(
       <ItemContainer
-        isProgressBar={false}
-        color={colorVal}
-        marginLeft={undefined}
-        marginRight={undefined}
-        isProgressBarNextItem={false}
-        isProgressBarPreviousItem={false}
+        $isProgressBar={false}
+        $color={colorVal}
+        $marginLeft={undefined}
+        $marginRight={undefined}
+        $isProgressBarNextItem={false}
+        $isProgressBarPreviousItem={false}
       >
         <Duration />
       </ItemContainer>,

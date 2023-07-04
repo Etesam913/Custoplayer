@@ -101,19 +101,19 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
-      orientation={props.item.settingsMenuOrientation ?? 'middle'}
+      $orientation={props.item.settingsMenuOrientation ?? 'middle'}
     >
       <SettingsMenuContainer
         layout
         ref={ref}
         data-cy='settingsMenu'
-        settingsMenuColor={settingsMenuColor}
-        textColor={getReadableTextColor(settingsMenuColor ?? '')}
+        $settingsMenuColor={settingsMenuColor}
+        $textColor={getReadableTextColor(settingsMenuColor ?? '')}
       >
         <MenuHeaderRow layout>
           <MenuHeaderButton
             data-cy='settingsMenuHeaderButton'
-            settingsMenuColor={settingsMenuColor}
+            $settingsMenuColor={settingsMenuColor}
             onClick={() =>
               currentPage === '/home'
                 ? props.setIsSettingsMenuOpen(false)
@@ -126,7 +126,7 @@ const SettingsMenu = forwardRef<Ref, SettingsMenuProps>((props, ref) => {
           <MenuHeader layout='position'>{getMenuTitle()}</MenuHeader>
         </MenuHeaderRow>
         <MenuContent
-          settingsMenuHeight={videoDimensions.height - 45 - 60}
+          $settingsMenuHeight={videoDimensions.height - 45 - 60}
           onKeyDown={(e) =>
             e.key === 'Escape' && props.setIsSettingsMenuOpen(false)
           }
@@ -153,13 +153,13 @@ SettingsMenu.displayName = 'SettingsMenu';
   avoid interference with the child layout animation
 */
 const TranslateContainer = styled(motion.div)<{
-  orientation: 'middle' | 'left' | 'right';
+  $orientation: 'middle' | 'left' | 'right';
 }>`
   transform: translate(
     ${(props) =>
-      props.orientation === 'middle'
+      props.$orientation === 'middle'
         ? '-3rem'
-        : props.orientation === 'left'
+        : props.$orientation === 'left'
         ? '-5.25rem'
         : '0rem'},
     -2rem
@@ -169,19 +169,19 @@ const TranslateContainer = styled(motion.div)<{
 `;
 
 const SettingsMenuContainer = styled(motion.menu)<{
-  settingsMenuColor: string | undefined;
-  textColor: string;
+  $settingsMenuColor: string | undefined;
+  $textColor: string;
 }>`
   border-radius: 0.5rem;
   background-color: ${(props) =>
-    props.settingsMenuColor ? props.settingsMenuColor : 'currentColor'};
+    props.$settingsMenuColor ? props.$settingsMenuColor : 'currentColor'};
   position: absolute;
   margin: 0;
   padding: 0.35rem 0.45rem;
   overflow: hidden;
   min-width: 6.5rem;
   box-shadow: 10px 10px 55px -8px rgba(0, 0, 0, 0.56);
-  color: ${(props) => props.textColor};
+  color: ${(props) => props.$textColor};
 `;
 
 const MenuHeaderRow = styled(motion.section)`
@@ -191,8 +191,8 @@ const MenuHeaderRow = styled(motion.section)`
   color: inherit;
 `;
 
-const MenuContent = styled.ul<{ settingsMenuHeight: number }>`
-  max-height: ${(props) => props.settingsMenuHeight}px;
+const MenuContent = styled.ul<{ $settingsMenuHeight: number }>`
+  max-height: ${(props) => props.$settingsMenuHeight}px;
   color: inherit;
   padding: 0;
   margin: 0;

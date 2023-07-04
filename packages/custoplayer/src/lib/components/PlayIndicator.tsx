@@ -79,7 +79,7 @@ function PlayIndicator() {
       <IndicatorContainer
         data-cy='playIndicator'
         tabIndex={showPlayIndicator ? 0 : -1}
-        playButtonColor={playButtonItem?.buttonColor ?? 'white'}
+        $playButtonColor={playButtonItem?.buttonColor ?? 'white'}
         variants={playIndicatorAnimation}
         whileHover={{ scale: 1.1 }}
         animate='anim'
@@ -120,9 +120,9 @@ const Container = styled.div`
 `;
 
 const IndicatorContainer = styled(motion.button)<{
-  playButtonColor: string | undefined;
+  $playButtonColor: string | undefined;
 }>`
-  color: ${(props) => props.playButtonColor};
+  color: ${(props) => props.$playButtonColor};
   background-color: transparent;
   filter: drop-shadow(rgba(0, 0, 0, 0.35) 0px 5px 15px);
   padding: 0;

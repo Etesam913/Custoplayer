@@ -7,7 +7,7 @@ function Duration() {
   // When the length is < 60 minutes the length is 5 otherwise it is 7
   return (
     <TimeText
-      isLargerThan60Minutes={formattedDuration.length === 7}
+      $isLargerThan60Minutes={formattedDuration.length === 7}
       data-cy='duration'
     >
       {formattedDuration}
@@ -15,10 +15,10 @@ function Duration() {
   );
 }
 
-const TimeText = styled.span<{ isLargerThan60Minutes: boolean }>`
+const TimeText = styled.span<{ $isLargerThan60Minutes: boolean }>`
   color: currentColor;
   text-align: center;
-  width: ${(props) => (props.isLargerThan60Minutes ? '59px' : '45px')};
+  width: ${(props) => (props.$isLargerThan60Minutes ? '59px' : '45px')};
 `;
 
 export default Duration;

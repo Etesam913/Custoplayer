@@ -53,7 +53,7 @@ function MenuButton({
       onKeyDown={traverseListUsingKeys}
       data-cy={dataCy}
       onClick={onClick}
-      settingsMenuColor={settingsMenuColor}
+      $settingsMenuColor={settingsMenuColor}
       layout='position'
     >
       {children}

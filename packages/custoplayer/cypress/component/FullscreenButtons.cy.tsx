@@ -67,12 +67,12 @@ describe('FullscreenButtons.cy.tsx', () => {
     cy.mount(
       <div>
         <ItemContainer
-          isProgressBar={false}
-          color={buttonColor}
-          marginLeft={undefined}
-          marginRight={undefined}
-          isProgressBarNextItem={true}
-          isProgressBarPreviousItem={true}
+          $isProgressBar={false}
+          $color={buttonColor}
+          $marginLeft={undefined}
+          $marginRight={undefined}
+          $isProgressBarNextItem={true}
+          $isProgressBarPreviousItem={true}
           data-cy='margin-test'
         >
           <FullscreenButtons
@@ -81,12 +81,12 @@ describe('FullscreenButtons.cy.tsx', () => {
           />
         </ItemContainer>
         <ItemContainer
-          isProgressBar={false}
-          color={buttonColor}
-          marginLeft={undefined}
-          marginRight={undefined}
-          isProgressBarNextItem={false}
-          isProgressBarPreviousItem={false}
+          $isProgressBar={false}
+          $color={buttonColor}
+          $marginLeft={undefined}
+          $marginRight={undefined}
+          $isProgressBarNextItem={false}
+          $isProgressBarPreviousItem={false}
         >
           <FullscreenButtons
             item={{ id: 'fullscreenButton2' }}

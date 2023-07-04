@@ -30,19 +30,19 @@ const ProgressBar2 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   );
 
   return (
-    <Bar2 ref={ref} role='progressbar' barColor={props.item.barColor}>
+    <Bar2 ref={ref} role='progressbar' $barColor={props.item.barColor}>
       <ProgressBuffer
         data-cy='progressBuffer2'
-        width={`${progressBufferPercent}%`}
-        bufferedColor={props.item.bufferedColor}
+        $width={`${progressBufferPercent}%`}
+        $bufferedColor={props.item.bufferedColor}
       />
       <Progress
         data-cy='progress2'
-        hasScrubber={props.hasScrubber}
+        $hasScrubber={props.hasScrubber}
         style={{
           width: props.hasScrubber ? `calc(${progressStr} + 6px)` : progressStr,
         }}
-        progressColor={props.item.progressColor}
+        $progressColor={props.item.progressColor}
       />
       {values.previewTooltip && (
         <PreviewTooltips
@@ -55,9 +55,10 @@ const ProgressBar2 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
   );
 });
 
-const Bar2 = styled(motion.div)<{ barColor: string | undefined }>`
+const Bar2 = styled(motion.div)<{ $barColor: string | undefined }>`
   display: flex;
-  background-color: ${(props) => (props.barColor ? props.barColor : '#f2f2f2')};
+  background-color: ${(props) =>
+    props.$barColor ? props.$barColor : '#f2f2f2'};
   width: 100%;
   height: 1.4rem;
   justify-content: flex-start;
@@ -65,8 +66,8 @@ const Bar2 = styled(motion.div)<{ barColor: string | undefined }>`
 `;
 
 const Progress = styled.div<{
-  progressColor: string | undefined;
-  hasScrubber: boolean;
+  $progressColor: string | undefined;
+  $hasScrubber: boolean;
 }>`
   height: 100%;
   pointer-events: none;
@@ -76,19 +77,19 @@ const Progress = styled.div<{
   position: absolute;
   z-index: 2;
   background-color: ${(props) =>
-    props.progressColor ? props.progressColor : '#4ab860'};
+    props.$progressColor ? props.$progressColor : '#4ab860'};
 `;
 
 const ProgressBuffer = styled.div<{
-  width: string;
-  bufferedColor: string | undefined;
+  $width: string;
+  $bufferedColor: string | undefined;
 }>`
   position: absolute;
   pointer-events: none;
   height: 100%;
-  width: ${(props) => props.width};
+  width: ${(props) => props.$width};
   background-color: ${(props) =>
-    props.bufferedColor ? props.bufferedColor : 'rgba(0,0,0,0.2)'};
+    props.$bufferedColor ? props.$bufferedColor : 'rgba(0,0,0,0.2)'};
   z-index: 1;
 `;
 

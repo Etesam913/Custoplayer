@@ -92,7 +92,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
   return (
     <VolumeButtonBarContainer
       data-cy={`volumeButtonBarContainer-${item.id}`}
-      isDragging={isVolumeDragging}
+      $isDragging={isVolumeDragging}
       onMouseEnter={() => !isTouchscreen() && setIsVolumeHovered(true)}
       onMouseLeave={() => !isTouchscreen() && setIsVolumeHovered(false)}
     >
@@ -206,7 +206,7 @@ function VolumeButtons({ item }: VolumeButtonsProps) {
 }
 
 const VolumeButtonBarContainer = styled.div<{
-  isDragging: isVolumeDraggingType;
+  $isDragging: isVolumeDraggingType;
 }>`
   height: 100%;
   width: auto;
@@ -215,8 +215,8 @@ const VolumeButtonBarContainer = styled.div<{
   align-items: center;
   justify-content: flex-start;
   cursor: ${(props) =>
-    props.isDragging
-      ? props.isDragging === 'horizontal'
+    props.$isDragging
+      ? props.$isDragging === 'horizontal'
         ? 'col-resize'
         : 'row-resize'
       : 'auto'};

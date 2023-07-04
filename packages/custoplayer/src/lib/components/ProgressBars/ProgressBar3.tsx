@@ -32,8 +32,8 @@ const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
     <Bar3
       ref={ref}
       role='progressbar'
-      barBorderColor={props.item.barBorderColor}
-      barColor={props.item.barColor}
+      $barBorderColor={props.item.barBorderColor}
+      $barColor={props.item.barColor}
     >
       <ProgressContainer>
         <ProgressBuffer
@@ -41,7 +41,7 @@ const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
           style={{
             width: `clamp(0%, ${progressBufferPercent}%, 100%)`,
           }}
-          bufferedColor={props.item.bufferedColor}
+          $bufferedColor={props.item.bufferedColor}
         />
 
         <Progress
@@ -49,7 +49,7 @@ const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
           style={{
             width: `clamp(0%, ${progressStr}, 100%)`,
           }}
-          progressColor={props.item.progressColor}
+          $progressColor={props.item.progressColor}
         />
       </ProgressContainer>
       {values.previewTooltip && (
@@ -64,35 +64,35 @@ const ProgressBar3 = forwardRef<Ref, ProgressBarProps>((props, ref) => {
 });
 
 const Bar3 = styled(motion.div)<{
-  barColor: string | undefined;
-  barBorderColor: string | undefined;
+  $barColor: string | undefined;
+  $barBorderColor: string | undefined;
 }>`
   display: flex;
   background-color: ${(props) =>
-    props.barColor ? props.barColor : 'transparent'};
+    props.$barColor ? props.$barColor : 'transparent'};
   width: 100%;
   height: 1.25rem;
   justify-content: flex-start;
   border-radius: 1rem;
-  border: 3px solid ${(props) => props.barBorderColor};
+  border: 3px solid ${(props) => props.$barBorderColor};
   position: relative;
 `;
 
 const ProgressBuffer = styled.div<{
-  bufferedColor: string | undefined;
+  $bufferedColor: string | undefined;
 }>`
   position: absolute;
   pointer-events: none;
   height: 100%;
   background-color: ${(props) =>
-    props.bufferedColor ? props.bufferedColor : 'rgba(0,0,0,0.4)'};
+    props.$bufferedColor ? props.$bufferedColor : 'rgba(0,0,0,0.4)'};
   z-index: 1;
   height: 35%;
   border-radius: 0.4rem;
 `;
 
 const Progress = styled.div<{
-  progressColor: string | undefined;
+  $progressColor: string | undefined;
 }>`
   height: 35%;
   pointer-events: none;
@@ -100,7 +100,7 @@ const Progress = styled.div<{
   z-index: 2;
   border-radius: 0.4rem;
   background-color: ${(props) =>
-    props.progressColor ? props.progressColor : '#4ab860'};
+    props.$progressColor ? props.$progressColor : '#4ab860'};
 `;
 
 const ProgressContainer = styled.div`

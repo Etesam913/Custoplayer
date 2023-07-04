@@ -219,7 +219,7 @@ function HTMLVideoPlayer() {
       preload={preload ?? 'metadata'}
       tabIndex={tabIndex ?? -1}
       data-cy='HTMLVideoPlayer'
-      isDragging={isProgressDragging || isVolumeDragging}
+      $isDragging={isProgressDragging || isVolumeDragging}
     >
       {children}
     </HTMLPlayer>
@@ -227,7 +227,7 @@ function HTMLVideoPlayer() {
 }
 
 const HTMLPlayer = styled.video<{
-  isDragging: boolean | isVolumeDraggingType;
+  $isDragging: boolean | isVolumeDraggingType;
 }>`
   width: 100%;
   height: 100%;
@@ -240,8 +240,8 @@ const HTMLPlayer = styled.video<{
     text-shadow: 0;
   }
   cursor: ${(props) =>
-    props.isDragging
-      ? props.isDragging === 'vertical'
+    props.$isDragging
+      ? props.$isDragging === 'vertical'
         ? 'row-resize'
         : 'col-resize'
       : 'pointer'};

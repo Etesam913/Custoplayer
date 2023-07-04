@@ -106,9 +106,9 @@ function ProgressBars({ item, isOnTop = false }: ProgressBarsProps) {
     <ProgressBarContainer
       tabIndex={0}
       onFocus={() => setFocusedItem('progressBar')}
-      isOnTop={isOnTop}
+      $isOnTop={isOnTop}
+      $isDragging={isProgressDragging}
       data-cy={item.id}
-      isDragging={isProgressDragging}
       onTouchStart={(e) => {
         setIsHovered(true);
         barMouseDown(
@@ -183,14 +183,14 @@ function ProgressBars({ item, isOnTop = false }: ProgressBarsProps) {
 }
 
 const ProgressBarContainer = styled.div<{
-  isDragging: boolean;
-  isOnTop: boolean;
+  $isDragging: boolean;
+  $isOnTop: boolean;
 }>`
   height: 100%;
   width: 100%;
   display: flex;
-  align-items: ${(props) => (props.isOnTop ? 'flex-end' : 'center')};
-  cursor: ${(props) => (props.isDragging ? 'col-resize' : 'pointer')};
+  align-items: ${(props) => (props.$isOnTop ? 'flex-end' : 'center')};
+  cursor: ${(props) => (props.$isDragging ? 'col-resize' : 'pointer')};
   :focus {
     outline: none;
   }

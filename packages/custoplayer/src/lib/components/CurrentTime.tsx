@@ -8,7 +8,7 @@ function CurrentTime() {
 
   return (
     <TimeText
-      isLargerThan60Minutes={formattedCurrentTime.length === 7}
+      $isLargerThan60Minutes={formattedCurrentTime.length === 7}
       data-cy='currentTime'
     >
       {formattedCurrentTime}
@@ -16,9 +16,9 @@ function CurrentTime() {
   );
 }
 
-const TimeText = styled.span<{ isLargerThan60Minutes: boolean }>`
+const TimeText = styled.span<{ $isLargerThan60Minutes: boolean }>`
   color: currentColor;
-  width: ${(props) => (props.isLargerThan60Minutes ? '59px' : '45px')};
+  width: ${(props) => (props.$isLargerThan60Minutes ? '59px' : '45px')};
   text-align: center;
 `;
 

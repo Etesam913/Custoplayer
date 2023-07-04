@@ -18,12 +18,12 @@ describe('PlayButtons.cy.tsx', () => {
     const colorVal = 'rgb(248, 219, 94)';
     cy.mount(
       <ItemContainer
-        isProgressBar={false}
-        color={colorVal}
-        marginLeft={'0.5rem'}
-        marginRight={'0.5rem'}
-        isProgressBarNextItem={false}
-        isProgressBarPreviousItem={false}
+        $isProgressBar={false}
+        $color={colorVal}
+        $marginLeft={'0.5rem'}
+        $marginRight={'0.5rem'}
+        $isProgressBarNextItem={false}
+        $isProgressBarPreviousItem={false}
         data-cy='item-container'
       >
         <PlayButtons item={{ id: 'playButton1' }} />
@@ -39,12 +39,12 @@ describe('PlayButtons.cy.tsx', () => {
     const colorVal = 'rgb(39, 113, 239)';
     cy.mount(
       <ItemContainer
-        isProgressBar={false}
-        color={colorVal}
-        marginLeft={undefined}
-        marginRight={undefined}
-        isProgressBarNextItem={false}
-        isProgressBarPreviousItem={false}
+        $isProgressBar={false}
+        $color={colorVal}
+        $marginLeft={undefined}
+        $marginRight={undefined}
+        $isProgressBarNextItem={false}
+        $isProgressBarPreviousItem={false}
         data-cy='item-container'
       >
         <PlayButtons item={{ id: 'playButton2', buttonColor: colorVal }} />

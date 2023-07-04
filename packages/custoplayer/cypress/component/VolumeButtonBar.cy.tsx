@@ -20,12 +20,12 @@ describe('VolumeButtonBar.cy.tsx', () => {
     const id = 'volumeButton1';
     cy.mount(
       <ItemContainer
-        isProgressBar={false}
-        color={buttonColor}
-        marginLeft={undefined}
-        marginRight={undefined}
-        isProgressBarNextItem={false}
-        isProgressBarPreviousItem={false}
+        $isProgressBar={false}
+        $color={buttonColor}
+        $marginLeft={undefined}
+        $marginRight={undefined}
+        $isProgressBarNextItem={false}
+        $isProgressBarPreviousItem={false}
       >
         <VolumeButtons
           item={{

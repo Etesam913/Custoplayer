@@ -84,17 +84,17 @@ function ControlsBar() {
 
     return (
       <ItemContainer
-        marginLeft={curItem.marginLeft}
-        marginRight={curItem.marginRight}
-        isProgressBarNextItem={
+        $marginLeft={curItem.marginLeft}
+        $marginRight={curItem.marginRight}
+        $isProgressBarNextItem={
           firstItemToRight ? isProgressBar(firstItemToRight) : false
         }
-        isProgressBarPreviousItem={
+        $isProgressBarPreviousItem={
           firstItemToLeft ? isProgressBar(firstItemToLeft) : false
         }
         onClick={(e) => e.stopPropagation()}
-        isProgressBar={isProgressBar(curItem)}
-        color={
+        $isProgressBar={isProgressBar(curItem)}
+        $color={
           extractColor(curItem) ??
           getReadableTextColor(videoValues.controlsBar?.barColor ?? '')
         }
@@ -129,8 +129,8 @@ function ControlsBar() {
           )}
 
           <Controls
-            height='45px'
-            backgroundColor={videoValues.controlsBar?.barColor}
+            $height='45px'
+            $backgroundColor={videoValues.controlsBar?.barColor}
           >
             {items.map((curItem, idx) => {
               return (
@@ -154,12 +154,12 @@ const ControlsContainer = styled(motion.div)`
 `;
 
 const Controls = styled.div<{
-  height: string;
-  backgroundColor: string | undefined;
+  $height: string;
+  $backgroundColor: string | undefined;
 }>`
-  height: ${(props) => props.height};
+  height: ${(props) => props.$height};
   background-color: ${(props) =>
-    props.backgroundColor ? props.backgroundColor : 'rgba(28, 28, 28, 0.7)'};
+    props.$backgroundColor ? props.$backgroundColor : 'rgba(28, 28, 28, 0.7)'};
   width: 100%;
   display: flex;
   align-items: center;
@@ -168,17 +168,17 @@ const Controls = styled.div<{
 `;
 
 export const ItemContainer = styled.div<{
-  isProgressBar: boolean;
-  color: string;
-  marginRight: string | undefined;
-  marginLeft: string | undefined;
-  isProgressBarNextItem: boolean;
-  isProgressBarPreviousItem: boolean;
+  $isProgressBar: boolean;
+  $color: string;
+  $marginRight: string | undefined;
+  $marginLeft: string | undefined;
+  $isProgressBarNextItem: boolean;
+  $isProgressBarPreviousItem: boolean;
 }>`
   height: 100%;
   width: auto;
-  color: ${(props) => props.color};
-  flex: ${(props) => (props.isProgressBar ? '1' : '0')};
+  color: ${(props) => props.$color};
+  flex: ${(props) => (props.$isProgressBar ? '1' : '0')};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -188,23 +188,23 @@ export const ItemContainer = styled.div<{
   Otherwise use the default margin of 0.35rem
   */
   margin-right: ${(props) =>
-    props.marginRight
-      ? props.marginRight
-      : props.isProgressBarNextItem
+    props.$marginRight
+      ? props.$marginRight
+      : props.$isProgressBarNextItem
       ? '0.85rem'
-      : props.isProgressBar
+      : props.$isProgressBar
       ? '0'
       : '0.35rem'};
 
   margin-left: ${(props) =>
-    props.marginLeft
-      ? props.marginLeft
-      : props.isProgressBarPreviousItem
+    props.$marginLeft
+      ? props.$marginLeft
+      : props.$isProgressBarPreviousItem
       ? '0.85rem'
       : '0'};
 
   :last-child {
-    margin-right: ${(props) => (props.marginRight ? props.marginRight : '0')};
+    margin-right: ${(props) => (props.$marginRight ? props.$marginRight : '0')};
   }
 `;
 

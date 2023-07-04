@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 export const StyledMenuButton = styled(motion.button)<{
-  settingsMenuColor: string | undefined;
+  $settingsMenuColor: string | undefined;
 }>`
   background-color: transparent;
   border: 0;
@@ -27,14 +27,14 @@ export const StyledMenuButton = styled(motion.button)<{
 
   &:hover {
     background-color: ${(props) =>
-      props.settingsMenuColor
-        ? '' + lightenColor(props.settingsMenuColor)
+      props.$settingsMenuColor
+        ? '' + lightenColor(props.$settingsMenuColor)
         : 'currentColor'};
   }
   &:active {
     background-color: ${(props) =>
-      props.settingsMenuColor
-        ? '' + darkenColor(props.settingsMenuColor)
+      props.$settingsMenuColor
+        ? '' + darkenColor(props.$settingsMenuColor)
         : 'currentColor'};
   }
 `;
@@ -45,14 +45,14 @@ export const MenuItem = styled(motion.li)`
   color: inherit;
 `;
 
-export const MenuIcon = styled(motion.svg)<{ margin?: string }>`
+export const MenuIcon = styled(motion.svg)<{ $margin?: string }>`
   height: 20px;
   width: 20px;
   min-height: 20px;
   min-width: 20px;
   stroke: currentColor;
   stroke-width: 2px;
-  margin: ${(props) => (props.margin ? props.margin : '0 0.35rem 0 0')};
+  margin: ${(props) => (props.$margin ? props.$margin : '0 0.35rem 0 0')};
 `;
 
 export const MenuHeader = styled(motion.h3)`
@@ -82,7 +82,7 @@ export const MenuHeaderButton = styled(StyledMenuButton)`
 export const CheckIcon = () => {
   return (
     <MenuIcon
-      margin='0 0.25rem 0 auto'
+      $margin='0 0.25rem 0 auto'
       viewBox='0 0 32 32'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
