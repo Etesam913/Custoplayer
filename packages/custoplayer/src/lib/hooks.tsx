@@ -81,7 +81,7 @@ export function useProgressDragging(
     } else {
       handleProgressMouseUp();
     }
-  }, [isProgressDragging]);
+  }, [isProgressDragging, setTempVideoPauseState, videoElem, playState]);
 }
 
 export function useFullscreenEvent(
@@ -125,7 +125,7 @@ export function usePreviewThumbnails(
         if (cues) setPreviewTooltipThumbnails(thumbnailTrack.cues);
       }
     }
-  }, [video]);
+  }, [video, setPreviewTooltipThumbnails]);
 }
 
 export function useSubtitles(
@@ -185,7 +185,7 @@ export function useSubtitles(
 
       setSubtitles(trackList);
     }
-  }, [video]);
+  }, [video, children, setSubtitles, setCurrentSubtitle, setCurrentTextTrack]);
 }
 
 /** Initializes videoQualities whenever video children changes */
@@ -231,20 +231,23 @@ export function useQualities(
       }
       setVideoQualities(videoQualities);
     }
-  }, [children]);
+  }, [children, setVideoQualities]);
 }
 
 /** Runs the handler method whenever a click is registered
  * outside of the ref element */
 export function useOnClickOutside(
-  ref: React.RefObject<any>,
+  ref: React.RefObject<HTMLMenuElement>,
   handler: (e: MouseEvent) => void,
 ) {
   useEffect(
     () => {
       const listener = (event: MouseEvent) => {
         // Do nothing if clicking ref's element or descendent elements
-        if (!ref.current || ref.current.contains(event.target)) {
+        if (
+          !ref.current ||
+          (event.target instanceof Node && ref.current.contains(event.target))
+        ) {
           return;
         }
 
@@ -275,7 +278,7 @@ export function useMouseMovementTimer(
   movementCallback: () => void,
   noMovementCallback: () => void,
 ) {
-  let timer: ReturnType<typeof setTimeout>;
+  let timer: ReturnType<typeof setTimeout> | undefined = undefined;
 
   function resetMouseMovement() {
     clearTimeout(timer);
@@ -290,7 +293,7 @@ export function useMouseMovementTimer(
   };
 
   useEffect(() => {
-    if (isFullscreen && element) {
+    if (isFullscreen && element && timer) {
       element.addEventListener('mousemove', handleMouseMove);
 
       return () => {
@@ -298,7 +301,7 @@ export function useMouseMovementTimer(
         clearTimeout(timer);
       };
     }
-  }, [element, isFullscreen]);
+  }, [timer, element, isFullscreen]);
 }
 
 /**
@@ -332,7 +335,7 @@ export function usePreventFullscreen(
         video.removeEventListener('fullscreenchange', handleFullscreenChange);
       }
     };
-  }, [video]);
+  }, [video, videoContainer]);
 }
 
 /** Updates videoValues and videoItems whenever they change */
@@ -367,9 +370,9 @@ export const useListenForChanges = (
       values.item6,
       values.item7,
     ]);
-  }, [values]);
+  }, [values, setItems, setValues]);
 
   useEffect(() => {
     setVideoAttributes(rest);
-  }, [rest]);
+  }, [rest, setVideoAttributes]);
 };

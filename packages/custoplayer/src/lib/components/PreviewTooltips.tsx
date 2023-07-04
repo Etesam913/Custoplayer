@@ -63,7 +63,7 @@ function PreviewTooltips({
         });
       }
     }
-  }, [previewTooltipHoveredTime]);
+  }, [previewTooltipHoveredTime, data.id, previewTooltipThumbnails]);
   const isVisible = (isHovered || isProgressDragging) && videoDuration > 0;
   return (
     <>

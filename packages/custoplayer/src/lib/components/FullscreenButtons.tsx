@@ -20,7 +20,7 @@ function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
     if (videoContainer && screenfull.isEnabled) {
       screenfull.toggle(videoContainer);
     } else if (videoContainer && videoElem && !screenfull.isEnabled) {
-      (videoElem as any).webkitEnterFullscreen();
+      videoElem.webkitEnterFullscreen();
     }
   }
 

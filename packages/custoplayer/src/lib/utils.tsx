@@ -15,42 +15,6 @@ import {
 } from '@root/lib/atoms';
 import Color from 'color';
 
-export const debounce = (fn: (...args: any[]) => void, ms = 300) => {
-  let timeoutId: ReturnType<typeof setTimeout>;
-  return function (this: any, ...args: any[]) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(this, args), ms);
-  };
-};
-
-export const throttle = (fn: (...args: any[]) => void, ms = 300) => {
-  let isThrottled = false,
-    savedArgs: any[] | null,
-    savedThis: any;
-
-  function wrapper(...args: any[]) {
-    if (isThrottled) {
-      savedArgs = args.slice(1);
-      savedThis = args[0];
-      return;
-    }
-
-    fn.apply(args[0], args.slice(1));
-
-    isThrottled = true;
-
-    setTimeout(function () {
-      isThrottled = false;
-      if (savedArgs) {
-        wrapper.apply(savedThis, savedArgs);
-        savedArgs = savedThis = null;
-      }
-    }, ms);
-  }
-
-  return wrapper;
-};
-
 // https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
 export function isPlayButton(
   curItem: CustoplayerItem,
@@ -506,7 +470,7 @@ export function getCurrentQuality(
 }
 
 export function resolveCues(tracks: TextTrack) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve(tracks.cues);
     }, 500);

@@ -30,7 +30,7 @@ import {
   volumeAtom,
 } from '@root/lib/atoms';
 
-import { SyntheticEvent, useRef } from 'react';
+import { SyntheticEvent } from 'react';
 import { getCurrentQuality, handlePlayState } from '../utils';
 import {
   useMouseMovementTimer,

@@ -289,3 +289,9 @@ export type CustoplayerItem = (
 export type videoQualitiesAtomType = {
   [num: number]: null | string;
 };
+
+declare global {
+  interface HTMLVideoElement {
+    webkitEnterFullscreen: () => void;
+  }
+}

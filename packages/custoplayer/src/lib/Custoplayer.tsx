@@ -7,7 +7,7 @@ import {
   videoAttributesAtom,
 } from '@root/lib/atoms';
 import { CustoplayerValues } from './types';
-import { ComponentPropsWithoutRef, useEffect } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 import { useListenForChanges } from './hooks';
 
 interface CustoplayerProps {

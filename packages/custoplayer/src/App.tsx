@@ -52,7 +52,7 @@ function App() {
           onWaiting={() => console.log('video waiting')}
           onError={() => console.log('video error')}
           onStalled={() => console.log('video stalled')}
-          onVolumeChange={(e) => console.log('muted')}
+          onVolumeChange={() => console.log('muted')}
         >
           <source
             src='https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-1080.mp4'

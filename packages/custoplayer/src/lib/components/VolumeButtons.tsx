@@ -1,9 +1,8 @@
 import { VolumeItem } from '@root/lib/types';
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
-  focusedItemAtom,
   isMutedAtom,
   isVolumeDraggingAtom,
   isVolumeDraggingType,

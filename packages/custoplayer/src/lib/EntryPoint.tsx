@@ -6,7 +6,7 @@ import { EntryPointProps } from './types';
 import { Provider } from 'jotai';
 import { myScope } from './atoms';
 import Custoplayer from './Custoplayer';
-import { StyleSheetManager, ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 
 function EntryPoint({ values, ...rest }: EntryPointProps) {
   return (

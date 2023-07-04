@@ -30,7 +30,7 @@ function VideoPlayerWrapper() {
     if (videoContainerRef && videoContainerRef.current) {
       setVideoContainer(videoContainerRef.current);
     }
-  }, [videoContainerRef]);
+  }, [videoContainerRef, setVideoContainer]);
 
   useFullscreenEvent(setIsFullscreen);
   const { width, height } = useAtomValue(videoAttributesAtom, myScope);
