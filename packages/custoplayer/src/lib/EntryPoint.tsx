@@ -7,14 +7,18 @@ import { Provider } from 'jotai';
 import { myScope } from './atoms';
 import Custoplayer from './Custoplayer';
 import { ThemeProvider } from 'styled-components';
+import { MotionConfig } from 'framer-motion';
+import isValidProp from '@emotion/is-prop-valid';
 
 function EntryPoint({ values, ...rest }: EntryPointProps) {
   return (
     <Provider scope={myScope}>
       {values ? (
-        <ThemeProvider theme={{ focusColor: values?.focusColor }}>
-          <Custoplayer values={values} rest={rest} />
-        </ThemeProvider>
+        <MotionConfig isValidProp={isValidProp}>
+          <ThemeProvider theme={{ focusColor: values?.focusColor }}>
+            <Custoplayer values={values} rest={rest} />
+          </ThemeProvider>
+        </MotionConfig>
       ) : (
         <>
           <div data-cy='errorMessage' style={{ color: 'red' }}>
