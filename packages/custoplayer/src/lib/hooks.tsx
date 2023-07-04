@@ -81,7 +81,7 @@ export function useProgressDragging(
     } else {
       handleProgressMouseUp();
     }
-  }, [isProgressDragging, setTempVideoPauseState, videoElem, playState]);
+  }, [isProgressDragging, setTempVideoPauseState, videoElem]);
 }
 
 export function useFullscreenEvent(
@@ -293,7 +293,7 @@ export function useMouseMovementTimer(
   };
 
   useEffect(() => {
-    if (isFullscreen && element && timer) {
+    if (isFullscreen && element) {
       element.addEventListener('mousemove', handleMouseMove);
 
       return () => {
@@ -301,7 +301,7 @@ export function useMouseMovementTimer(
         clearTimeout(timer);
       };
     }
-  }, [timer, element, isFullscreen]);
+  }, [element, isFullscreen]);
 }
 
 /**

@@ -114,7 +114,6 @@ export function handleKeyPress(
 export function handlePlayState(video: HTMLVideoElement | null) {
   if (video === null) return;
   const isPlaying = !video.paused && !video.ended && video.currentTime > 0;
-
   if (isPlaying) {
     //if (mobileDebug) mobileDebug.innerText = 'paused';
     playingPromise.promise &&
