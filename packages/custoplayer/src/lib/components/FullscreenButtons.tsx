@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useAtomValue } from 'jotai';
 import { myScope, videoContainerAtom, videoElemAtom } from '@root/lib/atoms';
-import screenfull from 'screenfull';
+import { handleFullscreen } from '../utils';
 
 interface FullscreenButtonsProps {
   item: { id: 'fullscreenButton1' | 'fullscreenButton2' };
@@ -16,14 +16,6 @@ function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
   const videoElem = useAtomValue(videoElemAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
 
-  function handleFullscreen() {
-    if (videoContainer && screenfull.isEnabled) {
-      screenfull.toggle(videoContainer);
-    } else if (videoContainer && videoElem && !screenfull.isEnabled) {
-      videoElem.webkitEnterFullscreen();
-    }
-  }
-
   return (
     <>
       <FullscreenButtonContainer
@@ -35,7 +27,7 @@ function FullscreenButtons({ item, isFullscreen }: FullscreenButtonsProps) {
         }}
         onMouseDown={() => setIsMouseDown(true)}
         onMouseUp={() => setIsMouseDown(false)}
-        onClick={handleFullscreen}
+        onClick={() => handleFullscreen(videoContainer, videoElem)}
       >
         {item.id === 'fullscreenButton1' &&
           (isFullscreen ? (

@@ -9,14 +9,18 @@ import Custoplayer from './Custoplayer';
 import { ThemeProvider } from 'styled-components';
 import { MotionConfig } from 'framer-motion';
 import isValidProp from '@emotion/is-prop-valid';
+import { Ref, forwardRef } from 'react';
 
-function EntryPoint({ values, ...rest }: EntryPointProps) {
+function EntryPoint(
+  { values, ...rest }: EntryPointProps,
+  ref: Ref<HTMLVideoElement>,
+) {
   return (
     <Provider scope={myScope}>
       {values ? (
         <MotionConfig isValidProp={isValidProp}>
           <ThemeProvider theme={{ focusColor: values?.focusColor }}>
-            <Custoplayer values={values} rest={rest} />
+            <Custoplayer values={values} rest={rest} ref={ref} />
           </ThemeProvider>
         </MotionConfig>
       ) : (
@@ -33,4 +37,4 @@ function EntryPoint({ values, ...rest }: EntryPointProps) {
   );
 }
 
-export default EntryPoint;
+export default forwardRef(EntryPoint);

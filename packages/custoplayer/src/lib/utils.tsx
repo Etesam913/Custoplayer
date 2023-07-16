@@ -14,6 +14,7 @@ import {
   possibleQualities,
 } from '@root/lib/atoms';
 import Color from 'color';
+import screenfull from 'screenfull';
 
 // https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
 export function isPlayButton(
@@ -103,6 +104,17 @@ export function handleKeyPress(
         }
       }
     }
+  }
+}
+
+export async function handleFullscreen(
+  videoContainer: HTMLDivElement | null,
+  videoElem: HTMLVideoElement | null,
+) {
+  if (videoContainer && screenfull.isEnabled) {
+    return screenfull.toggle(videoContainer);
+  } else if (videoContainer && videoElem && !screenfull.isEnabled) {
+    videoElem.webkitEnterFullscreen();
   }
 }
 

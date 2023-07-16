@@ -27,13 +27,15 @@ import {
   videoContainerAtom,
   videoElemAtom,
   videoQualitiesAtom,
+  videoRefAtom,
   volumeAtom,
 } from '@root/lib/atoms';
 
-import { SyntheticEvent } from 'react';
+import { RefObject, SyntheticEvent } from 'react';
 import { getCurrentQuality, handlePlayState } from '../utils';
 import {
   useMouseMovementTimer,
+  useOverridenVideoFunctions,
   usePreventFullscreen,
   usePreviewThumbnails,
   useQualities,
@@ -71,6 +73,8 @@ function HTMLVideoPlayer() {
   const isFullscreen = useAtomValue(isFullscreenAtom, myScope);
   const videoAttributes = useAtomValue(videoAttributesAtom, myScope);
   const videoContainer = useAtomValue(videoContainerAtom, myScope);
+  const videoRef = useAtomValue(videoRefAtom, myScope);
+
   const {
     playsInline,
     onClick,
@@ -108,6 +112,11 @@ function HTMLVideoPlayer() {
     () => setShowControlsBar(true),
     () => setShowControlsBar(false),
   );
+  useOverridenVideoFunctions(
+    videoRef as RefObject<HTMLVideoElement>,
+    videoContainer,
+    videoElem,
+  );
 
   const handlePlay = () => {
     setPlayState(PlayState.playing);
@@ -125,7 +134,6 @@ function HTMLVideoPlayer() {
       Buffers do not need to be calculated when the
       controls bar cannot show them
     */
-
     if (!showControlsBar) return;
     const video = e.target as HTMLVideoElement;
     // Video Ready States: https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/readyState
@@ -157,6 +165,7 @@ function HTMLVideoPlayer() {
 
   return (
     <HTMLPlayer
+      ref={videoRef}
       {...otherAttributes}
       className={draggableSymbol.toString()}
       playsInline={playsInline ?? true}

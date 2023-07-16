@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import Custoplayer from './lib/EntryPoint';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { testing } from './lib/presets';
+import { useVideoElem } from './lib/hooks';
 
 function App() {
   const [previewTooltipId, setPreviewTooltipId] = useState<
@@ -21,10 +22,13 @@ function App() {
     };
   }, []); // Empty dependency array means this effect runs once on mount and cleanup on unmount
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   return (
     <MainContainer>
       <Wrapper>
         <Custoplayer
+          ref={videoRef}
           width='min(95%, 60rem)'
           poster='https://project-dev.nyc3.cdn.digitaloceanspaces.com/custoplayer-testing/grain-video-poster.png'
           playsInline={true}
@@ -100,12 +104,26 @@ function App() {
           yolo swag
         </Custoplayer>
         <h2>Options:</h2>
-        <button
+        <OptionButton
           data-cy='changePreviewTooltipIdButton'
           onClick={() => setPreviewTooltipId('thumbnail')}
         >
           Change previewTooltip to thumbnail
-        </button>
+        </OptionButton>
+
+        <OptionButton
+          onClick={() =>
+            videoRef.current?.paused
+              ? videoRef.current?.play()
+              : videoRef.current?.pause()
+          }
+        >
+          Play/Pause Video
+        </OptionButton>
+
+        <OptionButton onClick={() => videoRef.current?.requestFullscreen()}>
+          Fullscreen Button
+        </OptionButton>
       </Wrapper>
     </MainContainer>
   );
@@ -124,6 +142,10 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+`;
+
+const OptionButton = styled.button`
+  margin: 0.5rem;
 `;
 
 export default App;

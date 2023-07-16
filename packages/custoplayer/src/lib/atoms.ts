@@ -5,7 +5,7 @@ import {
 } from '@root/lib/types';
 import { atom } from 'jotai';
 import { formatTime } from './utils';
-import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithoutRef, Ref } from 'react';
 
 /*
   Scope is required to prevent two custoplayer's
@@ -18,6 +18,7 @@ interface playingPromiseInterface {
 export const playingPromise: playingPromiseInterface = { promise: null };
 export const draggableSymbol = Symbol('draggable');
 export const videoElemAtom = atom<HTMLVideoElement | null>(null);
+export const videoRefAtom = atom<Ref<HTMLVideoElement>>(null);
 
 export const videoContainerAtom = atom<HTMLDivElement | null>(null);
 export const setVideoContainerAtom = atom(

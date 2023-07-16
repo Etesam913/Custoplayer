@@ -4,6 +4,8 @@ import {
   useEffect,
   ReactNode,
   ComponentPropsWithoutRef,
+  Ref,
+  RefObject,
 } from 'react';
 import {
   myScope,
@@ -19,6 +21,7 @@ import {
   CustoplayerValues,
   videoQualitiesAtomType,
 } from './types';
+import { handleFullscreen } from './utils';
 
 // Gets dimensions of the video player
 export function useDimensions() {
@@ -272,6 +275,9 @@ export function useOnClickOutside(
   );
 }
 
+/**
+ * Hides the controls bar in fullscreen mode when the mouse has not moved for 2.5 seconds
+ */
 export function useMouseMovementTimer(
   element: HTMLElement | null,
   isFullscreen: boolean,
@@ -355,6 +361,8 @@ export const useListenForChanges = (
   ) => void,
   rest: ComponentPropsWithoutRef<'video'>,
   values: CustoplayerValues,
+  setVideoRef: (update: SetStateAction<Ref<HTMLVideoElement>>) => void,
+  ref: Ref<HTMLVideoElement>,
 ) => {
   useEffect(() => {
     // Setting default controlsBar color
@@ -373,6 +381,36 @@ export const useListenForChanges = (
   }, [values, setItems, setValues]);
 
   useEffect(() => {
-    setVideoAttributes(rest);
+    setVideoRef(ref);
+  }, [ref]);
+
+  useEffect(() => {
+    setVideoAttributes({ ...rest });
   }, [rest, setVideoAttributes]);
 };
+
+export function useVideoElem() {
+  const videoElem = useAtomValue(videoElemAtom, myScope);
+  return videoElem;
+}
+
+/**
+ * Hook where default video functions should be overrode
+ * The default fullscreen function is overrode so that the
+ * fullscreen happens on videoContainer instead of videoRef
+ */
+export function useOverridenVideoFunctions(
+  videoRef: RefObject<HTMLVideoElement>,
+  videoContainer: HTMLDivElement | null,
+  videoElem: HTMLVideoElement | null,
+) {
+  useEffect(() => {
+    if (videoRef && videoRef.current) {
+      videoRef.current.requestFullscreen = async (
+        options?: FullscreenOptions,
+      ) => {
+        return handleFullscreen(videoContainer, videoElem);
+      };
+    }
+  }, [videoRef]);
+}
