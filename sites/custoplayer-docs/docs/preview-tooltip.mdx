@@ -35,6 +35,7 @@ Setting `id: "text"` will render a tooltip with the text of the current time whe
 
 <video
   width='100%'
+  controls
   autoPlay={true}
   loop={true}
   src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/preview-tooltip/text_preview_tooltip.mp4'
@@ -124,6 +125,7 @@ Clicking these buttons should download the jpg file and vtt file for your video.
   width='100%'
   autoPlay={true}
   loop={true}
+  controls
   src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/preview-tooltip/thumbnail_preview_tooltip.mp4'
 />
 
@@ -133,6 +135,7 @@ Clicking these buttons should download the jpg file and vtt file for your video.
   width='100%'
   autoPlay={true}
   loop={true}
+  controls
   src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/preview-tooltip/text_and_thumbnail_preview_tooltip.mp4'
 />
 
@@ -165,13 +168,13 @@ import { Custoplayer } from 'custoplayer';
 export default function ThumbnailExample() {
   return (
     <Custoplayer
-      src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/setting-up-video-qualities/custoplayer-demo-1080.mp4'
+      src='https://video-people.nyc3.cdn.digitaloceanspaces.com/cutegeekie/786295c6-b133-41a9-8917-cf66ea6b3665'
       crossOrigin='anonymous'
       values={{
         previewTooltip: {
           id: 'thumbnail',
           atlasImage:
-            'https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/thumbs.jpg',
+            'https://personal-tasks.nyc3.cdn.digitaloceanspaces.com/testPerson/thumbs.jpg',
         },
         controlsBar: {
           barColor: '#78a8ecd3',
@@ -185,7 +188,7 @@ export default function ThumbnailExample() {
       <track
         kind='metadata'
         id='custoplayer-thumbnails'
-        src='https://custoplayer.nyc3.cdn.digitaloceanspaces.com/docs/thumbs.vtt'
+        src='https://personal-tasks.nyc3.cdn.digitaloceanspaces.com/testPerson/thumbs.vtt'
       />
     </Custoplayer>
   );
