@@ -24,7 +24,7 @@ jobs:
         run: yarn install && ls
 
       - name: ⌛️ Running Cypress Component Tests
-        uses: cypress-io/github-action@v5.8.3
+        uses: cypress-io/github-action@v5.8.4
         with:
           build: yarn build
           component: true
@@ -32,7 +32,7 @@ jobs:
           working-directory: packages/custoplayer
 
       - name: ⌛️ Running Cypress E2E Tests
-        uses: cypress-io/github-action@v5.8.3
+        uses: cypress-io/github-action@v5.8.4
         with:
 
           browser: chrome
